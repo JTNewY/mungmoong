@@ -1,12 +1,8 @@
-
-body{
+body {
   font-family: '하늘보리체', sans-serif, 'Jua';
 }
 
-
-
 /* 헤더 영역 */
-
 header {
   width: 100%;
   display: flex;
@@ -17,10 +13,27 @@ header {
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
 }
-
+.auth {
+  display: flex;
+  align-items: center;
+}
+.auth button {
+  margin-left: 10px;
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background-color: transparent;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.auth button:hover {
+  background-color: #6c757d;
+  color: white;
+}
 
 nav {
-
+  display: flex;
+  flex-direction: row;
 }
 nav a {
   margin-left: 20px;
@@ -38,7 +51,7 @@ nav a:hover {
   background-color: #ddd;
 }
 
-.hamburger{
+.hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
@@ -54,17 +67,12 @@ nav a:hover {
   background-color: #0073e6;
 }
 
-
-
 @media (max-width: 768px) {
   header {
+      flex-direction: column;
       align-items: flex-start;
   }
-  header > img{
-    width: 90px;
-  }
   nav {
-      display: none;
       flex-direction: column;
       width: 100%;
   }
@@ -80,18 +88,23 @@ nav a:hover {
       margin: 10px 0;
   }
   .hamburger {
-    display: block;
       display: flex;
   }
-  .section, .video-section {
-      flex-direction: column;
-      align-items: center;
-  }
-  .section img, video {
-      max-width: 100%;
-      margin: 10px 0;
-  }
 }
+button {
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background-color: #005bb5;
+}
+
+/* 리뷰 컨테이너 */
 .review-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -133,12 +146,7 @@ nav a:hover {
   }
 }
 
-
-
-/* 헤더 영역 */
-
 /* 푸터 영역 */
-
 .footer {
   background-color: #b0d4e3;
   padding: 20px;
@@ -147,11 +155,4 @@ nav a:hover {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
-/* 푸터영역 */
-
-
-
-
-
-
+/* 푸터 영역 */
