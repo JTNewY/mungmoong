@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MungmoongApplication<mungmoong>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.mypet.mungmoong.MungmoongApplication",
+            "projectName": "mungmoong",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

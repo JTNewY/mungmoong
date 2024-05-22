@@ -14,7 +14,7 @@ public class MainController {
 
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
-        return page;
+        return "/" + page;
     }
 
     // @GetMapping("/{domain}/{page}")
