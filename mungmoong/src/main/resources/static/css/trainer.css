@@ -1,0 +1,30 @@
+.navbar {
+    margin-bottom: 20px;
+}
+
+.nav-link:hover {
+    background-color: #FFE0B2;
+    color: #DAA414;
+}
+.table th, .table td {
+    vertical-align: middle;
+}
+.table img {
+    max-width: 100px;
+    height: auto;
+}
+
+.first_tr th {
+    background-color: #FFF7E5;
+}
+
+.title {
+    color: black;
+}
+
+.info{
+    margin-top: 3rem;
+}
+
+
+

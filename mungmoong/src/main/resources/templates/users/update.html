@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 수정</title>
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+    <h2>내 정보 수정</h2>
+    <div class="profile-header">
+        <img src="path/to/profile_image.png" alt="Profile Image">
+        <label for="upload-photo">사진업로드 ▼</label>
+        <input type="file" id="upload-photo" style="display: none;">
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="username">이름</label>
+            <input type="text" id="username">
+        </div>
+        <div class="form-group">
+            <label for="birthday">생일</label>
+            <input type="text" id="birthday">
+        </div>
+        <div class="form-group">
+            <label for="email">메일</label>
+            <div class="email-container">
+                <input type="email" id="email">
+                <span>@</span>
+                <input type="text" id="email-domain">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">전화</label>
+            <div class="phone-container">
+                <input type="text" id="phone-1">
+                <span>-</span>
+                <input type="text" id="phone-2">
+                <span>-</span>
+                <input type="text" id="phone-3">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address">주소</label>
+            <input type="text" id="address">
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password">
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">비밀번호 확인</label>
+            <input type="password" id="confirm-password">
+            <span>비밀번호가 일치하지 않습니다</span>
+        </div>
+        <div class="buttons">
+            <button type="button">수정</button>
+            <button type="button">삭제</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        background-color: #e3f2fd;
+        width: 900px;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        margin: 100px auto;
+        text-align: left;
+    }
+    h2 {
+        text-align: left;
+        color: #1565c0;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    .profile-header {
+        margin-bottom: 20px;
+    }
+    .profile-header img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .profile-header label {
+        display: block;
+        margin-top: 10px;
+        cursor: pointer;
+        color: #00796b;
+    }
+    form {
+        width: 100%;
+    }
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        width: 150px;
+        margin-right: 10px;
+        line-height: 2em;
+        font-weight: bold;
+        text-align: right;
+    }
+    .form-group input, .form-group .email-container, .form-group .phone-container {
+        width: calc(100% - 160px);
+    }
+    .email-container, .phone-container {
+        display: flex;
+        align-items: center;
+    }
+    .email-container input, .phone-container input {
+        flex: 1;
+        margin-right: 5px;
+    }
+    .email-container span, .phone-container span {
+        margin-right: 5px;
+    }
+    .form-group span {
+        color: red;
+        font-size: 0.9em;
+        margin-left: 160px;
+    }
+    .buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .buttons button {
+        background-color: #bdbdbd;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 10px;
+    }
+    .buttons button:hover {
+        background-color: #757575;
+    }
+</style>
+
+<script src="/js/script.js"></script>
+</body>
+</html>
