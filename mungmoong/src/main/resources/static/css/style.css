@@ -1,5 +1,42 @@
-body {
-  font-family: '하늘보리체', sans-serif, 'Jua';
+@font-face {
+  font-family: 'SKYBORI';
+  src: url('/static/fonts/SKYBORI.ttf') format('truetype'),
+       url('/static/fonts/SKYBORI.otf') format('opentype');
+}
+
+.container {
+  padding: 6rem 0;
+}
+
+* {
+  font-family: 'SKYBORI', sans-serif, 'Jua';
+} 
+
+.tab-button {
+  font-size: 1.25em;
+  font-weight: bold;
+  padding: 0.5em 0.75em;
+  background-color: #FFE0B2;
+  color: #DAA414;
+  border-radius: 25px; 
+  width: 135px;
+  text-align: center;
+  padding-top: 12px;
+}
+
+.tab-button:hover {
+  background-color: #F6C542 !important;
+  color: snow !important;
+}
+
+.tab-button:focus {
+  background-color: #F6C542 !important;
+  color: snow !important;
+}
+
+.table td, .table th {
+  text-align: center;
+  vertical-align: middle;
 }
 
 /* 헤더 영역 */
