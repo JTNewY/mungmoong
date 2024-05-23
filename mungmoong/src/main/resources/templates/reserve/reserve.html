@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/reserve_layout}"
+      >
+<head>
+ <!-- 달력 링크 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.standalone.min.css" />
+    
+</head>
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+<body layout:fragment="content">
+  <div class="container-sm" 
+        style="    padding: 3%;
+        border-radius: 15px;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 4%;
+        /* margin: 4% 0; */
+        background: #fff4d5">
+        <div class="input-form-backgroud row">
+          <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">예약</h4>
+            <form class="validation-form" novalidate>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="name">이름</label>
+                  <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    이름을 입력해주세요.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="nickname">아이디</label>
+                  <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    아이디을 입력해주세요.
+                  </div>
+                </div>
+              </div>
+    
+              <div class="mb-3">
+                <label for="email">이메일</label>
+                <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                <div class="invalid-feedback">
+                  이메일을 입력해주세요.
+                </div>
+              </div>
+    
+              <div class="mb-3">
+                <label for="address">주소</label>
+                <input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>
+                <div class="invalid-feedback">
+                  주소를 입력해주세요.
+                </div>
+              </div>
+    
+              <div class="mb-3">
+                <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
+              </div>
+    
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="root">가입 경로</label>
+                  <select class="custom-select d-block w-100" id="root">
+                    <option value=""></option>
+                    <option>훈련</option>
+                    <option>돌봄</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    예약종류를 선택해주세요.
+                  </div>
+                  <hr class="mb-4">
+                  <div>
+                  <div class="input-group input-daterange">
+                    <input type="text" class="form-control" value="2012-04-05">
+                    <div class="input-group-addon">to</div>
+                    <input type="text" class="form-control" value="2012-04-19">
+                </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="code">금액</label>
+                  <input type="text" class="form-control" id="code" placeholder="" required>
+                  <!-- <div class="invalid-feedback">
+                    추천인 코드를 입력해주세요.
+                  </div> -->
+                </div>
+              </div>
+              <hr class="mb-4">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+              </div>
+              <div class="mb-4"></div>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">예약 완료</button>
+            </form>
+          </div>
+        </div>
+        <div>
+          <p>멍뭉닷컴</p>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+ $("div.input-daterange").each(function(){
+    var $inputs = $(this).find('input');
+    $inputs.datepicker();
+    if ($inputs.length >= 2) {
+        var $from = $inputs.eq(0);
+        var $to   = $inputs.eq(1);
+        $from.on('changeDate', function (e) {
+            var d = new Date(e.date.valueOf());
+            $to.datepicker('setStartDate', d); // 종료일은 시작일보다 빠를 수 없다.
+        });
+        $to.on('changeDate', function (e) {
+            var d = new Date(e.date.valueOf());
+            $from.datepicker('setEndDate', d); // 시작일은 종료일보다 늦을 수 없다.
+        });
+    }
+})
+ </script>
+</body>
+</html>

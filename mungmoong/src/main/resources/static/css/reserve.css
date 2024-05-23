@@ -1,0 +1,31 @@
+body {
+    min-height: 100vh;
+
+  }
+
+  .btn-primary {
+      border-radius: 50px;
+      color: #fff;
+      background-color: #F6C542;
+      border-color: #F6C542;
+  }
+
+  .btn-primary:hover {
+      color: #F6C542;
+      background-color: #fff;
+      border:1px solid #F6C542;
+}
+
+  .input-form {
+    max-width: 680px;
+    margin-top: 80px;
+    padding: 32px;
+
+    background: #FFF7E5;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+  }
