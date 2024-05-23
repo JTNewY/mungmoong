@@ -26,5 +26,14 @@
     margin-top: 3rem;
 }
 
-
+.btn-custom1 {
+    font-size: 1rem;
+    width: 110px;
+    font-weight: bold;
+    padding: 0.5em 0.75em;
+    background-color: #FFE0B2;
+    color: #DAA414;
+    border-radius: 25px; 
+    text-align: center;
+}
 
