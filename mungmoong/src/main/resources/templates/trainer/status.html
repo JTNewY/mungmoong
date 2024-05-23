@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/trainer_layout}">
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<head>
+    <title>훈련사 메인</title>
+    <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+</head>
+
+    <body layout:fragment="content">
+        <div class="container mt-5">
+            <h1 class="title">내 작업현황</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/info">내 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/status">내 작업현황</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/index">입금 내역서</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/request">예약 요청</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <form>
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr class="first_tr">
+                            <th>No</th>
+                            <th>목록</th>
+                            <th>내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>이름</td>
+                            <td><input type="text" class="form-control" value="김훈련"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>생년월일</td>
+                            <td><input type="text" class="form-control" value="900929"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>주소</td>
+                            <td><input type="text" class="form-control" value="인천 부평구 부평동"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>전화</td>
+                            <td><input type="text" class="form-control" value="010-1234-1234"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>이메일</td>
+                            <td><input type="email" class="form-control" value="1234@gmail.com"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>경력</td>
+                            <td>
+                                <input type="text" class="form-control mb-1" value="서울 훈련연수소 강사">
+                                <input type="text" class="form-control mb-1" value="서울 실력연수소 강사">
+                                <input type="text" class="form-control" value="서울 학연연수소 강사">
+                                <input type="text" class="form-control" style="color: gray;" value="값을 입력해주세요.">
+                                <input type="text" class="form-control" style="color: gray;" value="값을 입력해주세요.">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>소개</td>
+                            <td style="text-align: start;">
+                                <img src="/img/사람.jpg" alt="Trainer Image" class="img-preview mb-2"><br>
+                                <button type="button" class="btn btn-custom1 mb-2">이미지 업로드</button>
+                                <textarea class="form-control" rows="3">여러분의 성공을 위해 최선을 다하겠습니다. 문의는 언제든 환영합니다! 여러분의 훈련생활을 즐겁게 만들어 드리겠습니다!</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>자격증</td>
+                            <td style="text-align: start;">
+                                <img src="/img/자격증.jpg" alt="Certificate Image" class="img-preview mb-2"><br>
+                                <button type="button" class="btn btn-custom1">이미지 업로드</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">저장</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='list_page.html'">목록</button>
+            </form>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
