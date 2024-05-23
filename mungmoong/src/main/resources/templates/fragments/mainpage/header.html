@@ -1,0 +1,23 @@
+<th:block th:fragment="custom-header">
+    <header>
+        <div class="logo">
+            <img src="/img/logo.png" style="width: 130px;" alt="댕댕이">
+        </div>
+        <nav id="nav">
+            <a href="#">소개</a>
+            <a href="#">훈련사</a>
+            <a href="#">문의</a>
+            <a href="#">공지사항</a>
+        </nav>
+        <div class="auth" id="auth">
+            <button type="button" class="btn btn-outline-secondary">로그인</button>
+            <button type="button" class="btn btn-outline-secondary">회원가입</button>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+    <script src="header.js"></script>
+</th:block>
