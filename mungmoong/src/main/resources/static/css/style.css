@@ -39,6 +39,10 @@
   vertical-align: middle;
 }
 
+
+
+
+
 /* 헤더 영역 */
 header {
   width: 100%;
@@ -87,7 +91,8 @@ nav a {
   font-size: 20px;
 }
 nav a:hover {
-  background-color: #ddd;
+  background-color: #F6C542;
+  color:white
 }
 
 .hamburger {
