@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 펫 수정</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 50px auto;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-header label {
+            display: block;
+            margin-top: 10px;
+            cursor: pointer;
+            color: #007bff;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-control {
+            display: inline-block;
+            width: auto;
+            margin-left: 10px;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .bg-light-blue {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body layout:fragment="content">
+    <div class="container">
+        <h1 class="text-primary">마이 펫 수정</h1>
+        <div class="bg-light-blue">
+            <div class="profile-header">
+                <img src="path/to/profile_image.jpg" alt="Profile Image">
+                <label for="upload-photo">사진업로드 ▼</label>
+                <input type="file" id="upload-photo" style="display: none;">
+            </div>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="pet-name">이름</label>
+                        <input type="text" class="form-control" id="pet-name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="password">비밀번호</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="birthday">생일</label>
+                        <input type="date" class="form-control" id="birthday">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="confirm-password">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="confirm-password">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="gender">성별</label>
+                        <div>
+                            <label><input type="radio" name="gender" value="male"> ♂</label>
+                            <label><input type="radio" name="gender" value="female" class="ml-3"> ♀</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="age">나이</label>
+                    <input type="number" class="form-control" id="age">
+                </div>
+                <div class="form-group">
+                    <label for="special-notes">특이사항</label>
+                    <textarea class="form-control" id="special-notes" rows="3"></textarea>
+                </div>
+                <div class="error-message">
+                    비밀번호가 일치하지 않습니다.
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
+                    <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
