@@ -3,11 +3,6 @@
   src: url('/static/fonts/SKYBORI.ttf') format('truetype'),
        url('/static/fonts/SKYBORI.otf') format('opentype');
 }
-a {
-  color: #212529;
-  text-decoration: none;
-  background-color: transparent;
-}
 
 .container {
   padding: 6rem 0;
@@ -43,29 +38,27 @@ a {
   vertical-align: middle;
 }
 
-
-
-
-
 /* 헤더 영역 */
 header {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8f8f8 ;
+  background-color: #f8f8f8;
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
 }
-.container {
-  margin: 4% 0;
+
+.top-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.form-control {
-  border: 0px solid #ced4da;
-}
+
 .auth {
-  display: none;
+  display: flex;
   align-items: center;
 }
 .auth button {
@@ -82,7 +75,23 @@ header {
   color: white;
 }
 
-
+.mobile-auth {
+  display: none;
+  align-items: center;
+}
+.mobile-auth button {
+  margin-left: 10px;
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background-color: transparent;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.mobile-auth button:hover {
+  background-color: #6c757d;
+  color: white;
+}
 
 nav {
   display: flex;
@@ -101,14 +110,14 @@ nav a {
   font-size: 20px;
 }
 nav a:hover {
-  background-color: #F6C542;
-  color:white
+  background-color: #ddd;
 }
 
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
+  margin-left: 10px; /* Add margin to separate from mobile-auth */
 }
 .hamburger div {
   width: 25px;
@@ -120,58 +129,63 @@ nav a:hover {
 .hamburger:hover div {
   background-color: #0073e6;
 }
-.button_area{
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  align-items: center; /* Center-aligns the mobile menu */
   width: 100%;
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.mobile-menu nav {
   display: flex;
-  justify-content: space-between;
-  padding: 0 23%;
+  flex-direction: column;
+  align-items: center; /* Center-aligns the nav links */
+}
+
+.mobile-menu nav a {
+  margin: 10px 0;
+}
+
+.mobile-menu .auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-aligns the buttons */
+}
+
+.mobile-menu .auth button {
+  margin: 10px 0;
 }
 
 @media (max-width: 768px) {
   header {
-      /* flex-direction: column;
-      align-items: flex-start; 재희수정중 20240523 */
-  }
-  nav {
-    display: none;
+      display: flex;
       flex-direction: column;
+      align-items: flex-start;
+  }
+  .top-row {
       width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
   }
-  nav a {
-      margin: 10px 0;
-  }
-  .auth {
-    background: #fff;
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    top: 70px;
-    left: 0;
-    /* width: 100%; */
-    z-index: 1000;
-      /* display: none; */
-      /* flex-direction: column;
-      width: 100%; */
-  }
-  .auth > a{
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 3% 0;
-    font-size: 1.2rem;
-  }
-  .auth > a:hover{
-    text-decoration: none;
-    background-color: #fff4d5;
-    color: #333;
-    font-weight: bold;
-  }
-  .auth button {
-      margin: 10px 0;
+  nav, .auth {
+      display: none;
   }
   .hamburger {
       display: flex;
+      order: 3; /* Ensure hamburger menu is placed to the right */
+  }
+  .mobile-auth {
+      display: flex; /* Show mobile auth buttons */
+      order: 2; /* Place mobile-auth just before the hamburger */
+      margin-left: auto; /* Push to the right */
+  }
+  .mobile-menu {
+      display: none;
   }
 }
 
@@ -188,49 +202,6 @@ button:hover {
   background-color: #005bb5;
 }
 
-
-/* 리뷰 컨테이너 */
-.review-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  max-width: 1100px;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.review-box {
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.review-box:nth-child(even) {
-  background-color: #e6f5ff;
-}
-.review-box:nth-child(odd) {
-  background-color: #fff5e6;
-}
-.review-box p {
-  margin: 0;
-  color: #333;
-}
-@media (max-width: 1024px) {
-  .review-container {
-      grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 768px) {
-  .review-container {
-      grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 480px) {
-  .review-container {
-      grid-template-columns: 1fr;
-  }
-}
-
 /* 푸터 영역 */
 .footer {
   background-color: #b0d4e3;
@@ -240,5 +211,4 @@ button:hover {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-/* 푸터 영역 */
 
