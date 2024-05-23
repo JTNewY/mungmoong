@@ -13,15 +13,14 @@
 } 
 
 .tab-button {
-  font-size: 1.25em;
+  font-size: 1rem;
+  width: 110px;
   font-weight: bold;
   padding: 0.5em 0.75em;
   background-color: #FFE0B2;
   color: #DAA414;
   border-radius: 25px; 
-  width: 135px;
   text-align: center;
-  padding-top: 12px;
 }
 
 .tab-button:hover {
@@ -193,3 +192,4 @@ button:hover {
   flex-wrap: wrap;
 }
 /* 푸터 영역 */
+
