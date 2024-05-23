@@ -8,11 +8,13 @@
     <title>Layout</title>
     <th:block th:replace="~{fragments/common/link::link}"></th:block>
 </head>
+
 <body>
     <th:block th:replace="~{fragments/common/header::header}"></th:block>
     <main layout:fragment="content">
     </main>
+
     <th:block th:replace="~{fragments/common/footer::footer}"></th:block>
-    <th:block th:replace="~{fragments/common/script::script}"></th:block>
+    <th:block th:replace="~{fragments/users/script::script}"></th:block>
 </body>
 </html>
