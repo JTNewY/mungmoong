@@ -1,6 +1,11 @@
 body {
   font-family: '하늘보리체', sans-serif, 'Jua';
 }
+a {
+  color: #212529;
+  text-decoration: none;
+  background-color: transparent;
+}
 
 /* 헤더 영역 */
 header {
@@ -13,8 +18,14 @@ header {
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
 }
+.container {
+  margin: 4% 0;
+}
+.form-control {
+  border: 0px solid #ced4da;
+}
 .auth {
-  display: flex;
+  display: none;
   align-items: center;
 }
 .auth button {
@@ -66,13 +77,20 @@ nav a:hover {
 .hamburger:hover div {
   background-color: #0073e6;
 }
+.button_area{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 23%;
+}
 
 @media (max-width: 768px) {
   header {
-      flex-direction: column;
-      align-items: flex-start;
+      /* flex-direction: column;
+      align-items: flex-start; 재희수정중 20240523 */
   }
   nav {
+    display: none;
       flex-direction: column;
       width: 100%;
   }
@@ -80,9 +98,31 @@ nav a:hover {
       margin: 10px 0;
   }
   .auth {
-      display: none;
-      flex-direction: column;
-      width: 100%;
+    background: #fff;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    top: 70px;
+    left: 0;
+    /* width: 100%; */
+    z-index: 1000;
+      /* display: none; */
+      /* flex-direction: column;
+      width: 100%; */
+  }
+  .auth > a{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 3% 0;
+    font-size: 1.2rem;
+  }
+  .auth > a:hover{
+    text-decoration: none;
+    background-color: #fff4d5;
+    color: #333;
+    font-weight: bold;
   }
   .auth button {
       margin: 10px 0;
@@ -91,6 +131,7 @@ nav a:hover {
       display: flex;
   }
 }
+
 button {
   background-color: #0073e6;
   color: white;
@@ -103,6 +144,7 @@ button {
 button:hover {
   background-color: #005bb5;
 }
+
 
 /* 리뷰 컨테이너 */
 .review-container {
