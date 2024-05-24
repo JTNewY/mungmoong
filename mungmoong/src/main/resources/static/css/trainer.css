@@ -29,6 +29,7 @@
 .btn-custom1 {
     font-size: 1rem;
     width: 110px;
+    height: 44px;
     font-weight: bold;
     padding: 0.5em 0.75em;
     background-color: #FFE0B2;
@@ -40,9 +41,9 @@
 .btn-custom1:hover{
     font-size: 1rem;
     padding: 0.5em 0.75em;
+    width: 110px;
     background-color: #F6C542;
     color: white;
-    border: none;
 }
 
 .btn-custom2{
@@ -59,7 +60,6 @@
 .btn-custom2:hover{
     background-color: #A19F9D;
     color: white;
-    border: none;
     font-size: 16px;
 }
 
@@ -77,7 +77,56 @@
 .btn-custom3:hover{
     background-color: #F6C542;
     color: white;
-    border: none;
     font-size: 16px;
 }
 
+.button_sta {
+    background-color: white;
+    border: 3px solid #F6C542;
+    color: #F6C542;
+    font-weight: bold;
+    border-radius: 30px;
+}
+
+.button_sta:hover {
+    background-color: lightblue;
+    color: white;
+}
+
+.button_sta:focus-within {
+    background-color: lightblue;
+    border: 3px solid lightblue;
+    color: white;
+}
+
+.text-left-content td {
+    text-align: left;
+}
+
+#tdtd {
+    position: relative;
+}
+
+#button_1 {
+    position:absolute; 
+    right: 1rem;
+}
+
+
+.body {
+    background-color: #FFF7E5;
+}
+
+
+.inner {
+    background-color: #FFF;
+    width: 1000px;
+    padding: 4rem 4rem;
+    box-sizing: border-box;
+    border-radius: 50px;
+    margin: 0 auto;
+}
+
+.navbar-collapse {
+    margin-top: 2rem;
+}
