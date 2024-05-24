@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/reserve_layout}"
+      >
+<head>
+    <title>예약수정 페이지</title>
+</head>
+  <!-- 모달 -->
+ <body layout:fragment="content">
+      </div>
+    </div>
+  </div>
+    <h1 style="text-align: center;">예약수정</h1>
+  <div class="container-sm reserve" 
+        style="padding: 3%;
+         width: 50%;
+        border-radius: 15px;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 4%;
+        /* margin: 4% 0; */
+        background: #fff4d5">
+        <div class="input-form-backgroud row">                          
+          <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">예약상세</h4>
+            <form class="validation-form" novalidate>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="name">예약자</label>
+                  <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    이름을 입력해주세요.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="nickname">훈련사명</label>
+                  <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    훈련사를 입력해주세요.
+                  </div>
+                </div>
+              </div>
+    
+              <div class="mb-3">
+                <label for="email">이메일</label>
+                <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                <div class="invalid-feedback">
+                  이메일을 입력해주세요.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="phone">전화</label>
+                <input type="phone" class="form-control" id="phone" placeholder="01012341234" required>
+                <div class="invalid-feedback">
+                  전화번호를 입력해주세요.
+                </div>
+              </div>
+    
+              <div class="mb-3">
+                <label for="address">주소</label>
+                <input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>
+                <div class="invalid-feedback">
+                  주소를 입력해주세요.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
+              </div>
+              <div class="mb-3">
+                <label for="pet">견종</label>
+                <input type="pet" class="form-control" id="pet" placeholder="예시 : 요크셔테리어" required>
+                <div class="invalid-feedback">
+                  전화번호를 입력해주세요.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="petage">나이</label>
+                <input type="petage" class="form-control" id="petage" placeholder="*살" required>
+                <div class="invalid-feedback">
+                  반려견나이를 입력해주세요
+                </div>
+              </div>
+              <div>
+                <p>요청사항</p>
+                <textarea rows="4" cols="47"></textarea>
+             </div>
+              <div class="row">
+                <div class="col-md-8 mb-3" style="padding: 3% 0;">
+                  <label for="root">예약선택</label>
+                  <select class="custom-select d-block w-100" id="root" style="padding: 3% 0;">
+                    <option value=""></option>
+                    <option>훈련</option>
+                    <option>돌봄</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    예약종류를 선택해주세요.
+                  </div>
+                </div>
+                <div class="input-group input-daterange">
+                  <input type="text" class="form-control" value="2012-04-05">
+                  <div class="input-group-addon">to</div>
+                  <input type="text" class="form-control" value="2012-04-19">
+              </div>
+            </div>
+            <div>
+                <div class="col-md-4 mb-3">
+                  <label for="code">금액</label>
+                  <input type="text" class="form-control" id="code" placeholder="" required>
+              </div>
+            </div>
+            <div class="custom-control custom-checkbox" style="padding: 3% 0;">
+                <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+              </div>
+              <div class="mb-4" style="text-align: center;padding: 3% 0;">               
+                <button type="button" class="btn btn-outline-warning">취소</button>
+              <button type="button" class="btn btn-outline-warning">삭제</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+        <div>
+          <p style="text-align: center ;">멍뭉닷컴</p>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+ $("div.input-daterange").each(function(){
+    var $inputs = $(this).find('input');
+    $inputs.datepicker();
+    if ($inputs.length >= 2) {
+        var $from = $inputs.eq(0);
+        var $to   = $inputs.eq(1);
+        $from.on('changeDate', function (e) {
+            var d = new Date(e.date.valueOf());
+            $to.datepicker('setStartDate', d); // 종료일은 시작일보다 빠를 수 없다.
+        });
+        $to.on('changeDate', function (e) {
+            var d = new Date(e.date.valueOf());
+            $from.datepicker('setEndDate', d); // 시작일은 종료일보다 늦을 수 없다.
+        });
+    }
+})
+ </script>
+</body>
+</html>
