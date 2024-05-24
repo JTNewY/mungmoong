@@ -1,0 +1,50 @@
+button {
+    border: none;
+    background-color: #ccc;
+    color: white;
+    box-shadow: 0px 3px 5px rgb(220, 220, 220);
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: darkgray;
+    color: white;
+}
+
+button:active {
+    background-color: black;
+    color: white;
+}
+
+button.active {
+    background-color: #ffc107;
+    color: black;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* 원하는 경우 간격을 조절 */
+}
+  
+.button-container button {
+    margin: 0 10px; /* 버튼 간의 간격을 조절 */
+}
+
+
+.input-group {
+    display: flex;
+}
+
+.input-group .form-control {
+    flex: 1;
+}
+
+.input-group .btn {
+    margin-left: 10px;
+}
+
+
+
