@@ -14,16 +14,19 @@
             margin: 0;
             padding: 0;
         }
+        
         .my-page {
-            background-color: #FFFAED; /* 전체 배경색과 동일하게 설정 */
+            background-color: #ffffff00;
             padding: 20px;
             border-radius: 10px;
-            margin-left: auto;
-            margin-right: 0;
-            width: fit-content
+            margin: 20px auto;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
         }
-
- 
+        
 
         main {
             background-color: #ffffff;
@@ -32,6 +35,7 @@
             margin: 20px auto;
             max-width: 1200px;
         }
+
         .my-page h1 {
             font-size: 4em;
             color: #F6C542;
@@ -39,32 +43,39 @@
         }
         
         .buttons {
-            text-align: left; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 20px;
         }
+
         .buttons button {
             background-color: transparent;
             color: #F6C542;
             border: 2px solid #F6C542;
             padding: 10px 20px;
             border-radius: 25px;
-            margin: 0 10px;
+            margin: 10px 0;
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s, color 0.3s;
         }
+
         .buttons button:hover {
             background-color: #F6C542;
             color: white;
         }
+
         .my-info, .my-pets {
             margin-bottom: 40px;
         }
+
         .my-info h2, .my-pets h2 {
             font-size: 1.5em;
             color: #337AF7;
             margin-bottom: 20px;
         }
+
         .info-card, .pet-card {
             background-color: #E5EFF7;
             padding: 20px;
@@ -75,6 +86,7 @@
             margin-bottom: 20px;
             text-align: left;
         }
+
         .info-card img, .pet-card img {
             width: 100px;
             height: 100px;
@@ -82,12 +94,15 @@
             object-fit: cover;
             margin-right: 20px;
         }
+
         .info-card .info, .pet-card .pet-info {
             flex: 1;
         }
+
         .info-card p, .pet-card p {
             margin: 5px 0;
         }
+
         .custom-button {
             background-color: #B9D6DC;
             color: white;
@@ -97,18 +112,32 @@
             cursor: pointer;
             font-size: 0.9em;
         }
+
         .custom-button:hover {
             background-color: #B9D6DC;
         }
+
         .bottom-btn {
             text-align: center;
             margin-top: 20px;
+        }
+
+        @media (min-width: 576px) {
+            .buttons {
+                flex-direction: row;
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .buttons button {
+                margin: 0 10px;
+            }
         }
     </style>
 </head>
 <body layout:fragment="content">
     <section class="my-page">
-        <h1 class="text-left">마이페이지</h1>
+        <h1>마이페이지</h1>
         <div class="buttons mb-4">
             <button class="custom-outline-button">나의 정보</button>
             <button class="custom-outline-button" onclick="location.href='/users/using'">이용중인 펫시터</button>
