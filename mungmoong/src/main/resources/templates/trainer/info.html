@@ -4,18 +4,19 @@
 <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
 
 <head>
-    <title>훈련사 메인</title>
+    <title>내 정보</title>
     <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 </head>
 
 <body layout:fragment="content">
     <div class="container">
-        <h1 class="title">훈련사 페이지</h1>
+        <h1 class="title">내 정보</h1>
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="collapse navbar-collapse justify-content-start">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="tab-button" href="/trainer/info" style="background-color: #F6C542; color: snow;">내 정보</a>
+                        <a class="tab-button" href="/trainer/info" style="background-color: #F6C542; color: snow;">내
+                            정보</a>
                     </li>
                     <li class="nav-item">
                         <a class="tab-button" href="/trainer/status">내 작업현황</a>
@@ -76,17 +77,14 @@
                         <td>소개</td>
                         <td class="text-start">
                             <img src="/img/프로필.png" alt="Trainer Image"><br>
-                            <p>여러 강의 경험이 있습니다!<br>여러분의 성공을 위해 최선을 다하겠습니다. 문의는 언제든 환영합니다!<br>여러분의 훈련생활을 즐겁게 만들어 드리겠습니다!</p>
+                            <p>여러 강의 경험이 있습니다!<br>여러분의 성공을 위해 최선을 다하겠습니다. 문의는 언제든 환영합니다!<br>여러분의 훈련생활을 즐겁게 만들어 드리겠습니다!
+                            </p>
                         </td>
                     </tr>
                     <tr class="text-left-content">
                         <td>8</td>
                         <td>자격증</td>
                         <td class="d-flex justify-content-start mt-3">
-                            <div class="d-flex flex-column align-items-center mx-2">
-                                <img src="/img/자격증.jpg" alt="Certificate Image">
-                                <p>어쩌구~ 자격증</p>
-                            </div>
                             <div class="d-flex flex-column align-items-center mx-2">
                                 <img src="/img/자격증.jpg" alt="Certificate Image">
                                 <p>어쩌구~ 자격증</p>
@@ -106,5 +104,8 @@
             <div class="text-end">
                 <a href="/trainer/info_update"><button type="button" class="btn-custom2">수정</button></a>
             </div>
-        </body>
-        </html>
+        </div>
+    </div>
+</body>
+
+</html>
