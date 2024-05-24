@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        li{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
         .container {
             width: 100%;
             margin: 0 auto;
@@ -14,7 +20,7 @@
             font-weight: bold;
         }
 
-        table{
+        table {
             text-align: center;
             margin: 30px 0 !important;
         }
@@ -35,17 +41,19 @@
         }
 
 
-        .bottom-btn{text-align: right;}
+        .bottom-btn {
+            text-align: right;
+        }
 
 
-        .listBtn:hover{
-
+        .listBtn:hover {
             background-color: #F6C542;
             border: 3px solid #F6C542;
             color: white;
             font-size: 16px;
         }
-        .listBtn{
+
+        .listBtn {
             width: 80px;
             background-color: white;
             border: 3px solid #F6C542;
@@ -53,18 +61,18 @@
             color: #F6C542;
             font-weight: bold;
             font-size: 16px;
+
         }
 
-        .updateBtn:hover{
-
+        .updateBtn:hover {
             background-color: #A19F9D;
             border: 3px solid #A19F9D;
             color: white;
             font-size: 16px;
         }
-        .updateBtn{
-            width: 80px;
 
+        .updateBtn {
+            width: 80px;
             background-color: white;
             border: 3px solid #A19F9D;
             border-radius: 30px;
@@ -72,6 +80,50 @@
             font-weight: bold;
             font-size: 16px;
             margin-left: 10px;
+        }
+
+        table tbody tr td:last-child {
+            text-align: left;
+        }
+
+        .tab_tr_btn {
+            margin-top: 30px;
+        }
+
+        .tab_tr_btn ul li {
+            display: inline-block;
+        }
+
+        .tab_tr_btn ul li a:hover {
+            background-color: #B9D6DC;
+            
+            color: white;
+        }
+
+        .tab_tr_btn ul li a {
+            text-align: center;
+            background-color: #F5F5F5;
+            font-size: 14px;
+            border-radius: 20px;
+            padding: 5px 30px;
+            box-sizing: border-box;
+            display: block;
+            text-decoration: none;
+            color: black;
+        }
+
+        .paging{}
+        .paging ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            column-gap: 10px;
+        }
+        .paging ul li {
+
+        }
+        .paging ul li a {
+            color:black;
         }
 
         .smBtn{
@@ -111,8 +163,6 @@
             font-size: 18px;
             margin-left: 10px;
         }
-
-
     </style>
 </head>
 
@@ -141,59 +191,71 @@
                 </ul>
             </div>
         </nav>
+        <div class="tab_tr_btn">
+            <ul>
+                <li><a href="#">예약내역</a></li>
+                <li><a href="#">지급관리</a></li>
+            </ul>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col" style="width: 5%;">no</th>
-                    <th scope="col" style="width: 10%;">ID</th>
-                    <th scope="col" style="width: 10%;">비밀번호</th>
-                    <th scope="col" style="width: 10%;">이름</th>
+                    <th scope="col" style="width: 10%;">회원 ID</th>
                     <th scope="col" style="width: 10%;">닉네임</th>
-                    <th scope="col" style="width: 10%;">전화번호</th>
-                    <th scope="col" style="width: 10%;">금액</th>
-                    <th scope="col" style="width: 10%;">진행여부</th>
-                    <th scope="col" style="width: 15%;">훈련가능 견종</th>
-                    <th scope="col" style="width: 10%;">승인여부</th>
+                    <th scope="col" style="width: 10%;">이름</th>
+                    <th scope="col" style="width: 10%;">예약날짜</th>
+                    <th scope="col" style="width: 10%;">훈련사</th>
+                    <th scope="col" style="width: 10%;">예약비용</th>
+                    <th scope="col">승인상태</th>
+                    <th scope="col" style="width: 10%;">수정일</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
                     <td>joeun</td>
-                    <td class="text-truncate">123456</td>
-                    <td class="text-truncate">김조은</td>
                     <td class="text-truncate">조은데이</td>
-                    <td class="text-truncate">01011112222</td>
-                    <td class="text-truncate">$120,000</td>
-                    <td class="text-truncate">대기</td>
-                    <td class="text-truncate">소형견</td>
+                    <td class="text-truncate">김조은</td>
+                    <td class="text-truncate">2024-05-24</td>
+                    <td class="text-truncate">더조은 훈련사</td>
+                    <td class="text-truncate">&#8361;200,000</td>
                     <td class="text-truncate">
                         <div class="sm-bottom-btn">
-                            <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">목록</button>
-                            <button type="button" class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">수정</button>
+                            <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
+                            <button type="button" class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">취소</button>
                         </div>
                     </td>
+                    <td class="text-truncate">2024-05-24</td>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>joeun</td>
-                    <td class="text-truncate">123456</td>
-                    <td class="text-truncate">김조은</td>
                     <td class="text-truncate">조은데이</td>
-                    <td class="text-truncate">01011112222</td>
-                    <td class="text-truncate">$120,000</td>
-                    <td class="text-truncate">대기</td>
-                    <td class="text-truncate">소형견</td>
+                    <td class="text-truncate">김조은</td>
+                    <td class="text-truncate">2024-05-24</td>
+                    <td class="text-truncate">더조은 훈련사</td>
+                    <td class="text-truncate">&#8361;200,000</td>
                     <td class="text-truncate">
                         <div class="sm-bottom-btn">
-                            <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">목록</button>
-                            <button type="button" class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">수정</button>
-                
+                            <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
+                            <button type="button" class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">취소</button>
                         </div>
                     </td>
+                    <td class="text-truncate">2024-05-24</td>
                 </tr>
             </tbody>
         </table>
+
+        <div class="paging">
+            <ul>
+                <li><a href="#">&lt&lt;</a></li>
+                <li><a href="#">&lt;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">&gt;</a></li>
+                <li><a href="#">&gt&gt;</a></li>
+            </ul>
+        </div>
 
 
         <div class="bottom-btn">
