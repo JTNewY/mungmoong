@@ -21,3 +21,8 @@ window.addEventListener('resize', function() {
         auth.style.display = 'none';
     }
 });
+
+function trainer(){
+    location.href = '/reserve/reserve.html'
+}
+

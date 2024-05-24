@@ -28,7 +28,7 @@
         <tbody>
           <tr>
             <th scope="row">1</th>
-            <td>홍길동</td>
+            <td><a onclick="reserveRead()">홍길동</a></td>
             <td>20240505~20240601</td>
             <td>예약</td>
             <td>2024050</td>
@@ -147,5 +147,10 @@
         </ul>
       </nav>
     </div>
+    <script>
+      function reserveRead(){
+        location.href = '/reserve/read.html'
+      }
+    </script>
 </body>
 </html>
