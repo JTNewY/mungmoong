@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/reserve_layout}"
+      >
+<head>
+    <title>예약리스트 페이지</title>
+    <style>
+        .container-sm.reserve{
+            background-attachment: red;
+        }
+    </style>
+</head>
+
+ <body layout:fragment="content">
+<div class="container">
+    <h1 style="text-align: center;">예약리스트</h1>
+    <table class="table">
+        <thead>
+          <tr class="table-warning">
+            <th scope="col">no</th>
+            <th scope="col">예약자</th>
+            <th scope="col">일정</th>
+            <th scope="col">상태</th>
+            <th scope="col">작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td><a onclick="reserveRead()">홍길동</a></td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">2</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">4</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">6</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">8</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">10</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr>
+            <th scope="row">11</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">12</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr>
+            <th scope="row">13</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">14</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+          <tr>
+            <th scope="row">15</th>
+            <td>홍길동</td>
+            <td>20240505~20240601</td>
+            <td>예약</td>
+            <td>2024050</td>
+          </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" style="margin: 0 auto;">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <script>
+      function reserveRead(){
+        location.href = '/reserve/read.html'
+      }
+    </script>
+</body>
+</html>

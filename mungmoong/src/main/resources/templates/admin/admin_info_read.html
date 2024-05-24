@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/admin_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label{
+            width: 80px;
+            text-align: left;
+        }
+        .inner{
+            width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 100px 30px;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .container {
+            background-color: #FFF7E5;
+        }
+
+        .info {
+            padding: 20px 20px;
+        }
+        .info ul {
+            display: flex;
+            flex-direction: row;
+            column-gap: 10px;
+        }
+        .info ul li {}
+        .info ul li:last-child {
+            background-color: white;
+            border: 3px solid #F6C542;
+            border-radius: 30px;
+            color: #F6C542;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .info ul li:first-child {
+            background-color: white;
+            border: 3px solid #A19F9D;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .info ul li:first-child a{
+            color: #A19F9D;
+        }
+        .info ul li:last-child a{
+            color: #F6C542;
+        }
+        .info ul li a {
+            width: 100px;
+            text-align: center;
+            border-radius: 20px;
+            display: block;
+        }
+
+        .user_info {
+            text-align: center;
+        }
+        .user_info ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .user_info ul li {
+
+        }
+        .user_info ul li label {}
+        .user_info ul li input {
+            border: none;
+            background-color: #FFF7E5;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .bottom-btn{
+            margin-top: 80px;
+            text-align: right;
+        }
+
+
+        .listBtn:hover{
+
+            background-color: #F6C542;
+            border: 3px solid #F6C542;
+            color: white;
+            font-size: 16px;
+        }
+        .listBtn{
+            width: 80px;
+            background-color: white;
+            border: 3px solid #F6C542;
+            border-radius: 30px;
+            color: #F6C542;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .updateBtn:hover{
+
+            background-color: #A19F9D;
+            border: 3px solid #A19F9D;
+            color: white;
+            font-size: 16px;
+        }
+        .updateBtn{
+            width: 80px;
+
+            background-color: white;
+            border: 3px solid #A19F9D;
+            border-radius: 30px;
+            color: #A19F9D;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+
+<body layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+            <h1>회원정보</h1>
+            <div class="info">
+                <ul>
+                    <li><a href="#">회원정보</a></li>
+                    <li><a href="#">반려견</a></li>
+                </ul>
+            </div>
+            <div class="user_info">
+                <form action="">
+                    <ul>
+                        <li>
+                            <label for="id" name="id">ID</label>
+                            <input type="text" name="id" id="id" value="id">
+                        </li>
+                        <li>
+                            <label for="pw" name="pw">비밀번호</label>
+                            <input type="password" name="pw" id="pw" value="password">
+                        </li>
+                        <li>
+                            <label for="name" name="name">이름</label>
+                            <input type="text" name="name" id="name" value="name">
+                        </li>
+                        <li>
+                            <label for="nickName" name="nickName">닉네임</label>
+                            <input type="text" name="Nickname" id="nickName" value="nickName">
+                        </li>
+                        <li>
+                            <label for="birth" name="birth">생년월일</label>
+                            <input type="text" name="birth" id="birth" value="birth">
+                        </li>
+                        <li>
+                            <label for="gender" name="gender">성별</label>
+                            <input type="text" name="gender" id="gender" value="gender">
+                        </li>
+                        <li>
+                            <label for="email" name="email">메일</label>
+                            <input type="text" name="email" id="email" value="email">
+                        </li>
+                        <li>
+                            <label for="phoneNumber" name="phoneNumber">전화번호</label>
+                            <input type="text" name="phoneNumber" id="phoneNumber" value="phoneNumber">
+                        </li>
+                    </ul>
+                    <div class="bottom-btn">
+                        <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
+                        <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
+            
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

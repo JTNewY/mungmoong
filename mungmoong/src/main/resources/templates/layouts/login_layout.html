@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <!-- link -->
     <th:block th:replace="~{fragments/common/link::link}"></th:block>
+    <th:block th:replace="~{fragments/login/link::link}"></th:block>
 </head>
 <body>
     <!-- header -->
@@ -15,10 +15,11 @@
     <!-- layout:fragment="레이아웃의 프레그먼트 영역 이름" -->
     <th:block layout:fragment="content"></th:block>
     
-    
     <!-- footer -->
     <th:block th:replace="~{fragments/common/footer::footer}"></th:block>
+
     <!-- script -->
     <th:block th:replace="~{fragments/common/script::script}"></th:block>
+    <th:block th:replace="~{fragments/login/script::script}"></th:block> 
 </body>
 </html>

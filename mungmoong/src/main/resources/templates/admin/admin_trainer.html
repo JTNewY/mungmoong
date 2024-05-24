@@ -8,6 +8,8 @@
     <title>Document</title>
     <style>
         .container {
+            width: 100%;
+            margin: 0 auto;
             padding: 6rem 0;
             font-weight: bold;
         }
@@ -23,14 +25,13 @@
         }
 
         .tab-button {
-            font-size: 1.25em;
+            font-size: 1.1em;
             padding: 0.5em 0.75em;
             background-color: #FFE0B2;
             color: #DAA414;
             border-radius: 25px;
-            width: 135px;
+            width: 120px;
             text-align: center;
-            padding-top: 12px;
         }
 
 
@@ -38,9 +39,10 @@
 
 
         .listBtn:hover{
+
             background-color: #F6C542;
+            border: 3px solid #F6C542;
             color: white;
-            border: none;
             font-size: 16px;
         }
         .listBtn{
@@ -51,17 +53,18 @@
             color: #F6C542;
             font-weight: bold;
             font-size: 16px;
-
         }
 
         .updateBtn:hover{
+
             background-color: #A19F9D;
+            border: 3px solid #A19F9D;
             color: white;
-            border: none;
             font-size: 16px;
         }
         .updateBtn{
             width: 80px;
+
             background-color: white;
             border: 3px solid #A19F9D;
             border-radius: 30px;
@@ -71,14 +74,44 @@
             margin-left: 10px;
         }
 
-        table tbody tr td:last-child{
-            text-align: left;
+        .smBtn{
+            width: 70px;
+            font-size: 0.8rem !important;
+            text-align: center !important;
+            border-radius: 20px;
         }
 
-        td:last-child{border-right: none;}
-        td{
-            border-right: 1px solid #ccc;
+        .sm-bottom-btn .smBtn-list:hover{
+            background-color: white;
+            border: 3px solid #F6C542;
+            color: #F6C542;
+            font-size: 18px;
         }
+        .sm-bottom-btn .smBtn-list{
+            background-color: #F6C542;
+            border: 3px solid #F6C542;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .sm-bottom-btn .smBtn-update:hover{
+            background-color: white;
+            border: 3px solid #A19F9D;
+            color: #A19F9D;
+            font-size: 18px;
+        }
+        .sm-bottom-btn .smBtn-update{
+            background-color: #A19F9D;
+            border: 3px solid #A19F9D;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
 
     </style>
 </head>
@@ -94,16 +127,16 @@
             <div class="collapse navbar-collapse justify-content-start">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="tab-button" href="#">내 정보</a>
+                        <a class="tab-button" href="/admin/admin_info">회원관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="tab-button" href="#">내 작업현황</a>
+                        <a class="tab-button" href="/admin/admin_trainer">훈련사 관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="tab-button" href="#">입금 내역서</a>
+                        <a class="tab-button" href="/admin/admin_reserve">예약관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="tab-button" href="#">예약 요청</a>
+                        <a class="tab-button" href="/admin/admin_board">공지사항 관리</a>
                     </li>
                 </ul>
             </div>
@@ -116,9 +149,11 @@
                     <th scope="col" style="width: 10%;">비밀번호</th>
                     <th scope="col" style="width: 10%;">이름</th>
                     <th scope="col" style="width: 10%;">닉네임</th>
-                    <th scope="col" style="width: 10%;">등록일자</th>
-                    <th scope="col" style="width: 10%;">수정일자</th>
-                    <th scope="col">주소</th>
+                    <th scope="col" style="width: 10%;">전화번호</th>
+                    <th scope="col" style="width: 10%;">금액</th>
+                    <th scope="col" style="width: 10%;">진행여부</th>
+                    <th scope="col" style="width: 15%;">훈련가능 견종</th>
+                    <th scope="col" style="width: 10%;">승인여부</th>
                 </tr>
             </thead>
             <tbody>
@@ -128,9 +163,16 @@
                     <td class="text-truncate">123456</td>
                     <td class="text-truncate">김조은</td>
                     <td class="text-truncate">조은데이</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate" style="max-width: 150px;">인천광역시 부평구 더조은컴퓨터아카데미 7층</td>
+                    <td class="text-truncate">01011112222</td>
+                    <td class="text-truncate">$120,000</td>
+                    <td class="text-truncate">대기</td>
+                    <td class="text-truncate">소형견</td>
+                    <td class="text-truncate">
+                        <div class="sm-bottom-btn">
+                            <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">목록</button>
+                            <button type="button" class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">수정</button>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -138,9 +180,17 @@
                     <td class="text-truncate">123456</td>
                     <td class="text-truncate">김조은</td>
                     <td class="text-truncate">조은데이</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate" style="max-width: 150px;">인천광역시 부평구 더조은컴퓨터아카데미 7층</td>
+                    <td class="text-truncate">01011112222</td>
+                    <td class="text-truncate">$120,000</td>
+                    <td class="text-truncate">대기</td>
+                    <td class="text-truncate">소형견</td>
+                    <td class="text-truncate">
+                        <div class="sm-bottom-btn">
+                            <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">목록</button>
+                            <button type="button" class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">수정</button>
+                
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
