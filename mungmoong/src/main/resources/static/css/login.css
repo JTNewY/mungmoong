@@ -1,0 +1,200 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #f8f8f8;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo img {
+    height: 50px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+main {
+    padding: 20px;
+}
+
+.my-page h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.buttons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #ffd700;
+    cursor: pointer;
+}
+
+.my-info, .my-pets {
+    margin-top: 20px;
+}
+
+.info-card, .pet-card {
+    background-color: #e8f4f8;
+    padding: 20px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info-card img, .pet-card img {
+    height: 80px;
+    width: 80px;
+    margin-right: 20px;
+}
+
+.info-card .info, .pet-card .pet-info {
+    flex-grow: 1;
+}
+
+.info-card button, .pet-card button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #87ceeb;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #f8f8f8;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+.login-wrapper {
+    width: 360px;
+    background-color: #fef6e4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 0 auto;
+}
+
+.login-wrapper .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-wrapper .tabs button {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.login-wrapper .tabs button.active {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+.login-wrapper input,
+.login-wrapper button.login {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-wrapper button.login {
+    background-color: #ffcc00;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-wrapper .options {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-wrapper .options a {
+    margin: 0 10px;
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.login-wrapper .options label {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.login-wrapper .options input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.social-login {
+    margin-top: 20px;
+}
+
+.social-login button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.social-login .naver {
+    background-color: #03c75a;
+    color: #fff;
+}
+
+.social-login .kakao {
+    background-color: #ffeb00;
+    color: #3c1e1e;
+}
+
+.social-login h3 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.social-login h3::before,
+.social-login h3::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #000;
+    margin: 0 10px;
+}
