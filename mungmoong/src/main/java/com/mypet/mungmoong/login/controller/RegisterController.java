@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/register")
+public class RegisterController {
     
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {

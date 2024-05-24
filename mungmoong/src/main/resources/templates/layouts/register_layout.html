@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <!-- link -->
-    <th:block th:replace="~{fragments/main/link::link}"></th:block>
+    <th:block th:replace="~{fragments/common/link::link}"></th:block>
+    <th:block th:replace="~{fragments/login/Relink::link}"></th:block>
 </head>
 <body>
-     <!-- header -->
-     <th:block th:replace="~{fragments/common/header::header}"></th:block>
- 
+    <!-- header -->
+    <th:block th:replace="~{fragments/common/header::header}"></th:block>
 
     <!-- ⭐ content -->
     <!-- layout:fragment="레이아웃의 프레그먼트 영역 이름" -->
@@ -20,6 +19,7 @@
     <th:block th:replace="~{fragments/common/footer::footer}"></th:block>
 
     <!-- script -->
-    <th:block th:replace="~{fragments/main/script::script}"></th:block>
+    <th:block th:replace="~{fragments/common/script::script}"></th:block>
+    <th:block th:replace="~{fragments/login/Rescript::script}"></th:block> 
 </body>
 </html>
