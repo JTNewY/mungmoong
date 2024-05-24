@@ -5,25 +5,25 @@
       >
 <head>
     <title>예약수정 페이지</title>
+    <style>
+      .form-control{
+        border-radius: 49px;
+      }
+    </style>
 </head>
   <!-- 모달 -->
  <body layout:fragment="content">
-      </div>
-    </div>
-  </div>
-    <h1 style="text-align: center;">예약수정</h1>
-  <div class="container-sm reserve" 
+  <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">홍길동 훈련사님 예약수정</h4>
+        <div class="input-form-backgroud row"
         style="padding: 3%;
-         width: 50%;
+        width: 50%;
         border-radius: 15px;
         margin: 0 auto;
-        margin-top: 30px;
         margin-bottom: 4%;
-        /* margin: 4% 0; */
-        background: #fff4d5">
+        background: #fff4d5"> 
         <div class="input-form-backgroud row">                          
           <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">예약상세</h4>
+            <h4 class="mb-3">예약수정</h4>
             <form class="validation-form" novalidate>
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -89,7 +89,7 @@
               <div class="row">
                 <div class="col-md-8 mb-3" style="padding: 3% 0;">
                   <label for="root">예약선택</label>
-                  <select class="custom-select d-block w-100" id="root" style="padding: 3% 0;">
+                  <select class="custom-select d-block w-100" id="root" style="padding: 3% 0;border-radius: 31px;">
                     <option value=""></option>
                     <option>훈련</option>
                     <option>돌봄</option>
@@ -98,11 +98,6 @@
                     예약종류를 선택해주세요.
                   </div>
                 </div>
-                <div class="input-group input-daterange">
-                  <input type="text" class="form-control" value="2012-04-05">
-                  <div class="input-group-addon">to</div>
-                  <input type="text" class="form-control" value="2012-04-19">
-              </div>
             </div>
             <div>
                 <div class="col-md-4 mb-3">
