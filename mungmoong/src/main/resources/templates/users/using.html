@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 페이지!</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #fffaed; 
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 50px auto; 
+            text-align: left; 
+        }
+        .header, .footer {
+            background-color: #e3f2fd;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-header label {
+            display: block;
+            margin-top: 10px;
+            cursor: pointer;
+            color: #007bff;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #007bff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%; 
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+    </style>
+</head>
+<body layout:fragment="content">
+    <div class="header">
+        <h1>마이 페이지</h1>
+    </div>
+    <div class="container background-container">
+        <div class="section-title">진행중인 훈련</div>
+        <div class="row text-center mb-4">
+            <div class="col"><img src="path/to/icon1.png" alt="icon1"><p>대기</p></div>
+            <div class="col"><img src="path/to/icon2.png" alt="icon2"><p>진행</p></div>
+            <div class="col"><img src="path/to/icon3.png" alt="icon3"><p>완료</p></div>
+            <div class="col"><img src="path/to/icon4.png" alt="icon4"><p>취소</p></div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">훈련사 정보</div>
+            <div class="profile-header">
+                <img src="path/to/trainer_image.jpg" alt="Trainer Image">
+                <p>김훈련 훈련사</p>
+                <p>010-1234-1234</p>
+                <p>trainer@dogtrain.com</p>
+                <p>전문 강아지 훈련사</p>
+                <p>훈련 분야: 사회화 훈련, 기본 복종 훈련</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">나의 반려견</div>
+            <div class="profile-header">
+                <img src="path/to/pet_image.jpg" alt="Pet Image">
+                <p>쿠키 ♂</p>
+                <p>말티즈, 2세</p>
+                <p>훈련 상태: 사회화 훈련 진행 중</p>
+            </div>
+        </div>
+
+        <div class="text-center text-primary mb-4">
+            현재 훈련 정보에 만족이 되지 않으면 훈련사님이 도움을 줄 수 있습니다.<br>
+            문의 사항이 있으시면 언제든지 연락주세요. 행복한 훈련 시간이 되시길 바랍니다.
+        </div>
+
+        <div class="btn-container">
+            <button type="button" class="btn-custom" onclick="location.href='/users/index'">확인</button>
+            <button type="button" class="btn-custom" onclick="location.href='/users/index'">취소</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Footer content here...</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
