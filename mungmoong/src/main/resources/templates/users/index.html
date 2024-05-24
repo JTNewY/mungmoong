@@ -6,62 +6,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 정보 수정</title>
-     
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #FFFAED; 
             margin: 0;
             padding: 0;
         }
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
+        .my-page {
+            background-color: #FFFAED; /* 전체 배경색과 동일하게 설정 */
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-left: auto;
+            margin-right: 0;
+            width: fit-content
         }
+
+ 
+
         main {
-            background-color: #fffde7;
+            background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
+            margin: 20px auto;
+            max-width: 1200px;
         }
         .my-page h1 {
-            font-size: 2em;
-            color: #fbc02d;
+            font-size: 4em;
+            color: #F6C542;
             margin-bottom: 20px;
         }
+        
         .buttons {
-            text-align: center;
+            text-align: left; 
             margin-bottom: 20px;
         }
         .buttons button {
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
+            background-color: transparent;
+            color: #F6C542;
+            border: 2px solid #F6C542;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 25px;
             margin: 0 10px;
             cursor: pointer;
             font-size: 1em;
+            transition: background-color 0.3s, color 0.3s;
         }
         .buttons button:hover {
-            background-color: #e0e0e0;
+            background-color: #F6C542;
+            color: white;
         }
         .my-info, .my-pets {
             margin-bottom: 40px;
         }
         .my-info h2, .my-pets h2 {
             font-size: 1.5em;
-            color: #1565c0;
+            color: #337AF7;
             margin-bottom: 20px;
         }
         .info-card, .pet-card {
-            background-color: #e3f2fd;
+            background-color: #E5EFF7;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            text-align: left;
         }
         .info-card img, .pet-card img {
             width: 100px;
@@ -77,7 +89,7 @@
             margin: 5px 0;
         }
         .custom-button {
-            background-color: #b0d4e3;
+            background-color: #B9D6DC;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -86,7 +98,7 @@
             font-size: 0.9em;
         }
         .custom-button:hover {
-            background-color: #9cbccd;
+            background-color: #B9D6DC;
         }
         .bottom-btn {
             text-align: center;
@@ -95,80 +107,78 @@
     </style>
 </head>
 <body layout:fragment="content">
-    <div class="container mt-4">
-        <main>
-            <section class="my-page">
-                <h1 class="text-center">마이페이지</h1>
-                <div class="buttons mb-4">
-                    <button class="btn btn-outline-secondary">나의 정보</button>
-                    <button class="btn btn-outline-secondary">이용중인 펫시터</button>
-                    <button class="btn btn-outline-secondary">펫시터 이용내역</button>
+    <section class="my-page">
+        <h1 class="text-left">마이페이지</h1>
+        <div class="buttons mb-4">
+            <button class="custom-outline-button">나의 정보</button>
+            <button class="custom-outline-button" onclick="location.href='/users/using'">이용중인 펫시터</button>
+            <button class="custom-outline-button" onclick="location.href='/users/details'">펫시터 이용내역</button>
+        </div>
+    </section>
+    <main>
+        <div class="my-info mb-5">
+            <h2>내 정보</h2>
+            <div class="info-card d-flex align-items-center p-3">
+                <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3">
+                <div class="info">
+                    <p><strong>홍길동 님 (qwer1234)</strong></p>
+                    <p>qwer1234@naver.com</p>
+                    <p>010-1234-1234</p>
+                    <p>생일: 1월 1일</p>
+                    <p>인천 부평구 경원대로 1366 (부평동, 스테이션 타워)</p>
                 </div>
-                <div class="my-info mb-5">
-                    <h2>내 정보</h2>
-                    <div class="info-card d-flex align-items-center p-3">
-                        <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3">
-                        <div class="info">
-                            <p><strong>홍길동 님 (qwer1234)</strong></p>
-                            <p>qwer1234@naver.com</p>
-                            <p>010-1234-1234</p><Fieldset></Fieldset>
+                <button type="button" class="custom-button" onclick="location.href='/users/update'">정보수정</button>
+            </div>
+        </div>
+        <div class="my-pets">
+            <h2>나의 강아지</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="pet-card d-flex align-items-center p-3 mb-3">
+                        <img src="/img/users/pet1.png" alt="루비" class="mr-3">
+                        <div class="pet-info">
+                            <p><strong>루비 ♂</strong></p>
+                            <p>생일: 5월 20일</p>
+                            <p>나이: 4살</p>
+                            <p>성격: 순하고 사람들을 잘 따름</p>
+                            <p>특이 사항: 강아지가 많이 심심해 해서 많이 놀아줘야 합니다.</p>
+                        </div>
+                        <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pet-card d-flex align-items-center p-3 mb-3">
+                        <img src="/img/users/pet2.png" alt="멍돌이" class="mr-3">
+                        <div class="pet-info">
+                            <p><strong>뭉이 ♂</strong></p>
+                            <p>생일: 5월 20일</p>
+                            <p>나이: 3살</p>
+                            <p>성격: 순하고 사람들을 잘 따름</p>
+                            <p>특이 사항: 활발하고 산책하는걸 좋아합니다.</p>
+                        </div>
+                        <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pet-card d-flex align-items-center p-3 mb-3">
+                        <img src="/img/users/pet3.png" alt="마롱이" class="mr-3">
+                        <div class="pet-info">
+                            <p><strong>두부 ♂</strong></p>
                             <p>생일: 1월 1일</p>
-                            <p>인천 부평구 경원대로 1366 (부평동, 스테이션 타워)</p>
+                            <p>나이: 2살</p>
+                            <p>성격: 순하고 사람들을 잘 따름</p>
+                            <p>특이 사항: 강아지가 손으로 마사지하는걸 좋아해서 만져주면 좋아합니다.</p>
                         </div>
-                        <button class="custom-button ml-3">정보 수정</button>
+                        <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
                     </div>
                 </div>
-                <div class="my-pets">
-                    <h2>나의 강아지</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="pet-card d-flex align-items-center p-3 mb-3">
-                                <img src="/img/users/pet1.png" alt="루비" class="mr-3">
-                                <div class="pet-info">
-                                    <p><strong>루비 ♂</strong></p>
-                                    <p>생일: 5월 20일</p>
-                                    <p>나이: 4살</p>
-                                    <p>성격: 순하고 사람들을 잘 따름</p>
-                                    <p>특이 사항: 강아지가 많이 심심해 해서 많이 놀아줘야 합니다.</p>
-                                </div>
-                                <button class="custom-button ml-3">마이펫 수정</button>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="pet-card d-flex align-items-center p-3 mb-3">
-                                <img src="/img/users/pet2.png" alt="멍돌이" class="mr-3">
-                                <div class="pet-info">
-                                    <p><strong>뭉이 ♂</strong></p>
-                                    <p>생일: 5월 20일</p>
-                                    <p>나이: 3살</p>
-                                    <p>성격: 순하고 사람들을 잘 따름</p>
-                                    <p>특이 사항: 활발하고 산책하는걸 좋아합니다.</p>
-                                </div>
-                                <button class="custom-button ml-3">마이펫 수정</button>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="pet-card d-flex align-items-center p-3 mb-3">
-                                <img src="/img/users/pet3.png" alt="마롱이" class="mr-3">
-                                <div class="pet-info">
-                                    <p><strong>두부 ♂</strong></p>
-                                    <p>생일: 1월 1일</p>
-                                    <p>나이: 2살</p>
-                                    <p>성격: 순하고 사람들을 잘 따름</p>
-                                    <p>특이 사항: 강아지가 손으로 마사지하는걸 좋아해서 만져주면 좋아합니다..</p>
-                                </div>
-                                <button class="custom-button ml-3">마이펫 수정</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bottom-btn">
-                    <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
-                    <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
-                </div>
-            </section>
-        </main>
-    </div>
+            </div>
+        </div>
+        <div class="bottom-btn">
+            <button type="button" class="custom-button" onclick="location.href='/users/petadd'">펫 추가</button>
+            <button type="button" class="custom-button" onclick="location.href='/users/index'">펫 삭제</button>
+        </div>
+    </main>
    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
