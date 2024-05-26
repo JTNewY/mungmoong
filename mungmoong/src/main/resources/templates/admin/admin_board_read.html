@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/admin_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body layout:fragment="content">
+
+
+
+    <div class="container">
+        <h1>관리자 페이지</h1>
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="collapse navbar-collapse justify-content-start">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="tab-button" href="#">회원관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="tab-button" href="#">훈련사 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="tab-button" href="#">예약관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="tab-button" href="#">공지사항 관리</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="bottom-btn">
+            <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
+            <button type="button" class="btn btn-secondary btn-lg updateBtn">삭제</button>
+
+        </div>
+
+
+
+    </div>
+</body>
+
+</html>
