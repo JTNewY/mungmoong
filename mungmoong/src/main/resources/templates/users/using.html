@@ -1,142 +1,255 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/main_layout}">
+      layout:decorate="~{/layouts/users_layout}">
+      <!-- Fontawesome 아이콘 라이브러리 -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://kit.fontawesome.com/e1baf9e274.js" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이 페이지</title>
+    <title>이용중인 펫시터</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Hanna';
+            src: url('/path/to/Hanna-B.ttf') format('truetype'); /* 실제 폰트 파일 경로로 수정하세요 */
+        }
+
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #ffffff;
+            font-family: 'Jua', sans-serif;
+            background-color: #FFFAED;
             margin: 0;
             padding: 0;
         }
-        .container {
-            background-color: #fffaed; 
-            border-radius: 10px;
+
+        .my-page {
+            background-color: #FFFAED;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            margin: 50px auto; 
-            text-align: left; 
-        }
-        .header, .footer {
-            background-color: #e3f2fd;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .profile-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .profile-header img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .profile-header label {
-            display: block;
-            margin-top: 10px;
-            cursor: pointer;
-            color: #007bff;
-        }
-        .section-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: #007bff;
-        }
-        .card {
-            background-color: #ffffff;
-            border: 1px solid #007bff;
             border-radius: 10px;
-            padding: 15px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .my-page h1 {
+            font-size: 4em;
+            color: #F6C542;
             margin-bottom: 20px;
-        }
-        .form-group label {
-            font-weight: bold;
-        }
-        .form-control {
-            width: 100%; 
-        }
-        .btn-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .btn-custom {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 10px 20px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .btn-custom:hover {
-            background-color: #0056b3;
-        }
-        .error-message {
-            color: red;
-            font-size: 0.9rem;
             text-align: left;
         }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .buttons-container button {
+            background-color: transparent;
+            color: #F6C542;
+            border: 2px solid #F6C542;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .buttons-container button:hover {
+            background-color: #F6C542;
+            color: white;
+        }
+
+        main {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 auto 40px auto; /* 하단 여백 추가 */
+            max-width: 1200px;
+        }
+
+        .status-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .status-section img {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            margin: 0 15px;
+        }
+
+        .status-section div {
+            display: inline-block;
+            text-align: center;
+            margin: 0 15px;
+        }
+
+        .status-section p {
+            font-size: 1.5em;
+        }
+
+        .info-container {
+            background-color: #E5EFF7;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            text-align: left;
+            width: 50%; /* 컨테이너 크기를 1/2로 조정 */
+        }
+
+        .info-container img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .info-container .info {
+            flex: 1;
+        }
+
+        .info p {
+            margin: 5px 0;
+        }
+
+        .custom-button {
+            background-color: #B9D6DC;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .custom-button:hover {
+            background-color: #9cbccd;
+        }
+
+        .bottom-message {
+            text-align: center;
+            margin-top: 30px;
+            font-family: 'Hanna', sans-serif; /* 하늘보리 글씨체 적용 */
+            color: #009DF5;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .bottom-message2, .bottom-message3 {
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'Hanna', sans-serif; /* 하늘보리 글씨체 적용 */
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .bottom-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .bottom-buttons button {
+            background-color: #B9D6DC;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin: 0 10px;
+        }
+
+        .bottom-buttons button:hover {
+            background-color: #9cbccd;
+        }
+
+        h2 {
+            color: #337AF7;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
     </style>
 </head>
 <body layout:fragment="content">
-    <div class="header">
-        <h1>마이 페이지</h1>
-    </div>
-    <div class="container background-container">
-        <div class="section-title">진행중인 훈련</div>
-        <div class="row text-center mb-4">
-            <div class="col"><img src="path/to/icon1.png" alt="icon1"><p>대기</p></div>
-            <div class="col"><img src="path/to/icon2.png" alt="icon2"><p>진행</p></div>
-            <div class="col"><img src="path/to/icon3.png" alt="icon3"><p>완료</p></div>
-            <div class="col"><img src="path/to/icon4.png" alt="icon4"><p>취소</p></div>
+    <section class="my-page">
+        <h1>마이페이지</h1>
+        <div class="buttons-container">
+            <button class="custom-outline-button" onclick="location.href='/users/index'">나의 정보</button>
+            <button class="custom-outline-button" onclick="location.href='/users/using'">이용중인 펫시터</button>
+            <button class="custom-outline-button" onclick="location.href='/users/details'">펫시터 이용내역</button>
         </div>
-
-        <div class="card">
-            <div class="section-title">훈련사 정보</div>
-            <div class="profile-header">
-                <img src="path/to/trainer_image.jpg" alt="Trainer Image">
-                <p>김훈련 훈련사</p>
-                <p>010-1234-1234</p>
-                <p>trainer@dogtrain.com</p>
-                <p>전문 강아지 훈련사</p>
-                <p>훈련 분야: 사회화 훈련, 기본 복종 훈련</p>
+    </section>
+    <main>
+        <h2>진행현황</h2>
+        <div class="status-section">
+            <div>
+                <img src="/img/users/waiting.png" alt="대기">
+                <p>대기</p>
+            </div>
+            <div>
+                <img src="/img/users/going.png" alt="진행">
+                <p>진행</p>
+            </div>
+            <div>
+                <img src="/img/users/complete.png" alt="완료">
+                <p>완료</p>
+            </div>
+            <div>
+                <img src="/img/users/cencle.png" alt="취소">
+                <p>취소</p>
             </div>
         </div>
-
-        <div class="card">
-            <div class="section-title">나의 반려견</div>
-            <div class="profile-header">
-                <img src="path/to/pet_image.jpg" alt="Pet Image">
-                <p>쿠키 ♂</p>
-                <p>말티즈, 2세</p>
-                <p>훈련 상태: 사회화 훈련 진행 중</p>
+        <div class="col-md-12">
+            <h2>훈련사 정보</h2>
+            <div class="info-container">
+                <img src="/img/users/trn1.png" alt="훈련사 사진">
+                <div class="info">
+                    <p><strong>김박사</strong>님</p>
+                    <p>010-1234-5678</p>
+                    <p>trainer@example.com</p>
+                    <p>경력: 5년</p>
+                    <p>특기: 반려견 훈련, 행동 교정</p>
+                </div>
             </div>
         </div>
-
-        <div class="text-center text-primary mb-4">
-            현재 훈련 정보에 만족이 되지 않으면 훈련사님이 도움을 줄 수 있습니다.<br>
-            문의 사항이 있으시면 언제든지 연락주세요. 행복한 훈련 시간이 되시길 바랍니다.
+        <div class="col-md-12">
+            <h2>나의 반려견</h2>
+            <div class="info-container">
+                <img src="/img/users/pet1.png" alt="반려견 사진">
+                <div class="info">
+                    <p><strong>루비 ♂</strong></p>
+                    <p>생일: 5월 20일</p>
+                    <p>나이: 4살</p>
+                    <p>성격: 순하고 사람들을 잘 따름</p>
+                    <p>특이 사항: 강아지가 많이 심심해 해서 많이 놀아줘야 합니다.</p>
+                </div>
+                <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
+            </div>
         </div>
-
-        <div class="btn-container">
-            <button type="button" class="btn-custom" onclick="location.href='/users/index'">확인</button>
-            <button type="button" class="btn-custom" onclick="location.href='/users/index'">취소</button>
+        <div class="bottom-message">
+            현재 훈련사님과 함께 집으로 훈련사님이 방문하고 있습니다.
         </div>
-    </div>
-    <div class="footer">
-        <p>Footer content here...</p>
-    </div>
+        <div class="bottom-message2">
+            훈련사 현황이 완료처리가 되었을 때 확인버튼이 활성화 됩니다.
+        </div>
+        <div class="bottom-message3">
+            취소는 1:1 문의를 신청해주세요.
+        </div>
+        <div class="bottom-buttons">
+            <button type="button" onclick="location.href='/users/index'">확인</button>
+            <button type="button" onclick="location.href='/users/index'">취소</button>
+        </div>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

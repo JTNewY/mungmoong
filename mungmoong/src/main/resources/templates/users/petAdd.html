@@ -10,55 +10,75 @@
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #fff3cd; /* 배경을 노란색으로 변경 */
+            background-color: #FFFAED; 
             margin: 0;
             padding: 0;
         }
 
-        .container {
-            background-color: #ffffff; /* 배경을 흰색으로 변경 */
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            margin: 50px auto;
-            text-align: left;
-        }
-        .background-container {
+        .container-outer {
             background-color: #ffffff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 50px auto;
         }
+
+        .container-inner {
+            background-color: #E5EFF7;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
         .profile-header {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .profile-header img {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
         }
+
         .profile-header label {
             display: block;
             margin-top: 10px;
             cursor: pointer;
             color: #007bff;
         }
+
         .form-group {
             margin-bottom: 1rem;
+            text-align: left; /* 왼쪽 정렬 */
         }
+
         .form-group label {
             display: block;
             font-weight: bold;
         }
+
         .form-control {
             width: 100%; /* 전체 너비 사용 */
         }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .form-check input {
+            margin-right: 0.5rem;
+        }
+
         .btn-container {
             text-align: center;
             margin-top: 20px;
         }
+
         .btn-custom {
             background-color: #b0d4e3;
             color: white;
@@ -69,9 +89,11 @@
             cursor: pointer;
             font-size: 1rem;
         }
+
         .btn-custom:hover {
             background-color: #9cbccd;
         }
+
         .error-message {
             color: red;
             font-size: 0.9rem;
@@ -80,61 +102,67 @@
     </style>
 </head>
 <body layout:fragment="content">
-    <div class="container background-container">
-        <h1 class="text-primary">마이 펫 추가</h1>
-        <div class="profile-header">
-            <img src="path/to/profile_image.jpg" alt="Profile Image">
-            <label for="upload-photo">사진업로드 ▼</label>
-            <input type="file" id="upload-photo" style="display: none;">
-        </div>
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="pet-name">이름</label>
-                    <input type="text" class="form-control" id="pet-name">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="password">비밀번호</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
+    <div class="container-outer">
+        <h1 class="text-primary text-left">마이 펫 추가</h1>
+        <div class="container-inner">
+            <div class="profile-header">
+                <img src="path/to/profile_image.jpg" alt="Profile Image">
+                <label for="upload-photo">사진업로드 ▼</label>
+                <input type="file" id="upload-photo" style="display: none;">
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="birthday">생일</label>
-                    <input type="date" class="form-control" id="birthday">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="confirm-password">비밀번호 확인</label>
-                    <input type="password" class="form-control" id="confirm-password">
-                    <div class="error-message">비밀번호가 일치하지 않습니다.</div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="gender">성별</label>
-                    <div>
-                        <label class="mr-3"><input type="radio" name="gender" value="male"> ♂</label>
-                        <label><input type="radio" name="gender" value="female"> ♀</label>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="pet-name">이름</label>
+                        <input type="text" class="form-control" id="pet-name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="password">비밀번호</label>
+                        <input type="password" class="form-control" id="password">
                     </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="age">나이</label>
-                    <input type="number" class="form-control" id="age">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="birthday">생일</label>
+                        <input type="date" class="form-control" id="birthday">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="confirm-password">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="confirm-password">
+                        <div class="error-message">비밀번호가 일치하지 않습니다.</div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="special-notes">특이사항</label>
-                <textarea class="form-control" id="special-notes" rows="5"></textarea>
-            </div>
-            <div class="btn-container">
-                <button type="button" class="btn-custom" onclick="location.href='/users/index'">추가</button>
-                <button type="button" class="btn-custom" onclick="location.href='/users/index'">삭제</button>
-            </div>
-        </form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="gender">성별</label>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="male" name="gender" value="male">
+                            <label class="form-check-label" for="male">♂</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="female" name="gender" value="female">
+                            <label class="form-check-label" for="female">♀</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="age">나이</label>
+                        <input type="text" class="form-control" id="age">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="special-notes">특이사항</label>
+                    <input type="text" class="form-control" id="special-notes">
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-custom" onclick="location.href='/users/index'">추가</button>
+                    <button type="button" class="btn-custom" onclick="location.href='/users/index'">취소</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
