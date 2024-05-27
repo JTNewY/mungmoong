@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'SKYBORI';
-  src: url('/static/fonts/SKYBORI.ttf') format('truetype'),
-       url('/static/fonts/SKYBORI.otf') format('opentype');
-}
-
-.container {
-  padding: 6rem 0;
+  src: url('/fonts/SKYBORI.ttf') format('truetype'),
+       url('/fonts/SKYBORI.otf') format('opentype');
 }
 
 * {
   font-family: 'SKYBORI', sans-serif, 'Jua';
 } 
+
+.container {
+  padding: 6rem 0;
+}
 
 .tab-button {
   font-size: 1rem;
