@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/trainer_layout}">
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<head>
+    <title>입금 내역서</title>
+    <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+</head>
+
+<body class="body" layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+            <h1 class="title">입금 내역서</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/info">내
+                                정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/status">내 작업현황</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/deposit">입금 내역서</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/request">예약</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr class="first_tr">
+                        <th>No</th>
+                        <th>신청인Id</th>
+                        <th>카드번호</th>
+                        <th>금액</th>
+                        <th>승인현황</th>
+                        <th>신청날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>210,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>100,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>310,500</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>250,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>800,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>615,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>312,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>150,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>693,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>153,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>267,000</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>김훈련</td>
+                        <td>20240506 ~ 20240601</td>
+                        <td>710,350</td>
+                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
+                        <td>2023-05-06</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td colspan="4">총금액</td>
+                        <td>67,3000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
