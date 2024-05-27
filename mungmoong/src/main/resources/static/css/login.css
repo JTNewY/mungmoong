@@ -13,6 +13,17 @@ header {
     align-items: center;
 }
 
+/* 푸터 영역 */
+.footer {
+    background-color: #b0d4e3;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+
 .header-logo img {
     height: 50px;
 }

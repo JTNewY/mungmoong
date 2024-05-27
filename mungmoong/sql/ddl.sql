@@ -116,12 +116,12 @@ CREATE TABLE `users` (
 	`phone`	VARCHAR(50)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
-	`pet_no`	INT	NOT NULL,
 	`role`	INT	NULL
 );
 
+DROP TABLE IF EXISTS user_auth;
 CREATE TABLE `user_auth` (
-	`auth_no`	INT	NOT NULL,
+	`auth_no`	INT	PRIMARY KEY AUTO_INCREMENT,
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`auth`	VARCHAR(40)	NULL
 );

@@ -5,100 +5,96 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
-@Configuration                  // 스프링 빈 설정 클래스로 지정
-@EnableWebSecurity              // 스프링 시큐리티 설정 빈으로 등록
+import com.mypet.mungmoong.users.service.UserDetailServiceImpl;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
-    private DataSource dataSource;      // application.properties 에 정의한 DB 정보
+    private DataSource dataSource;
 
+    @Autowired
+    private UserDetailServiceImpl userDetailServiceImpl;
+
+    // 스프링 시큐리티 설정 메소드
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        // ✅ 인가 설정
+        http.authorizeRequests(requests -> requests
+                                            // .antMatchers("/user").hasRole("USER")
+                                            .antMatchers("/**").permitAll()
+                                            .anyRequest().permitAll()
+                                            );
+
+        // 🔐 폼 로그인 설정
+        // ✅ 커스텀 로그인 페이지
+        http.formLogin(login -> login.loginPage("/login/login")
+                                     .loginProcessingUrl("/login")
+                                     .usernameParameter("userId")
+                                     .passwordParameter("password")
+                                     .defaultSuccessUrl("/")
+                                     );
+
+        // ✅ 사용자 정의 인증 설정
+        http.userDetailsService(userDetailServiceImpl);
+
+        // 🔄 자동 로그인 설정
+        http.rememberMe(me -> me.key("aloha")
+                                .tokenRepository(tokenRepository())
+                                .tokenValiditySeconds(60 * 60 * 24 * 7));
+
+        return http.build();
+    }
+
+
+
+    /**
+    * 🍃 자동 로그인 저장소 빈 등록
+    * ✅ 데이터 소스
+    * ⭐ persistent_logins 테이블 생성
+            create table persistent_logins (
+                username varchar(64) not null
+                , series varchar(64) primary key
+                , token varchar(64) not null
+                , last_used timestamp not null
+            );
+    * 🔄 자동 로그인 프로세스
+    * ✅ 로그인 시 
+    *     ➡ 👩‍💼(ID, 시리즈, 토큰) 저장
+    * ✅ 로그아웃 시, 
+    *     ➡ 👩‍💼(ID, 시리즈, 토큰) 삭제
+    * @return
+    */
+    @Bean
+    public PersistentTokenRepository tokenRepository() {
+        // JdbcTokenRepositoryImpl : 토큰 저장 데이터 베이스를 등록하는 객체
+        JdbcTokenRepositoryImpl repositoryImpl = new JdbcTokenRepositoryImpl();
+        // ✅ 토큰 저장소를 사용하는 데이터 소스 지정
+        // - 시큐리티가 자동 로그인 프로세스를 처리하기 위한 DB를 지정합니다.
+        repositoryImpl.setDataSource(dataSource);   
+        // persistent_logins 테이블 생성
+        try {
+            repositoryImpl.getJdbcTemplate().execute(JdbcTokenRepositoryImpl.CREATE_TABLE_SQL);
+        } 
+        catch (BadSqlGrammarException e) {
+            log.error("persistent_logins 테이블이 이미 존재합니다.");   
+        }
+        catch (Exception e) {
+            log.error("자동 로그인 테이블 생성 중 , 예외 발생");
+        }
+        return repositoryImpl;
+    }
     
-    // 기본 설정
-    // - 인메모리 방식 인증
-    // - JDBC 인증 방식 인증
-
-    /**
-     * ⭐ 인메모리 방식 인증
-     * - 기본 사용자를 메모리에 등록
-     * - user  / 123456
-     * - admin / 123456
-     * @return
-     */
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     UserDetails user = User.builder()
-    //                            .username("user")        // 아이디
-    //                            .password(passwordEncoder().encode("123456"))      // 패스워드
-    //                            .roles("USER")           // 권한
-    //                            .build();
-
-    //     UserDetails admin = User.builder()
-    //                            .username("admin")       // 아이디
-    //                            .password(passwordEncoder().encode("123456"))      // 패스워드
-    //                            .roles("USER", "ADMIN")  // 권한
-    //                            .build();
-    //     return new InMemoryUserDetailsManager(user, admin);
-    // }
-
-    // JDBC 인증 방식
-    // ✅ 데이터 소스 (URL, ID, PW) - application.properties
-    // ✅ SQL 쿼리 등록
-    //      ⭐ 사용자 인증 쿼리
-    //      ⭐ 사용자 권한 쿼리
-    @Bean
-    public UserDetailsService userDetailsService() {
-        JdbcUserDetailsManager userDetailsManager 
-                = new JdbcUserDetailsManager(dataSource);
-
-        // 사용자 인증 쿼리
-        String sql1 = " SELECT user_id as username, user_pw as password "
-                    + " FROM user "
-                    + " WHERE user_id = ? "
-                    ;
-        // 사용자 권한 쿼리
-        String sql2 = " SELECT user_id as username, auth "
-                    + " FROM user_auth "
-                    + " WHERE user_id = ? "
-                    ;
-        userDetailsManager.setUsersByUsernameQuery(sql1);
-        userDetailsManager.setAuthoritiesByUsernameQuery(sql2);
-        return userDetailsManager;
-    }
-
-
-
-
-    /**
-     * 🍃 AuthenticationManager 빈 등록
-     * @param authenticationConfiguration
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    public AuthenticationManager authenticationManager(
-                                AuthenticationConfiguration authenticationConfiguration) 
-            throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    /**
-     * 🍃 암호화 방식 빈 등록
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-
-    
-
 }

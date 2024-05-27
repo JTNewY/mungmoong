@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/login_layout}"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{/layouts/login_layout}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,10 +22,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
             <button onclick="showForm('admin')">관리자</button>
         </div>
         <img src="/img/logo.png" alt="댕댕이" style="width: 80%;">
-        <form id="user" class="login-form">
-            <input type="text" placeholder="사용자 아이디">
-            <input type="hidden" th:name="{_csrf.parameterName}" th:value="{_csrf.token}">
-            <input type="password" placeholder="비밀번호">
+        <form id="user" class="login-form" action="/login" method="post">
+            <!-- CSRF TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <input type="text" placeholder="사용자 아이디" name="userId">
+            <input type="password" placeholder="비밀번호" name="password">
+            <!-- 로그인 에러 -->
+            <th:block th:if="${param.error}">
+                <p class="text-center text-danger">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
+            </th:block>
             <div class="options">
 
                 <div class="options">
@@ -32,17 +40,24 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                         아이디 저장 &nbsp;
                     </label>
                 </div>
-<a href="+..aAaas-"></a>
+                <a href="+..aAaas-"></a>
                 <label for="keep-logged-in">
                     <input type="checkbox" id="keep-logged-in">
                     로그인 상태 유지 
                 </label>
             </div>
-            <button type="button" class="login">로그인</button>
+            <button type="submit" class="login">로그인</button>
         </form>
-        <form id="trainer" class="login-form" style="display: none;">
-            <input type="text" placeholder="훈련사 아이디">
-            <input type="password" placeholder="비밀번호">
+        <form id="trainer" class="login-form" style="display: none;" action="/login" method="post">
+            <!-- CSRF TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <input type="text" placeholder="훈련사 아이디" name="userId">
+            <input type="password" placeholder="비밀번호" name="password">
+            <!-- 로그인 에러 -->
+            <th:block th:if="${param.error}">
+                <p class="text-center text-danger">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
+            </th:block>
             <div class="options">
 
                 <label for="trainer-keep-logged-id">
@@ -54,22 +69,26 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                     <input type="checkbox" id="trainer-keep-logged-in">
                     로그인 상태 유지 
                 </label>
-               
-              
-
             </div>
-            <button type="button" class="login">로그인</button>
+            <button type="submit" class="login">로그인</button>
         </form>
-        <form id="admin" class="login-form" style="display: none;">
-            <input type="text" placeholder="관리자 아이디">
-            <input type="password" placeholder="비밀번호">
+        <form id="admin" class="login-form" style="display: none;" action="/login" method="post">
+            <!-- CSRF TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <input type="text" placeholder="관리자 아이디" name="userId">
+            <input type="password" placeholder="비밀번호" name="password">
+            <!-- 로그인 에러 -->
+            <th:block th:if="${param.error}">
+                <p class="text-center text-danger">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
+            </th:block>
             <div class="options">
                 <label for="admin-keep-logged-in">
                     <input type="checkbox" id="admin-keep-logged-in">
                     로그인 상태 유지
                 </label>
             </div>
-            <button type="button" class="login">로그인</button>
+            <button type="submit" class="login">로그인</button>
         </form>
         <div class="options">
             <a href="#">회원가입</a>
