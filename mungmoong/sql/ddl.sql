@@ -50,12 +50,12 @@ CREATE TABLE `ordersdetail` (
 CREATE TABLE `orders` (
 	`order_no`	INT	NOT NULL,
 	`user_check`	BOOLEAN	NULL,
-	`trainer_check`	INT	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`pay_check`	BOOLEAN	NULL,
 	`date_no`	INT	NOT NULL,
 	`user_id`	VARCHAR(100)	NOT NULL,
-	`order_id`	INT	NOT NULL
+	`order_id`	INT	NOT NULL,
+	`trainer_check`	INT	NULL
 );
 
 CREATE TABLE `img_file` (
@@ -111,21 +111,30 @@ CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
-	`birth`	VARCHAR(50)	NOT NULL,
+	`birth`	TIMESTAMP	NOT NULL,
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
-	`phone`	INT	NULL,
-	`adress`	VARCHAR(200)	NULL,
+	`phone`	VARCHAR(50)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
-	`pet_no`	INT	NOT NULL,
 	`role`	INT	NULL
 );
 
+DROP TABLE IF EXISTS user_auth;
 CREATE TABLE `user_auth` (
-	`auth_no`	INT	NOT NULL,
+	`auth_no`	INT	PRIMARY KEY AUTO_INCREMENT,
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`auth`	VARCHAR(40)	NULL
+);
+
+CREATE TABLE `schedule` (
+	`schedule_no`	VARCHAR(50)	NOT NULL,
+	`trainer_no`	VARCHAR(50)	NOT NULL,
+	`title`	VARCHAR(50)	NULL ,
+	`content`	TEXT	NULL,
+	`schedule_date`	TIMESTAMP	NULL,
+	`reg_date`	TIMESTAMP	NULL,
+	`upd_date`	TIMESTAMP	NULL
 );
 
 ALTER TABLE `pet` ADD CONSTRAINT `PK_PET` PRIMARY KEY (
@@ -176,3 +185,14 @@ ALTER TABLE `user_auth` ADD CONSTRAINT `PK_USER_AUTH` PRIMARY KEY (
 	`auth_no`
 );
 
+ALTER TABLE `schedule` ADD CONSTRAINT `PK_SCHEDULE` PRIMARY KEY (
+	`schedule_no`
+);
+
+
+
+INSERT INTO users ( user_id, password, name, birth, address, mail,phone,  pet_no ,role )
+VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','1','0' );
+
+INSERT INTO user_auth ( auth_no, user_id,  auth )
+VALUES (1,'user', 0 );

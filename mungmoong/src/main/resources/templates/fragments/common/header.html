@@ -21,8 +21,21 @@
                 <a href="#">공지사항</a>
             </nav>
             <div class="auth" id="auth">
-                <button type="button" class="btn btn-outline-secondary">로그인</button>
-                <button type="button" class="btn btn-outline-secondary">회원가입</button>
+                <!-- 비 로그인 시 -->
+                <th:block sec:authorize="isAnonymous()">
+                    <a href="/login/login" class="btn btn-outline-secondary mx-1">로그인</a>
+                    <a href="/login/register" class="btn btn-outline-secondary mx-1">회원가입</a>
+                </th:block>
+                <!-- 로그인 시 -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <form action="/logout" method="post">
+                        <!-- CSRF TOKEN -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-outline-secondary">로그아웃</button>
+                        </div>
+                    </form>
+                </th:block>
             </div>
            
         </div>

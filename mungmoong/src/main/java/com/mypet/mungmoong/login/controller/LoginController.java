@@ -11,11 +11,17 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    
-    @GetMapping("/{page}")
-    public String test(@PathVariable("page") String page) {
-        return "/login/" + page;
+
+    @GetMapping("/login")
+    public String login() {
+        
+        return "/login/login";
     }
+    
+    // @GetMapping("/{page}")
+    // public String test(@PathVariable("page") String page) {
+    //     return "/login/" + page;
+    // }
 
     
 }

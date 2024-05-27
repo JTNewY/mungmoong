@@ -1,14 +1,17 @@
-package com.mypet.mungmoong.users.service;
+package com.mypet.mungmoong.users.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
 
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 
-public interface UsersService {
-    
-    // 로그인
-    public boolean login(Users user) throws Exception;
+@Mapper
+public interface UsersMapper {
 
-    // 조회
+    // 로그인
+    public Users login(String username) throws Exception;
+
+    // 회원 조회
     public Users select(String username) throws Exception;
 
     // 회원 가입
