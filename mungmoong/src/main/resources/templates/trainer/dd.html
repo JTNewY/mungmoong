@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+        .calendar {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .calendar header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #F6C542;
+            color: white;
+            padding: 10px;
+            font-size: 1.25em;
+        }
+        .calendar header button {
+            background-color: #F6C542;
+            color: white;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .calendar table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calendar th, .calendar td {
+            width: 14.28%;
+            text-align: center;
+            padding: 10px 0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .calendar th {
+            background-color: #FFF7E5;
+        }
+        .calendar td {
+            background-color: white;
+            transition: background-color 0.3s;
+        }
+        .calendar td:hover {
+            background-color: #F6C542;
+        }
+        .calendar .holiday {
+            color: red;
+        }
+        #selected-date {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar">
+        <header>
+            <button id="prev-month">❮</button>
+            <span id="month-year">2024년 5월</span>
+            <button id="next-month">❯</button>
+        </header>
+        <table>
+            <thead>
+                <tr>
+                    <th>일</th>
+                    <th>월</th>
+                    <th>화</th>
+                    <th>수</th>
+                    <th>목</th>
+                    <th>금</th>
+                    <th>토</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body">
+                <!-- Calendar dates will be dynamically generated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let currentYear = 2024;
+        let currentMonth = 4; // May (0-indexed: 0 for January, 11 for December)
+
+        const monthNames = [
+            "1월", "2월", "3월", "4월", "5월", "6월",
+            "7월", "8월", "9월", "10월", "11월", "12월"
+        ];
+
+        const holidays = {
+            "1-1": "신정",
+            "3-1": "삼일절",
+            "5-5": "어린이날",
+            "6-6": "현충일",
+            "8-15": "광복절",
+            "10-3": "개천절",
+            "10-9": "한글날",
+            "12-25": "성탄절"
+        };
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            changeMonth(-1);
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            changeMonth(1);
+        });
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateCalendar();
+        }
+
+        function updateCalendar() {
+            const calendarBody = document.getElementById('calendar-body');
+            calendarBody.innerHTML = '';
+            document.getElementById('month-year').innerText = `${currentYear}년 ${monthNames[currentMonth]}`;
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+                    if (i === 0 && j < firstDay) {
+                        cell.innerHTML = '';
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        const dateKey = `${currentMonth + 1}-${date}`;
+                        cell.innerHTML = date;
+                        cell.classList.add('clickable');
+                        if (holidays[dateKey]) {
+                            cell.classList.add('holiday');
+                        }
+                        cell.addEventListener('click', () => {
+                            const selectedDate = `${currentYear}년 ${currentMonth + 1}월 ${date}일`;
+                            document.getElementById('selected-date').innerText = `선택된 날짜: ${selectedDate}`;
+                            console.log(`날짜 클릭됨: ${selectedDate}`);
+                        });
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+            }
+        }
+
+        updateCalendar();
+    </script>
+</body>
+</html>

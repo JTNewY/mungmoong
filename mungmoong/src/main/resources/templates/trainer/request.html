@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/trainer_layout}">
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<head>
+    <title>예약요청 반려동물</title>
+    <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+</head>
+
+<body class="body" layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+            <h1 class="title">예약요청 반려동물</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/info">내
+                                정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/status">내 작업현황</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/deposit">입금 내역서</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/request">예약</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="user_info">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="/img/강아지프로필.png" class="img-fluid" alt="반려견 이미지">
+                        </div>
+                        <div class="col-md-8">
+                            <ul>
+                                <li>
+                                    <label for="id" name="id">ID</label>
+                                    <input type="text" name="id" id="id" value="id">
+                                </li>
+                                <li>
+                                    <label for="pw" name="pw">비밀번호</label>
+                                    <input type="password" name="pw" id="pw" value="password">
+                                </li>
+                                <li>
+                                    <label for="name" name="name">이름</label>
+                                    <input type="text" name="name" id="name" value="name">
+                                </li>
+                                <li>
+                                    <label for="nickName" name="nickName">닉네임</label>
+                                    <input type="text" name="Nickname" id="nickName" value="nickName">
+                                </li>
+                                <li>
+                                    <label for="birth" name="birth">생년월일</label>
+                                    <input type="text" name="birth" id="birth" value="birth">
+                                </li>
+                                <li>
+                                    <label for="gender" name="gender">성별</label>
+                                    <input type="text" name="gender" id="gender" value="gender">
+                                </li>
+                                <li>
+                                    <label for="email" name="email">메일</label>
+                                    <input type="text" name="email" id="email" value="email">
+                                </li>
+                                <li>
+                                    <label for="phoneNumber" name="phoneNumber">전화번호</label>
+                                    <input type="text" name="phoneNumber" id="phoneNumber" value="phoneNumber">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bottom-btn">
+                        <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
+                        <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -127,6 +127,214 @@
     margin: 0 auto;
 }
 
+.inner_schedule {
+    background-color: #FFF;
+    width: 1000px;
+    padding: 4rem 4rem;
+    box-sizing: border-box;
+    border-radius: 50px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
 .navbar-collapse {
     margin-top: 2rem;
 }
+
+
+/* ------------------------------- */
+
+.user_info ul li input {
+    border: none;
+    background-color: #FFF7E5;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+.bottom-btn {
+    margin-top: 80px;
+    text-align: right;
+}
+
+.listBtn:hover {
+    background-color: #F6C542;
+    border: 3px solid #F6C542;
+    color: white;
+    font-size: 16px;
+}
+
+.listBtn {
+    width: 80px;
+    background-color: white;
+    border: 3px solid #F6C542;
+    border-radius: 30px;
+    color: #F6C542;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.updateBtn:hover {
+    background-color: #A19F9D;
+    border: 3px solid #A19F9D;
+    color: white;
+    font-size: 16px;
+}
+
+.updateBtn {
+    width: 80px;
+    background-color: white;
+    border: 3px solid #A19F9D;
+    border-radius: 30px;
+    color: #A19F9D;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.user_info {
+    text-align: center;
+}
+
+.user_info ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;
+}
+
+li {
+    list-style: none;
+}
+
+label {
+    width: 80px;
+    text-align: left;
+}
+
+.tab_tr_btn {
+    margin-top: 30px;
+}
+
+.tab_tr_btn ul li {
+    display: inline-block;
+}
+
+.tab_tr_btn ul li a:hover {
+    background-color: #B9D6DC;
+    
+    color: white;
+}
+
+.tab_tr_btn ul li a {
+    text-align: center;
+    background-color: #F5F5F5;
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 5px 30px;
+    box-sizing: border-box;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+/* ---------------- 캘린더 --------------- */
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.calendar {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 25rem;
+}
+
+.calendar .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F6C542;
+    color: white;
+    padding: 10px;
+    font-size: 1.25em;
+}
+
+.calendar .header button {
+    background-color: #F6C542;
+    color: white;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.calendar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar th,
+.calendar td {
+    width: 14.28%;
+    text-align: center;
+    padding: 10px 0;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.calendar th {
+    background-color: #FFF7E5;
+}
+
+.calendar td {
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+.calendar td:hover {
+    background-color: #F6C542;
+}
+
+.calendar td.clicked {
+    background-color: #F6C542;
+    color: white;
+}
+
+.calendar .holiday {
+    color: red;
+}
+
+#selected-date {
+    margin-top: 20px;
+    font-size: 1.5em;
+}
+
+.title-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 800px;
+}
+
+.div_msg {
+    text-align: end;
+}
+
+.msg {
+    margin-right: 15rem;
+    margin-top: 0.5rem;
+    color: red;
+}
+

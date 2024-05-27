@@ -23,6 +23,11 @@
   text-align: center;
 }
 
+.tab-button.active {
+  background-color: #F6C542 !important;
+  color: snow !important;
+}
+
 .tab-button:hover {
   background-color: #F6C542 !important;
   color: snow !important;
