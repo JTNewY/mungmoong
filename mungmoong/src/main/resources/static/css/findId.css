@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #f8f8f8;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.tab {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #ffeb99;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+    transition: background-color 0.3s;
+}
+
+.tab-button.active {
+    background-color: #ffcc00;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+.form-group label {
+    text-align: left;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-check-label {
+    margin-left: 5px;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 0 5px 5px 0;
+    margin-left: -1px;
+    width: 45.33px;
+    height: 45.33px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group .form-control {
+    flex: 1;
+    border-radius: 5px 0 0 5px;
+}
+
+.input-group .btn {
+    flex: 0 0 45.33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 45.33px;
+}
+
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .tab-button {
+        padding: 8px;
+    }
+
+    .form-group input {
+        padding: 8px;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 8px;
+    }
+
+    .input-group .btn {
+        width: 40px;
+        height: 40px;
+    }
+}
