@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/board_layout}"
+      >
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지 사항</title>
+</head>
+<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+<body layout:fragment="content">
+    <div class="container mt-5">
+        <h2>문의 게시판</h2>
+        <div class="d-flex justify-content-between mb-3">
+                <div class="Q&A" >
+                    <button class="btn btn-primary">문의하기</button>
+                </div>
+        </div>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>no</th>
+                   
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>등록일자</th>
+                    <th >답변여부</th>
+                    <th>구분</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>111</td>
+                    <td>내용</td>
+                    <td>작성자</td>
+                    <td>등록일자</td>
+                    <td style="color: red;"><b>답변완료</b></td>
+                    <td>구분</td>
+                </tr>
+                <tr>
+                    <td>110</td>
+                    <td>내용</td>
+                    <td>작성자</td>
+                    <td>등록일자</td>
+                    <td style="color: green;"><b>답변대기</b></td>
+                    <td>구분</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="d-flex">
+                <select class="form-select me-2" style="width: auto;">
+                    <option>----</option>
+                </select>
+                <button class="btn btn-secondary">검색</button>
+            </div>
+        </div>
+    
+        <nav class="text-center">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="#">10</a></li>
+                <li class="page-item"><a class="page-link" href="#">다음</a></li>
+            </ul>
+        </nav>
+     
+    </div>
+</body>
+</html>
