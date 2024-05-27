@@ -26,110 +26,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td><a onclick="reserveRead()">홍길동</a></td>
-            <td>20240505~20240601</td>
+          <tr th:each="reserve : ${reserveList}">
+            <td>
+              <a th:href="|/reserve/read?no={reserve.date_no}|"
+                    th:text="${reserve.user_id}"></a>
+             </td>
+            <td th:text="${reserve.date_day}"></td>
             <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr class="table-warning">
-            <th scope="row">2</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr class="table-warning">
-            <th scope="row">4</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr class="table-warning">
-            <th scope="row">6</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr class="table-warning">
-            <th scope="row">8</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr>
-            <th scope="row">9</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr class="table-warning">
-            <th scope="row">10</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr>
-            <th scope="row">11</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr class="table-warning">
-            <th scope="row">12</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr>
-            <th scope="row">13</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr class="table-warning">
-            <th scope="row">14</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
-          </tr>
-          <tr>
-            <th scope="row">15</th>
-            <td>홍길동</td>
-            <td>20240505~20240601</td>
-            <td>예약</td>
-            <td>2024050</td>
+            <td align="center">
+              <span th:text="${ #dates.format( reserve.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+            </td>
           </tr>
         </tbody>
       </table>

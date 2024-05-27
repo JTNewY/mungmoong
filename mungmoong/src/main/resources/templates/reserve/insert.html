@@ -118,10 +118,10 @@
               <div class="row">
                 <div class="col-md-8 mb-3">
                   <label for="root">예약선택</label>
-                  <select class="custom-select d-block w-100" id="root" style="padding: 3% 0; border-radius: 31px;">
+                  <select class="custom-select d-block w-100" id="product" style="padding: 3% 0; border-radius: 31px;">
                     <option value=""></option>
-                    <option>훈련</option>
-                    <option>돌봄</option>
+                    <option value="40000">훈련</option>
+                    <option value="15000">돌봄</option>
                   </select>
                   <div class="invalid-feedback">
                     예약종류를 선택해주세요.
@@ -129,7 +129,7 @@
                 </div>
             </div>
             <div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-4 mb-3" id="priceDisplay">
                   <label for="code">금액</label>
                   <input type="text" class="form-control" id="code" placeholder="" required>
               </div>
@@ -161,6 +161,17 @@
  function reserveList(){
     location.href='/reserve/list'
  }
+ const productSelect = document.getElementById("product");
+const priceDisplay = document.getElementById("priceDisplay");
+
+productSelect.addEventListener("change", function() {
+  const selectedPrice = productSelect.value;
+  priceDisplay.textContent = "선택한 결제 금액은 " + selectedPrice + "원 입니다.";
+  // 스타일을 JavaScript로 직접 적용
+  priceDisplay.style.fontSize = "18px";
+  priceDisplay.style.color = "red";
+  priceDisplay.style.whiteSpace = "nowrap";
+});
  </script>
 </body>
 </html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<mapper namespace="com.mypet.mungmoong.reserve.mapper.ReserveMapper">
+
+    <!-- 예약 목록 -->
+    <select id="list" resultType="Reserve">
+        SELECT *
+        FROM reserve
+        ORDER BY reg_date DESC
+    </select>
+
+    <!-- 예약 조회 -->
+    <select id="select" resultType="Reserve">
+        SELECT *
+        FROM reserve
+        WHERE order_no = #{orderNo}
+    </select>
+
+    <!-- 예약 등록 -->
+    <insert id="insert">
+        INSERT INTO reserve( date_no, user_id, date_day,reg_date)
+        VALUES ( #{dateNo}, #{userId}, #{dateDay},#{regDate} )
+    </insert>
+
+    <!-- 예약 수정 -->
+    <update id="update">
+        UPDATE reserve
+           SET date_no = #{dateNo}
+              ,user_id = #{userId}
+              ,date_day = #{dateDay}
+              ,upd_date = now()
+        WHERE date_no = #{dateNo}
+    </update>
+
+    <!-- 예약 삭제 -->
+    <delete id="delete">
+        DELETE FROM reserve
+        WHERE date_no = #{dateNo}
+    </delete>
+
+    <!-- 예약 번호 최댓값 -->
+    <select id="maxPk" resultType="int">
+        SELECT MAX(no)
+        FROM reserve
+    </select>
+</mapper>
