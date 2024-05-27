@@ -28,6 +28,12 @@
   color: snow !important;
 }
 
+.menu-button.active {
+  background-color: #B9D6DC !important;
+  color: snow !important;
+}
+
+
 .tab-button:hover {
   background-color: #F6C542 !important;
   color: snow !important;

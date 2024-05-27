@@ -93,11 +93,10 @@
     color: white;
 }
 
-.button_sta:focus-within {
-    background-color: lightblue;
-    border: 3px solid lightblue;
-    color: white;
-}
+.button_sta.active {
+    background-color: #B9D6DC !important;
+    color: snow !important;
+  }
 
 .text-left-content td {
     text-align: left;
@@ -141,6 +140,7 @@
 .navbar-collapse {
     margin-top: 2rem;
 }
+
 
 
 /* ------------------------------- */
@@ -229,6 +229,34 @@ label {
     text-align: center;
     background-color: #F5F5F5;
     font-size: 14px;
+    border-radius: 20px;
+    padding: 5px 30px;
+    box-sizing: border-box;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+/* ------------------------------- */
+
+.tab_tr_btn {
+    margin-top: 30px;
+}
+
+.tab_tr_btn ul li {
+    display: inline-block;
+}
+
+.tab_tr_btn ul li a:hover {
+    background-color: #B9D6DC;
+    font-weight: bold;
+    color: white;
+}
+
+.tab_tr_btn ul li a {
+    text-align: center;
+    background-color: #F5F5F5;
+    font-size: 14px;
+    font-weight: bold;
     border-radius: 20px;
     padding: 5px 30px;
     box-sizing: border-box;

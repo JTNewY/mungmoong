@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/trainer_layout}">
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<head>
+    <title>예약요청 반려동물</title>
+    <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+    <style>
+        .대기 {
+            background-color: blue;
+        }
+        .예약완료 {
+            background-color: orange;
+        }
+        .취소 {
+            background-color: red;
+        }
+        .완료 {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body class="body" layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+            <h1 class="title">예약요청 반려동물</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/info">내 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/status">내 작업현황</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/deposit">입금 내역서</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button active" href="/trainer/reserve">예약</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tab_tr_btn">
+                <ul>
+                    <li><a class="menu-button" style="margin-left: -1rem;" href="/trainer/reserve">예약 요청</a></li>
+                    <li><a class="menu-button active" href="/trainer/reserve_details">예약 현황</a></li>
+                </ul>
+            </div>
+            <div class="user_info">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr class="first_tr">
+                            <th>No</th>
+                            <th>예약자</th>
+                            <th>일정</th>
+                            <th>상태</th>
+                            <th>작성일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>홍길동</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">대기</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>김**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">대기</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>박**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">대기</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>강**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">예약완료</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>문**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">예약완료</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>금**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">취소</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>정**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">예약완료</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>강**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">완료</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>민**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">완료</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>함**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">완료</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>구**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">완료</td>
+                            <td>20240505</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>명**</td>
+                            <td>20240505~10(5일간)</td>
+                            <td class="status">완료</td>
+                            <td>20240505</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateStatusColors() {
+            const statusElements = document.querySelectorAll('.status');
+            statusElements.forEach(element => {
+                // Remove existing status classes
+                element.classList.remove('대기', '예약완료', '취소', '완료');
+                // Add new status class based on text content
+                const statusText = element.textContent.trim();
+                element.classList.add(statusText);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateStatusColors);
+    </script>
+</body>
+
+</html>
