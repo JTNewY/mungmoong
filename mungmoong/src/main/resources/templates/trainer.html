@@ -17,12 +17,12 @@
              </div>
              <div class="modal-body">
                예약날짜를 선택해주세요
-               <div class="input-group input-daterange">
-                <input type="text" class="form-control" value="2012-04-05">
+               <div id="calendar" class="input-group">
+                <input type="date" id="selectedDate form-control">
             </div>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">저장</button>
+              <button id="submitDate" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">저장</button>
             </div>
              </div>
            </div>
@@ -35,14 +35,13 @@
                <h5 class="modal-title" id="exampleModalToggleLabel2">예약확인</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
-             <div class="modal-body">
-               <label for=""> 예약날짜</label>
-               <input type="text" value="20240527">
-             </div>
-             <div class="modal-footer">
-               <button class="btn btn-primary" onclick="moveInsert()" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">확인</button>
-               <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">수정</button>
-             </div>
+                <div class="modal-body">
+                  <p th:text="${selectedDate}">예약날짜</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" type="submit" onclick="moveInsert()" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">확인</button>
+                  <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">수정</button>
+                </div>
            </div>
          </div>
        </div>
@@ -781,26 +780,39 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
 <script>
- $("div.input-daterange").each(function(){
-    var $inputs = $(this).find('input');
-    $inputs.datepicker();
-    if ($inputs.length >= 2) {
-        var $from = $inputs.eq(0);
-        var $to   = $inputs.eq(1);
-        $from.on('changeDate', function (e) {
-            var d = new Date(e.date.valueOf());
-            $to.datepicker('setStartDate', d); // 종료일은 시작일보다 빠를 수 없다.
-        });
-        $to.on('changeDate', function (e) {
-            var d = new Date(e.date.valueOf());
-            $from.datepicker('setEndDate', d); // 시작일은 종료일보다 늦을 수 없다.
-        });
-    }
-})
+
+//달력 기본값설정(오늘로)
+document.addEventListener("DOMContentLoaded", function() {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+  let day = today.getDate();
+  if (day < 10) {
+    day = "0" + day;
+  }
+  const todayString = `${year}-${month}-${day}`;
+  document.getElementById("selectedDate").value = todayString;
+});
+
+document.getElementById("submitDate").addEventListener("click", function() {
+  const selectedDate = document.getElementById("selectedDate").value;
+  localStorage.setItem("selectedDate", selectedDate); // 선택된 날짜를 로컬 스토리지에 저장
+  showModal(); // 모달 표시 함수 호출
+});
+//예약날짜 저장스크립트
+document.getElementById("submitDate").addEventListener("click", function() {
+  const selectedDate = document.getElementById("selectedDate").value;
+  window.location.href = "read.html?date=" + encodeURIComponent(selectedDate);
+});  
+
+
 
 //예약날짜 지정후 저장 모달버튼
 function moveInsert(){
-  location.href='/reserve/insert.html';
+  location.href='/reserve/insert';
 }
 
  </script>

@@ -82,34 +82,17 @@
                   반려견나이를 입력해주세요
                 </div>
               </div>
-              <div>
+              <div class="mb-3">
                 <span>요청사항</span>
                 <textarea rows="4" cols="47"></textarea>
              </div>
-              <div class="row">
-                <div class="col-md-8 mb-3">
-                  <label for="root">예약선택</label>
-                  <select class="custom-select d-block w-100" id="root"style="padding: 3% 0;border-radius: 31px;">
-                    <option value=""></option>
-                    <option>훈련</option>
-                    <option>돌봄</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    예약종류를 선택해주세요.
-                  </div>
+             <div class="mb-3">
+                <p th:text="${selectedDate}">예약날짜</p>
+              </div>
+                <div>
+                  <div class="col-md-4 mb-3"id="priceDisplay">
                 </div>
-                <div class="input-group input-daterange">
-                  <input type="text" class="form-control" value="2012-04-05">
-                  <div class="input-group-addon">to</div>
-                  <input type="text" class="form-control" value="2012-04-19">
               </div>
-            </div>
-            <div>
-                <div class="col-md-4 mb-3">
-                  <label for="code">금액</label>
-                  <input type="text" class="form-control" id="code" placeholder="" required>
-              </div>
-            </div>
             <div class="custom-control custom-checkbox" style="padding: 3% 0;">
                 <input type="checkbox" class="custom-control-input" id="aggrement" required>
                 <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
@@ -118,8 +101,6 @@
                 <button type="button" class="btn btn-outline-warning">예약</button>
               <button type="button" class="btn btn-outline-warning">목록</button>
               </div>
-              
-            </form>
           </div>
         </div>
         <div>
@@ -146,6 +127,8 @@
         });
     }
 })
+
+
  </script>
 </body>
 </html>
