@@ -14,40 +14,53 @@
             <h1>회원정보</h1>
             <div class="tab_tr_btn">
                 <ul>
-                    <li><a href="#">회원정보</a></li>
-                    <li><a href="#">반려견</a></li>
+                    <li><a href="/admin/admin_info_read_user">회원정보</a></li>
+                    <li><a href="/admin/admin_info_read_pet">반려견</a></li>
                 </ul>
             </div>
             <form class="form-group">
-                <div class="col-md-8">
+                <div class="col-md-8 fmCont">
                     <ul>
                         <li>
-                            <label for="" name="id">제목</label>
-                            <input type="text" name="id" id="id" value="제목">
+                            <label for="id" name="id">ID</label>
+                            <input type="text" name="id" id="id" value="joeun">
                         </li>
                         <li>
-                            <label for="pw" name="pw">작성일</label>
-                            <input type="password" name="pw" id="pw" value="password">
+                            <label for="pw" name="pw">비밀번호</label>
+                            <input type="password" name="pw" id="pw" value="123456">
                         </li>
                         <li>
-                            <label for="writer" name="writer">작성자</label>
-                            <input type="writer" name="writer" id="writer" value="writer">
+                            <label for="name" name="name">이름</label>
+                            <input type="text" name="name" id="name" value="김조은">
                         </li>
                         <li>
-                            <label for="updDate" name="updDate">수정일</label>
-                            <input type="updDate" name="updDate" id="updDate" value="수정일">
+                            <label for="nickName" name="nickName">닉네임</label>
+                            <input type="text" name="Nickname" id="nickName" value="닉값">
                         </li>
                         <li>
-                            <label for="content" name="content">내용</label>
-                            <textarea name="content" id="content"></textarea>
+                            <label for="birth" name="birth">생년월일</label>
+                            <input type="text" name="birth" id="birth" value="2024-05-16">
+                        </li>
+                        <li>
+                            <label for="gender" name="gender">성별</label>
+                            <input type="text" name="gender" id="gender" value="남자">
+                        </li>
+                        <li>
+                            <label for="email" name="email">메일</label>
+                            <input type="text" name="email" id="email" value="joeun@joeun.com">
+                        </li>
+                        <li>
+                            <label for="phoneNumber" name="phoneNumber">전화번호</label>
+                            <input type="text" name="phoneNumber" id="phoneNumber" value="010-0000-0000">
                         </li>
                     </ul>
-                    <div class="bottom-btn">
-                        <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
-                        <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
-                    </div>
                 </div>
             </form>
+            <!-- 하단 버튼 영역 -->
+            <div class="bottom-btn">
+                <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
+                <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
+            </div>
         </div>
     </div>
 </body>
