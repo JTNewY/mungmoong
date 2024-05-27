@@ -5,44 +5,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>공상</title>
 </head>
 
 <body layout:fragment="content">
-
-
-
     <div class="container">
-        <h1>관리자 페이지</h1>
-
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="collapse navbar-collapse justify-content-start">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="tab-button" href="#">회원관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="tab-button" href="#">훈련사 관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="tab-button" href="#">예약관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="tab-button" href="#">공지사항 관리</a>
-                    </li>
-                </ul>
+        <div class="inner">
+            <h1>관리자 페이지</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" href="#">회원관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_trainer">훈련사 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_reserve">예약관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_board">공지사항 관리</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <h3>공지사항 수정</h3>
+            <form class="form-group">
+                <div class="col-md-8 fmCont">
+                    <ul>
+                        <li>
+                            <label for="" name="id">제목</label>
+                            <input type="text" name="id" id="id" value="제목">
+                        </li>
+                        <li>
+                            <label for="pw" name="pw">작성일</label>
+                            <input type="password" name="pw" id="pw" value="password">
+                        </li>
+                        <li>
+                            <label for="writer" name="writer">작성자</label>
+                            <input type="writer" name="writer" id="writer" value="writer">
+                        </li>
+                        <li>
+                            <label for="updDate" name="updDate">수정일</label>
+                            <input type="updDate" name="updDate" id="updDate" value="수정일">
+                        </li>
+                        <li>
+                            <label for="content" name="content">내용</label>
+                            <textarea name="content" id="content"></textarea>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+            <!-- 하단 버튼 영역 -->
+            <div class="bottom-btn">
+                <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
+                <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
             </div>
-        </nav>
-
-
-        <div class="bottom-btn">
-            <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
-            <button type="button" class="btn btn-secondary btn-lg updateBtn">삭제</button>
-
         </div>
-
-
-
     </div>
 </body>
 
