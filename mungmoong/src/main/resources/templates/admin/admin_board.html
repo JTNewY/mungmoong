@@ -5,243 +5,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .container {
-            width: 100%;
-            margin: 0 auto;
-            padding: 6rem 0;
-            font-weight: bold;
-        }
-
-
-        table{
-            text-align: center;
-            margin: 30px 0 !important;
-        }
-
-        table tbody td{
-        }
-
-        .tab-button:focus {
-            background-color: #F6C542;
-            color: white
-        }
-
-        .tab-button {
-            font-size: 1.1em;
-            padding: 0.5em 0.75em;
-            background-color: #FFE0B2;
-            color: #DAA414;
-            border-radius: 25px;
-            width: 120px;
-            text-align: center;
-        }
-
-
-        .bottom-btn{text-align: right;}
-
-
-        .listBtn:hover{
-            background-color: #F6C542;
-            border: 3px solid #F6C542;
-            color: white;
-            font-size: 16px;
-        }
-        .listBtn{
-            width: 80px;
-            background-color: white;
-            border: 3px solid #F6C542;
-            border-radius: 30px;
-            color: #F6C542;
-            font-weight: bold;
-            font-size: 16px;
-
-        }
-
-        .updateBtn:hover{
-            background-color: #A19F9D;
-            border: 3px solid #A19F9D;
-            color: white;
-            font-size: 16px;
-        }
-        .updateBtn{
-            width: 80px;
-            background-color: white;
-            border: 3px solid #A19F9D;
-            border-radius: 30px;
-            color: #A19F9D;
-            font-weight: bold;
-            font-size: 16px;
-            margin-left: 10px;
-        }
-
-        table tbody tr td:last-child{
-            text-align: left;
-        }
-
-        tr.first_tr td:nth-child(odd){
-            background-color: #FFF7E5 !important;
-        }
-
-
-
-
-    </style>
+    <title>공지사항</title>
 </head>
 
 <body layout:fragment="content">
-
-
-
     <div class="container">
-        <h1>관리자 페이지</h1>
-
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="collapse navbar-collapse justify-content-start">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="tab-button" href="/admin/admin_info">회원관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="tab-button" href="/admin/admin_trainer">훈련사 관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="tab-button" href="/admin/admin_reserve">예약관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="tab-button" href="/admin/admin_board">공지사항 관리</a>
-                    </li>
+        <div class="inner">
+            <h1>관리자 페이지</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_info">회원관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_trainer">훈련사 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_reserve">예약관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_board">공지사항 관리</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 5%;">선택</th>
+                        <th scope="col" style="width: 10%;">ID</th>
+                        <th scope="col" style="width: 10%;">제목</th>
+                        <th scope="col" style="width: 10%;">작성자</th>
+                        <th scope="col">내용</th>
+                        <th scope="col" style="width: 10%;">등록일자</th>
+                        <th scope="col" style="width: 10%;">수정일자</th>
+                        <th scope="col" style="width: 10%;">조회수</th>
+                    </tr>
+                </thead>
+                <tbody class="table">
+                    <tr class="first_tr">
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>joeun</td>
+                        <td class="text-truncate">제목1</td>
+                        <td class="text-truncate">작성자1</td>
+                        <td class="text-truncate">내용1</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">2024-05-23</td>
+                        <td class="text-truncate">1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 페이징 버튼 영역 -->
+            <div class="paging">
+                <ul>
+                    <li><a href="#">&lt&lt;</a></li>
+                    <li><a href="#">&lt;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">&gt;</a></li>
+                    <li><a href="#">&gt&gt;</a></li>
                 </ul>
             </div>
-        </nav>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 5%;">선택</th>
-                    <th scope="col" style="width: 10%;">ID</th>
-                    <th scope="col" style="width: 10%;">제목</th>
-                    <th scope="col" style="width: 10%;">작성자</th>
-                    <th scope="col">내용</th>
-                    <th scope="col" style="width: 10%;">등록일자</th>
-                    <th scope="col" style="width: 10%;">수정일자</th>
-                    <th scope="col" style="width: 10%;">조회수</th>
-                </tr>
-            </thead>
-            <tbody class="table">
-                <tr class="first_tr">
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>joeun</td>
-                    <td class="text-truncate">제목1</td>
-                    <td class="text-truncate">작성자1</td>
-                    <td class="text-truncate">내용1</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">2024-05-23</td>
-                    <td class="text-truncate">1</td>
-                </tr>
-            </tbody>
-        </table>
-
-
-        <div class="bottom-btn">
-            <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
-            <button type="button" class="btn btn-secondary btn-lg updateBtn">삭제</button>
-
+            <!-- 하단 버튼 영역 -->
+            <div class="bottom-btn">
+                <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
+                <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
+            </div>
         </div>
-
-
-
-        </form>
     </div>
 </body>
 
