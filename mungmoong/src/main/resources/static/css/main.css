@@ -1,3 +1,18 @@
+
+#scrollToTopBtn {
+
+    border-color: #333;
+    color: black;
+    background-color: #ffffff00;
+    display: none; /* 초기에는 버튼이 보이지 않도록 함 */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99; /* 다른 요소들보다 위에 위치하도록 */
+    border-radius: 50px; /* 둥근 버튼 */
+    padding: 10px 15px; /* 버튼의 크기 조절 */
+}
+
 /* GLOBAL STYLES */
 body {
     font-family: '하늘보리체', sans-serif, 'Jua';
@@ -38,10 +53,8 @@ body {
 }
 
 @media (max-width: 768px) {
-
     .carousel-item {
         height: 50vh;
-    
     }
 
     .carousel-item img {
@@ -52,7 +65,6 @@ body {
 @media (max-width: 480px) {
     .carousel-item {
         height: 30vh;
-     
     }
 
     .carousel-item img {
@@ -75,7 +87,6 @@ body {
     box-shadow: none;
 }
 
-
 /* MARKETING CONTENT */
 .marketing .col-lg-4 {
     margin-bottom: 1.5rem;
@@ -90,9 +101,9 @@ body {
     margin-right: .75rem;
     margin-left: .75rem;
 }
+
 /* Featurettes */
 .featurette {
-
     font-family: '하늘보리체', sans-serif, 'Jua';
     display: flex;
     align-items: center;
@@ -318,7 +329,6 @@ button:hover {
 }
 
 .video-section {
-  
     display: flex;
     align-items: center;
     padding: 20px;
@@ -335,7 +345,6 @@ button:hover {
 
 .video-info {
     font-family: '하늘보리체', sans-serif, 'Jua';
-
     font-size: 30px;
     display: flex;
     flex-direction: column;
@@ -345,7 +354,7 @@ button:hover {
 
 .video-info h2 {
     font-size: 60px;
-      font-family: '하늘보리체', sans-serif, 'Jua';
+    font-family: '하늘보리체', sans-serif, 'Jua';
     color: #0073e6;
     margin-bottom: 10px;
 }
@@ -456,4 +465,163 @@ video {
     .review-container {
         grid-template-columns: 1fr;
     }
+
+    .featurette .text-right,
+    .featurette .lead,
+    .featurette-heading,
+    .featurette .lead a {
+        text-align: center !important;
+    }
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5em; /* Adjust as needed for smaller screens */
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 1.2em; /* Adjust as needed for smaller screens */
+        text-align: center;
+    }
+
+    h4 {
+        font-size: 1em; /* Adjust as needed for smaller screens */
+        text-align: center;
+    }
+
+    h5 {
+        font-size: 0.8em; /* Adjust as needed for smaller screens */
+        text-align: center;
+    }
+
+    .featurette-heading {
+        font-size: 2em; /* Adjust featurette heading size for smaller screens */
+        text-align: center;
+        
+        
+    }
+
+    .video-info h2 {
+        font-size: 2em; /* Adjust video info heading size for smaller screens */
+        text-align: center;
+    }
+
+    .featurette .lead {
+        font-size: 1.2em; /* Adjust lead paragraph size for smaller screens */
+        text-align: center;
+    }
+
+    .lead {
+        text-align: center !important;
+    }
+    
+    .text-right {
+        text-align: center !important;
+    }
+
+    .featurette .text-right,
+    .featurette .lead,
+    .featurette-heading,
+    .featurette .lead a {
+        text-align: center !important;
+    }
+
+}
+
+.text-right {
+    text-align: right;
+}
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.2em; /* Further adjust for even smaller screens */
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 1em; /* Further adjust for even smaller screens */
+        text-align: center;
+    }
+
+    h4 {
+        font-size: 0.8em; /* Further adjust for even smaller screens */
+        text-align: center;
+    }
+
+    h5 {
+        font-size: 0.6em; /* Further adjust for even smaller screens */
+        text-align: center;
+    }
+
+    .featurette-heading {
+        font-size: 1.5em; /* Further adjust featurette heading size for even smaller screens */
+        text-align: center;
+    }
+    
+
+    .video-info h2 {
+        font-size: 1.5em; /* Further adjust video info heading size for even smaller screens */
+        text-align: center;
+    }
+
+    .featurette .lead {
+        font-size: 1em; /* Further adjust lead paragraph size for even smaller screens */
+        text-align: center;
+    }
+
+    .lead a {
+        text-align: center !important;
+    }
+
+    .lead {
+        text-align: center !important;
+    }
+    
+    .text-right {
+        text-align: center !important;
+    }
+    
+}
+@media (max-width: 768px) {
+    .featurette img {
+        text-align: center;
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+        max-height: 300px;
+        margin: 0 auto 20px auto;
+
+        
+    }
+
+    
+}
+
+@media (max-width: 480px) {
+    .featurette img {
+        text-align: center;
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        max-height: 200px;
+        margin: 0 auto 10px auto;
+    }
+}
+
+/* introduce*/
+
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1%;
+}
+
+.image-container img {
+    width: 30%;
+    height: auto;
+    aspect-ratio: 1/1; /* 정사각형 비율 */
+    object-fit: cover; /* 이미지가 요소에 맞게 자르기 */
+    border: 1px solid #ddd; /* 이미지 간격을 위한 테두리 */
+    box-sizing: border-box;
 }

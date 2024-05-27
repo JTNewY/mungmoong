@@ -5,6 +5,11 @@
       >
 <head>
     <title>예약 페이지</title>
+    <style>
+      .form-control{
+        border-radius: 49px;
+      }
+    </style>
 </head>
   <!-- 모달 -->
  <body layout:fragment="content">
@@ -38,19 +43,16 @@
       </div>
     </div>
   </div>
-    <h1 style="text-align: center;">예약하기</h1>
-  <div class="container-sm reserve" 
-        style="padding: 3%;
-         width: 50%;
-        border-radius: 15px;
-        margin: 0 auto;
-        margin-top: 30px;
-        margin-bottom: 4%;
-        /* margin: 4% 0; */
-        background: #fff4d5">
-        <div class="input-form-backgroud row">                          
+  <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">홍길동 훈련사님 예약</h4>
+  <div class="input-form-backgroud row"
+  style="padding: 3%;
+  width: 50%;
+  border-radius: 15px;
+  margin: 0 auto;
+  margin-bottom: 4%;
+  background: #fff4d5">                          
           <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">예약</h4>
+            <h4 class="mb-3">예약하기</h4>
             <form class="validation-form" novalidate>
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -116,7 +118,7 @@
               <div class="row">
                 <div class="col-md-8 mb-3">
                   <label for="root">예약선택</label>
-                  <select class="custom-select d-block w-100" id="root" style="padding: 3% 0;">
+                  <select class="custom-select d-block w-100" id="root" style="padding: 3% 0; border-radius: 31px;">
                     <option value=""></option>
                     <option>훈련</option>
                     <option>돌봄</option>
@@ -125,11 +127,6 @@
                     예약종류를 선택해주세요.
                   </div>
                 </div>
-                <div class="input-group input-daterange">
-                  <input type="text" class="form-control" value="2012-04-05">
-                  <div class="input-group-addon">to</div>
-                  <input type="text" class="form-control" value="2012-04-19">
-              </div>
             </div>
             <div>
                 <div class="col-md-4 mb-3">
@@ -146,8 +143,8 @@
                 <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
               </div>
               <div class="mb-4" style="text-align: center;padding: 3% 0;">               
-                <button type="button" class="btn btn-outline-warning">예약</button>
-              <button type="button" class="btn btn-outline-warning">목록</button>
+                <button type="button" onclick="reserveList()" class="btn btn-outline-warning">저장</button>
+              <button type="button"onclick="reserveList()" class="btn btn-outline-warning">목록</button>
               </div>
               
             </form>
@@ -161,22 +158,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
 <script>
- $("div.input-daterange").each(function(){
-    var $inputs = $(this).find('input');
-    $inputs.datepicker();
-    if ($inputs.length >= 2) {
-        var $from = $inputs.eq(0);
-        var $to   = $inputs.eq(1);
-        $from.on('changeDate', function (e) {
-            var d = new Date(e.date.valueOf());
-            $to.datepicker('setStartDate', d); // 종료일은 시작일보다 빠를 수 없다.
-        });
-        $to.on('changeDate', function (e) {
-            var d = new Date(e.date.valueOf());
-            $from.datepicker('setEndDate', d); // 시작일은 종료일보다 늦을 수 없다.
-        });
-    }
-})
+ function reserveList(){
+    location.href='/reserve/list'
+ }
  </script>
 </body>
 </html>

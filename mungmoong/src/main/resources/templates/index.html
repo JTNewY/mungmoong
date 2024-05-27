@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/mainpage_layout}"
-      >
-<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+      layout:decorate="~{/layouts/mainpage_layout}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,17 +13,21 @@
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome -->
 
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="main.css" rel="stylesheet">
-
 </head>
-
-<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
+    <button id="scrollToTopBtn" class="btn btn-primary btn-lg" title="Go to top">
+        <i class="bi bi-arrow-up-circle"></i>
+    </button>
 
     <main role="main">
-    
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -53,112 +55,92 @@
             </button>
         </div>
 
-
-
-    
-    
-        <!-- Marketing messaging and featurettes
-        ================================================== -->
-        <!-- Wrap the rest of the page in another container to center all the content. -->
-    
-        <div class="container marketing">
-    
-    
-    
-        <!-- START THE FEATURETTES -->
-    
-        <hr class="featurette-divider">
-    
         <div class="row featurette">
-            <div class="col-md-7">
-            <h2 class="featurette-heading">펫시터가 집으로</h2>
-            <p class="lead">굳이 맡기러 오지 않아도 <br>펫시터가 집으로 직접 찾아와요</p>
+            <div class="col-md-7 text-right">
+                <h2 class="featurette-heading">펫시터가 집으로</h2>
+                <p class="lead text-right">굳이 맡기러 오지 않아도 <br>펫시터가 집으로 직접 찾아와요</p>
             </div>
             <div class="col-md-5">
-                <img src="img/main/main1.png" style="width: 500; height: 500;" alt="댕댕이1">
-    
+                <img src="img/main/main1.png" class="featurette-image" alt="댕댕이1">
             </div>
         </div>
-    
-        <hr class="featurette-divider">
-    
-        <div class="row featurette">
+
+        <div class="row featurette" style="background-color: #CEECF5;">
             <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">숙련된 트레이너</h2>
-            <p class="lead">자격증, 경력 등 <br> 멍뭉이 하나하나 확인하여<br>검증된 훈련사만 등록되어 있어<br>체계적으로 강아지들을 돌봐줘요</p>
+                <h2 class="featurette-heading">숙련된 트레이너</h2>
+                <p class="lead text">자격증, 경력 등 <br> 멍뭉이 하나하나 확인하여<br>검증된 훈련사만 등록되어 있어<br>체계적으로 강아지들을 돌봐줘요</p>
             </div>
-            <div class="col-md-5 order-md-1">
-                <img src="img/main/main2.png" style="width: 500; height: 500;" alt="트레이너">
+            <div class="col-md-5 order-md-1 text-right">
+                <img src="img/main/main2.png" class="featurette-image" alt="트레이너">
             </div>
         </div>
-    
-        <hr class="featurette-divider">
-    
+
         <div class="row featurette">
-            <div class="col-md-7">
-            <h2 class="featurette-heading">산책도 가능!</h2>
-            <p class="lead">돌봐주는 것 뿐만 아니라<br> 산책도</p>
+            <div class="col-md-7 text-right">
+                <h2 class="featurette-heading">산책도 가능!</h2>
+                <p class="lead text-right">돌봐주는 것 뿐만 아니라<br> 산책도</p>
             </div>
             <div class="col-md-5">
-                <img src="img/main/main3.png" style="width: 500; height: 500;" alt="댕댕이3">
-    
+                <img src="img/main/main3.png" class="featurette-image" alt="댕댕이3">
             </div>
         </div>
-        <hr class="featurette-divider">
 
-        <div class="video-section">
-            <video controls>
-                <source src="video/trainer.mp4" type="video/mp4">
-            </video>
-            <div class="video-info">
-                <h2>훈련 영상!</h2>
-                <p>저희 훈련사의 훈련영상입니다.</p>
+        <div class="row featurette" style="background-color: #E6E6E6;">
+            <div class="col-md-5 order-md-1 text-right">
+                <video controls style="width:70%; text-align: right;">
+                    <source src="video/trainer.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">훈련 영상!</h2>
+                <p class="lead">
+                    저희 훈련사의 훈련영상입니다.
+                </p>
                 <div class="video-stats">
-                    <span>좋아요 <i class="like-icon"></i> 150</span>
+                    <span class="me-3">좋아요 <i class="like-icon"></i> 150</span>
                     <span>댓글 <i class="comment-icon"></i> 26</span>
                 </div>
             </div>
         </div>
-    <hr class="featurette-divider">
-        
-    <div class="review-container">
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-        <div class="review-box">
-            <p>서울 서초구</p>
-            <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
-        </div>
-    </div>
-    <hr class="featurette-divider">
 
-    
-        </div><!-- /.container -->
+        <hr class="featurette-divider">
+
+        <div class="review-container">
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+            <div class="review-box">
+                <p>서울 서초구</p>
+                <p>3일동안 고생 많으셨어요 훈련사님 다음에도 잘 부탁 드리겠습니다.</p>
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
     </main>
-    </body>
+</body>
 </html>
