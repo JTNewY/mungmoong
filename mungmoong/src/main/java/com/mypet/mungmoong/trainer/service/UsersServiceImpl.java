@@ -1,4 +1,4 @@
-package com.mypet.mungmoong.users.service;
+package com.mypet.mungmoong.trainer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +12,7 @@ import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
 
-@Service("userServiceImplForUsers")
+@Service("userServiceImplForTrainers")
 public class UsersServiceImpl implements UsersService {
 
     @Autowired

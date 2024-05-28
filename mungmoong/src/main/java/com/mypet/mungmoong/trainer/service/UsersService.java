@@ -1,21 +1,18 @@
-package com.mypet.mungmoong.users.mapper;
+package com.mypet.mungmoong.trainer.service;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 
-@Mapper
-@Component("usersMapperForUsers")
-public interface UsersMapper {
 
+@Service("userServiceForTrainers")
+public interface UsersService {
+    
     // 로그인
-    public Users login(String username) throws Exception;
+    public boolean login(Users user) throws Exception;
 
-    // public List<Admin> list()
-
-    // 회원 조회
+    // 조회
     public Users select(String username) throws Exception;
 
     // 회원 가입
@@ -27,5 +24,6 @@ public interface UsersMapper {
     // 회원 권한 등록
     public int insertAuth(UserAuth userAuth) throws Exception;
 
- 
+
+
 }
