@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Controller
+@Controller("boardController")
 @RequestMapping("/board")
 public class BoardController {
 
