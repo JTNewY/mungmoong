@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import org.springframework.stereotype.Component;
+
+
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 
 @Mapper
+@Component("usersMapperForUsers")
 public interface UsersMapper {
 
     // 로그인
