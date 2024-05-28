@@ -12,7 +12,8 @@ public class UsersController {
 
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
-        return "users/" + page;
-    }
+        return "/users/" + page;
+    }   
+    
 
 }

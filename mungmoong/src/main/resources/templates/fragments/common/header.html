@@ -24,8 +24,8 @@
             <div class="auth" id="auth">
                 <!-- 비 로그인 시 -->
                 <th:block sec:authorize="isAnonymous()">
-                    <a href="/login/login" class="btn btn-outline-secondary mx-1">로그인</a>
-                    <a href="/login/register" class="btn btn-outline-secondary mx-1">회원가입</a>
+                    <a href="/users/login" class="btn btn-outline-secondary mx-1">로그인</a>
+                    <a href="/users/register" class="btn btn-outline-secondary mx-1">회원가입</a>
                 </th:block>
                 <!-- 로그인 시 -->
                 <th:block sec:authorize="isAuthenticated()">
