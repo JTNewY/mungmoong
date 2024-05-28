@@ -1,3 +1,4 @@
+-- Active: 1713528331467@@127.0.0.1@3306@mypet
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
