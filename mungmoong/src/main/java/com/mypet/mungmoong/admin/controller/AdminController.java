@@ -1,9 +1,15 @@
 package com.mypet.mungmoong.admin.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,9 +18,16 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class AdminController {
 
+    @Autowired
+    private UsersService userService;
+
     @GetMapping("/admin_info")
-    public String test(@PathVariable("page") String page) {
-        return "/admin/" + page;
-    }
+    public String list(Model model) throws Exception {
+
+        List<Users> usersList = userService.list();
+        model.addAttribute("usersList", usersList);
+
+        return "/admin/admin_info";
+    }   
     
 }

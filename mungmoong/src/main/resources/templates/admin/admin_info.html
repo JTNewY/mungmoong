@@ -30,42 +30,44 @@
                     </ul>
                 </div>
             </nav>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col" style="width: 5%;">no</th>
-                        <th scope="col" style="width: 10%;">ID</th>
-                        <th scope="col" style="width: 10%;">비밀번호</th>
-                        <th scope="col" style="width: 10%;">이름</th>
-                        <th scope="col" style="width: 10%;">닉네임</th>
-                        <th scope="col" style="width: 10%;">등록일자</th>
-                        <th scope="col" style="width: 10%;">수정일자</th>
-                        <th scope="col">주소</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="/admin/admin_info_read">joeun</a></td>
-                        <td class="text-truncate">123456</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">2024-05-23</td>
-                        <td class="text-truncate">2024-05-23</td>
-                        <td class="text-truncate">인천광역시 부평구 더조은컴퓨터아카데미 7층</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="/admin/admin_info_read">joeun</a></td>
-                        <td class="text-truncate">123456</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">2024-05-23</td>
-                        <td class="text-truncate">2024-05-23</td>
-                        <td class="text-truncate">인천광역시 부평구 더조은컴퓨터아카데미 7층</td>
-                    </tr>
-                </tbody>
-            </table>
+            <th:block th:each="users : ${usersList}">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 5%;">no</th>
+                            <th scope="col" style="width: 10%;">ID</th>
+                            <th scope="col" style="width: 10%;">비밀번호</th>
+                            <th scope="col" style="width: 10%;">이름</th>
+                            <th scope="col" style="width: 10%;">닉네임</th>
+                            <th scope="col" style="width: 10%;">등록일자</th>
+                            <th scope="col" style="width: 10%;">수정일자</th>
+                            <th scope="col">주소</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><a th:href="|/admin/admin_info_read?no=${users.}|">joeun</a></td>
+                            <td class="text-truncate">123456</td>
+                            <td class="text-truncate">김조은</td>
+                            <td class="text-truncate">조은데이</td>
+                            <td class="text-truncate">2024-05-23</td>
+                            <td class="text-truncate">2024-05-23</td>
+                            <td class="text-truncate">인천광역시 부평구 더조은컴퓨터아카데미 7층</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="/admin/admin_info_read">joeun</a></td>
+                            <td class="text-truncate">123456</td>
+                            <td class="text-truncate">김조은</td>
+                            <td class="text-truncate">조은데이</td>
+                            <td class="text-truncate">2024-05-23</td>
+                            <td class="text-truncate">2024-05-23</td>
+                            <td class="text-truncate">인천광역시 부평구 더조은컴퓨터아카데미 7층</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </th:block>
             <!-- 페이징 버튼 영역 -->
             <div class="paging">
                 <ul>
@@ -76,6 +78,7 @@
                     <li><a href="#">&gt&gt;</a></li>
                 </ul>
             </div>
+            </form>
         </div>
     </div>
 </body>

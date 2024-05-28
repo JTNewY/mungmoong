@@ -29,6 +29,13 @@
         <result property="auth" column="auth" />
     </resultMap>
 
+
+    <select id="list" resultMap="userMap">
+        SELECT *
+        FROM board
+        ORDER BY reg_date DESC
+    </select>
+
     <!-- 로그인 - username -->
     <select id="login" resultMap="userMap">
         SELECT u.user_id
