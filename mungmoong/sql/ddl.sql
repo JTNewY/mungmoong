@@ -190,6 +190,10 @@ ALTER TABLE `schedule` ADD CONSTRAINT `PK_SCHEDULE` PRIMARY KEY (
 	`schedule_no`
 );
 
+INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role )
+VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0' );
+
 
 INSERT INTO user_auth ( auth_no, user_id,  auth )
-VALUES (2,'user2', 'ROLE_USER' );
+VALUES (1,'user', 'ROLE_USER' );
+
