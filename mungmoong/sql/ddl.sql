@@ -1,4 +1,4 @@
--- Active: 1715069578448@@127.0.0.1@3306@joeun
+
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
@@ -117,7 +117,8 @@ CREATE TABLE `users` (
 	`phone`	VARCHAR(50)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
-	`role`	INT	NULL
+	`role`	INT	NULL,
+	`enabled` INT NULL
 );
 
 DROP TABLE IF EXISTS user_auth;
@@ -190,9 +191,5 @@ ALTER TABLE `schedule` ADD CONSTRAINT `PK_SCHEDULE` PRIMARY KEY (
 );
 
 
-
-INSERT INTO users ( user_id, password, name, birth, address, mail,phone,  pet_no ,role )
-VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','1','0' );
-
 INSERT INTO user_auth ( auth_no, user_id,  auth )
-VALUES (1,'user', 0 );
+VALUES (2,'user2', 'ROLE_USER' );
