@@ -10,12 +10,15 @@
         .대기 {
             background-color: blue;
         }
+
         .예약완료 {
             background-color: orange;
         }
+
         .취소 {
             background-color: red;
         }
+
         .완료 {
             background-color: green;
         }
@@ -151,10 +154,20 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- 페이징 버튼 영역 -->
+                <div class="paging">
+                    <ul>
+                        <li><a href="#">&lt&lt;</a></li>
+                        <li><a href="#">&lt;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">&gt;</a></li>
+                        <li><a href="#">&gt&gt;</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    
+
     <script>
         function updateStatusColors() {
             const statusElements = document.querySelectorAll('.status');
