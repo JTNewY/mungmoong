@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @GetMapping("/{page}")
+    @GetMapping("/admin_info")
     public String test(@PathVariable("page") String page) {
         return "/admin/" + page;
     }
