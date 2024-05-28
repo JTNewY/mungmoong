@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/trainer_layout}">
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<head>
+    <title>회원가입 정보</title>
+    <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+</head>
+
+<body class="body" layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+            <h1 class="title">회원가입 정보</h1>
+            <h6 class="sub_text">훈련사 인증 버튼을 눌러 인증 자료를 올려주세요.</h6>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button active" href="/trainer/join_data">회원가입 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/new_data">훈련사 인증</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- 폼 태그 추가: 테이블을 포함 -->
+            <form action="/trainer/join_data" method="GET" id="tableForm">
+                <div class="info">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr class="first_tr">
+                                <th>No</th>
+                                <th>목록</th>
+                                <th>내용</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center-content">
+                                <td>1</td>
+                                <td>이름</td>
+                                <td class="text-center">김훈련</td>
+                            </tr>
+                            <tr class="text-center-content">
+                                <td>2</td>
+                                <td>생년월일</td>
+                                <td class="text-center">900929</td>
+                            </tr>
+                            <tr class="text-center-content">
+                                <td>3</td>
+                                <td>주소</td>
+                                <td class="text-center">인천 부평구 부평동</td>
+                            </tr>
+                            <tr class="text-center-content">
+                                <td>4</td>
+                                <td>전화</td>
+                                <td class="text-center">010-1234-1234</td>
+                            </tr>
+                            <tr class="text-center-content">
+                                <td>5</td>
+                                <td>이메일</td>
+                                <td class="text-center">1234@gmail.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

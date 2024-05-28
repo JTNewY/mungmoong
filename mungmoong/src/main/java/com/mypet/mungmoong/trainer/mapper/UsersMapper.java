@@ -1,4 +1,4 @@
-package com.mypet.mungmoong.users.mapper;
+package com.mypet.mungmoong.trainer.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 
 @Mapper
-@Component("usersMapperForUsers")
+@Component("usersMapperForTrainers")
 public interface UsersMapper {
 
     // 로그인
