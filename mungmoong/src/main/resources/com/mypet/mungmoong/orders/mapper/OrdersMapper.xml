@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<mapper namespace="com.mypet.mungmoong.orders.mapper.OrdersMapper">
+
+    <!-- 결제 목록 -->
+    <select id="list" resultType="Orders">
+        SELECT *
+        FROM orders
+        ORDER BY reg_date DESC
+    </select>
+
+    <!-- 결제 조회 -->
+    <select id="select" resultType="Orders">
+        SELECT *
+        FROM orders
+        WHERE order_no = #{orderNo}
+    </select>
+
+    <!-- 결제 등록 -->
+    <insert id="insert">
+        INSERT INTO orders( date_no, user_id, date_day,reg_date)
+        VALUES ( #{dateNo}, #{userId}, #{dateDay},#{regDate} )
+    </insert>
+
+    <!-- 결제 수정 -->
+    <update id="update">
+        UPDATE orders
+           SET date_no = #{dateNo}
+              ,user_id = #{userId}
+              ,date_day = #{dateDay}
+              ,upd_date = now()
+        WHERE date_no = #{dateNo}
+    </update>
+
+    <!-- 결제 삭제 -->
+    <delete id="delete">
+        DELETE FROM orders
+        WHERE date_no = #{no}
+    </delete>
+
+    <!-- 결제 번호 최댓값 -->
+    <select id="maxPk" resultType="int">
+        SELECT MAX(no)
+        FROM orders
+    </select>
+</mapper>

@@ -1,3 +1,4 @@
+-- Active: 1716798076500@@127.0.0.1@3306@mypet
 
 -- user_id, password, name, birth, address, mail,phone, role
 -- #{user_id}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{role}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/reserve_layout}"
+      >
+<head>
+    <title>예약 페이지</title>
+    <style>
+      .form-control{
+        border-radius: 49px;
+      }
+    </style>
+</head>
+ <body layout:fragment="content">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">결제정보입력</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="col g-7">
+            <!-- <h1>사유선택</h1> -->
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="root">사유선택</label>
+                  <select class="custom-select d-block w-100" id="product" style="padding: 3% 0; border-radius: 31px;">
+                    <option value="개인사유">개인사유</option>
+                    <option value="예약일중복">일정중복</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    예약종류를 선택해주세요.
+                  </div>
+                </div>
+            </div>
+            <div class="mb-3">
+               예약을 취소하시겠습니까?
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">훈련사님 예약정보</h4>
+  <div class="input-form-backgroud row"
+  style="padding: 3%;
+  width: 50%;
+  border-radius: 15px;
+  margin: 0 auto;
+  margin-bottom: 4%;
+  background: #fff4d5">                          
+          <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">결제정보</h4>
+            <form class="validation-form" novalidate>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="name">예약자</label>
+                  <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    이름을 입력해주세요.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="nickname">훈련사명</label>
+                  <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    훈련사를 입력해주세요.
+                  </div>
+                </div>
+              </div>
+    
+              <div class="mb-3">
+                <label for="cardno">카드번호</label>
+                <input type="text" class="form-control" id="card_no" placeholder="12*-***-****" required>
+                <div class="invalid-feedback">
+                  카드번호를 입력해주세요.
+                </div>
+              </div>
+              <div class="mb-3">
+                    <label for="priceDisplay">결제금액</label>
+                    <input type="text" class="form-control" id="priceDisplay" placeholder="" required>
+            </div>
+              <div class="mb-3">
+                <label for="order_date">결제일자</label>
+                <input type="text" class="form-control" id="order_date" placeholder="20240505" required>
+                <div class="invalid-feedback">
+                  결제일자
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="order_no">결제번호</label>
+                <input type="pet" class="form-control" id="order_no" placeholder="123***" required>
+                <div class="invalid-feedback">
+                  결제번호를 입력해주세요.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="order_check">결제승인여부</label>
+                <input type="text" class="form-control" id="order_check" placeholder="승인/취소">
+              </div>
+            </div>
+              <div class="mb-4" style="text-align: center;padding: 3% 0;">               
+              <!-- 모달을 실행할 버튼 -->
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                취소
+              </button>
+              <button type="button"onclick="" class="btn btn-outline-warning">승인</button>
+              <button type="button"onclick="reserveList()" class="btn btn-outline-warning">목록</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+        <div>
+          <p style="text-align: center ;">멍뭉닷컴</p>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+ function reserveList(){
+    location.href='/reserve/list'
+ }
+ function ordersList(){
+    location.href='/orders/ordersdetail'
+ }
+ const productSelect = document.getElementById("product");
+const priceDisplay = document.getElementById("priceDisplay");
+
+productSelect.addEventListener("change", function() {
+  const selectedPrice = productSelect.value;
+  priceDisplay.textContent = "선택한 결제 금액은 " + selectedPrice + "원 입니다.";
+  // 스타일을 JavaScript로 직접 적용
+  priceDisplay.style.fontSize = "18px";
+  priceDisplay.style.color = "red";
+  priceDisplay.style.whiteSpace = "nowrap";
+});
+ </script>
+</body>
+</html>
