@@ -11,10 +11,8 @@ import com.mypet.mungmoong.users.dto.Users;
 public interface AdminMapper {
 
     // 회원정보 조회
-    public List<Users> list() throws Exception;
     
     // 훈련사정보 조회
-    
 
     // 예약 현황 조회
 
