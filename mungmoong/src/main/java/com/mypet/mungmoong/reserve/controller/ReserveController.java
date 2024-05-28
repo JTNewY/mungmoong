@@ -21,7 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ReserveController {
     //의존성 자동 주입
     @Autowired                 
-    private ReserveService reserveService;  
+    private ReserveService reserveService;
+
 
 
     /**

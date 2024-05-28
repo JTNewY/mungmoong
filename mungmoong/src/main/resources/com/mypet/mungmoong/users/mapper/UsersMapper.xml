@@ -39,7 +39,7 @@
               ,u.phone
               ,u.reg_date
               ,u.upd_date
-              ,1 enabled
+              ,u.enabled
               ,auth
         FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
@@ -56,7 +56,7 @@
               ,u.phone
               ,u.reg_date
               ,u.upd_date
-              ,1 enabled
+              ,u.enabled
               ,auth
         FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}

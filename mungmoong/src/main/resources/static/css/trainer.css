@@ -366,3 +366,21 @@ label {
     color: red;
 }
 
+
+/* --------------------- 페이징 버튼 --------------------- */
+
+.paging {
+    padding: 20px 0;
+}
+
+.paging ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.paging ul li a {
+    color: black;
+    text-decoration: none;
+}
