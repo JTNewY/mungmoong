@@ -56,7 +56,7 @@ header {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: #ffdf8d47;
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
 }
@@ -112,7 +112,7 @@ nav a {
   margin-left: 20px;
   text-decoration: none;
   color: #333;
-  background-color: #f8f8f8;
+  background-color: #ffdf8d05;
   color: black;
   padding: 10px 15px;
   border-radius: 5px;
@@ -120,8 +120,11 @@ nav a {
   display: inline-block;
   font-size: 20px;
 }
-nav a:hover {
-  background-color: #ddd;
+
+#nav a:hover {
+  /* background-color: #f5f0a3; */
+  transform: scale(1.1);
+  transform: rotate(5deg);
 }
 
 .hamburger {
@@ -146,9 +149,10 @@ nav a:hover {
   flex-direction: column;
   align-items: center; /* Center-aligns the mobile menu */
   width: 100%;
-  background-color: #f8f8f8;
+  background-color: #ffdf8d16;
   padding: 10px;
   border-top: 1px solid #ddd;
+  opacity: 0.7;
 }
 
 .mobile-menu nav {
