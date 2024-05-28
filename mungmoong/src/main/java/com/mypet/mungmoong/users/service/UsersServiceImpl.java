@@ -1,5 +1,7 @@
 package com.mypet.mungmoong.users.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -80,6 +82,12 @@ public class UsersServiceImpl implements UsersService {
     public int insertAuth(UserAuth userAuth) throws Exception {
         int result = userMapper.insertAuth(userAuth);
         return result;
+    }
+
+    @Override
+    public List<Users> list() throws Exception {
+        List<Users> usersList = userMapper.list();
+        return usersList;
     }
   
 
