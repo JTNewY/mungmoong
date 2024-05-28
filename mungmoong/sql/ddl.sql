@@ -1,4 +1,4 @@
--- Active: 1716776187516@@127.0.0.1@3306@mungmoong
+-- Active: 1715069578448@@127.0.0.1@3306@joeun
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
