@@ -76,44 +76,49 @@ body {
     color: black;
 }
 
+/* 상단 탭 버튼 영역 끝 */
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/* 리스트 안에 버튼 영역 시작 */
+
 .smBtn{
     font-size: 0.8rem !important;
     text-align: center !important;
-    border-radius: 20px;
+    border-radius: 20px !important;
 }
 
 .sm-bottom-btn .smBtn-list:hover{
-    background-color: white;
-    border: 3px solid #F6C542;
-    color: #F6C542;
+    background-color: white !important;
+    border: 3px solid #F6C542 !important;
+    color: #F6C542 !important;
     font-size: 0.8rem !important;
 }
 .sm-bottom-btn .smBtn-list{
-    background-color: #F6C542;
-    border: 3px solid #F6C542;
-    border-radius: 15px;
-    color: white;
-    font-weight: bold;
+    background-color: #F6C542 !important;
+    border: 3px solid #F6C542 !important;
+    border-radius: 15px !important;
+    color: white !important;
+    font-weight: bold !important;
     font-size: 0.8rem !important;
 }
 
 .sm-bottom-btn .smBtn-update:hover{
-    background-color: white;
-    border: 3px solid #A19F9D;
-    color: #A19F9D;
+    background-color: white !important;
+    border: 3px solid #A19F9D !important;
+    color: #A19F9D !important;
     font-size: 0.8rem !important;
 }
 .sm-bottom-btn .smBtn-update{
-    background-color: #A19F9D;
-    border: 3px solid #A19F9D;
-    border-radius: 15px;
-    color: white;
-    font-weight: bold;
+    background-color: #A19F9D !important;
+    border: 3px solid #A19F9D !important;
+    border-radius: 15px !important;
+    color: white !important;
+    font-weight: bold !important;
     font-size: 0.8rem !important;
-    margin-left: 10px;
+    margin-left: 10px !important;
 }
 
-/* 상단 탭 버튼 영역 끝 */
+/* 리스트 안에 버튼 영역 끝 */
 /* -------------------------------------------------------------------------------------------------------------- */
 /* 컨테이너 리스트 영역 시작 */
 
@@ -176,10 +181,27 @@ table {
     margin-left: 10px !important;
 }
 
+.deleteBtn:hover {
+    background-color: #A19F9D !important;
+    border: 3px solid #A19F9D !important;
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.deleteBtn {
+    width: 80px !important;
+    background-color: white !important;
+    border: 3px solid #A19F9D !important;
+    border-radius: 30px !important;
+    color: #A19F9D !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    margin-left: 10px !important;
+}
+
 table tbody tr td:last-child {
     text-align: left;
 }
-
 
 /* 컨테이너 리스트 영역 끝 */
 /* -------------------------------------------------------------------------------------------------------------- */
@@ -234,9 +256,5 @@ textarea{
     background-color: #FFF3D4;
     border-radius: 20px;
 }
-
-
-
-
 
 /* 컨테이너 상세페이지 영역 끝 */
