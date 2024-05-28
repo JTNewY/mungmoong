@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@Controller
-@RequestMapping("/trainer")
-public class TrainerController {
+// @Slf4j
+// @Controller
+// @RequestMapping("/trainer")
+// public class TrainerController {
 
-    @GetMapping("/{page}")
-    public String test(@PathVariable("page") String page) {
-        return "/trainer/" + page;
-    }
+//     @GetMapping("/{page}")
+//     public String test(@PathVariable("page") String page) {
+//         return "/trainer/" + page;
+//     }
     
-}
+// }
