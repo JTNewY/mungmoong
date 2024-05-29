@@ -1,10 +1,8 @@
 package com.mypet.mungmoong.trainer.mapper;
 
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.mypet.mungmoong.trainer.dto.Option;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
 @Mapper     // Mybatis의 매퍼 인터페이스로 지정하는 어노테이션
@@ -21,7 +19,7 @@ public interface TrainerMapper {
     public int maxPk() throws Exception;
 
     // 게시글 데이터 개수 조회
-    public int count(@Param("option") Option option) throws Exception;
+    // public int count(@Param("option") Option option) throws Exception;
 
     
 }

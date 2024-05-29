@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mypet.mungmoong.trainer.dto.Board;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
