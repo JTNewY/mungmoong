@@ -21,13 +21,22 @@ public class AdminController {
     @Autowired
     private UsersService userService;
 
+
+    /**
+     * 관리자 회원정보 조회
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/admin_info")
     public String list(Model model) throws Exception {
 
         List<Users> usersList = userService.list();
+        log.info(usersList.toString());
         model.addAttribute("usersList", usersList);
 
         return "/admin/admin_info";
-    }   
-    
+    }
+
+
+
 }

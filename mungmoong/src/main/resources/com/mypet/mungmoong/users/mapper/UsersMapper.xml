@@ -32,7 +32,7 @@
 
     <select id="list" resultMap="userMap">
         SELECT *
-        FROM board
+        FROM users
         ORDER BY reg_date DESC
     </select>
 
