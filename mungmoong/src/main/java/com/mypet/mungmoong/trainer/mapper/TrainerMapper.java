@@ -3,7 +3,6 @@ package com.mypet.mungmoong.trainer.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.mypet.mungmoong.trainer.dto.Option;
 import com.mypet.mungmoong.trainer.dto.Page;
