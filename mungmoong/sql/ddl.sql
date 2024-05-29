@@ -14,11 +14,11 @@ CREATE TABLE `pet` (
 );
 
 CREATE TABLE `trainer` (
-	`trainer_no`	VARCHAR(50)	NOT NULL,	-- 훈련사 번호
+	`no`			VARCHAR(50)	NOT NULL,	-- 훈련사 번호
 	`order_no`		INT			NOT NULL,	-- 결제 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
-	`age`			INT			NOT NULL,	-- 나이
+	`birth`			VARCHAR(50) NOT NULL,	-- 생일
 	`address`		VARCHAR(150)	NULL,	-- 주소
 	`reg_date`		TIMESTAMP		NULL,	-- 등록일
 	`upd_date`		TIMESTAMP		NULL,	-- 수정일

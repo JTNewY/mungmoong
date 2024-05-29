@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mypet.mungmoong.trainer.dto.Board;
 import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.trainer.dto.Option;
 import com.mypet.mungmoong.trainer.dto.Page;
-import com.mypet.mungmoong.trainer.service.BoardService;
+import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.FileService;
+import com.mypet.mungmoong.trainer.service.TrainerService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +45,7 @@ public class TrainerBoardController {
     @Autowired  // 의존성 자동 주입
                 // BoardServiceImpl을 @Service로 빈 등록해놨기 때문에, 
                 // 의존성 자동 주입을 해서 가져올 수 있다.
-    private BoardService boardService;      // @Service를 --Impl에 등록
+    private TrainerService trainerService;      // @Service를 --Impl에 등록
 
     @Autowired
     private FileService fileService;
@@ -63,10 +63,10 @@ public class TrainerBoardController {
                       , Option option
                     ) throws Exception {
         // 데이터 요청
-        // List<Board> boardList = boardService.list(page);         // [페이징]
-        // List<Board> boardList = boardService.search(keyword);    // [검색]
-        // List<Board> boardList = boardService.search(option);     // [검색]
-        List<Board> boardList = boardService.list(page, option);    // [페이징] + [검색]
+        List<Trainer> trainerList = trainerService.list(page);         // [페이징]
+        // List<Board> trainerList = TrainerService.search(keyword);    // [검색]
+        // List<Board> trainerList = TrainerService.search(option);     // [검색]
+        // List<Board> trainerList = TrainerService.list(page, option);    // [페이징] + [검색]
 
         // 페이징
         log.info("page : " + page);
@@ -75,7 +75,7 @@ public class TrainerBoardController {
         log.info("keyword : " + option);
 
         // 모델 등록
-        model.addAttribute("boardList", boardList);
+        model.addAttribute("trainerList", trainerList);
         model.addAttribute("page", page);
 
         // 동적으로 옵션 값을 가져오는 경우
@@ -104,10 +104,10 @@ public class TrainerBoardController {
                       , Model model
                       , Files file) throws Exception {
         // 데이터 요청
-        Board board = boardService.select(no);
+        Trainer trainer = trainerService.select(no);
 
         // 조회 수 증가
-        int views = boardService.view(no);
+        int views = trainerService.view(no);
 
         // 파일 목록 요청
         file.setParentTable("board");
@@ -115,7 +115,7 @@ public class TrainerBoardController {
         List<Files> fileList = fileService.listByParent(file);
 
         // 모델 등록
-        model.addAttribute("board", board);
+        model.addAttribute("trainer", trainer);
         model.addAttribute("fileList", fileList);
         
         // 뷰페이지 지정
@@ -133,12 +133,12 @@ public class TrainerBoardController {
     }
 
     @PostMapping("/insert")
-    public String insertPro(Board board) throws Exception {
+    public String insertPro(Trainer trainer) throws Exception {
 
-        log.info(board.toString());
+        log.info(trainer.toString());
 
         // 데이터 요청
-        int result = boardService.insert(board);
+        int result = trainerService.insert(trainer);
         // 리다이렉트
         // ⭕ 데이터 처리 성공
         if(result > 0) {
@@ -159,7 +159,7 @@ public class TrainerBoardController {
     public String update(@RequestParam("no") int no, Model model, Files file) throws Exception {
 
         // 데이터 요청
-        Board board = boardService.select(no);
+        Trainer trainer = trainerService.select(no);
 
         // 파일 목록 요청
         file.setParentTable("board");
@@ -167,7 +167,7 @@ public class TrainerBoardController {
         List<Files> fileList = fileService.listByParent(file);
 
         // 모델 등록
-        model.addAttribute("board", board);
+        model.addAttribute("trainer", trainer);
         model.addAttribute("fileList", fileList);
 
         return "/trainer/board/update";
@@ -180,32 +180,32 @@ public class TrainerBoardController {
      * @throws Exception
      */
     @PostMapping("/update")
-    public String updatePro(Board board) throws Exception {
-        int result = boardService.update(board);
+    public String updatePro(Trainer trainer) throws Exception {
+        int result = trainerService.update(trainer);
         if(result > 0) {
             return "redirect:/trainer/board/list";
         }
-        int no = board.getNo();
+        String no = trainer.getNo();
         return "redirect:/trainer/board/update?no=" + no + "&error";
     }
     
 
-    @PostMapping("/delete")
-    public String delete(@RequestParam("no") int no) throws Exception {
-        // 글 삭제 요청
-        int result = boardService.delete(no);
-        // 글 삭제가 되면, 첨부파일도 같이 삭제
-        if(result > 0) {
+    // @PostMapping("/delete")
+    // public String delete(@RequestParam("no") int no) throws Exception {
+    //     // 글 삭제 요청
+    //     int result = TrainerService.delete(no);
+    //     // 글 삭제가 되면, 첨부파일도 같이 삭제
+    //     if(result > 0) {
 
-            // 첨부파일 삭제
-            Files file = new Files();
-            file.setParentTable("board");
-            file.setParentNo(no);
-            fileService.deleteByParent(file);
+    //         // 첨부파일 삭제
+    //         Files file = new Files();
+    //         file.setParentTable("board");
+    //         file.setParentNo(no);
+    //         fileService.deleteByParent(file);
             
-            return "redirect:/trainer/board/list";
-        }
-        return "redirect:/trainer/board/update?no=" + no + "&error";
-    }
+    //         return "redirect:/trainer/board/list";
+    //     }
+    //     return "redirect:/trainer/board/update?no=" + no + "&error";
+    // }
     
 }
