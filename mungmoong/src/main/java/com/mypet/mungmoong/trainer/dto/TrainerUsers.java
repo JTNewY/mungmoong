@@ -8,7 +8,7 @@ import com.mypet.mungmoong.users.dto.UserAuth;
 import lombok.Data;
 
 @Data
-public class Users {
+public class TrainerUsers {
     // 아이디
     private String userId;
 
