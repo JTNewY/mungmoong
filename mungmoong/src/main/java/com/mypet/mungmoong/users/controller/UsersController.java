@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,20 +35,22 @@ public class UsersController {
     public String test(@PathVariable("page") String page) {
         return "/users/" + page;
     }   
-    
+ 
 
     @PostMapping("/register")
-    public String registerPro(Users user) throws Exception {
-        int result = userService.join(user);
+    public String registerUser(Users user, Pet pet, String userId) throws Exception {
+       user.setUserId(userId);
+       pet.setUserId(userId);
 
-        if(result >0){
-            return "redirect:/login";
-
-        }
+        user.setPet(pet);
         
+        int result = userService.join(user);
+        if (result > 0) {
+            return "redirect:/users/login";
+        }
         return "redirect:/register?error";
     }
- 
+
     /**
      * 아이디 중복 검사
      * @param username

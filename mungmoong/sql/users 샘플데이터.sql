@@ -6,6 +6,26 @@
 TRUNCATE users;
 TRUNCATE user_auth;
 
+
+CREATE TABLE `users` (
+	`user_id`	VARCHAR(100)	NOT NULL,
+	`password`	VARCHAR(100)	NOT NULL,
+	`name`	VARCHAR(50)	NOT NULL,
+	`birth`	TIMESTAMP	NOT NULL,
+	`address`	VARCHAR(150)	NULL,
+	`mail`	VARCHAR(50)	NULL,
+	`phone`	VARCHAR(50)	NULL,
+	`reg_date`	TIMESTAMP	NULL,
+	`upd_date`	TIMESTAMP	NULL,
+	`role`	INT	NULL,
+	`enabled` INT NULL
+);
+
+ALTER TABLE `users` ADD CONSTRAINT `PK_USERS` PRIMARY KEY (
+	`user_id`
+);
+
+
 INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role,reg_date,upd_date,enabled )
 VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 );
 
