@@ -11,20 +11,20 @@
 <body layout:fragment="content">
     <div class="container">
         <div class="inner">
-            <h1>회원정보</h1>
+            <h1>회원정보 수정</h1>
             <div class="tab_tr_btn">
                 <ul>
                     <li><a href="/admin/admin_info_read">회원정보</a></li>
                     <li><a href="/admin/admin_info_read_pet">반려견</a></li>
                 </ul>
             </div>
-            <form class="form-group" action="/users/delete" method="post">
+            <form id="form" class="form-group" action="/admin/admin_info_read_update" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div class="col-md-8 fmCont">
                     <ul>
                         <li>
                             <label for="id" name="id">ID</label>
-                            <input type="text" name="id" id="id" th:value="${users.userId}">
+                            <input type="text" name="userId" id="id" th:value="${users.userId}">
                         </li>
                         <li>
                             <label for="pw" name="pw">비밀번호</label>
@@ -36,11 +36,11 @@
                         </li>
                         <li>
                             <label for="birth" name="birth">생년월일</label>
-                            <input type="text" name="birth" id="birth" th:value="${#dates.format(users.birth, 'yyyy-MM-dd HH:mm:ss')}">
+                            <input type="date" name="birth" id="birth" th:value="${#dates.format(users.birth, 'yyyy-MM-dd')}">
                         </li>
                         <li>
-                            <label for="email" name="email">메일</label>
-                            <input type="text" name="email" id="email" th:value="${users.mail}">
+                            <label for="mail" name="mail">메일</label>
+                            <input type="text" name="mail" id="email" th:value="${users.mail}">
                         </li>
                         <li>
                             <label for="phoneNumber" name="phoneNumber">전화번호</label>
@@ -48,12 +48,14 @@
                         </li>
                     </ul>
                 </div>
+                <!-- 하단 버튼 영역 -->
+                <div class="bottom-btn">
+                    <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
+                    <button type="submit" class="btn btn-secondary btn-lg updateBtn">수정</button>
+                    <button type="button" class="btn btn-primary btn-lg listBtn" onclick="actionDelete()">삭제</button>
+                </div>
             </form>
-            <!-- 하단 버튼 영역 -->
-            <div class="bottom-btn">
-                <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
-                <button type="button" class="btn btn-secondary btn-lg updateBtn" onclick="moveToUpdate()">수정</button>
-            </div>
+
         </div>
     </div>
 
@@ -61,17 +63,25 @@
 
     let form = document.getElementById('form')
 
-    let userId = '[[${users.userId}]]'
-
-    function moveToUpdate() {
-            location.href = '/admin/admin_info_read_update?userId=' + userId
-        }
+    let no = '[[${users.userId}]]'
 
         function moveToList() {
             location.href = '/admin/admin_info'
         }
 
+        // 수정 요청
+        function moveToUpdate() {
+            location.href = '/admin/admin_info_read_update'
+        }
 
+        // 삭제 요청
+        function actionDelete() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( check ) {
+                form.action = '/admin/delete'
+                form.submit()
+            }
+        }
     </script>
 </body>
 

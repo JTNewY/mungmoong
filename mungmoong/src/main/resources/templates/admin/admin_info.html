@@ -43,7 +43,7 @@
                 </thead>
                 <th:block th:each="users : ${usersList}">
                     <tr>
-                        <td><a th:href="|/admin/admin_info_read?userId=${users.userId}|" th:text="${users.userId}">joeun</a></td>
+                        <td><a th:href="|/admin/admin_info_read?userId=${users.userId}|" th:text="${users.userId}"></a></td>
                         <td class="text-truncate" th:text="${users.password}"></td>
                         <td class="text-truncate" th:text="${users.name}"></td>
                         <td class="text-truncate" th:text="${#dates.format(users.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
