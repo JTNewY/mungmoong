@@ -3,11 +3,8 @@ package com.mypet.mungmoong.trainer.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
-import com.mypet.mungmoong.trainer.dto.Board;
-import com.mypet.mungmoong.trainer.dto.Page;
-import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Trainer;
 
 @Mapper     // Mybatis의 매퍼 인터페이스로 지정하는 어노테이션
 public interface TrainerMapper {
