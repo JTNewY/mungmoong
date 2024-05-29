@@ -21,13 +21,13 @@
          <div class="modal-dialog modal-dialog-centered">
            <div class="modal-content">
              <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalToggleLabel">예약하기</h5>
+               <h5 class="modal-title" id="exampleModalToggleLabel" data="trainer123" >예약하기</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
                예약날짜를 선택해주세요
                <div id="calendar" class="input-group">
-                <input type="date" id="selectedDate form-control">
+                <input type="date" id="selectedDate" class="form-control">
             </div>
             </div>
             <div class="modal-footer">
@@ -56,6 +56,8 @@
        </div>
        <!--모달end-->
       <div class="container"style="padding: 70px;">
+
+        
       <div class="accordion" id="accordionExample">
         <!--start-->
         <div class="accordion-item" style="border: 0;">
@@ -75,7 +77,7 @@
                             <img src="/img/twitter.png" class="img-thumbnail" alt="훈련사" style="background: none;border:0;display: block;width: 35px;margin: 0 auto;float: left;">
                         </div>
                     </div>
-                    <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"style="letter-spacing: 3px;
+                    <a class="btn btn-primary btn-reserv" data="user" data-bs-toggle="modal" href="#exampleModalToggle" role="button"style="letter-spacing: 3px;
                     font-size: .75rem;
                     display: block;
                     margin: 0 auto;
@@ -786,45 +788,57 @@
         <!--end-->
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
-<script>
+  <script>
 
-//달력 기본값설정(오늘로)
-document.addEventListener("DOMContentLoaded", function() {
-  const today = new Date();
-  const year = today.getFullYear();
-  let month = today.getMonth() + 1;
-  if (month < 10) {
-    month = "0" + month;
-  }
-  let day = today.getDate();
-  if (day < 10) {
-    day = "0" + day;
-  }
-  const todayString = `${year}-${month}-${day}`;
-  document.getElementById("selectedDate").value = todayString;
-});
+    let trainerId = ''
+    $(function() {
 
-document.getElementById("submitDate").addEventListener("click", function() {
-  const selectedDate = document.getElementById("selectedDate").value;
-  localStorage.setItem("selectedDate", selectedDate); // 선택된 날짜를 로컬 스토리지에 저장
-  showModal(); // 모달 표시 함수 호출
-});
-//예약날짜 저장스크립트
-document.getElementById("submitDate").addEventListener("click", function() {
-  const selectedDate = document.getElementById("selectedDate").value;
-  window.location.href = "read.html?date=" + encodeURIComponent(selectedDate);
-});  
+      $('.btn-reserv').on('click',function() {
+        trainerId = $(this).attr('data')
+        
+      })
+    })
+
+    //달력 기본값설정(오늘로)
+    document.addEventListener("DOMContentLoaded", function() {
+      const today = new Date();
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month;
+      }
+      let day = today.getDate();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      const todayString = `${year}-${month}-${day}`;
+      document.getElementById("selectedDate").value = todayString;
+    });
+
+    document.getElementById("submitDate").addEventListener("click", function() {
+      const selectedDate = document.getElementById("selectedDate").value;
+      localStorage.setItem("selectedDate", selectedDate); // 선택된 날짜를 로컬 스토리지에 저장
+      showModal(); // 모달 표시 함수 호출
+    });
+    //예약날짜 저장스크립트
+    document.getElementById("submitDate").addEventListener("click", function() {
+      const selectedDate = document.getElementById("selectedDate").value;
+      const date = encodeURIComponent(selectedDate)
+      window.location.href = `/reserve/insert?date=${date}&trainerId=${trainerId}`;
+    });  
 
 
 
-//예약날짜 지정후 저장 모달버튼
-function moveInsert(){
-  location.href='/reserve/insert';
-}
+    //예약날짜 지정후 저장 모달버튼
+    function moveInsert(){
+      location.href='/reserve/insert';
+    }
 
- </script>
-    </body> 
-  </html>
-  
+
+
+  </script>
+  </body> 
+</html>
+

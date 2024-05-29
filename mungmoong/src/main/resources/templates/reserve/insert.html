@@ -34,7 +34,8 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="nickname">훈련사명</label>
-                  <input type="text" class="form-control" id="trainer_id" name="trainer_id" placeholder="" value="" required>
+                  <input type="text" class="form-control" id="trainer_id" name="trainer_id" placeholder="" 
+                         th:value="${trainer.name}" readonly>
                   <div class="invalid-feedback">
                     훈련사를 입력해주세요.
                   </div>
