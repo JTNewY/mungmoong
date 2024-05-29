@@ -7,48 +7,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 밑의 베이스 패키지 경로가 잘 맞는지 확인하기 -->
 <mapper namespace="com.mypet.mungmoong.trainer.mapper.TrainerMapper">
 
-    <!-- 게시글 목록 - [페이징] + [검색] -->
-    <!-- 원래는 패키지까지 써줘야 함 -->
-    <select id="list" resultType="Trainer">
-        SELECT b.*
-	        ,f.no file_no
-	        ,f.file_name
-            ,f.file_path
-            ,f.file_code
-        FROM trainer b LEFT JOIN ( SELECT *
-						    FROM file
-                            WHERE parent_table = "trainer"
-						    AND file_code = 1
-                        ) f
-			 on (b.no = f.parent_no)
-        WHERE 
-            <if test="option.code == 0">
-                  title LIKE CONCAT('%', #{option.keyword}, '%')
-               OR writer LIKE CONCAT('%', #{option.keyword}, '%') 
-               OR content LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-            <if test="option.code == 1">
-                title LIKE CONCAT('%', #{option.keyword}, '%')
-            </if>
-            <if test="option.code == 2">
-                content LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-            <if test="option.code == 3">
-                  title LIKE CONCAT('%', #{option.keyword}, '%')
-               OR content LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-            <if test="option.code == 4">
-               writer LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-        ORDER BY reg_date DESC
-        LIMIT #{page.index}, #{page.rows}
-    </select>
-
     <!-- 게시글 조회 -->
     <select id="select" resultType="Trainer">
-        SELECT *
-        FROM trainer
-        WHERE no = #{no}
+        SELECT u.user_id
+              ,u.password
+              ,u.name
+              ,u.address
+              ,u.mail
+              ,u.phone
+              ,u.birth
+              ,u.reg_date
+              ,u.upd_date
+              ,u.enabled
+              ,auth
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
+        WHERE u.user_id = #{userId}
     </select>
 
     <!-- 게시글 등록 -->
@@ -84,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT COUNT(*)
         FROM trainer
         WHERE 
-            <if test="option.code == 0">
+            <!-- <if test="option.code == 0">
                   title LIKE CONCAT('%', #{option.keyword}, '%')
                OR writer LIKE CONCAT('%', #{option.keyword}, '%') 
                OR content LIKE CONCAT('%', #{option.keyword}, '%') 
@@ -101,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
             <if test="option.code == 4">
                writer LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
+            </if> -->
         ORDER BY reg_date DESC
     </select>
 
@@ -110,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT *
         FROM trainer
         WHERE 
-            <if test="option.code == 0">
+            <!-- <if test="option.code == 0">
                   title LIKE CONCAT('%', #{option.keyword}, '%')
                OR writer LIKE CONCAT('%', #{option.keyword}, '%') 
                OR content LIKE CONCAT('%', #{option.keyword}, '%') 
@@ -127,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
             <if test="option.code == 4">
                writer LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
+            </if> -->
         ORDER BY reg_date DESC
     </select>
 
