@@ -2,6 +2,7 @@ package com.mypet.mungmoong.trainer.mapper;
 
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
