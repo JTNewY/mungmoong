@@ -8,20 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mypet.mungmoong.trainer.mapper.TrainerMapper">
 
     <!-- 게시글 조회 -->
+    <!-- LEFT OUTER JOIN user_auth auth ON t.user_id = auth.user_id -->
     <select id="select" resultType="Trainer">
-        SELECT u.user_id
-              ,u.password
-              ,u.name
-              ,u.address
-              ,u.mail
-              ,u.phone
-              ,u.birth
-              ,u.reg_date
-              ,u.upd_date
-              ,u.enabled
-              ,auth
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
-        WHERE u.user_id = #{userId}
+        SELECT *
+        FROM trainer
+        WHERE user_id = #{userId}
     </select>
 
     <!-- 게시글 등록 -->

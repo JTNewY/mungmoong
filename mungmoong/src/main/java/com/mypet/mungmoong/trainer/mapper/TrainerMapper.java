@@ -9,7 +9,7 @@ import com.mypet.mungmoong.trainer.dto.Trainer;
 public interface TrainerMapper {
 
     // 게시글 조회
-    public Trainer select(int no) throws Exception;
+    public Trainer select(String userId);
     // 게시글 등록
     public int insert(Trainer trainer) throws Exception;
     // 게시글 수정

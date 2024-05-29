@@ -41,12 +41,14 @@
         SELECT u.user_id
               ,u.password
               ,u.name
+              ,u.birth
               ,u.address
               ,u.mail
               ,u.phone
               ,u.reg_date
               ,u.upd_date
               ,u.enabled
+              ,u.role
               ,auth
         FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
@@ -58,12 +60,14 @@
         SELECT u.user_id
               ,u.password
               ,u.name
+              ,u.birth
               ,u.address
               ,u.mail
               ,u.phone
               ,u.reg_date
               ,u.upd_date
               ,u.enabled
+              ,u.role
               ,auth
         FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
