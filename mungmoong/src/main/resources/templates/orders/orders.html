@@ -17,7 +17,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">결제정보입력</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close buttons button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form class="col g-7">
@@ -28,23 +28,23 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-primary"data-bs-dismiss="modal">확인</button>
+          <button type="button" class="buttons button" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="buttons button"data-bs-dismiss="modal">확인</button>
         </div>
       </div>
     </div>
   </div>
   <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">회원님 결제정보입력</h4>
   <div class="input-form-backgroud row"
-  style="padding: 3%;
+  style="padding: 3%;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 50%;
   border-radius: 15px;
   margin: 0 auto;
   margin-bottom: 4%;
   background: #fff4d5">                          
-          <div class="input-form col-md-12 mx-auto"action="/orders/orders" method="post">
-            <h4 class="mb-3">결제정보</h4>
-            <form class="validation-form" novalidate>
+          <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">결제정보입력</h4>
+            <form class="validation-form" novalidate action="/orders/orders" method="post">
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name">예약자</label>
@@ -101,7 +101,7 @@
                 </div>
               </div>
               <!-- 모달을 실행할 버튼 -->
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" class="buttons button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 결제
               </button>
             </div>
@@ -110,15 +110,12 @@
                 <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
               </div>
               <div class="mb-4" style="text-align: center;padding: 3% 0;">               
-                <button type="submit" onclick="ordersList()" class="btn btn-outline-warning">저장</button>
-              <button type="button"onclick="reserveList()" class="btn btn-outline-warning">목록</button>
+                <button type="submit" onclick="ordersList()" class="buttons button">저장</button>
+              <button type="button"onclick="reserveList()" class="buttons button">목록</button>
               </div>
               
             </form>
           </div>
-        </div>
-        <div>
-          <p style="text-align: center ;">멍뭉닷컴</p>
         </div>
       </div>
     </div>

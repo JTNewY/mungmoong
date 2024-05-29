@@ -15,7 +15,7 @@
  <body layout:fragment="content">
   <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">홍길동 훈련사님 예약</h4>
   <div class="input-form-backgroud row"
-  style="padding: 3%;
+  style="padding: 3%; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 50%;
   border-radius: 15px;
   margin: 0 auto;
@@ -23,18 +23,18 @@
   background: #fff4d5">                          
           <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">예약하기</h4>
-            <form class="validation-form" novalidate>
+            <form class="validation-form"action="/orders/insert" method="post"  novalidate>
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name">예약자</label>
-                  <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                  <input type="text" class="form-control" id="user_id" name="user_id" value="" required>
                   <div class="invalid-feedback">
                     이름을 입력해주세요.
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="nickname">훈련사명</label>
-                  <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                  <input type="text" class="form-control" id="trainer_id" name="trainer_id" placeholder="" value="" required>
                   <div class="invalid-feedback">
                     훈련사를 입력해주세요.
                   </div>
@@ -43,29 +43,29 @@
     
               <div class="mb-3">
                 <label for="email">이메일</label>
-                <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                <input type="email" class="form-control" id="mail" name="mail" placeholder="you@example.com" required>
                 <div class="invalid-feedback">
                   이메일을 입력해주세요.
                 </div>
               </div>
               <div class="mb-3">
                 <label for="phone">전화</label>
-                <input type="phone" class="form-control" id="phone" placeholder="01012341234" required>
+                <input type="phone" class="form-control" id="phone" name="phone"  placeholder="01012341234" required>
                 <div class="invalid-feedback">
                   전화번호를 입력해주세요.
                 </div>
               </div>
     
               <div class="mb-3">
-                <label for="address">주소</label>
-                <input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>
+                <label for="adress">주소</label>
+                <input type="text" class="form-control" id="adress" name="adress" placeholder="서울특별시 강남구" required>
                 <div class="invalid-feedback">
                   주소를 입력해주세요.
                 </div>
               </div>
               <div class="mb-3">
-                <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
+                <label for="adress2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                <input type="text" class="form-control" id="adress2" placeholder="상세주소를 입력해주세요.">
               </div>
               <div class="mb-3">
                 <label for="pet">견종</label>
@@ -76,49 +76,41 @@
               </div>
               <div class="mb-3">
                 <label for="petage">나이</label>
-                <input type="petage" class="form-control" id="petage" placeholder="*살" required>
+                <input type="petage" class="form-control" id="age" name="age" placeholder="*살" required>
                 <div class="invalid-feedback">
                   반려견나이를 입력해주세요
                 </div>
               </div>
               <div>
                 <p>요청사항</p>
-                <textarea rows="4" cols="47"></textarea>
+                <textarea rows="4" cols="47" style="width: 100%;border: 1px solid #dfdfdf; border-radius: 20px;"></textarea>
              </div>
-              <div class="row">
-                <div class="col-md-8 mb-3">
-                  <label for="root">예약선택</label>
-                  <select class="custom-select d-block w-100" id="product" style="padding: 3% 0; border-radius: 31px;">
-                    <option value=""></option>
-                    <option value="40000">훈련</option>
-                    <option value="15000">돌봄</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    예약종류를 선택해주세요.
-                  </div>
-                </div>
+             <div class="row">
+              <div class="col-md-6 mb-3" id="priceDisplay">
+                <label for="code">금액</label>
+                <input type="text" class="form-control" id="priceDisplay" name="priceDisplay" placeholder="" required="">   
             </div>
-            <div>
-                <div class="col-md-4 mb-3" id="priceDisplay">
-                  <label for="code">금액</label>
-                  <input type="text" class="form-control" id="code" placeholder="" required>
-              </div>
-              <a onclick="pay()" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">결제</a>
+             <div class="mb-3" id="priceDisplay" style="margin-top: auto; width: 50%;flex-direction: row;">
+                <a onclick="pay()" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" style="flex-direction: revert;">결제</a>
             </div>
+          </div>
+            <!-- <div class="fileuploadbox">
+              <label for="images" class="image-upload-title">첨부파일</label>
+              <label for="images" class="file-upload-button">첨부하기</label>
+              <input type="file" id="images" name="images" accept="image/*" multiple onchange="previewImages(event)">
+              <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
+          </div> -->
+          <div id="image-preview-container"></div>
             <div class="custom-control custom-checkbox" style="padding: 3% 0;">
                 <input type="checkbox" class="custom-control-input" id="aggrement" required>
                 <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
               </div>
               <div class="mb-4" style="text-align: center;padding: 3% 0;">               
-                <button type="button" onclick="reserveList()" class="btn btn-outline-warning">저장</button>
-              <button type="button"onclick="reserveList()" class="btn btn-outline-warning">목록</button>
+                <button type="submit" onclick="reserveList()" class="buttons button">저장</button>
+              <button type="button"onclick="reserveList()" class="buttons button">목록</button>
               </div>
-              
             </form>
           </div>
-        </div>
-        <div>
-          <p style="text-align: center ;">멍뭉닷컴</p>
         </div>
       </div>
     </div>
@@ -141,6 +133,21 @@ productSelect.addEventListener("change", function() {
   priceDisplay.style.fontSize = "18px";
   priceDisplay.style.color = "red";
   priceDisplay.style.whiteSpace = "nowrap";
+
+  function previewImages(event) {
+    var container = document.getElementById('image-preview-container');
+    container.innerHTML = ''; // 기존 이미지 제거
+    // //이미지 저장스크립트
+    // var files = event.target.files;
+    // for (var i = 0; i < files.length; i++) {
+    //     var image = document.createElement('img');
+    //     image.src = URL.createObjectURL(files[i]);
+    //     image.alt = '이미지 미리보기';
+    //     image.style.maxWidth = '200px';
+    //     image.style.marginTop = '10px';
+    //     container.appendChild(image);
+    // }
+}
 });
  </script>
 </body>

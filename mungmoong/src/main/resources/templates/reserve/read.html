@@ -16,7 +16,7 @@
   <div class="container-sm reserve">
   <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">홍길동 훈련사님 예약확인</h4>
         <div class="input-form-backgroud row"
-        style="padding: 3%;
+        style="padding: 3%;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         width: 50%;
         border-radius: 15px;
         margin: 0 auto;
@@ -84,7 +84,7 @@
               </div>
               <div class="mb-3">
                 <span>요청사항</span>
-                <textarea rows="4" cols="47"></textarea>
+                <textarea rows="4" cols="47" style="width: 100%;border: 1px solid #dfdfdf; border-radius: 20px;"></textarea>
              </div>
              <div class="mb-3">
                 <p th:text="${selectedDate}">예약날짜</p>
@@ -98,13 +98,10 @@
                 <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
               </div>
               <div class="mb-4" style="text-align: center;padding: 3% 0;">               
-                <button type="button" class="btn btn-outline-warning">예약</button>
-              <button type="button" class="btn btn-outline-warning">목록</button>
+                <button type="button" class="buttons button">예약</button>
+              <button type="button" class="buttons button">목록</button>
               </div>
           </div>
-        </div>
-        <div>
-          <p style="text-align: center ;">멍뭉닷컴</p>
         </div>
       </div>
     </div>
