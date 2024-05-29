@@ -25,7 +25,7 @@ CREATE TABLE `trainer` (
 	`career`		VARCHAR(100)	NULL,	-- 경력
 	`certificate`	VARCHAR(100)	NULL,	-- 자격증
 	`content`		VARCHAR(1000)	NULL,	-- 소개
-	`user_id`		VARCHAR(40)	NOT NULL	-- 회원 아이디
+	`user_id`		VARCHAR(40)		NULL	-- 회원 아이디
 );
 
 
