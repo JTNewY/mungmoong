@@ -7,8 +7,18 @@
             </div>
 
             <div class="mobile-auth"    id="mobile-auth">
-                <button type="button" class="btn btn-outline-secondary">로그인</button>
-                <button type="button" class="btn btn-outline-secondary">회원가입</button>
+                <th:block sec:authorize="isAnonymous()">
+                    <a href="/users/login" class="btn btn-outline-secondary mx-1">로그인</a>
+                    <a href="/users/register" class="btn btn-outline-secondary mx-1">회원가입</a>
+                 </th:block>
+                 <th:block sec:authorize="isAuthenticated()">
+                <form action="/logout" method="post" class="d-inline">
+                    <!-- CSRF TOKEN -->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <a href="/users/index" class="btn btn-outline-secondary mx-1 same-style-btn">마이페이지</a>
+                    <button type="submit" class="btn btn-outline-secondary mx-1 same-style-btn" style="padding: 6px 12px; border: 1px solid #6c757d;">로그아웃</button>
+                </form>
+            </th:block>
             </div>
             <div class="hamburger" id="hamburger" onclick="toggleMenu()">
                 <div></div>
@@ -29,13 +39,18 @@
                 </th:block>
                 <!-- 로그인 시 -->
                 <th:block sec:authorize="isAuthenticated()">
-                <form action="/logout" method="post" class="d-inline">
-                    <!-- CSRF TOKEN -->
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <th:block th:if="${session.user.role == 0}">
+                        <a href="/trainer/join_data" class="btn btn-outline-success mx-1 same-style-btn">훈련사 등록</a>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_TRAINER')">
+                    </th:block>
                     <a href="/users/index" class="btn btn-outline-secondary mx-1 same-style-btn">마이페이지</a>
-                    <button type="submit" class="btn btn-outline-secondary mx-1 same-style-btn" style="padding: 6px 12px; border: 1px solid #6c757d;">로그아웃</button>
-                </form>
-            </th:block>
+                    <form action="/logout" method="post" class="d-inline">
+                        <!-- CSRF TOKEN -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-outline-secondary mx-1 same-style-btn" style="padding: 6px 12px; border: 1px solid #6c757d;">로그아웃</button>
+                    </form>
+                </th:block>
             </div>
            
         </div>

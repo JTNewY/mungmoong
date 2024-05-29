@@ -16,11 +16,7 @@
 <body layout:fragment="content">
     <br>
     <div class="login-wrapper">
-        <div class="tabs">
-            <button class="active" onclick="showForm('user')">사용자</button>
-            <button onclick="showForm('trainer')">훈련사</button>
-            <button onclick="showForm('admin')">관리자</button>
-        </div>
+       
         <img src="/img/logo.png" alt="댕댕이" style="width: 80%;">
         <form id="user" class="login-form" action="/login" method="post">
             <!-- CSRF TOKEN -->
@@ -48,51 +44,10 @@
             </div>
             <button type="submit" class="login">로그인</button>
         </form>
-        <form id="trainer" class="login-form" style="display: none;" action="/login" method="post">
-            <!-- CSRF TOKEN -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-
-            <input type="text" placeholder="훈련사 아이디" name="userId">
-            <input type="password" placeholder="비밀번호" name="password">
-            <!-- 로그인 에러 -->
-            <th:block th:if="${param.error}">
-                <p class="text-center text-danger">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
-            </th:block>
-            <div class="options">
-
-                <label for="trainer-keep-logged-id">
-                    <input type="checkbox" id="trainer-keep-logged-id">
-                    아이디 저장 &nbsp;
-                </label>
-
-                <label for="trainer-keep-logged-in">
-                    <input type="checkbox" id="trainer-keep-logged-in">
-                    로그인 상태 유지 
-                </label>
-            </div>
-            <button type="submit" class="login">로그인</button>
-        </form>
-        <form id="admin" class="login-form" style="display: none;" action="/login" method="post">
-            <!-- CSRF TOKEN -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-
-            <input type="text" placeholder="관리자 아이디" name="userId">
-            <input type="password" placeholder="비밀번호" name="password">
-            <!-- 로그인 에러 -->
-            <th:block th:if="${param.error}">
-                <p class="text-center text-danger">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
-            </th:block>
-            <div class="options">
-                <label for="admin-keep-logged-in">
-                    <input type="checkbox" id="admin-keep-logged-in">
-                    로그인 상태 유지
-                </label>
-            </div>
-            <button type="submit" class="login">로그인</button>
-        </form>
+       
         <div class="options">
-            <a href="#">회원가입</a>
-            <a href="#">아이디/비밀번호 찾기</a>
+            <a href="/users/register">회원가입</a>
+            <a href="/users/findId">아이디/비밀번호 찾기</a>
         </div>
         <div class="social-login">
             <h3>소셜로그인</h3>

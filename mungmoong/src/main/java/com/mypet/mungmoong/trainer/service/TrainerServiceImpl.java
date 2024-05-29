@@ -1,14 +1,11 @@
 package com.mypet.mungmoong.trainer.service;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mypet.mungmoong.trainer.dto.Files;
-import com.mypet.mungmoong.trainer.dto.Option;
-import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.mapper.TrainerMapper;
 
@@ -19,40 +16,24 @@ import lombok.extern.slf4j.Slf4j;
 public class TrainerServiceImpl implements TrainerService {
     
     @Autowired
-    private TrainerMapper TrainerMapper;
+    private TrainerMapper trainerMapper;
     
     @Autowired
     private FileService fileService;
 
 
     /**
-     * 게시글 목록 조회
-     */
-    @Override
-    // public List<Trainer> list(Page page, Option option) throws Exception {
-    public List<Trainer> list(Page page) throws Exception {
-        // 게시글 데이터 개수 조회
-        // int total = TrainerMapper.count(option);
-        // page.setTotal(total);
-        
-        // trainerMapper 인터페이스 호출 -> trainerMapper.xml 호출
-        // List<Trainer> trainerList = TrainerMapper.list(page, option);
-        List<Trainer> trainerList = TrainerMapper.list(page);
-        return trainerList;
-    }
-
-    /**
      * 게시글 조회
      * - no 매개변수로 게시글 번호를 전달받아서 데이터베이스에 조회 요청
      */
     @Override
-    public Trainer select(int no) throws Exception {
+    public Trainer select(String userId) throws Exception {
         // TrainerMapper 로 select(no) 호출
         /*
          *        ➡ trainer trainer 로 받아옴
          *        ➡ return trainer
          */
-        Trainer trainer = TrainerMapper.select(no);
+        Trainer trainer = trainerMapper.select(userId);
         // 추가 작업 •••
         // 만일 추가 작업이 없다면 바로 return에 넣어도 됨
         
@@ -71,11 +52,11 @@ public class TrainerServiceImpl implements TrainerService {
         *        ➡ int result 로 데이터 처리 행(개수) 받아옴
         *        ➡ return result
         */
-        int result = TrainerMapper.insert(trainer);
+        int result = trainerMapper.insert(trainer);
         
         // 파일 업로드
         String parentTable = "trainer";
-        int parentNo = TrainerMapper.maxPk();
+        int parentNo = trainerMapper.maxPk();
         
         // 썸네일 업로드 (한 건)
         // - 부모테이블, 부모번호, 멀티파트파일, 파일코드:1(썸네일)
@@ -122,25 +103,8 @@ public class TrainerServiceImpl implements TrainerService {
          *        ➡ int result 로 데이터 처리 행(개수) 받아옴
          *        ➡ return result
          */
-        int result = TrainerMapper.update(trainer);
+        int result = trainerMapper.update(trainer);
         return result;
-    }
-
-
-
-    /**
-     * 조회 수 증가
-     */
-    @Override
-    public int view(int no) throws Exception {
-        log.info(no + "빈 글 조회 수 증가 •••");
-        return TrainerMapper.view(no);
-    }
-
-    @Override
-    public List<Trainer> search(Option option) throws Exception {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
     }
 
 
