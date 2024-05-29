@@ -6,6 +6,15 @@
  <head>
         <title>예약 페이지</title>
     </head>
+        <style>
+          .accordion{
+            background: #fff;
+            border: 0;
+          }
+          accordion-button:not(.collapsed) {
+            background: #fff;
+          }
+        </style>
     <body layout:fragment="content">
        <!--모달start-->
        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -46,15 +55,15 @@
          </div>
        </div>
        <!--모달end-->
-      <div class="container"style="padding: 0;">
+      <div class="container"style="padding: 70px;">
       <div class="accordion" id="accordionExample">
         <!--start-->
-        <div class="accordion-item">
+        <div class="accordion-item" style="border: 0;">
           <h2 class="accordion-header" id="headingOne">
-            <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <div class="accordion-button"style=" background: #fff;boarde" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               <!--훈련사리스트부분시작-->
               <div class="row">
-                <div class="col" style="width: 320px;height:320px;background:#F6C542;border-radius: 30px; ">
+                <div class="col" style="width: 320px;height:320px;background:#fff6df;border-radius: 30px; ">
                   <div style="padding: 3% 0;">
                       <img src="/img/thumnail.png" class="img-thumbnail" alt="훈련사" style="background: none;border:0;display: block;width: 197px;margin: 0 auto;">
                         <div style="display: flex;
@@ -176,7 +185,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left; padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -210,7 +219,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left;padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -245,7 +254,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left;padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -274,7 +283,7 @@
                                     </span>
                                   </div>
                               <div class="row">
-                                <textarea style="padding: 2% 0;">
+                                <textarea style="padding: 2% 0;margin:3%  0">
                                 </textarea>
                                 <div style="padding-top: 2%;">
                                   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -292,12 +301,12 @@
         </div>
         <!--end-->
         <!--start-->
-        <div class="accordion-item">
+        <div class="accordion-item" style="border: 0;">
           <h2 class="accordion-header" id="headingTwo">
-            <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <div class="accordion-button" style="background: #fff;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               <!--훈련사리스트부분시작-->
               <div class="row">
-                <div class="col" style="width: 320px;height:320px;background:#F6C542;border-radius: 30px; ">
+                <div class="col" style="width: 320px;height:320px;background:#fff6df;border-radius: 30px; ">
                   <div style="padding: 3% 0;">
                       <img src="/img/thumnail.png" class="img-thumbnail" alt="훈련사" style="background: none;border:0;display: block;width: 197px;margin: 0 auto;">
                         <div style="display: flex;
@@ -418,7 +427,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left; padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -452,7 +461,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left; padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -487,7 +496,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left;padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -516,7 +525,7 @@
                                     </span>
                                   </div>
                               <div class="row">
-                                <textarea style="padding: 2% 0;">
+                                <textarea style="padding: 2% 0;margin:3%  0">
                                 </textarea>
                                 <div style="padding-top: 2%;">
                                   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -534,12 +543,12 @@
         </div>
         <!--end-->
         <!--start-->
-        <div class="accordion-item">
+        <div class="accordion-item" style="border: 0;">
           <h2 class="accordion-header" id="headingThree">
-            <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <div class="accordion-button" style="background: #fff;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               <!--훈련사리스트부분시작-->
               <div class="row">
-                <div class="col" style="width: 320px;height:320px;background:#F6C542;border-radius: 30px; ">
+                <div class="col" style="width: 320px;height:320px;background:#fff6df;border-radius: 30px; ">
                   <div style="padding: 3% 0;">
                       <img src="/img/thumnail.png" class="img-thumbnail" alt="훈련사" style="background: none;border:0;display: block;width: 197px;margin: 0 auto;">
                         <div style="display: flex;
@@ -660,7 +669,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left;padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -694,7 +703,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left; padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -729,7 +738,7 @@
                                   </div>
                               </div>
                               <div>
-                                <span style="float: left;text-align: left;">
+                                <span style="float: left;text-align: left;padding: 3% 0;">
                                   너무 잘 돌봐주셔서 감사드립니다<br>
                                   김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
                                   사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
@@ -758,7 +767,7 @@
                                     </span>
                                   </div>
                               <div class="row">
-                                <textarea style="padding: 2% 0;">
+                                <textarea style="padding: 2% 0;margin:3%  0">
                                 </textarea>
                                 <div style="padding-top: 2%;">
                                   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
