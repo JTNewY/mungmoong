@@ -15,7 +15,7 @@ CREATE TABLE `pet` (
 );
 
 CREATE TABLE `trainer` (
-	`no`			VARCHAR(50)	NOT NULL,	-- 훈련사 번호
+	`no`			INT			NOT NULL,	-- 훈련사 번호
 	`order_no`		INT			NOT NULL,	-- 결제 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
@@ -27,8 +27,35 @@ CREATE TABLE `trainer` (
 	`upd_date`		TIMESTAMP		NULL,	-- 수정일
 	`career`		VARCHAR(100)	NULL,	-- 경력
 	`certificate`	VARCHAR(100)	NULL,	-- 자격증
-	`content`		VARCHAR(1000)	NULL,	-- 소개
-	`user_id`		VARCHAR(40)	NOT NULL	-- 회원 아이디
+	`content`		TEXT			NULL,	-- 소개
+	`user_id`		VARCHAR(100)	NOT NULL-- 회원 아이디
+);
+
+CREATE TABLE `career` (
+	`no`		INT			NOT NULL, -- 경력 번호
+	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
+	`name`	VARCHAR(100)		NULL, -- 경력 이름
+	`reg_date`	TIMESTAMP		NULL, -- 등록일
+	`upd_date`	TIMESTAMP		NULL  -- 수정일
+);
+
+CREATE TABLE `certificate` (
+	`no`	INT			NOT NULL, -- 자격증 번호
+	`trainer_no`	INT	NOT NULL, -- 훈련사 번호
+	`file_no`	INT			NULL, -- 파일 번호
+	`name`	VARCHAR(100)	NULL, -- 자격증 명
+	`reg_date`	TIMESTAMP	NULL, -- 등록일
+	`upd_date`	TIMESTAMP	NULL  -- 수정일
+);
+
+CREATE TABLE `schedule` (
+	`schedule_no`	INT		NOT NULL, -- 스케쥴 번호
+	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
+	`title`	VARCHAR(50)			NULL, -- 이게 필요한지, 모달로 띄울건지 고민, 일단 보류 
+	`content`	TEXT			NULL, -- 내용
+	`schedule_date`	TIMESTAMP	NULL, -- 날짜
+	`reg_date`	TIMESTAMP		NULL, -- 등록일
+	`upd_date`	TIMESTAMP		NULL  -- 수정일
 );
 
 
@@ -125,6 +152,7 @@ CREATE TABLE `users` (
 	`birth`	TIMESTAMP	NOT NULL,
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
+	`gender`	VARCHAR(50)	NOT NULL,
 	`phone`	VARCHAR(50)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
@@ -141,15 +169,6 @@ CREATE TABLE `user_auth` (
 	`auth`	VARCHAR(40)	NULL
 );
 
-CREATE TABLE `schedule` (
-	`schedule_no`	VARCHAR(50)	NOT NULL,
-	`trainer_no`	VARCHAR(50)	NOT NULL,
-	`title`	VARCHAR(50)	NULL ,
-	`content`	TEXT	NULL,
-	`schedule_date`	TIMESTAMP	NULL,
-	`reg_date`	TIMESTAMP	NULL,
-	`upd_date`	TIMESTAMP	NULL
-);
 
 ALTER TABLE `pet` MODIFY COLUMN `pet_no` INT AUTO_INCREMENT PRIMARY KEY;
 
