@@ -1,5 +1,5 @@
 
--- Active: 1713528331467@@127.0.0.1@3306@mypet
+-- Active: 1716856468698@@127.0.0.1@3306@mungmoong
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
@@ -110,6 +110,7 @@ CREATE TABLE `review` (
 	`upd_date`	TIMESTAMP	NULL
 );
 
+TRUNCATE TABLE EXISTS  users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,
@@ -123,6 +124,8 @@ CREATE TABLE `users` (
 	`role`	INT	NULL,
 	`enabled` INT NULL
 );
+
+
 
 DROP TABLE IF EXISTS user_auth;
 CREATE TABLE `user_auth` (
