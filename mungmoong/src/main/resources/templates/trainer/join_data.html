@@ -35,32 +35,34 @@
                 * th:each="객체명 : ${컬렉션명}"
                 - th:each="board : ${boardList}"
             -->
-            <form action="/trainer/join_data" method="GET" id="form">
-                <div class="info">
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
-                            <tr class="first_tr">
-                                <th>목록</th>
-                                <th>내용</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="text-center-content">
-                                <td>이름</td>
-                                <td class="text-center" th:text="${trainer.name}"></td>
-                                <td>생년월일</td>
-                                <td class="text-center" th:text="${trainer.birth}"></td>
-                                <td>주소</td>
-                                <td class="text-center"></td>
-                                <td>전화</td>
-                                <td class="text-center"></td>
-                                <td>이메일</td>
-                                <td class="text-center"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </form>
+            <div class="info">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr class="first_tr">
+                            <th>목록</th>
+                            <th>내용</th>
+                        </tr>
+                    </thead>
+                    <th:block th:each="users : ${trainerList}">
+                        <tr class="text-center-content">
+                            <td>아이디</td>
+                            <td class="text-center" th:text="${trainer.user_id}"></td>
+                            <td>이름</td>
+                            <td class="text-center" th:text="${trainer.name}"></td>
+                            <td>생년월일</td>
+                            <td class="text-center" th:text="${trainer.birth}"></td>
+                            <td>성별</td>
+                            <td class="text-center" th:text="${trainer.gender}"></td>
+                            <td>주소</td>
+                            <td class="text-center" th:text="${trainer.address}"></td>
+                            <td>전화</td>
+                            <td class="text-center" th:text="${trainer.phone}"></td>
+                            <td>이메일</td>
+                            <td class="text-center" th:text="${trainer.mail}"></td>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
         </div>
     </div>
 </body>
