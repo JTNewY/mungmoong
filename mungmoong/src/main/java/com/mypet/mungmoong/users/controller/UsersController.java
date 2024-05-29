@@ -1,9 +1,7 @@
 package com.mypet.mungmoong.users.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.UsersService;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
+
+
+@Controller("usersController")
 @RequestMapping("/users")
 public class UsersController {
 
@@ -43,7 +46,7 @@ public class UsersController {
         
         return "redirect:/register?error";
     }
-    
+ 
     /**
      * 아이디 중복 검사
      * @param username
@@ -64,9 +67,4 @@ public class UsersController {
         //log.info("사용 가능한 아이디 입니다." + username);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
- 
-
-
-
-
 } // 끝

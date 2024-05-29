@@ -13,36 +13,6 @@
 </head>
   <!-- 모달 -->
  <body layout:fragment="content">
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">결제정보입력</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form class="col g-7">
-            <div class="mb-3">
-                <label for="name" class="form-label">결재자</label>
-                <input type="name" class="form-control" id="" placeholder="결재자">
-              </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">결재금액</label>
-                <input type="name" class="form-control" id="" placeholder="결재금액">
-              </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">카드번호</label>
-                <input type="name" class="form-control" id="" placeholder="카드번호">
-              </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-          <button type="button" class="btn btn-primary">저장</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">홍길동 훈련사님 예약</h4>
   <div class="input-form-backgroud row"
   style="padding: 3%;
@@ -133,10 +103,7 @@
                   <label for="code">금액</label>
                   <input type="text" class="form-control" id="code" placeholder="" required>
               </div>
-              <!-- 모달을 실행할 버튼 -->
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                결제
-              </button>
+              <a onclick="pay()" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">결제</a>
             </div>
             <div class="custom-control custom-checkbox" style="padding: 3% 0;">
                 <input type="checkbox" class="custom-control-input" id="aggrement" required>
@@ -160,6 +127,9 @@
 <script>
  function reserveList(){
     location.href='/reserve/list'
+ }
+ function pay(){
+    location.href='/orders/orders'
  }
  const productSelect = document.getElementById("product");
 const priceDisplay = document.getElementById("priceDisplay");

@@ -85,11 +85,18 @@
             </div>
             <!-- 하단 버튼 영역 -->
             <div class="bottom-btn">
-                <button type="button" class="btn btn-primary btn-lg listBtn" onclick="location.href = '/admin/admin_info'">목록</button>
+                <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
                 <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
             </div>
         </div>
     </div>
+
+    <script>
+        function moveToList() {
+            location.href = '/admin/admin_trainer'
+        }
+    </script>
+
 </body>
 
 </html>

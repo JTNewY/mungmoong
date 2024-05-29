@@ -1,4 +1,6 @@
 
+-- Active: 1716856468698@@127.0.0.1@3306@mungmoong
+
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
@@ -12,19 +14,20 @@ CREATE TABLE `pet` (
 );
 
 CREATE TABLE `trainer` (
-	`trainer_no`	VARCHAR(50)	NOT NULL,
-	`order_no`	INT	NOT NULL,
-	`name`	VARCHAR(50)	NOT NULL,
-	`size`	VARCHAR(50)	NOT NULL,
-	`age`	INT	NOT NULL,
-	`currer`	VARCHAR(100)	NULL,
-	`certificate`	VARCHAR(100)	NULL,
-	`reg_date`	TIMESTAMP	NULL,
-	`upd_date`	TIMESTAMP	NULL,
-	`address`	VARCHAR(150)	NULL,
-	`content`	VARCHAR(1000)	NULL,
-	`user_id`	VARCHAR(40)	NOT NULL
+	`no`			VARCHAR(50)	NOT NULL,	-- 훈련사 번호
+	`order_no`		INT			NOT NULL,	-- 결제 번호
+	`name`			VARCHAR(50)	NOT NULL,	-- 이름
+	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
+	`birth`			VARCHAR(50) NOT NULL,	-- 생일
+	`address`		VARCHAR(150)	NULL,	-- 주소
+	`reg_date`		TIMESTAMP		NULL,	-- 등록일
+	`upd_date`		TIMESTAMP		NULL,	-- 수정일
+	`career`		VARCHAR(100)	NULL,	-- 경력
+	`certificate`	VARCHAR(100)	NULL,	-- 자격증
+	`content`		VARCHAR(1000)	NULL,	-- 소개
+	`user_id`		VARCHAR(40)		NULL	-- 회원 아이디
 );
+
 
 CREATE TABLE `reserve` (
 	`date_no`	INT	NOT NULL,
@@ -107,6 +110,7 @@ CREATE TABLE `review` (
 	`upd_date`	TIMESTAMP	NULL
 );
 
+TRUNCATE TABLE EXISTS  users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,
@@ -120,6 +124,8 @@ CREATE TABLE `users` (
 	`role`	INT	NULL,
 	`enabled` INT NULL
 );
+
+
 
 DROP TABLE IF EXISTS user_auth;
 CREATE TABLE `user_auth` (
@@ -190,10 +196,6 @@ ALTER TABLE `schedule` ADD CONSTRAINT `PK_SCHEDULE` PRIMARY KEY (
 	`schedule_no`
 );
 
-INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role )
-VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0' );
+TRUNCATE TABLE users;
 
-
-INSERT INTO user_auth ( auth_no, user_id,  auth )
-VALUES (1,'user', 'ROLE_USER' );
 

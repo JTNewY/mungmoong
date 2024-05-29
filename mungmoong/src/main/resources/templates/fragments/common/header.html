@@ -16,10 +16,10 @@
                 <div></div>
             </div>
             <nav id="nav">
-                <a href="introduce">소개</a>
-                <a href="trainer">훈련사</a>
-                <a href="#">문의</a>
-                <a href="#">공지사항</a>
+                <a href="/introduce">소개</a>
+                <a href="/trainer">훈련사</a>
+                <a href="/board/Q&A">문의</a>
+                <a href="/board/notice">공지사항</a>
             </nav>
             <div class="auth" id="auth">
                 <!-- 비 로그인 시 -->
@@ -29,14 +29,13 @@
                 </th:block>
                 <!-- 로그인 시 -->
                 <th:block sec:authorize="isAuthenticated()">
-                    <form action="/logout" method="post">
-                        <!-- CSRF TOKEN -->
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-outline-secondary">로그아웃</button>
-                        </div>
-                    </form>
-                </th:block>
+                <form action="/logout" method="post" class="d-inline">
+                    <!-- CSRF TOKEN -->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <a href="/users/index" class="btn btn-outline-secondary mx-1 same-style-btn">마이페이지</a>
+                    <button type="submit" class="btn btn-outline-secondary mx-1 same-style-btn" style="padding: 6px 12px; border: 1px solid #6c757d;">로그아웃</button>
+                </form>
+            </th:block>
             </div>
            
         </div>

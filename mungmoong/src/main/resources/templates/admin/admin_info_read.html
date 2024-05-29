@@ -14,20 +14,21 @@
             <h1>회원정보</h1>
             <div class="tab_tr_btn">
                 <ul>
-                    <li><a href="/admin/admin_info_read_user">회원정보</a></li>
+                    <li><a href="/admin/admin_info_read">회원정보</a></li>
                     <li><a href="/admin/admin_info_read_pet">반려견</a></li>
                 </ul>
             </div>
-            <form class="form-group">
+            <form class="form-group" action="/users/delete" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div class="col-md-8 fmCont">
                     <ul>
                         <li>
                             <label for="id" name="id">ID</label>
-                            <input type="text" name="id" id="id" value="joeun">
+                            <input type="text" name="id" id="id" th:value="${users.userId}">
                         </li>
                         <li>
                             <label for="pw" name="pw">비밀번호</label>
-                            <input type="password" name="pw" id="pw" value="123456">
+                            <input type="password" name="pw" id="pw" th:value="123456">
                         </li>
                         <li>
                             <label for="name" name="name">이름</label>
@@ -58,11 +59,17 @@
             </form>
             <!-- 하단 버튼 영역 -->
             <div class="bottom-btn">
-                <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
-                <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
+                <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
+                <button type="button" class="btn btn-secondary btn-lg updateBtn" onclick="moveToList()">수정</button>
             </div>
         </div>
     </div>
+
+    <script>
+        function moveToList() {
+            location.href = '/admin/admin_info'
+        }
+    </script>
 </body>
 
 </html>

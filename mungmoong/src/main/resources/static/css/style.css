@@ -1,229 +1,229 @@
 @font-face {
-  font-family: 'SKYBORI';
-  src: url('/fonts/SKYBORI.ttf') format('truetype'),
-       url('/fonts/SKYBORI.otf') format('opentype');
-}
-
-* {
-  font-family: 'SKYBORI', sans-serif, 'Jua';
-} 
-
-.container {
-  padding: 6rem 0;
-}
-
-.tab-button {
-  font-size: 1rem;
-  width: 110px;
-  font-weight: bold;
-  padding: 0.5em 0.75em;
-  background-color: #FFE0B2;
-  color: #DAA414;
-  border-radius: 25px; 
-  text-align: center;
-}
-
-.tab-button.active {
-  background-color: #F6C542 !important;
-  color: snow !important;
-}
-
-.menu-button.active {
-  background-color: #B9D6DC !important;
-  color: snow !important;
-}
-
-
-.tab-button:hover {
-  background-color: #F6C542 !important;
-  color: snow !important;
-}
-
-.tab-button:focus {
-  background-color: #F6C542 !important;
-  color: snow !important;
-}
-
-.table td, .table th {
-  text-align: center;
-  vertical-align: middle;
-}
-
-/* 헤더 영역 */
-header {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ffdf8d47;
-  padding: 10px 20px;
-  border-bottom: 1px solid #ddd;
-}
-
-.top-row {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.auth {
-  display: flex;
-  align-items: center;
-}
-.auth button {
-  margin-left: 10px;
-  border: 2px solid #6c757d;
-  color: #6c757d;
-  background-color: transparent;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-.auth button:hover {
-  background-color: #6c757d;
-  color: white;
-}
-
-.mobile-auth {
-  display: none;
-  align-items: center;
-}
-.mobile-auth button {
-  margin-left: 10px;
-  border: 2px solid #6c757d;
-  color: #6c757d;
-  background-color: transparent;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-.mobile-auth button:hover {
-  background-color: #6c757d;
-  color: white;
-}
-
-nav {
-  display: flex;
-  flex-direction: row;
-}
-nav a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-  background-color: #ffdf8d05;
-  color: black;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-  display: inline-block;
-  font-size: 20px;
-}
-
-#nav a:hover {
-  /* background-color: #f5f0a3; */
-  transform: scale(1.1);
-  transform: rotate(5deg);
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  margin-left: 10px; /* Add margin to separate from mobile-auth */
-}
-.hamburger div {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  margin: 4px 0;
-  transition: all 0.3s;
-}
-.hamburger:hover div {
-  background-color: #0073e6;
-}
-
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  align-items: center; /* Center-aligns the mobile menu */
-  width: 100%;
-  background-color: #ffdf8d16;
-  padding: 10px;
-  border-top: 1px solid #ddd;
-  opacity: 0.7;
-}
-
-.mobile-menu nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center-aligns the nav links */
-}
-
-.mobile-menu nav a {
-  margin: 10px 0;
-}
-
-.mobile-menu .auth {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center-aligns the buttons */
-}
-
-.mobile-menu .auth button {
-  margin: 10px 0;
-}
-
-@media (max-width: 768px) {
+    font-family: 'SKYBORI';
+    src: url('/fonts/SKYBORI.ttf') format('truetype'),
+         url('/fonts/SKYBORI.otf') format('opentype');
+  }
+  
+  * {
+    font-family: 'SKYBORI', sans-serif, 'Jua';
+  } 
+  
+  .container {
+    padding: 6rem 0;
+  }
+  
+  .tab-button {
+    font-size: 1rem;
+    width: 110px;
+    font-weight: bold;
+    padding: 0.5em 0.75em;
+    background-color: #FFE0B2;
+    color: #DAA414;
+    border-radius: 25px; 
+    text-align: center;
+  }
+  
+  .tab-button.active {
+    background-color: #F6C542 !important;
+    color: snow !important;
+  }
+  
+  .menu-button.active {
+    background-color: #B9D6DC !important;
+    color: snow !important;
+  }
+  
+  
+  .tab-button:hover {
+    background-color: #F6C542 !important;
+    color: snow !important;
+  }
+  
+  .tab-button:focus {
+    background-color: #F6C542 !important;
+    color: snow !important;
+  }
+  
+  .table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  /* 헤더 영역 */
   header {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffdf8d47;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
   }
+  
   .top-row {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  nav, .auth {
-      display: none;
+  
+  .auth {
+    display: flex;
+    align-items: center;
   }
-  .hamburger {
-      display: flex;
-      order: 3; /* Ensure hamburger menu is placed to the right */
+  .auth button {
+    margin-left: 10px;
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    background-color: transparent;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
   }
+  .auth button:hover {
+    background-color: #6c757d;
+    color: white;
+  }
+  
   .mobile-auth {
-      display: flex; /* Show mobile auth buttons */
-      order: 2; /* Place mobile-auth just before the hamburger */
-      margin-left: auto; /* Push to the right */
+    display: none;
+    align-items: center;
   }
+  .mobile-auth button {
+    margin-left: 10px;
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    background-color: transparent;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .mobile-auth button:hover {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+  nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    background-color: #ffdf8d05;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    font-size: 20px;
+  }
+  
+  #nav a:hover {
+    /* background-color: #f5f0a3; */
+    transform: scale(1.1);
+    transform: rotate(5deg);
+  }
+  
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 10px; /* Add margin to separate from mobile-auth */
+  }
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 4px 0;
+    transition: all 0.3s;
+  }
+  .hamburger:hover div {
+    background-color: #0073e6;
+  }
+  
   .mobile-menu {
-      display: none;
+    display: none;
+    flex-direction: column;
+    align-items: center; /* Center-aligns the mobile menu */
+    width: 100%;
+    background-color: #ffdf8d16;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    opacity: 0.7;
   }
-}
-
-button {
-  background-color: #0073e6;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-button:hover {
-  background-color: #005bb5;
-}
-
-/* 푸터 영역 */
-.footer {
-  background-color: #b0d4e3;
-  padding: 20px;
-  border-top: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
+  
+  .mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-aligns the nav links */
+  }
+  
+  .mobile-menu nav a {
+    margin: 10px 0;
+  }
+  
+  .mobile-menu .auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-aligns the buttons */
+  }
+  
+  .mobile-menu .auth button {
+    margin: 10px 0;
+  }
+  
+  @media (max-width: 768px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .top-row {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav, .auth {
+        display: none;
+    }
+    .hamburger {
+        display: flex;
+        order: 3; /* Ensure hamburger menu is placed to the right */
+    }
+    .mobile-auth {
+        display: flex; /* Show mobile auth buttons */
+        order: 2; /* Place mobile-auth just before the hamburger */
+        margin-left: auto; /* Push to the right */
+    }
+    .mobile-menu {
+        display: none;
+    }
+  }
+  
+  button {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #005bb5;
+  }
+  
+  /* 푸터 영역 */
+  .footer {
+    background-color: #b0d4e3;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  

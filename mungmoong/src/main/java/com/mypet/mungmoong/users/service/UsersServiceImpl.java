@@ -1,5 +1,7 @@
 package com.mypet.mungmoong.users.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +14,7 @@ import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
 
-@Service
+@Service("userServiceImplForUsers")
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
@@ -81,5 +83,12 @@ public class UsersServiceImpl implements UsersService {
         int result = userMapper.insertAuth(userAuth);
         return result;
     }
-    
+
+    @Override
+    public List<Users> list() throws Exception {
+        List<Users> usersList = userMapper.list();
+        return usersList;
+    }
+  
+
 }

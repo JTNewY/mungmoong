@@ -1,9 +1,9 @@
-package com.mypet.mungmoong.mapper;
+// package com.mypet.mungmoong.mapper;
 
-import java.util.List;
+// import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+// import org.apache.ibatis.annotations.Mapper;
+// import org.apache.ibatis.annotations.Param;
 
 // import com.mypet.mungmoong.dto.Board;
 // import com.mypet.mungmoong.dto.Option;

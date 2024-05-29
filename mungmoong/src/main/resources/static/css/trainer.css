@@ -80,6 +80,23 @@
     font-size: 16px;
 }
 
+.btn-custom4{
+    width: 110px;
+    background-color: white;
+    border: 3px solid #A19F9D;
+    border-radius: 30px;
+    color: #A19F9D;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.btn-custom4:hover{
+    background-color: #A19F9D;
+    color: white;
+    font-size: 16px;
+}
+
 .button_sta {
     background-color: white;
     border: 3px solid #F6C542;
@@ -384,3 +401,23 @@ label {
     color: black;
     text-decoration: none;
 }
+
+/* --------------------- 훈련사 인증 페이지 --------------------- */
+.sub_text {
+    color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

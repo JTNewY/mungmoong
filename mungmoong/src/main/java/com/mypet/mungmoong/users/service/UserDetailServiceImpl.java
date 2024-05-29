@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  *  ✅ 이 인터페이스를 구현하여, 사용자 정보를 로드하는 방법을 정의할 수 있습니다.
  */
 @Slf4j
-@Service
+@Service("userDetailServiceForUsers")
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
