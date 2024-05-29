@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardServiceImpl implements BoardService {
     
     @Autowired
-    private TrainerMapper boardMapper;
+    private TrainerMapper trainerMapper;
     
     @Autowired
     private FileService fileService;
@@ -31,11 +31,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<Board> list(Page page, Option option) throws Exception {
         // 게시글 데이터 개수 조회
-        int total = boardMapper.count(option);
+        int total = trainerMapper.count(option);
         page.setTotal(total);
         
-        // BoardMapper 인터페이스 호출 -> BoardMapper.xml 호출
-        List<Board> boardList = boardMapper.list(page, option);
+        // trainerMapper 인터페이스 호출 -> trainerMapper.xml 호출
+        List<Board> boardList = trainerMapper.list(page, option);
         return boardList;
     }
 
@@ -45,16 +45,16 @@ public class BoardServiceImpl implements BoardService {
      */
     @Override
     public Board select(int no) throws Exception {
-        // boardMapper 로 select(no) 호출
+        // trainerMapper 로 select(no) 호출
         /*
          *        ➡ Board board 로 받아옴
          *        ➡ return board
          */
-        Board board = boardMapper.select(no);
+        Board board = trainerMapper.select(no);
         // 추가 작업 •••
         // 만일 추가 작업이 없다면 바로 return에 넣어도 됨
         
-        // boardMapper.view(no);
+        // trainerMapper.view(no);
 
         return board;
     }
@@ -64,16 +64,16 @@ public class BoardServiceImpl implements BoardService {
      */
     @Override
     public int insert(Board board) throws Exception {
-        // boardMapper 로 insert(Board) 호출
+        // trainerMapper 로 insert(Board) 호출
         /*
         *        ➡ int result 로 데이터 처리 행(개수) 받아옴
         *        ➡ return result
         */
-        int result = boardMapper.insert(board);
+        int result = trainerMapper.insert(board);
         
         // 파일 업로드
         String parentTable = "board";
-        int parentNo = boardMapper.maxPk();
+        int parentNo = trainerMapper.maxPk();
         
         // 썸네일 업로드 (한 건)
         // - 부모테이블, 부모번호, 멀티파트파일, 파일코드:1(썸네일)
@@ -115,12 +115,12 @@ public class BoardServiceImpl implements BoardService {
      */
     @Override
     public int update(Board board) throws Exception {
-        // boardMapper 로 update(Board) 호출
+        // trainerMapper 로 update(Board) 호출
         /*
          *        ➡ int result 로 데이터 처리 행(개수) 받아옴
          *        ➡ return result
          */
-        int result = boardMapper.update(board);
+        int result = trainerMapper.update(board);
         return result;
     }
 
@@ -129,13 +129,13 @@ public class BoardServiceImpl implements BoardService {
      */
     @Override
     public int delete(int no) throws Exception {
-        int result = boardMapper.delete(no);
+        int result = trainerMapper.delete(no);
         return result;
     }
 
     @Override
     public List<Board> search(Option option) throws Exception {
-        List<Board> boardList = boardMapper.search(option);
+        List<Board> boardList = trainerMapper.search(option);
         return boardList;
     }
 
@@ -145,7 +145,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int view(int no) throws Exception {
         log.info(no + "빈 글 조회 수 증가 •••");
-        return boardMapper.view(no);
+        return trainerMapper.view(no);
     }
 
 
