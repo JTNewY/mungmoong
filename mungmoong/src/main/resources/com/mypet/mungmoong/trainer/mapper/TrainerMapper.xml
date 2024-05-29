@@ -5,19 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- namespace="매퍼 인터페이스 경로" --> 
 <!-- 밑의 베이스 패키지 경로가 잘 맞는지 확인하기 -->
-<mapper namespace="com.mypet.mungmoong.trainer.mapper.BoardMapper">
+<mapper namespace="com.mypet.mungmoong.trainer.mapper.TrainerMapper">
 
     <!-- 게시글 목록 - [페이징] + [검색] -->
     <!-- 원래는 패키지까지 써줘야 함 -->
-    <select id="list" resultType="Board">
+    <select id="list" resultType="Trainer">
         SELECT b.*
 	        ,f.no file_no
 	        ,f.file_name
             ,f.file_path
             ,f.file_code
-        FROM board b LEFT JOIN ( SELECT *
+        FROM trainer b LEFT JOIN ( SELECT *
 						    FROM file
-                            WHERE parent_table = "board"
+                            WHERE parent_table = "trainer"
 						    AND file_code = 1
                         ) f
 			 on (b.no = f.parent_no)
@@ -45,21 +45,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 게시글 조회 -->
-    <select id="select" resultType="Board">
+    <select id="select" resultType="Trainer">
         SELECT *
-        FROM board
+        FROM trainer
         WHERE no = #{no}
     </select>
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO board( title, writer, content)
+        INSERT INTO trainer( title, writer, content)
         VALUES ( #{title}, #{writer}, #{content} )
     </insert>
 
     <!-- 게시글 수정 -->
     <update id="update">
-        UPDATE board
+        UPDATE trainer
            SET title = #{title}
               ,writer = #{writer}
               ,content = #{content}
@@ -69,20 +69,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 삭제 -->
     <delete id="delete">
-        DELETE FROM board
+        DELETE FROM trainer
         WHERE no = #{no}
     </delete>
 
     <!-- 게시글 번호 최댓값 -->
     <select id="maxPk" resultType="int">
         SELECT MAX(no)
-        FROM board
+        FROM trainer
     </select>
 
     <!-- 데이터 개수 조회 - [검색] -->
     <select id="count" resultType="int">
         SELECT COUNT(*)
-        FROM board
+        FROM trainer
         WHERE 
             <if test="option.code == 0">
                   title LIKE CONCAT('%', #{option.keyword}, '%')
@@ -106,9 +106,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 게시글 목록 - [검색] -->
-    <select id="search" resultType="Board">
+    <select id="search" resultType="trainer">
         SELECT *
-        FROM board
+        FROM trainer
         WHERE 
             <if test="option.code == 0">
                   title LIKE CONCAT('%', #{option.keyword}, '%')
@@ -133,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 조회 수 증가 -->
     <update id="view">
-        UPDATE board
+        UPDATE trainer
            SET views = views + 1
         WHERE no = #{no}
     </update>
