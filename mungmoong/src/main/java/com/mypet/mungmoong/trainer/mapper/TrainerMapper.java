@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
 @Mapper     // Mybatis의 매퍼 인터페이스로 지정하는 어노테이션
 public interface TrainerMapper {
 
     // 게시글 목록 - [페이징] + [검색]
-    // public List<Board> list(Page page) throws Exception;
-     public List<Trainer> list(/* @Param("page") Page page
-                            ,@Param("option") Option option */) throws Exception;
+    public List<Trainer> list(Page page) throws Exception;
+    //  public List<Trainer> list(@Param("page") Page page
+    //                         ,@Param("option") Option option) throws Exception;
 
     // 게시글 조회
     public Trainer select(int no) throws Exception;
@@ -25,7 +27,7 @@ public interface TrainerMapper {
     public int maxPk() throws Exception;
 
     // 게시글 데이터 개수 조회
-    public int count(/* @Param("option") Option option */) throws Exception;
+    public int count(@Param("option") Option option) throws Exception;
 
     // 게시글 목록 - [검색]
     // 매개변수 하나가 들어온다면 xml의 keyword가 text 등이여도 받아올 수 있다.
