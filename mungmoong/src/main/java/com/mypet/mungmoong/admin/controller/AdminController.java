@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mypet.mungmoong.trainer.dto.Board;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
@@ -35,6 +37,13 @@ public class AdminController {
         model.addAttribute("usersList", usersList);
 
         return "/admin/admin_info";
+    }
+
+    @GetMapping("/admin_info_read")
+    public String read(@RequestParam("userId") String username, Model model) throws Exception {
+        Users users = userService.select("username");
+        model.addAttribute("users", users);
+        return "/admin/admin_info_read";
     }
 
 
