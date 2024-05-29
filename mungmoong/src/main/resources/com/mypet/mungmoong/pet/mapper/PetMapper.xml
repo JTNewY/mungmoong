@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.pet.mapper.PetMapper">
+    
+    <!-- 새로운 반려동물 추가 -->
+    <insert id="insertPet" >
+        INSERT INTO pet (name, age, gender, property, reg_date, upd_date, order_no, user_id)
+        VALUES (#{name}, #{age}, #{gender}, #{property}, #{regDate}, #{updDate}, #{orderNo}, #{userId})
+    </insert>
+    
+    <!-- 반려동물 정보 수정 -->
+    <update id="updatePet">
+        UPDATE pet
+        SET name = #{name}, age = #{age}, gender = #{gender}, property = #{property}, 
+            upd_date = #{updDate}
+        WHERE pet_no = #{petNo}
+    </update>
+    
+    <!-- 반려동물 정보 삭제 -->
+    <delete id="deletePet" parameterType="int">
+        DELETE FROM pet
+        WHERE pet_no = #{petNo}
+    </delete>
+    
+    <!-- 반려동물 정보 검색 -->
+    <select id="findPetById" parameterType="int" >
+        SELECT *
+        FROM pet
+        WHERE pet_no = #{petNo}
+    </select>
+    
+</mapper>
