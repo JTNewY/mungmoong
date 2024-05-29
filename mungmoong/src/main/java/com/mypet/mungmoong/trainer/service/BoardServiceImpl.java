@@ -10,7 +10,7 @@ import com.mypet.mungmoong.trainer.dto.Board;
 import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.trainer.dto.Option;
 import com.mypet.mungmoong.trainer.dto.Page;
-import com.mypet.mungmoong.trainer.mapper.BoardMapper;
+import com.mypet.mungmoong.trainer.mapper.TrainerMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardServiceImpl implements BoardService {
     
     @Autowired
-    private BoardMapper boardMapper;
+    private TrainerMapper boardMapper;
     
     @Autowired
     private FileService fileService;
