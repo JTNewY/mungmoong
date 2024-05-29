@@ -40,8 +40,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin_info_read")
-    public String read(@RequestParam("userId") String username, Model model) throws Exception {
-        Users users = userService.select("username");
+    public String read(@RequestParam("userId") String userId, Model model) throws Exception {
+        Users users = userService.select(userId);
         model.addAttribute("users", users);
         return "/admin/admin_info_read";
     }

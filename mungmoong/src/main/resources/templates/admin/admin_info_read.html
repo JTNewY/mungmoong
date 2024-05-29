@@ -28,31 +28,23 @@
                         </li>
                         <li>
                             <label for="pw" name="pw">비밀번호</label>
-                            <input type="password" name="pw" id="pw" th:value="123456">
+                            <input type="password" name="pw" id="pw" th:value="${users.password}">
                         </li>
                         <li>
                             <label for="name" name="name">이름</label>
-                            <input type="text" name="name" id="name" value="김조은">
-                        </li>
-                        <li>
-                            <label for="nickName" name="nickName">닉네임</label>
-                            <input type="text" name="Nickname" id="nickName" value="닉값">
+                            <input type="text" name="name" id="name" th:value="${users.name}">
                         </li>
                         <li>
                             <label for="birth" name="birth">생년월일</label>
-                            <input type="text" name="birth" id="birth" value="2024-05-16">
-                        </li>
-                        <li>
-                            <label for="gender" name="gender">성별</label>
-                            <input type="text" name="gender" id="gender" value="남자">
+                            <input type="text" name="birth" id="birth" th:value="${#dates.format(users.birth, 'yyyy-MM-dd HH:mm:ss')}">
                         </li>
                         <li>
                             <label for="email" name="email">메일</label>
-                            <input type="text" name="email" id="email" value="joeun@joeun.com">
+                            <input type="text" name="email" id="email" th:value="${users.mail}">
                         </li>
                         <li>
                             <label for="phoneNumber" name="phoneNumber">전화번호</label>
-                            <input type="text" name="phoneNumber" id="phoneNumber" value="010-0000-0000">
+                            <input type="text" name="phoneNumber" id="phoneNumber" th:value="${users.phone}">
                         </li>
                     </ul>
                 </div>
