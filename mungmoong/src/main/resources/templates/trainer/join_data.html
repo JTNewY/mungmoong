@@ -25,41 +25,43 @@
                     </ul>
                 </div>
             </nav>
+            <!--
+                👩‍💻 텍스트 출력      
+                * th:text="${변수}"
+                - 변수 :  th:text="${message}"
+                - 객체 :  th:text="${board.title}"
 
-            <!-- 폼 태그 추가: 테이블을 포함 -->
-            <form action="/trainer/join_data" method="GET" id="tableForm">
+                👩‍💻 반복문
+                * th:each="객체명 : ${컬렉션명}"
+                - th:each="board : ${boardList}"
+            -->
+            <form action="/trainer/join_data" method="GET" id="form">
                 <div class="info">
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr class="first_tr">
-                                <th>No</th>
                                 <th>목록</th>
                                 <th>내용</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="text-center-content">
-                                <td>1</td>
                                 <td>이름</td>
                                 <td class="text-center">김훈련</td>
                             </tr>
                             <tr class="text-center-content">
-                                <td>2</td>
                                 <td>생년월일</td>
                                 <td class="text-center">900929</td>
                             </tr>
                             <tr class="text-center-content">
-                                <td>3</td>
                                 <td>주소</td>
                                 <td class="text-center">인천 부평구 부평동</td>
                             </tr>
                             <tr class="text-center-content">
-                                <td>4</td>
                                 <td>전화</td>
                                 <td class="text-center">010-1234-1234</td>
                             </tr>
                             <tr class="text-center-content">
-                                <td>5</td>
                                 <td>이메일</td>
                                 <td class="text-center">1234@gmail.com</td>
                             </tr>
