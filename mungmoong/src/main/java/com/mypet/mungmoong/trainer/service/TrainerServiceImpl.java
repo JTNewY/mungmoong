@@ -1,14 +1,11 @@
 package com.mypet.mungmoong.trainer.service;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mypet.mungmoong.trainer.dto.Files;
-import com.mypet.mungmoong.trainer.dto.Option;
-import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.mapper.TrainerMapper;
 
@@ -24,22 +21,6 @@ public class TrainerServiceImpl implements TrainerService {
     @Autowired
     private FileService fileService;
 
-
-    /**
-     * 게시글 목록 조회
-     */
-    @Override
-    // public List<Trainer> list(Page page, Option option) throws Exception {
-    public List<Trainer> list(Page page) throws Exception {
-        // 게시글 데이터 개수 조회
-        // int total = TrainerMapper.count(option);
-        // page.setTotal(total);
-        
-        // trainerMapper 인터페이스 호출 -> trainerMapper.xml 호출
-        // List<Trainer> trainerList = TrainerMapper.list(page, option);
-        List<Trainer> trainerList = TrainerMapper.list(page);
-        return trainerList;
-    }
 
     /**
      * 게시글 조회
@@ -124,23 +105,6 @@ public class TrainerServiceImpl implements TrainerService {
          */
         int result = TrainerMapper.update(trainer);
         return result;
-    }
-
-
-
-    /**
-     * 조회 수 증가
-     */
-    @Override
-    public int view(int no) throws Exception {
-        log.info(no + "빈 글 조회 수 증가 •••");
-        return TrainerMapper.view(no);
-    }
-
-    @Override
-    public List<Trainer> search(Option option) throws Exception {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
     }
 
 
