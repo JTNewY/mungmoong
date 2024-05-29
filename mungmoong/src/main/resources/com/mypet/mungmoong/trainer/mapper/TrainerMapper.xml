@@ -5,61 +5,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- namespace="매퍼 인터페이스 경로" --> 
 <!-- 밑의 베이스 패키지 경로가 잘 맞는지 확인하기 -->
-<mapper namespace="com.mypet.mungmoong.trainer.mapper.BoardMapper">
-
-    <!-- 게시글 목록 - [페이징] + [검색] -->
-    <!-- 원래는 패키지까지 써줘야 함 -->
-    <select id="list" resultType="Board">
-        SELECT b.*
-	        ,f.no file_no
-	        ,f.file_name
-            ,f.file_path
-            ,f.file_code
-        FROM board b LEFT JOIN ( SELECT *
-						    FROM file
-                            WHERE parent_table = "board"
-						    AND file_code = 1
-                        ) f
-			 on (b.no = f.parent_no)
-        WHERE 
-            <if test="option.code == 0">
-                  title LIKE CONCAT('%', #{option.keyword}, '%')
-               OR writer LIKE CONCAT('%', #{option.keyword}, '%') 
-               OR content LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-            <if test="option.code == 1">
-                title LIKE CONCAT('%', #{option.keyword}, '%')
-            </if>
-            <if test="option.code == 2">
-                content LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-            <if test="option.code == 3">
-                  title LIKE CONCAT('%', #{option.keyword}, '%')
-               OR content LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-            <if test="option.code == 4">
-               writer LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
-        ORDER BY reg_date DESC
-        LIMIT #{page.index}, #{page.rows}
-    </select>
+<mapper namespace="com.mypet.mungmoong.trainer.mapper.TrainerMapper">
 
     <!-- 게시글 조회 -->
-    <select id="select" resultType="Board">
-        SELECT *
-        FROM board
-        WHERE no = #{no}
+    <select id="select" resultType="Trainer">
+        SELECT u.user_id
+              ,u.password
+              ,u.name
+              ,u.address
+              ,u.mail
+              ,u.phone
+              ,u.birth
+              ,u.reg_date
+              ,u.upd_date
+              ,u.enabled
+              ,auth
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
+        WHERE u.user_id = #{userId}
     </select>
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO board( title, writer, content)
+        INSERT INTO trainer( title, writer, content)
         VALUES ( #{title}, #{writer}, #{content} )
     </insert>
 
     <!-- 게시글 수정 -->
     <update id="update">
-        UPDATE board
+        UPDATE trainer
            SET title = #{title}
               ,writer = #{writer}
               ,content = #{content}
@@ -69,22 +42,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 삭제 -->
     <delete id="delete">
-        DELETE FROM board
+        DELETE FROM trainer
         WHERE no = #{no}
     </delete>
 
     <!-- 게시글 번호 최댓값 -->
     <select id="maxPk" resultType="int">
         SELECT MAX(no)
-        FROM board
+        FROM trainer
     </select>
 
     <!-- 데이터 개수 조회 - [검색] -->
     <select id="count" resultType="int">
         SELECT COUNT(*)
-        FROM board
+        FROM trainer
         WHERE 
-            <if test="option.code == 0">
+            <!-- <if test="option.code == 0">
                   title LIKE CONCAT('%', #{option.keyword}, '%')
                OR writer LIKE CONCAT('%', #{option.keyword}, '%') 
                OR content LIKE CONCAT('%', #{option.keyword}, '%') 
@@ -101,16 +74,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
             <if test="option.code == 4">
                writer LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
+            </if> -->
         ORDER BY reg_date DESC
     </select>
 
     <!-- 게시글 목록 - [검색] -->
-    <select id="search" resultType="Board">
+    <select id="search" resultType="trainer">
         SELECT *
-        FROM board
+        FROM trainer
         WHERE 
-            <if test="option.code == 0">
+            <!-- <if test="option.code == 0">
                   title LIKE CONCAT('%', #{option.keyword}, '%')
                OR writer LIKE CONCAT('%', #{option.keyword}, '%') 
                OR content LIKE CONCAT('%', #{option.keyword}, '%') 
@@ -127,13 +100,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
             <if test="option.code == 4">
                writer LIKE CONCAT('%', #{option.keyword}, '%') 
-            </if>
+            </if> -->
         ORDER BY reg_date DESC
     </select>
 
     <!-- 조회 수 증가 -->
     <update id="view">
-        UPDATE board
+        UPDATE trainer
            SET views = views + 1
         WHERE no = #{no}
     </update>

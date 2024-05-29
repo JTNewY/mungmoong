@@ -14,18 +14,20 @@ CREATE TABLE `pet` (
 );
 
 CREATE TABLE `trainer` (
-	`trainer_no`	VARCHAR(50)	NOT NULL,	-- 훈련사 번호
+	`no`			VARCHAR(50)	NOT NULL,	-- 훈련사 번호
 	`order_no`		INT			NOT NULL,	-- 결제 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
-	`age`			INT			NOT NULL,	-- 나이
+	`birth`			VARCHAR(50) NOT NULL,	-- 생일
+	`mail`			VARCHAR(50)		NULL,	-- 이메일
+    `phone`			VARCHAR(50)		NULL,	-- 핸드폰 번호
 	`address`		VARCHAR(150)	NULL,	-- 주소
 	`reg_date`		TIMESTAMP		NULL,	-- 등록일
 	`upd_date`		TIMESTAMP		NULL,	-- 수정일
 	`career`		VARCHAR(100)	NULL,	-- 경력
 	`certificate`	VARCHAR(100)	NULL,	-- 자격증
 	`content`		VARCHAR(1000)	NULL,	-- 소개
-	`user_id`		VARCHAR(40)		NULL	-- 회원 아이디
+	`user_id`		VARCHAR(40)	NOT NULL	-- 회원 아이디
 );
 
 
@@ -63,11 +65,15 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `img_file` (
 	`no`	INT	NULL,
-	`user_num`	VARCHAR(100)	NOT NULL,
+	`parent_no`	INT	NULL,
+	`parent_table`	VARCHAR(100)	NULL,
 	`file_name`	VARCHAR(100)	NOT NULL,
-	`file_flow`	VARCHAR(100)	NULL,
-	`img_type`	VARCHAR(50)	NULL,
-	`file_parent_no`	INT	NULL
+	`file_path`	VARCHAR(100)	NULL,
+	`file_size`	LONG	NULL,
+	`file_code`	VARCHAR(50)	NULL,
+	`user_no`	VARCHAR(100)	NOT NULL,
+	`reg_date`	DATE	NULL,
+	`upd_date`	DATE	NULL
 );
 
 CREATE TABLE `reply` (

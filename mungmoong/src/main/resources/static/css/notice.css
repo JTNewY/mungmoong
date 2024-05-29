@@ -4,19 +4,6 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #f8f8f8;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-footer {
-    background-color: #f8f8f8;
-    padding: 20px;
-    text-align: center;
-}
 
 footer p {
     margin: 5px 0;
