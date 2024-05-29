@@ -3,10 +3,11 @@
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
-	`name`	VARCHAR(50)	NOT NULL,
+	`petname`	VARCHAR(50)	NOT NULL,
+	`pettype` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
 	`gender`	INT	NOT NULL,
-	`property`	VARCHAR(100)	NULL,
+	`character`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
 	`order_no`	INT	NOT NULL,
@@ -150,9 +151,8 @@ CREATE TABLE `schedule` (
 	`upd_date`	TIMESTAMP	NULL
 );
 
-ALTER TABLE `pet` ADD CONSTRAINT `PK_PET` PRIMARY KEY (
-	`pet_no`
-);
+ALTER TABLE `pet` MODIFY COLUMN `pet_no` INT AUTO_INCREMENT PRIMARY KEY;
+
 
 ALTER TABLE `trainer` ADD CONSTRAINT `PK_TRAINER` PRIMARY KEY (
 	`trainer_no`

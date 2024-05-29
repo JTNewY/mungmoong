@@ -29,3 +29,20 @@ body {
     -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
   }
+
+  .buttons button {
+    background-color: transparent;
+    color: #F6C542;
+    border: 2px solid #F6C542;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.buttons button:hover {
+    background-color: #F6C542;
+    color: white;
+}

@@ -1,7 +1,8 @@
 package com.mypet.mungmoong.trainer.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.trainer.dto.Files;
-import com.mypet.mungmoong.trainer.dto.Option;
-import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
+import com.mypet.mungmoong.trainer.service.UsersService;
+import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 
 /**
@@ -37,6 +39,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/trainer")       // 상위 경로를 먼저 지정해주고 싶을 때
                                         // 클래스 레벨 요청 경로 매핑 - /board~ 경로의 요청을 처리
 public class TrainerController {
+
+    @Autowired
+    private UsersService usersService;
 
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
@@ -57,7 +62,7 @@ public class TrainerController {
     private FileService fileService;
     
     /**
-     * 게시글 조회 화면 
+     * 훈련사 정보 조회 화면 
      * - /board/read?no=❔
      * @param no
      * @return
@@ -65,23 +70,32 @@ public class TrainerController {
      */
     // @RequestParam("파라미터명") : 스프링 부트 3.2 버전 이상에서는 생략하면 매핑 불가능
     @GetMapping("/join_data")
-    public String read(@RequestParam("no") int no
-                      , Model model) throws Exception {
-        // 데이터 요청
-        Trainer trainer = trainerService.select(no);
+    public String read(Model model, HttpSession session) throws Exception {
+        Users loginUser = (Users) session.getAttribute("user");
+        String userId = loginUser.getUserId();
 
-        // // 파일 목록 요청
-        // file.setParentTable("board");
-        // file.setParentNo(no);
-        // List<Files> fileList = fileService.listByParent(file);
-
-        // 모델 등록
-        model.addAttribute("trainer", trainer);
-        // model.addAttribute("fileList", fileList);
+        Users user = usersService.select(userId);
+        model.addAttribute("user", user);
         
+
         // 뷰페이지 지정
         return "/trainer/join_data";
     }
+
+    /**
+     * 훈련사 정보 등록 처리
+     * @param trainer
+     * @return
+     */
+    @PostMapping("/join_data")
+    public String joinDataPro(Trainer trainer) {
+        log.info(":::::::::::::::::::::::::::::::::::::::::");
+        log.info(":::::::::::::::: trainer :::::::::::::::::");
+        log.info(" trainer : " + trainer);
+
+        return "redirect:/trainer";
+    }
+    
     
     /**
      * 게시글 등록 화면
@@ -117,14 +131,14 @@ public class TrainerController {
      * @throws Exception 
      */
     @GetMapping("/update")
-    public String update(@RequestParam("no") int no, Model model, Files file) throws Exception {
+    public String update(@RequestParam("userId") String userId, Model model, Files file) throws Exception {
 
         // 데이터 요청
-        Trainer trainer = trainerService.select(no);
+        Trainer trainer = trainerService.select(userId);
 
         // 파일 목록 요청
         file.setParentTable("board");
-        file.setParentNo(no);
+        // file.setParentNo(userId);
         List<Files> fileList = fileService.listByParent(file);
 
         // 모델 등록
@@ -140,15 +154,15 @@ public class TrainerController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/update")
-    public String updatePro(Trainer trainer) throws Exception {
-        int result = trainerService.update(trainer);
-        if(result > 0) {
-            return "redirect:/trainer/board/list";
-        }
-        String no = trainer.getNo();
-        return "redirect:/trainer/board/update?no=" + no + "&error";
-    }
+    // @PostMapping("/update")
+    // public String updatePro(Trainer trainer) throws Exception {
+    //     int result = trainerService.update(trainer);
+    //     if(result > 0) {
+    //         return "redirect:/trainer/board/list";
+    //     }
+    //     // String no = trainer.getNo();
+    //     // return "redirect:/trainer/board/update?no=" + no + "&error";
+    // }
     
 
     // @PostMapping("/delete")

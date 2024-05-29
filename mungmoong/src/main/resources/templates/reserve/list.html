@@ -26,15 +26,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="reserve : ${reserveList}">
+          <tr>
             <td>
-              <a th:href="|/reserve/read?no={reserve.date_no}|"
-                    th:text="${reserve.user_id}"></a>
+              <a></a>
              </td>
-            <td th:text="${reserve.date_day}"></td>
+            <td ></td>
             <td>예약</td>
             <td align="center">
-              <span th:text="${ #dates.format( reserve.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+              <span></span>
             </td>
           </tr>
         </tbody>

@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mypet.mungmoong.pet.dto.Pet;
+import com.mypet.mungmoong.pet.mapper.PetMapper;
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
@@ -19,6 +21,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     private UsersMapper userMapper;
+
+    @Autowired
+    private PetMapper petMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -67,6 +72,10 @@ public class UsersServiceImpl implements UsersService {
             userAuth.setUserId(username);
             userAuth.setAuth("ROLE_USER");
             result = userMapper.insertAuth(userAuth);
+
+            // 펫 등록
+            Pet pet = user.getPet();
+            petMapper.insertPet(pet);
         }
         return result;
     }

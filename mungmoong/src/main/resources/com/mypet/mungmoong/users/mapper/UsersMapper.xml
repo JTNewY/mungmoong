@@ -74,13 +74,13 @@
     </select>   
 
     <!-- 회원 가입 -->
-    <insert id="join">
-        INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role )
-        VALUES ( #{user_id}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{role} )
+    <insert id="join"  >
+        INSERT INTO users ( user_id, password, name, birth, address, mail,phone, enabled )
+        VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{enabled} )
     </insert>
 
     <!-- 회원 정보 수정 -->
-    <update id="update">
+    <update id="update" >
         UPDATE users
            SET name = #{name}
               ,mail = #{mail}
