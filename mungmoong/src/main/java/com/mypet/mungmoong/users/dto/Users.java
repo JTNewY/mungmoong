@@ -3,7 +3,10 @@
 import java.util.Date;
 import java.util.List;
 
+
+import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.pet.dto.Pet;
+
 
 import lombok.Data;
 
@@ -19,6 +22,8 @@ public class Users {
     private Date regDate;
     private Date updDate;
     private int enabled;
+
+    private Trainer trainer;
     private List<UserAuth> authList;
 
     private Pet pet;
