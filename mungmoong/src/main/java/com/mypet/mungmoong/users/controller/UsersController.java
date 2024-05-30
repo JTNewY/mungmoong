@@ -41,10 +41,11 @@ public class UsersController {
     private UsersService userService;
 
     @Autowired
-    private EmailService emailService;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private EmailService emailService;
+
 
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
@@ -130,6 +131,7 @@ public class UsersController {
     }
 
 
+    
     private Map<String, Integer> otpStorage = new HashMap<>();
 
     @PostMapping("/register/sendOtp")
@@ -163,6 +165,7 @@ public class UsersController {
             return ResponseEntity.badRequest().body("OTP must be a number");
         }
     }
+
 
 
 } // 끝
