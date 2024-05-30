@@ -1,13 +1,17 @@
+-- Active: 1716856468698@@127.0.0.1@3306@mypet
+CREATE USER 'joeun'@'localhost' identified BY '123456';
+
+
+
 
 -- Active: 1716856468698@@127.0.0.1@3306@mungmoong
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
-	`petname`	VARCHAR(50)	NOT NULL,
-	`pettype` VARCHAR(50)	NOT NULL,
+	`name`	VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`petgender`	INT	NOT NULL,
-	`character`	VARCHAR(100)	NULL,
+	`gender`	INT	NOT NULL,
+	`property`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
 	`order_no`	INT	NOT NULL,
@@ -15,7 +19,7 @@ CREATE TABLE `pet` (
 );
 
 CREATE TABLE `trainer` (
-	`no`			INT			NOT NULL,	-- 훈련사 번호
+	`no`			VARCHAR(50)	NOT NULL,	-- 훈련사 번호
 	`order_no`		INT			NOT NULL,	-- 결제 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
@@ -27,35 +31,8 @@ CREATE TABLE `trainer` (
 	`upd_date`		TIMESTAMP		NULL,	-- 수정일
 	`career`		VARCHAR(100)	NULL,	-- 경력
 	`certificate`	VARCHAR(100)	NULL,	-- 자격증
-	`content`		TEXT			NULL,	-- 소개
-	`user_id`		VARCHAR(100)	NOT NULL-- 회원 아이디
-);
-
-CREATE TABLE `career` (
-	`no`		INT			NOT NULL, -- 경력 번호
-	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
-	`name`	VARCHAR(100)		NULL, -- 경력 이름
-	`reg_date`	TIMESTAMP		NULL, -- 등록일
-	`upd_date`	TIMESTAMP		NULL  -- 수정일
-);
-
-CREATE TABLE `certificate` (
-	`no`	INT			NOT NULL, -- 자격증 번호
-	`trainer_no`	INT	NOT NULL, -- 훈련사 번호
-	`file_no`	INT			NULL, -- 파일 번호
-	`name`	VARCHAR(100)	NULL, -- 자격증 명
-	`reg_date`	TIMESTAMP	NULL, -- 등록일
-	`upd_date`	TIMESTAMP	NULL  -- 수정일
-);
-
-CREATE TABLE `schedule` (
-	`schedule_no`	INT		NOT NULL, -- 스케쥴 번호
-	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
-	`title`	VARCHAR(50)			NULL, -- 이게 필요한지, 모달로 띄울건지 고민, 일단 보류 
-	`content`	TEXT			NULL, -- 내용
-	`schedule_date`	TIMESTAMP	NULL, -- 날짜
-	`reg_date`	TIMESTAMP		NULL, -- 등록일
-	`upd_date`	TIMESTAMP		NULL  -- 수정일
+	`content`		VARCHAR(1000)	NULL,	-- 소개
+	`user_id`		VARCHAR(40)	NOT NULL	-- 회원 아이디
 );
 
 
@@ -150,10 +127,8 @@ CREATE TABLE `users` (
 	`password`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
 	`birth`	TIMESTAMP	NOT NULL,
-	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
-	`gender`	VARCHAR(50)	NOT NULL,
 	`phone`	VARCHAR(50)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
@@ -170,12 +145,22 @@ CREATE TABLE `user_auth` (
 	`auth`	VARCHAR(40)	NULL
 );
 
+CREATE TABLE `schedule` (
+	`schedule_no`	VARCHAR(50)	NOT NULL,
+	`trainer_no`	VARCHAR(50)	NOT NULL,
+	`title`	VARCHAR(50)	NULL ,
+	`content`	TEXT	NULL,
+	`schedule_date`	TIMESTAMP	NULL,
+	`reg_date`	TIMESTAMP	NULL,
+	`upd_date`	TIMESTAMP	NULL
+);
 
-ALTER TABLE `pet` MODIFY COLUMN `pet_no` INT AUTO_INCREMENT PRIMARY KEY;
-
+ALTER TABLE `pet` ADD CONSTRAINT `PK_PET` PRIMARY KEY (
+	`pet_no`
+);
 
 ALTER TABLE `trainer` ADD CONSTRAINT `PK_TRAINER` PRIMARY KEY (
-	`trainer_no`
+	`no`
 );
 
 ALTER TABLE `reserve` ADD CONSTRAINT `PK_RESERVE` PRIMARY KEY (
@@ -224,4 +209,36 @@ ALTER TABLE `schedule` ADD CONSTRAINT `PK_SCHEDULE` PRIMARY KEY (
 
 TRUNCATE TABLE users;
 
+
+
+
+
+
+
+INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role, enabled)
+VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0' ,1);
+
+
+INSERT INTO user_auth ( auth_no, user_id,  auth )
+VALUES (1,'user', 'ROLE_USER' );
+
+
+INSERT INTO `trainer` (`no`, `order_no`, `name`, `gender`, `birth`, `address`, `reg_date`, `upd_date`, `career`, `certificate`, `content`, `user_id`, `mail`, `phone`)
+VALUES
+('T001', 1001, '이태원', '남성', '1988-01-01', '서울특별시 강남구 테헤란로 123', '2023-01-15 10:00:00', '2023-05-20 14:30:00', '5년 경력', '공인 전문 도그 트레이너', '긍정적 강화 중심의 개 훈련에 열정적입니다.', 'user123', 'itaewon@example.com', '010-1234-5678'),
+('T002', 1002, '오은아', '여성', '1995-01-01', '부산광역시 해운대구 해운대로 456', '2023-02-18 11:00:00', '2023-06-25 16:45:00', '3년 경력', '공인 도그 행동 컨설턴트', '행동 수정 및 기민 훈련 전문.', 'user456', 'oeuna@example.com', '010-2345-6789'),
+('T003', 1003, '권혁준', '남성', '1983-01-01', '인천광역시 남동구 인주대로 789', '2023-03-22 09:00:00', '2023-07-15 09:15:00', '10년 경력', '공인 개 피트니스 트레이너', '개 피트니스 및 재활 전문가.', 'user789', 'khj@example.com', '010-3456-7890'),
+('T004', 1004, '김재희', '여성', '1991-01-01', '대구광역시 수성구 달구벌대로 321', '2023-04-10 14:00:00', '2023-08-05 11:00:00', '7년 경력', '공인 도그 트레이너 및 행동 전문가', '복종 훈련 및 행동 교정 집중.', 'user101', 'jaehee@example.com', '010-4567-8901'),
+('T005', 1005, '정태진', '남성', '1994-01-01', '대전광역시 서구 둔산로 654', '2023-05-05 13:00:00', '2023-09-10 15:30:00', '4년 경력', '공인 서비스 도그 트레이너', '장애인을 위한 서비스 도그 훈련에 전념.', 'user202', 'taejin@example.com', '010-5678-9012');
+
+
+
+INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role,reg_date,upd_date,enabled )
+VALUES ( 'user1', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '김조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
+,( 'user2', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '이조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
+,( 'user3', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '박조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
+,( 'user4', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '오조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
+,( 'user5', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '배조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
+,( 'user6', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '강조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
+,( 'user7', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '신조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 );
 

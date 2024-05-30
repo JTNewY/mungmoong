@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import org.springframework.stereotype.Component;
 
-
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 
@@ -34,5 +33,7 @@ public interface UsersMapper {
     // 어드민 회원 조회
     public List<Users> list() throws Exception;
 
- 
+    // 게시글 삭제
+    public int delete(String userId) throws Exception;
+
 }

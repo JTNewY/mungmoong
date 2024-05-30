@@ -74,7 +74,7 @@
               ,auth
         FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
-    </select>
+    </select>   
 
     <!-- 회원 가입 -->
     <insert id="join"  >
@@ -86,9 +86,9 @@
     <update id="update" >
         UPDATE users
            SET name = #{name}
-              ,email = #{email}
-              ,profile = #{profile}
-              ,updated_at = now()
+              ,mail = #{mail}
+              ,birth = #{birth}
+              ,upd_date = now()
         WHERE user_id = #{userId}
     </update>
 
@@ -97,5 +97,10 @@
         INSERT INTO user_auth( user_id, auth )
         VALUES ( #{userId}, #{auth} )
     </insert>
+
+    <delete id="delete">
+        DELETE FROM users
+        WHERE user_id = #{userId}
+    </delete>
 
 </mapper>
