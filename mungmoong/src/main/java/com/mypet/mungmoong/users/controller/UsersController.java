@@ -143,7 +143,7 @@ public class UsersController {
         int otp = new Random().nextInt(999999);
         otpStorage.put(email, otp);
         try {
-            emailService.sendEmail(email, "[멍뭉] 이메일을 인증해주세요. ", "회원가입을 위해 이메일을 인증해주세요.<br> 이메일 OTP번호: " + otp);
+            emailService.sendEmail(email, "[멍뭉] 이메일을 인증해주세요. ", "회원가입을 위해 이메일을 인증해주세요.\n" +"이메일 OTP번호: " + otp);
             return ResponseEntity.ok("인증번호를 발송하였습니다.");
         } catch (MessagingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in sending OTP: " + e.getMessage());

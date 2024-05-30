@@ -79,19 +79,26 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="passwordchk">비밀번호확인</label>
+                
                   <div class="input-group" id="box-pw">
                     <input type="password" class="form-control" id="passwordchk" placeholder="비밀번호 확인" value="" required>
                     <button class="btn btn-secondary" type="button" onclick="checkPasswordMatch()">비밀번호 확인</button>
-                    <div class="invalid-feedback">비밀번호가 불일치합니다.</div>
+
+                  
                   </div>
+                  <div id="password-invalid-success" style="display:none; color:green;">비밀번호 일치</div>
+                  <div id="password-invalid-feedback" style="display:none; color:red;">비밀번호가 일치하지 않습니다.</div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="mail">이메일</label>
+                  
                   <div class="input-group">
                       <input type="email" class="form-control" id="mail" placeholder="you@example.com" required>
-                     
                       <button class="btn btn-secondary" id="sendCode">인증번호 보내기</button>
                   </div>
+                  <div class="invalid-send-success" style="display:none; color:green;">인증번호 성공</div>
+                      <div class="invalid-send" style="display:none; color:green;">인증번호를 보냈습니다.</div>
+                      <div class="invalid-send-error" style="display:none; color:red;">인증번호 발송에 실패했습니다.</div>
               </div>
               <div class="col-md-6 mb-3">
                   <label for="mail-verification">이메일 인증</label>
@@ -99,6 +106,8 @@
                       <input type="text" class="form-control" id="mail-verification" placeholder="인증번호 입력" >
                       <button class="btn btn-secondary" id="verifyCode">인증번호 확인</button>
                   </div>
+                  <div class="invalid-feedback" style="display:none; color:red;">인증번호가 일치하지 않습니다.</div>
+                  <div class="valid-feedback" style="display:none; color:green;">이메일인증 성공하였습니다.</div>
               </div>
                 <div class="mb-3">
                   <label for="phone">전화</label>
