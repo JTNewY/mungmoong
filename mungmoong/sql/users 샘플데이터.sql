@@ -11,17 +11,19 @@ TRUNCATE user_auth;
 -- 일반 회원
 =======
 CREATE TABLE `users` (
-	`user_id`	VARCHAR(100)	NOT NULL,
-	`password`	VARCHAR(100)	NOT NULL,
-	`name`	VARCHAR(50)	NOT NULL,
-	`birth`	TIMESTAMP	NOT NULL,
-	`address`	VARCHAR(150)	NULL,
-	`mail`	VARCHAR(50)	NULL,
-	`phone`	VARCHAR(50)	NULL,
-	`reg_date`	TIMESTAMP	NULL,
-	`upd_date`	TIMESTAMP	NULL,
-	`role`	INT	NULL,
-	`enabled` INT NULL
+   `user_id`   VARCHAR(100)   NOT NULL,
+   `password`   VARCHAR(100)   NOT NULL,
+   `name`   VARCHAR(50)   NOT NULL,
+   `birth`   TIMESTAMP   NOT NULL,
+   `gender`      VARCHAR(50)   NOT NULL,   -- 성별
+   `address`   VARCHAR(150)   NULL,
+   `mail`   VARCHAR(50)   NULL,
+   `gender`   VARCHAR(50)   NOT NULL,
+   `phone`   VARCHAR(50)   NULL,
+   `reg_date`   TIMESTAMP   NULL,
+   `upd_date`   TIMESTAMP   NULL,
+   `role`   INT   NULL,
+   `enabled` INT NULL
 );
 
 ALTER TABLE `users` ADD CONSTRAINT `PK_USERS` PRIMARY KEY (

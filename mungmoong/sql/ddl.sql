@@ -1,5 +1,5 @@
 
--- Active: 1716798076500@@127.0.0.1@3306@mypet
+-- Active: 1715069578448@@127.0.0.1@3306@mypet
 
 
 CREATE TABLE `pet` (
@@ -15,17 +15,24 @@ CREATE TABLE `pet` (
 	`user_id`	VARCHAR(100)	NOT NULL
 );
 
+ALTER TABLE career DROP FOREIGN KEY fk_career_trainer_no;
+ALTER TABLE certificate DROP FOREIGN KEY fk_certificate_trainer_no;
+
 
 DROP TABLE trainer;
+DROP TABLE career;
+DROP TABLE certificate;
 
 SELECT * FROM trainer;
+SELECT * FROM career;
+SELECT * FROM certificate;
 
 
 DROP TABLE IF EXISTS trainer;
 
 CREATE TABLE `trainer` (
-	`no`			INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
-	`order_no`		INT			NOT NULL,	-- 결제 번호
+	`no`			INT			PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
+	`order_no`		INT				NULL,	-- 결제 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`birth`			VARCHAR(50) NOT NULL,	-- 생일
@@ -34,14 +41,12 @@ CREATE TABLE `trainer` (
 	`address`		VARCHAR(150)	NULL,	-- 주소
 	`reg_date`		TIMESTAMP		NULL,	-- 등록일
 	`upd_date`		TIMESTAMP		NULL,	-- 수정일
-	`career`		VARCHAR(100)	NULL,	-- 경력
-	`certificate`	VARCHAR(100)	NULL,	-- 자격증
 	`content`		TEXT			NULL,	-- 소개
 	`user_id`		VARCHAR(100)	NOT NULL-- 회원 아이디
 );
 
 CREATE TABLE `career` (
-	`no`		INT			NOT NULL, -- 경력 번호
+	`no`			INT		PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
 	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
 	`name`	VARCHAR(100)		NULL, -- 경력 이름
 	`reg_date`	TIMESTAMP		NULL, -- 등록일
@@ -49,13 +54,21 @@ CREATE TABLE `career` (
 );
 
 CREATE TABLE `certificate` (
-	`no`	INT			NOT NULL, -- 자격증 번호
+	`no`	INT		 	PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
 	`trainer_no`	INT	NOT NULL, -- 훈련사 번호
-	`file_no`	INT			NULL, -- 파일 번호
 	`name`	VARCHAR(100)	NULL, -- 자격증 명
-	`reg_date`	TIMESTAMP	NULL, -- 등록일
+	`reg_date`	TIMESTAMP	NULL, -- 등록일   
 	`upd_date`	TIMESTAMP	NULL  -- 수정일
 );
+
+ALTER TABLE career
+ADD CONSTRAINT fk_career_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
+
+ALTER TABLE certificate
+ADD CONSTRAINT fk_certificate_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
+
+
+
 
 CREATE TABLE `schedule` (
 	`schedule_no`	INT		NOT NULL, -- 스케쥴 번호
@@ -100,18 +113,25 @@ CREATE TABLE `orders` (
 	`trainer_check`	INT	NULL
 );
 
+
+DROP TABLE IF EXISTS `img_file`;
+
+DROP TABLE IF EXISTS `img_file`;
+
 CREATE TABLE `img_file` (
-	`no`	INT	NULL,
-	`parent_no`	INT	NULL,
-	`parent_table`	VARCHAR(100)	NULL,
+	`no`	INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`parent_no`	INT	NOT NULL,
+	`parent_table`	VARCHAR(100)	NOT NULL,
 	`file_name`	VARCHAR(100)	NOT NULL,
-	`file_path`	VARCHAR(100)	NULL,
+	`file_path`	VARCHAR(100)	NOT NULL,
 	`file_size`	LONG	NULL,
 	`file_code`	VARCHAR(50)	NULL,
-	`user_no`	VARCHAR(100)	NOT NULL,
-	`reg_date`	DATE	NULL,
-	`upd_date`	DATE	NULL
+	`reg_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	`upd_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
 
 CREATE TABLE `reply` (
 	`file_no`	INT	NOT NULL,

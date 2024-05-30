@@ -20,9 +20,11 @@ public class MailConfig {
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(465);
+        mailSender.setPort(587);
         
+
         mailSender.setUsername("jtnewy01@gmail.com");
+
         mailSender.setPassword("pcrh ilgp hzoj havy"); // 앱 비밀번호 사용 권장
 
         Properties props = mailSender.getJavaMailProperties();

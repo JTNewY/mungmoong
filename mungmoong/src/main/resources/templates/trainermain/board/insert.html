@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 등록</title>
+</head>
+<body>
+    <h1>게시글 등록</h1>
+
+    <!-- ⭐ 파일 업로드 추가 : enctype="multipart/form-data" -->
+    <form action="/board/insert" method="post" 
+          enctype="multipart/form-data">
+        <table border="1">
+            <tr>
+                <td>썸네일</td>
+                <td>
+                    <input type="file" name="thumbnail" id="thumbnail">
+                </td>
+            </tr>
+            <tr>    
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title" id="title">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" id="writer">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea name="content" id="content" cols="40" rows="5"></textarea>
+                </td>
+            </tr>
+            <!-- ⭐ 파일 업로드 추가 -->
+            <tr>
+                <td>파일</td>
+                <td>
+                    <input type="file" name="file" multiple>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="등록">
+    </form>
+</body>
+</html>

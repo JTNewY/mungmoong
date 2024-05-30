@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
 @Mapper     // Mybatis의 매퍼 인터페이스로 지정하는 어노테이션
-public interface TrainerMapper {
+public interface CertificateMapper {
 
     // 게시글 조회
     public Trainer select(String userId);

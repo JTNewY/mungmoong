@@ -1,3 +1,6 @@
+TRUNCATE trainer;
+
+
  SELECT t.user_id
               ,t.name
               ,t.address
