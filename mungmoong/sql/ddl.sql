@@ -1,12 +1,13 @@
 
--- Active: 1715069578448@@127.0.0.1@3306@mypet
+-- Active: 1716798076500@@127.0.0.1@3306@mypet
+
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
 	`petname`	VARCHAR(50)	NOT NULL,
 	`pettype` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`gender`	INT	NOT NULL,
+	`petgender`	INT	NOT NULL,
 	`character`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
@@ -14,12 +15,16 @@ CREATE TABLE `pet` (
 	`user_id`	VARCHAR(100)	NOT NULL
 );
 
+
 DROP TABLE trainer;
 
 SELECT * FROM trainer;
 
+
+DROP TABLE IF EXISTS trainer;
+
 CREATE TABLE `trainer` (
-	`no`			INT			NOT NULL,	-- 훈련사 번호
+	`no`			INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
 	`order_no`		INT			NOT NULL,	-- 결제 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
@@ -154,6 +159,7 @@ CREATE TABLE `users` (
 	`password`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
 	`birth`	TIMESTAMP	NOT NULL,
+	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
 	`gender`	VARCHAR(50)	NOT NULL,

@@ -6,7 +6,9 @@
     <title>회원가입페이지</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.standalone.min.css" />
-</head>
+    <meta name="csrf-token" th:content="${_csrf.token}"/>
+    <meta name="csrf-header-name" th:content="${_csrf.headerName}"/>
+  </head>
 <style>
   .invalid-feedback {
       display: none;
@@ -38,7 +40,7 @@
         </div>
         <div class="validation-form" novalidate>
           <div class="row">
-            <form id="form" method="post" action="/users/register/" onsubmit="combineAddress()">
+            <form id="form" method="post" action="/users/register/">
               <!-- CSRF TOKEN -->
               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
               
@@ -48,6 +50,19 @@
                   <label for="name">이름</label>
                   <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="" required>
                   <div class="invalid-feedback">이름을 입력해주세요.</div>
+                </div>
+                <div class="mb-3">
+                  <label>성별</label>
+                  <div class="input-group">
+                  <div>
+                    <input type="radio" name="gender" id="male" value="1" >
+                    <label for="male">남자 &nbsp;</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="gender" id="female" value="2">
+                    <label for="female">여자</label>
+                  </div>
+                  </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="id">아이디</label>
@@ -73,19 +88,18 @@
                 <div class="col-md-6 mb-3">
                   <label for="mail">이메일</label>
                   <div class="input-group">
-                  <input type="mail" class="form-control" name="mail" id="mail" placeholder="you@example.com" required>
-                  <button class="btn btn-secondary">인증번호 보내기</button>
-                  <div class="invalid-feedback">이메일을 입력해주세요.</div>
+                      <input type="email" class="form-control" id="mail" placeholder="you@example.com" required>
+                     
+                      <button class="btn btn-secondary" id="sendCode">인증번호 보내기</button>
                   </div>
-                </div>
-                <div class="col-md-6 mb-3">
+              </div>
+              <div class="col-md-6 mb-3">
                   <label for="mail-verification">이메일 인증</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="mail-verification" placeholder="인증번호 입력" required>
-                    <button class="btn btn-secondary">인증번호 확인</button>
-                    <div class="invalid-feedback">이메일을 입력해주세요.</div>
+                      <input type="text" class="form-control" id="mail-verification" placeholder="인증번호 입력" >
+                      <button class="btn btn-secondary" id="verifyCode">인증번호 확인</button>
                   </div>
-                </div>
+              </div>
                 <div class="mb-3">
                   <label for="phone">전화</label>
                   <input type="phone" class="form-control" name="phone" id="phone" placeholder="01012341234" required>
@@ -130,11 +144,11 @@
                   <label>성별</label>
                   <div class="input-group">
                   <div>
-                    <input type="radio" name="gender" id="petmale" value="1" >
+                    <input type="radio" name="petgender" id="petmale" value="1" >
                     <label for="petmale">♂ &nbsp;</label>
                   </div>
                   <div>
-                    <input type="radio" name="gender" id="petfemale" value="2">
+                    <input type="radio" name="petgender" id="petfemale" value="2">
                     <label for="petfemale">♀</label>
                   </div>
                   </div>
@@ -164,27 +178,34 @@
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // ################################# 달력 ######################################## 
-    $("div.input-daterange").each(function() {
-      var $inputs = $(this).find('input');
-      $inputs.datepicker();
-      if ($inputs.length >= 2) {
-        var $from = $inputs.eq(0);
-        var $to = $inputs.eq(1);
-        $from.on('changeDate', function(e) {
-          var d = new Date(e.date.valueOf());
-          $to.datepicker('setStartDate', d); // 종료일은 시작일보다 빠를 수 없다.
-        });
-        $to.on('changeDate', function(e) {
-          var d = new Date(e.date.valueOf());
-          $from.datepicker('setEndDate', d); // 시작일은 종료일보다 늦을 수 없다.
-        });
-      }
-    });
+  
 
+    $(document).ready(function() {
+      $("div.input-daterange input").datepicker({
+        language: 'ko', // 한국어 설정
+        format: 'yyyy-mm-dd', // 날짜 형식 설정
+        autoclose: true // 날짜 선택 후 자동 닫힘
+      });
+      
+      $("div.input-daterange").each(function() {
+        var $inputs = $(this).find('input');
+        if ($inputs.length >= 2) {
+          var $from = $inputs.eq(0);
+          var $to = $inputs.eq(1);
+          $from.on('changeDate', function(e) {
+            $to.datepicker('setStartDate', new Date(e.date.valueOf()));
+          });
+          $to.on('changeDate', function(e) {
+            $from.datepicker('setEndDate', new Date(e.date.valueOf()));
+          });
+        }
+      });
+    });
     // ################################# 회원가입 선택 ################################
     function showContent(content, clickedButton) {
       var contentA = document.getElementById("contentA");
@@ -313,6 +334,56 @@
       combineAddress();
   });
   
+
+  //======================================이메일 인증 =====================================
+ $(document).ready(function() {
+    var csrfToken = $("meta[name='csrf-token']").attr("content");
+    var csrfHeader = $("meta[name='csrf-header-name']").attr("content");
+
+    // 모든 AJAX 요청에 CSRF 토큰 설정
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeader, csrfToken);
+        }
+    });
+
+    $("#sendCode").click(function() {
+        $.ajax({
+            url: '/users/register/sendOtp',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify({ email: $('#mail').val() }),
+            success: function(response) {
+                alert("인증번호가 발송되었습니다.");
+            },
+            error: function() {
+                alert("인증번호 발송에 실패했습니다.");
+            }
+        });
+    });
+
+    $("#verifyCode").click(function() {
+        $.ajax({
+            url: '/users/register/verifyOtp',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify({
+                email: $('#mail').val(),
+                code: $('#mail-verification').val()
+            }),
+            success: function(response) {
+                alert(response.message);
+            },
+            error: function() {
+                alert("인증에 실패했습니다.");
+            }
+        });
+    });
+});
+
+
+  
+
   </script>
 </body>
 </html>
