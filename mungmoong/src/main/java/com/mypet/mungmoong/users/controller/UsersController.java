@@ -5,10 +5,17 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +43,9 @@ public class UsersController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
         return "/users/" + page;
@@ -56,7 +66,48 @@ public class UsersController {
         return "redirect:/register?error";
     }
 
-
+    /**
+     * 자동로그인
+     * @param username
+     * @param password
+     * @param keepLoggedIn
+     * @param request
+     * @param response
+     * @return
+     */
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password, @RequestParam(required = false) boolean keepLoggedIn, HttpServletRequest request, HttpServletResponse response) {
+        // 사용자 인증 로직
+        UsernamePasswordAuthenticationToken authReq
+        = new UsernamePasswordAuthenticationToken(username, password);
+    Authentication auth = authenticationManager.authenticate(authReq);
+        
+        if (auth.isAuthenticated()) {
+            // 로그인 성공 후 로그인 상태 유지를 위해 쿠키 설정
+            Cookie cookie = new Cookie("JSESSIONID", request.getSession().getId());
+            
+            if (keepLoggedIn) {
+                // 로그인 상태 유지 선택 시, 쿠키 만료 시간 설정
+                cookie.setMaxAge(7 * 24 * 60 * 60); // 쿠키를 7일 동안 유지
+            }
+            
+            // 보안 설정
+            cookie.setHttpOnly(true); // JavaScript를 통한 쿠키 접근 방지
+            if (request.isSecure()) {
+                cookie.setSecure(true); // HTTPS를 사용할 경우에만 쿠키 전송
+            }
+    
+            // 응답에 쿠키 추가
+            response.addCookie(cookie);
+            
+            // 인증 상태를 보안 컨텍스트에 저장
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            
+            return "redirect:/userProfile"; // 로그인 후 리디렉트할 페이지
+        }
+        
+        return "loginError"; // 로그인 실패 시
+    }
 
     /**
      * 아이디 중복 검사
