@@ -29,7 +29,7 @@ public class EmailService {
         // 세션 생성 및 인증 정보
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-                return new javax.mail.PasswordAuthentication("jtnewy01@gmail.com", "pcrh ilgp hzoj havy");  // 인증 정보
+                return new javax.mail.PasswordAuthentication("jtnewy01@gmail.com", "");  // 인증 정보
             }
         });
 
