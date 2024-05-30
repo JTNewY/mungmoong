@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.EmailService;
 import com.mypet.mungmoong.users.service.UsersService;
 
 
