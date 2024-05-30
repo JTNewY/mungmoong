@@ -15,8 +15,7 @@
             <div class="tab_tr_btn">
                 <ul>
                     <li><a href="{/admin/admin_info_read}">회원정보</a></li>
-                    <li>
-                        <a href="{|/admin/admin_info_read_pet?petNo=${pet.petNo}|}">반려견</a>
+                    <li><a href="{|/admin/admin_info_read_pet?petNo=${pet.petNo}|}">반려견</a>
                     </li>
                 </ul>
             </div>
@@ -30,9 +29,9 @@
                 </thead>
                 <th:block th:each="pet : ${petList}">
                     <tr>
-                        <td><a th:href="|/admin/admin_info_read_pet?userId=${pet.petNo}|" th:text="${pet.petNo}"></a></td>
-                        <td class="text-truncate" th:text="${#dates.format(users.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td class="text-truncate" th:text="${#dates.format(users.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td><a th:href="|/admin/admin_info_read_pet?userId=${pet.petNo}|" th:text="${pet.userId}"></a></td>
+                        <td class="text-truncate" th:text="${#dates.format(pet.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(pet.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
                 </th:block>
             </table>
