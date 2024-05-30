@@ -63,7 +63,7 @@ public class TrainerController {
     private FileService fileService;
     
     /**
-     * 훈련사 정보 조회 화면 
+     * 훈련사 등록 전, 회원가입 시 Users 정보 GET 
      * @param no
      * @return
      * @throws Exception 
@@ -86,14 +86,24 @@ public class TrainerController {
      * 훈련사 정보 등록 처리
      * @param trainer
      * @return
+     * @throws Exception 
      */
     @PostMapping("/join_data")
-    public String joinDataPro(@ModelAttribute Trainer trainer) {
+    public String joinDataPro(@ModelAttribute Trainer trainer) throws Exception {
         log.info(":::::::::::::::::::::::::::::::::::::::::");
-        log.info(":::::::::::::::: trainer :::::::::::::::::");
+        log.info("::::::::::::::: trainer :::::::::::::::::");
         log.info(" trainer : " + trainer);
-    
-        return "redirect:/trainer/join_data";
+
+        // 데이터 요청
+        int result = trainerService.insert(trainer);
+        
+        // 데이터 처리 성공
+        if(result > 0) {
+            return "redirect:/trainer/join_data";
+        }
+        
+        // 데이터 처리 실패
+        return "redirect:/trainer/join_data?error";
     }
     
     

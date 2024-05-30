@@ -46,6 +46,12 @@
                             <td class="text-center" th:text="${session.user.trainer.userId}"></td>
                         </tr> -->
                         <tr class="text-center-content">
+                            <td>아이디</td>
+                            <td class="text-start">
+                                <input type="text" name="" th:value="${session.user.userId}">
+                            </td>
+                        </tr>
+                        <tr class="text-center-content">
                             <td>이름</td>
                             <td class="text-start">
                                 <input type="text" name="" th:value="${session.user.name}" placeholder="훈련사 이름을 입력하세요">
