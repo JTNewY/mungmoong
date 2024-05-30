@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<!-- 밑의 베이스 패키지 경로가 잘 맞는지 확인하기 -->
+<mapper namespace="com.mypet.mungmoong.trainer.mapper.TrainerMapper">
+
+    <!-- 훈련사 조회 -->
+    <select id="select" resultType="Trainer">
+        SELECT *
+        FROM trainer
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 자격증 등록 (훈련사 번호 MAX)  -->
+    <insert id="insert">
+        INSERT INTO certificate (trainer_no, name, reg_date) 
+        VALUES (
+                (SELECT MAX(no) FROM trainer),
+                #{name},
+                now()       
+        )
+    </insert>
+
+    <!-- 훈련사 수정 -->
+    <update id="update">
+        UPDATE trainer
+           SET title = #{title}
+              ,writer = #{writer}
+              ,content = #{content}
+              ,upd_date = now()
+        WHERE no = #{no}
+    </update>
+
+    <!-- 훈련사 삭제 -->
+    <delete id="delete">
+        DELETE FROM trainer
+        WHERE no = #{no}
+    </delete>
+
+</mapper>
