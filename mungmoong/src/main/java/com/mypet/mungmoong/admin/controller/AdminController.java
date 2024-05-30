@@ -109,15 +109,11 @@ public class AdminController {
     @GetMapping("/admin_info_read_pet")
     public String read(HttpSession session, Model model) throws Exception {
         Users loginUser = (Users) session.getAttribute("user");
-        log.info("loginUser : " + loginUser);
         String userId = loginUser.getUserId();
-        log.info("userId : " + userId);
 
+        List<Pet> petList = petService.findPetByUserId(userId);
 
-        // List<Pet> petList = petService.findPetByUserId(userId);
-        // log.info("List<Pet> : " + petList);
-
-        // model.addAttribute("petList", petList);
+        model.addAttribute("petList", petList);
         return "/admin/admin_info_read_pet";
     }
 
