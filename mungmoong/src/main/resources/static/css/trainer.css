@@ -97,6 +97,18 @@
     font-size: 16px;
 }
 
+.btn-custom5{
+    background-color: #B9D6DC;
+    color: white;
+    font-weight: bold;
+    /* float: right; */
+}
+
+.btn-custom5:hover{
+    background-color: #A19F9D;
+    color: white;
+}
+
 .button_sta {
     background-color: white;
     border: 3px solid #F6C542;
@@ -121,6 +133,10 @@
 
 #tdtd {
     position: relative;
+}
+
+.file {
+    margin-bottom: 10px;
 }
 
 #button_1 {

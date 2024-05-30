@@ -1,6 +1,32 @@
 -- Active: 1716856468698@@127.0.0.1@3306@mypet
 CREATE USER 'joeun'@'localhost' identified BY '123456';
 
+ALTER TABLE users ADD gender VARCHAR(50);
+ALTER TABLE users DROP gender CASCADE;
+
+DROP TABLE pet;
+
+
+
+SELECT * from users join pet on pet.user_id=users.user_id;
+
+SELECT * from users;
+
+
+
+
+
+TRUNCATE TABLE pet;
+INSERT INTO `pet` (`petname`, `pettype`, `age`, `petgender`, `character`, `reg_date`, `upd_date`, `order_no`, `user_id`) VALUES
+('Buddy', 'Dog', 3, 1, 'Friendly and energetic', '2023-01-15 10:30:00', '2023-02-15 10:30:00', 101, 'user123'),
+('Mittens', 'Cat', 2, 2, 'Calm and affectionate', '2023-01-20 12:00:00', '2023-02-20 12:00:00', 102, 'user456'),
+('Charlie', 'Dog', 4, 1, 'Playful and loyal', '2023-01-25 14:45:00', '2023-02-25 14:45:00', 103, 'user789'),
+('Luna', 'Cat', 1, 2, 'Curious and active', '2023-02-01 09:15:00', '2023-03-01 09:15:00', 104, 'user321'),
+('Max', 'Dog', 5, 1, 'Protective and brave', '2023-02-10 16:30:00', '2023-03-10 16:30:00', 105, 'user654'),
+('Bella', 'Cat', 3, 2, 'Loving and playful', '2023-02-15 11:00:00', '2023-03-15 11:00:00', 106, 'user987'),
+('Rocky', 'Dog', 2, 1, 'Adventurous and friendly', '2023-02-20 08:30:00', '2023-03-20 08:30:00', 107, 'user135'),
+('Shadow', 'Cat', 4, 2, 'Independent and quiet', '2023-02-25 14:00:00', '2023-03-25 14:00:00', 108, 'user246');
+
 
 
 
@@ -8,15 +34,18 @@ CREATE USER 'joeun'@'localhost' identified BY '123456';
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
-	`name`	VARCHAR(50)	NOT NULL,
+	`petname`	VARCHAR(50)	NOT NULL,
+	`pettype` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`gender`	INT	NOT NULL,
-	`property`	VARCHAR(100)	NULL,
+	`petgender`	INT	NOT NULL,
+	`character`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
 	`order_no`	INT	NOT NULL,
 	`user_id`	VARCHAR(100)	NOT NULL
 );
+
+ALTER TABLE `pet` MODIFY COLUMN `pet_no` INT AUTO_INCREMENT PRIMARY KEY;
 
 CREATE TABLE `trainer` (
 	`no`			VARCHAR(50)	NOT NULL,	-- 훈련사 번호
@@ -241,4 +270,7 @@ VALUES ( 'user1', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92'
 ,( 'user5', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '배조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
 ,( 'user6', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '강조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
 ,( 'user7', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '신조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 );
+
+INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role,reg_date,upd_date,enabled )
+VALUES ( 'user123', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '김조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 );
 

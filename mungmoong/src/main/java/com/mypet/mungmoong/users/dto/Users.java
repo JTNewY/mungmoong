@@ -21,13 +21,15 @@ public class Users {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
+    private String gender;
     private String address;
     private String mail;
     private String phone;
     private Date regDate;
     private Date updDate;
     private int enabled;
-    private String role;
+    private int role;
+
 
     private Trainer trainer;
     private List<UserAuth> authList;

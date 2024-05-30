@@ -15,7 +15,7 @@
             <div class="tab_tr_btn">
                 <ul>
                     <li><a href="/admin/admin_info_read">회원정보</a></li>
-                    <li th:each="pet : ${users.petList}">
+                    <li th:each="pet : ${user.petList}">
                         <a th:href="|/admin/admin_info_read_pet?petNo=${pet.petNo}|">반려견</a>
                     </li>
                 </ul>
@@ -60,15 +60,20 @@
     </div>
 
     <script>
-        let userId = '[[${users.userId}]]';
 
-        function moveToUpdate() {
-            location.href = '/admin/admin_info_read_update?userId=' + userId;
+    let form = document.getElementById('form')
+
+    let userId = '[[${users.userId}]]'
+
+    function moveToUpdate() {
+            location.href = '/admin/admin_info_read_update?userId=' + userId
         }
 
         function moveToList() {
-            location.href = '/admin/admin_info';
+            location.href = '/admin/admin_info'
         }
+
+
     </script>
 </body>
 
