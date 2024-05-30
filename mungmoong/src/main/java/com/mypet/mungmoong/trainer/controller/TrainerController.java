@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +64,6 @@ public class TrainerController {
     
     /**
      * 훈련사 정보 조회 화면 
-     * - /board/read?no=❔
      * @param no
      * @return
      * @throws Exception 
@@ -88,12 +88,12 @@ public class TrainerController {
      * @return
      */
     @PostMapping("/join_data")
-    public String joinDataPro(Trainer trainer) {
+    public String joinDataPro(@ModelAttribute Trainer trainer) {
         log.info(":::::::::::::::::::::::::::::::::::::::::");
         log.info(":::::::::::::::: trainer :::::::::::::::::");
         log.info(" trainer : " + trainer);
-
-        return "redirect:/trainer";
+    
+        return "redirect:/trainer/join_data";
     }
     
     

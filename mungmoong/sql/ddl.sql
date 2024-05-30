@@ -1,5 +1,5 @@
 
--- Active: 1716856468698@@127.0.0.1@3306@mungmoong
+-- Active: 1715069578448@@127.0.0.1@3306@mypet
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
@@ -13,6 +13,10 @@ CREATE TABLE `pet` (
 	`order_no`	INT	NOT NULL,
 	`user_id`	VARCHAR(100)	NOT NULL
 );
+
+DROP TABLE trainer;
+
+SELECT * FROM trainer;
 
 CREATE TABLE `trainer` (
 	`no`			INT			NOT NULL,	-- 훈련사 번호
