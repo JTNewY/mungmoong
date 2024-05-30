@@ -60,6 +60,7 @@
               ,u.password
               ,u.name
               ,u.birth
+              ,u.gender
               ,u.address
               ,u.mail
               ,u.phone

@@ -21,6 +21,7 @@ public class Users {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
+    private String gender;
     private String address;
     private String mail;
     private String phone;
