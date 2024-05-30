@@ -31,6 +31,7 @@ public class Users {
     private String gender;
 
 
+
     private Trainer trainer;
     private List<UserAuth> authList;
     private List<Pet> petList;

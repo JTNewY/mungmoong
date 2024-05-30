@@ -3,13 +3,13 @@ package com.mypet.mungmoong.trainer.service;
 
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
-public interface TrainerService {
+public interface CareerService {
 
-    // 훈련사 조회
-    public Trainer select(String userId) throws Exception;  
-    // 훈련사 등록
+    // 경력 조회
+    public Trainer select(String userId) throws Exception; 
+    // 경력 등록
     public int insert(Trainer trainer) throws Exception;
-    // 훈련사 수정
+    // 경력 수정
     public int update(Trainer trainer) throws Exception;
 
     
