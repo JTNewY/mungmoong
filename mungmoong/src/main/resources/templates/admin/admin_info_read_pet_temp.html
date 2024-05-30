@@ -15,9 +15,7 @@
             <div class="tab_tr_btn">
                 <ul>
                     <li><a th:href="/admin/admin_info_read">회원정보</a></li>
-                    <li th:each="pet : ${users.petList}">
-                        <a th:href="|/admin/admin_info_read_pet?petNo=${pet.petNo}|">반려견</a>
-                    </li>
+                    <li><a th:href="|/admin/admin_info_read_pet?petNo=${pet.petNo}|">반려견</a></li>
                 </ul>
             </div>
             <form class="form-group" action="admin/admin_info_read_pet" method="post">
@@ -37,7 +35,7 @@
                             </li>
                             <li>
                                 <label for="petAge" name="age">나이</label>
-                                <input type="text" name="age" id="age" th:value="${pet.age}">
+                                <input type="text" name="age" id="age" value="${pet.age}">
                             </li>
                         </ul>
                     </div>
