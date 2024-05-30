@@ -1,6 +1,5 @@
 package com.mypet.mungmoong.users.service;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
-
 
 @Service
 public interface UsersService {
@@ -31,5 +29,8 @@ public interface UsersService {
 
     // 어드민 회원 조회
     public List<Users> list() throws Exception;
+
+    // 게시글 삭제
+    public int delete(String userId) throws Exception;
 
 }

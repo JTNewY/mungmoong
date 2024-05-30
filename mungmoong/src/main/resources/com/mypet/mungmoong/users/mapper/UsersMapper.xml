@@ -16,6 +16,7 @@
         <result property="phone" column="phone" />
         <result property="regDate" column="reg_date" />
         <result property="updDate" column="upd_date" />
+        <result property="gender" column="gender" />
         <result property="role" column="role" />
         <result property="enabled" column="enabled" />
         
@@ -38,20 +39,18 @@
 
     <!-- 로그인 - username -->
     <select id="login" resultMap="userMap">
-        SELECT u.user_id
-              ,u.password
-              ,u.name
-              ,u.birth
-              ,u.address
-              ,u.mail
-              ,u.phone
-              ,u.reg_date
-              ,u.upd_date
-              ,u.enabled
-              ,u.role
-              ,auth
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
-        WHERE u.user_id = #{userId}
+     SELECT u.user_id ,
+     u.password ,
+     u.name ,
+     u.address ,
+     u.mail ,
+     u.phone ,
+     u.reg_date 
+     ,u.upd_date 
+     ,u.enabled 
+     ,auth 
+     FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id 
+     WHERE u.user_id = #{userId}
     </select>
 
 
@@ -64,6 +63,7 @@
               ,u.address
               ,u.mail
               ,u.phone
+              ,u.gender
               ,u.reg_date
               ,u.upd_date
               ,u.enabled
@@ -71,22 +71,22 @@
               ,auth
         FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
-    </select>
+    </select>   
 
     <!-- 회원 가입 -->
     <insert id="join"  >
-        INSERT INTO users ( user_id, password, name, birth, address, mail,phone, enabled )
-        VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{enabled} )
+        INSERT INTO users ( user_id, password, name, birth, address, mail,phone, enabled ,gender)
+        VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{enabled},#{gender} )
     </insert>
 
     <!-- 회원 정보 수정 -->
     <update id="update" >
         UPDATE users
            SET name = #{name}
-              ,email = #{email}
-              ,profile = #{profile}
-              ,updated_at = now()
-        WHERE username = #{username}
+              ,mail = #{mail}
+              ,birth = #{birth}
+              ,upd_date = now()
+        WHERE user_id = #{userId}
     </update>
 
     <!-- 회원 권한 등록 -->
@@ -94,5 +94,10 @@
         INSERT INTO user_auth( user_id, auth )
         VALUES ( #{userId}, #{auth} )
     </insert>
+
+    <delete id="delete">
+        DELETE FROM users
+        WHERE user_id = #{userId}
+    </delete>
 
 </mapper>
