@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
@@ -38,11 +40,69 @@ public class AdminController {
         return "/admin/admin_info";
     }
 
+    /**
+     * 관리자 회원정보 상세 페이지
+     * @param userId
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/admin_info_read")
-    public String read(@RequestParam("userId") String username, Model model) throws Exception {
-        Users users = userService.select("username");
+    public String read(@RequestParam("userId") String userId, Model model) throws Exception {
+        Users users = userService.select(userId);
         model.addAttribute("users", users);
         return "/admin/admin_info_read";
+    }
+
+
+
+    @GetMapping("/admin_info_read_update")
+    public String update(@RequestParam("userId") String userId, Model model) throws Exception {
+
+        // 데이터 요청
+        Users users = userService.select(userId);
+
+
+        // 모델 등록
+        model.addAttribute("users", users);
+
+        return "/admin/admin_info_read_update";
+    }
+    
+    /**
+     * 게시글 수정 처리
+     * @param 
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/admin_info_read_update")
+    public String updatePro(Users user) throws Exception {
+        int result = userService.update(user);
+        
+        if( result > 0 ) {
+            return "redirect:/admin/admin_info";
+        }
+        String userId = user.getUserId();
+        return "redirect:/admin/admin_info_read_update?userId=" + userId + "&error";
+    }
+
+    /**
+     * 관리자 훈련사 정보 삭제
+     * @param userId
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/delete")
+    public String delete(@RequestParam("userId") String userId) throws Exception {
+        log.info("userId : " + userId);
+        int result = userService.delete(userId);
+
+        if(result > 0) {
+            return "redirect:/admin/admin_info";
+        }
+
+        return "redirect:/admin/admin_info_read_update?userId="+userId+"&error";
     }
 
 

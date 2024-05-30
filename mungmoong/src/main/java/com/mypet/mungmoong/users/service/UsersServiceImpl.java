@@ -34,11 +34,10 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean login(Users user) throws Exception {
         // // 💍 토큰 생성
-        String username = user.getUserId();    // 아이디
-        String password = user.getPassword();    // 암호화되지 않은 비밀번호
-        UsernamePasswordAuthenticationToken token 
-            = new UsernamePasswordAuthenticationToken(username, password);
-        
+        String username = user.getUserId(); // 아이디
+        String password = user.getPassword(); // 암호화되지 않은 비밀번호
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+
         // 토큰을 이용하여 인증
         Authentication authentication = authenticationManager.authenticate(token);
 
@@ -61,13 +60,13 @@ public class UsersServiceImpl implements UsersService {
     public int join(Users user) throws Exception {
         String username = user.getUserId();
         String password = user.getPassword();
-        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password); // 🔒 비밀번호 암호화
         user.setPassword(encodedPassword);
 
         // 회원 등록
         int result = userMapper.join(user);
 
-        if( result > 0 ) {
+        if (result > 0) {
             // 회원 기본 권한 등록
             UserAuth userAuth = new UserAuth();
             userAuth.setUserId(username);
@@ -98,6 +97,10 @@ public class UsersServiceImpl implements UsersService {
         List<Users> usersList = userMapper.list();
         return usersList;
     }
-  
 
+    @Override
+    public int delete(String userId) throws Exception {
+        int result = userMapper.delete(userId);
+        return result;
+    }
 }

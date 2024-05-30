@@ -1,10 +1,12 @@
 package com.mypet.mungmoong.trainer.mapper;
 
 
-import java.util.List;
+// import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.trainer.dto.Option;
@@ -25,12 +27,12 @@ public interface TrainerMapper {
 
     // 게시글 데이터 개수 조회
 
-    public int count(@RequestParam("option") Option option) throws Exception;
+    // public int count(@RequestParam("option") Option option) throws Exception;
 
     // 게시글 목록 - [검색]
     // 매개변수 하나가 들어온다면 xml의 keyword가 text 등이여도 받아올 수 있다.
     // public List<Board> search(@Param("keyword") String keyword) throws Exception;
-    public List<Trainer> search(/* @Param("option") Option option */) throws Exception;
+    // public List<Trainer> search(/* @Param("option") Option option */) throws Exception;
 
 
     
