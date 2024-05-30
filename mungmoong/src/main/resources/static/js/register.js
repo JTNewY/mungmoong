@@ -121,13 +121,15 @@ $(document).ready(function() {
   
       // 비밀번호 일치 여부 확인
       if (password === passwordchk) {
-        alert('비밀번호가 일치합니다.');
+        $("#password-invalid-success").show();
+        $("#password-invalid-feedback").hide();
         invalidFeedback.hide();
         boxPw.removeClass('needs-validation').addClass('was-validated');
         saveBtn.prop('disabled', false);
         return true;    
       } else {
-        alert('비밀번호가 일치하지 않습니다.');
+        $("#password-invalid-success").hide();
+        $("#password-invalid-feedback").show();
         invalidFeedback.show();
         boxPw.removeClass('was-validated').addClass('needs-validation');
         saveBtn.prop('disabled', true);
@@ -155,61 +157,55 @@ $(document).ready(function() {
 
 //======================================이메일 인증 =====================================
 $(document).ready(function() {
-  var csrfToken = $("meta[name='csrf-token']").attr("content");
-  var csrfHeader = $("meta[name='csrf-header-name']").attr("content");
-
-  // 모든 AJAX 요청에 CSRF 토큰 설정
-  $.ajaxSetup({
-      beforeSend: function(xhr) {
-          xhr.setRequestHeader(csrfHeader, csrfToken);
-      }
-  });
-
-  $("#sendCode").click(function() {
-      $.ajax({
-          url: '/users/register/sendOtp',
-          type: 'POST',
-          contentType: "application/json",
-          data: JSON.stringify({ email: $('#mail').val() }),
-          success: function(response) {
-              alert("인증번호가 발송되었습니다.");
-          },
-          error: function() {
-              alert("인증번호 발송에 실패했습니다.");
-          }
-      });
-  });
-
-  $("#verifyCode").click(function() {
-    var token = $("meta[name='csrf-token']").attr("content");
-    var header = $("meta[name='csrf-header-name']").attr("content");
-    
-    $.ajax({
-        url: '/users/register/verifyOtp',
-        type: 'POST',
-        contentType: "application/json",
-        data: JSON.stringify({
-            email: $('#mail').val(),
-            otp: $('#mail-verification').val()
-        }),
+    $.ajaxSetup({
         beforeSend: function(xhr) {
-            if (header && token) {
-                xhr.setRequestHeader(header, token);
-            } else {
-                console.error('CSRF token or header is undefined');
-                return false;  // 요청 취소
-            }
-        },
-        success: function(response) {
-            if (response === "이메일인증 성공하였습니다.") {
-                $("#save-btn").prop('disabled', false);
-            }
-            alert("Response: " + response);
-        },
-        error: function(xhr) {
-            alert("Error: " + xhr.responseText);
+            var csrfToken = $("meta[name='csrf-token']").attr("content");
+            var csrfHeader = $("meta[name='csrf-header-name']").attr("content");
+            xhr.setRequestHeader(csrfHeader, csrfToken);
         }
     });
+
+    $("#sendCode").click(function() {
+        $.ajax({
+            url: '/users/register/sendOtp',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify({ email: $('#mail').val() }),
+            success: function(response) {
+                $(".invalid-send").show();
+                $(".invalid-send-error").hide();
+            },
+            error: function() {
+                $(".invalid-send").hide();
+                $(".invalid-send-error").show();
+            }
+        });
+    });
+
+    $("#verifyCode").click(function() {
+        $.ajax({
+            url: '/users/register/verifyOtp',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify({
+                email: $('#mail').val(),
+                otp: $('#mail-verification').val()
+            }),
+            success: function(response) {
+                if (response === "이메일인증 성공하였습니다.") {
+                    $("#save-btn").prop('disabled', false);
+                    $(".valid-feedback").show();
+                    $(".invalid-feedback").hide();
+                } else {
+                    $(".valid-feedback").hide();
+                    $(".invalid-feedback").show();
+                }
+            },
+            error: function(xhr) {
+                $(".valid-feedback").hide();
+                $(".invalid-feedback").show();
+            }
+        });
     });
 
 });
