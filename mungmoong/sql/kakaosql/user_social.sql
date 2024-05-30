@@ -1,0 +1,27 @@
+-- Active: 1713528331467@@127.0.0.1@3306@mypet
+DROP TABLE IF EXISTS user_social;
+
+TRUNCATE user_social;
+
+CREATE TABLE `users_social` (
+  `USER_ID` varchar(100) PRIMARY KEY,
+  `NAME` VARCHAR(50) NOT NULL UNIQUE,
+  `BIRTH` timestamp NOT NULL,
+  `GENDER` VARCHAR(50) NOT NULL,
+  `ADDRESS` varchar(150) DEFAULT NULL,
+  `MAIL` VARCHAR(50) NULL,
+  `PHONE` VARCHAR(50) NULL,
+  `REG_DATE` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `UPD_DATE` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ;
+
+
+select * from user_social;
+
+
+
+SELECT username
+    FROM user_social
+WHERE provider = 'kakao'
+    AND social_id = '2630976312'
+    ;

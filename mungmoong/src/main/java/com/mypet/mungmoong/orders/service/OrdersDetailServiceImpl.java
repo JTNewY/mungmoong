@@ -27,6 +27,8 @@ public class OrdersDetailServiceImpl implements OrdersDetailService{
 
     @Override
     public Integer insert(OrdersDetail ordersDetail) throws Exception {
+
+      
         int result = ordersDetailMapper.insert(ordersDetail);
         return result;
         }
