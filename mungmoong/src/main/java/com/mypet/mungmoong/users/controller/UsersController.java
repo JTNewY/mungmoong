@@ -138,13 +138,13 @@ public class UsersController {
     public ResponseEntity<?> sendOtp(@RequestBody Map<String, String> payload) {
         String email = payload.get("email");
         if (!email.contains("@")) {
-            return ResponseEntity.badRequest().body("Invalid email format");
+            return ResponseEntity.badRequest().body("이메일 형식이 잘못되었습니다.");
         }
         int otp = new Random().nextInt(999999);
         otpStorage.put(email, otp);
         try {
-            emailService.sendEmail(email, "Verify your email", "Your OTP is: " + otp);
-            return ResponseEntity.ok("OTP sent successfully");
+            emailService.sendEmail(email, "[멍뭉] 이메일을 인증해주세요. ", "회원가입을 위해 이메일을 인증해주세요.<br> 이메일 OTP번호: " + otp);
+            return ResponseEntity.ok("인증번호를 발송하였습니다.");
         } catch (MessagingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in sending OTP: " + e.getMessage());
         }
@@ -157,12 +157,13 @@ public class UsersController {
             int otp = Integer.parseInt(payload.get("otp"));
             if (otpStorage.getOrDefault(email, -1) == otp) {
                 otpStorage.remove(email);
-                return ResponseEntity.ok("Email verified successfully");
+
+                return ResponseEntity.ok("이메일인증 성공하였습니다.");
             } else {
-                return ResponseEntity.badRequest().body("Invalid OTP");
+                return ResponseEntity.badRequest().body("잘못된 인증번호입니다.");
             }
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("OTP must be a number");
+            return ResponseEntity.badRequest().body("OTP는 숫자여야 합니다.");
         }
     }
 

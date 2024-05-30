@@ -110,6 +110,8 @@ $(document).ready(function() {
       var passwordchk = document.getElementById('passwordchk').value;
       var invalidFeedback = document.querySelector('#box-pw .invalid-feedback');
       let boxPw = document.getElementById('box-pw');
+      var saveBtn = $('#save-btn');
+
   
       // null 또는 undefined 체크
       if (!password || !passwordchk) {
@@ -119,17 +121,17 @@ $(document).ready(function() {
   
       // 비밀번호 일치 여부 확인
       if (password === passwordchk) {
-          alert('비밀번호가 일치합니다.');
-          invalidFeedback.style.display = 'none';
-          boxPw.classList.remove('needs-validation');
-          boxPw.classList.add('was-validated');
-          return true;
+        alert('비밀번호가 일치합니다.');
+        invalidFeedback.hide();
+        boxPw.removeClass('needs-validation').addClass('was-validated');
+        saveBtn.prop('disabled', false);
+        return true;    
       } else {
-          alert('비밀번호가 일치하지 않습니다.');
-          invalidFeedback.style.display = 'block';
-          boxPw.classList.remove('was-validated');
-          boxPw.classList.add('needs-validation');
-          return false;
+        alert('비밀번호가 일치하지 않습니다.');
+        invalidFeedback.show();
+        boxPw.removeClass('was-validated').addClass('needs-validation');
+        saveBtn.prop('disabled', true);
+        return false;
       }
   }
 
@@ -199,11 +201,15 @@ $(document).ready(function() {
             }
         },
         success: function(response) {
+            if (response === "이메일인증 성공하였습니다.") {
+                $("#save-btn").prop('disabled', false);
+            }
             alert("Response: " + response);
         },
         error: function(xhr) {
             alert("Error: " + xhr.responseText);
         }
     });
-  });
+    });
+
 });
