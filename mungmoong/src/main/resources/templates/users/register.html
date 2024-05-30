@@ -115,14 +115,17 @@
                   <div class="invalid-feedback">전화번호를 입력해주세요.</div>
                 </div>
                 <div class="mb-3">
-                  <label for="address">주소</label>
-                  <input type="text" class="form-control" name="address"id="address" placeholder="" required>
+                  <label for="address2">주소</label>
+                  <input type="text" class="form-control" name="address2"id="address2" placeholder="" required>
                   <div class="invalid-feedback">주소를 입력해주세요.</div>
                 </div>
                 <div class="mb-3">
-                  <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                  <input type="text" class="form-control" name="address2"id="address2" placeholder="상세주소를 입력해주세요.">
+                  <label for="address3">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                  <input type="text" class="form-control" name="address3"id="address3" placeholder="상세주소를 입력해주세요.">
                 </div>
+
+                <input type="hidden" class="form-control" name="address"id="address" placeholder="" required>
+
                 <div class="mb-3">
                   <label for="brith">생년월일</label>
                   <div class="input-group input-daterange">
@@ -174,7 +177,7 @@
                 </div>
              
                 <div class="mb-4" style="text-align: center;padding: 3% 0;">
-                    <button type="submit" class="btn btn-outline-warning"  id="save-btn" disabled> 가입하기 </button>
+                    <button type="submit" class="btn btn-outline-warning"  id="save-btn" onclick="combineAddress()" disabled> 가입하기 </button>
                   <button type="button" class="btn btn-outline-warning">메인</button>
                 </div>
               </div>

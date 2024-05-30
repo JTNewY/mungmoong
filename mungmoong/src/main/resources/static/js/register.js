@@ -139,20 +139,15 @@ $(document).ready(function() {
 
   // ################################# 주소 합치기 ########################################
   function combineAddress() {
-      var address = document.getElementById('address').value;
-      var address2 = document.getElementById('address2').value;
-      document.getElementById('combinedAddress').value = address + " " + address2;
-  }
+    var address2 = document.getElementById('address2').value.trim();
+    var address3 = document.getElementById('address3').value.trim();
 
-  document.getElementById('form').addEventListener('submit', function(event) {
-    if (!document.getElementById('aggrement').checked) {
-        alert('개인정보 수집 및 이용에 동의해야 합니다.');
-        event.preventDefault();
-        return;
-    }
+    // address2와 address3를 공백으로 구분하여 결합
+    var combinedAddress = address2 + (address3 ? ' ' + address3 : '');
 
-    combineAddress();
-});
+    // 결합된 주소를 숨겨진 input 상자에 저장
+    document.getElementById('address').value = combinedAddress;
+}
 
 
 //======================================이메일 인증 =====================================
@@ -207,5 +202,8 @@ $(document).ready(function() {
             }
         });
     });
+
+
+
 
 });
