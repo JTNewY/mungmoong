@@ -113,18 +113,25 @@ CREATE TABLE `orders` (
 	`trainer_check`	INT	NULL
 );
 
+
+DROP TABLE IF EXISTS `img_file`;
+
+DROP TABLE IF EXISTS `img_file`;
+
 CREATE TABLE `img_file` (
-	`no`	INT	NULL,
-	`parent_no`	INT	NULL,
-	`parent_table`	VARCHAR(100)	NULL,
+	`no`	INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`parent_no`	INT	NOT NULL,
+	`parent_table`	VARCHAR(100)	NOT NULL,
 	`file_name`	VARCHAR(100)	NOT NULL,
-	`file_path`	VARCHAR(100)	NULL,
+	`file_path`	VARCHAR(100)	NOT NULL,
 	`file_size`	LONG	NULL,
 	`file_code`	VARCHAR(50)	NULL,
-	`user_no`	VARCHAR(100)	NOT NULL,
-	`reg_date`	DATE	NULL,
-	`upd_date`	DATE	NULL
+	`reg_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	`upd_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
 
 CREATE TABLE `reply` (
 	`file_no`	INT	NOT NULL,
