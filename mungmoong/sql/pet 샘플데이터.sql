@@ -7,7 +7,7 @@ CREATE TABLE `pet` (
 	`petname`	VARCHAR(50)	NOT NULL,
 	`pettype` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`gender`	INT	NOT NULL,
+	`petgender`	INT	NOT NULL,
 	`character`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,

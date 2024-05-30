@@ -6,7 +6,7 @@ CREATE TABLE `pet` (
 	`petname`	VARCHAR(50)	NOT NULL,
 	`pettype` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`gender`	INT	NOT NULL,
+	`petgender`	INT	NOT NULL,
 	`character`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
@@ -150,6 +150,7 @@ CREATE TABLE `users` (
 	`password`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
 	`birth`	TIMESTAMP	NOT NULL,
+	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
 	`gender`	VARCHAR(50)	NOT NULL,

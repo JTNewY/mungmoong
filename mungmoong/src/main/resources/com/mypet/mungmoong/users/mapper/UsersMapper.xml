@@ -16,6 +16,7 @@
         <result property="phone" column="phone" />
         <result property="regDate" column="reg_date" />
         <result property="updDate" column="upd_date" />
+        <result property="gender" column="gender" />
         <result property="role" column="role" />
         <result property="enabled" column="enabled" />
         
@@ -45,6 +46,7 @@
               ,u.address
               ,u.mail
               ,u.phone
+              ,u.gender
               ,u.reg_date
               ,u.upd_date
               ,u.enabled
@@ -64,6 +66,7 @@
               ,u.address
               ,u.mail
               ,u.phone
+              ,u.gender
               ,u.reg_date
               ,u.upd_date
               ,u.enabled
@@ -75,8 +78,8 @@
 
     <!-- 회원 가입 -->
     <insert id="join"  >
-        INSERT INTO users ( user_id, password, name, birth, address, mail,phone, enabled )
-        VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{enabled} )
+        INSERT INTO users ( user_id, password, name, birth, address, mail,phone, enabled ,gender)
+        VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{enabled},#{gender} )
     </insert>
 
     <!-- 회원 정보 수정 -->
