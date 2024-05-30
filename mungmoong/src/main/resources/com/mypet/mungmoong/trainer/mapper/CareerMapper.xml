@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- namespace="매퍼 인터페이스 경로" --> 
 <!-- 밑의 베이스 패키지 경로가 잘 맞는지 확인하기 -->
-<mapper namespace="com.mypet.mungmoong.career.mapper.CareerMapper">
+<mapper namespace="com.mypet.mungmoong.trainer.mapper.CareerMapper">
 
     <!-- 훈련사 조회 -->
     <select id="select" resultType="Trainer">
