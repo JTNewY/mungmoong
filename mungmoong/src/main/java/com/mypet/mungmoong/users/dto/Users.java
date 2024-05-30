@@ -27,6 +27,7 @@ public class Users {
     private Date regDate;
     private Date updDate;
     private int enabled;
+    private int role;
 
     private Trainer trainer;
     private List<UserAuth> authList;
