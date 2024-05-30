@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 파일 목록 -->
     <select id="list" resultType="Files">
         SELECT *
-        FROM file
+        FROM img_file
         ORDER BY reg_date DESC
     </select>
 
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      -->
     <select id="listByParent" resultType="Files">
         SELECT *
-        FROM file
+        FROM img_file
         WHERE parent_table = #{parentTable}
           AND parent_no = #{parentNo}
         ORDER BY reg_date DESC
@@ -31,20 +31,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 파일 조회 -->
     <select id="select" resultType="Files">
         SELECT *
-        FROM file
+        FROM img_file
         WHERE no = #{no}
     </select>
     
 
     <!-- 파일 등록 -->
     <insert id="insert">
-        INSERT INTO file( parent_table, parent_no, file_name, origin_name, file_path, file_size, file_code )
-        VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{filePath}, #{fileSize}, #{fileCode} )
+        INSERT INTO img_file( parent_table, parent_no, file_name, file_path, file_size, file_code )
+        VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{filePath}, #{fileSize}, #{fileCode} )
     </insert>
 
     <!-- 파일 수정 -->
     <update id="update">
-        UPDATE file
+        UPDATE img_file
            SET parent_table = #{parentTable}
               ,parent_no = #{parentNo}
               ,file_name = #{fileName}
@@ -57,14 +57,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 파일 삭제 -->
     <delete id="delete">
-        DELETE FROM file
+        DELETE FROM img_file
         WHERE no = #{no}
     </delete>
 
 
     <!-- 파일 목록 삭제 - 부모 테이블 기준 파일 목록 삭제 -->
     <delete id="deleteByParent">
-        DELETE FROM file
+        DELETE FROM img_file
         WHERE parent_table = #{parentTable}
           AND parent_no = #{parentNo}
     </delete>
