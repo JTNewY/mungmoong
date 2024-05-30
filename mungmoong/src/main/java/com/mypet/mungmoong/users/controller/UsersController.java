@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.mail.MessagingException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,9 +39,6 @@ public class UsersController {
 
     @Autowired
     private UsersService userService;
-
-    @Autowired
-    private EmailService emailService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -129,40 +126,6 @@ public class UsersController {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
-
-    private Map<String, Integer> otpStorage = new HashMap<>();
-
-    @PostMapping("/register/sendOtp")
-    public ResponseEntity<?> sendOtp(@RequestBody Map<String, String> payload) {
-        String email = payload.get("email");
-        if (!email.contains("@")) {
-            return ResponseEntity.badRequest().body("Invalid email format");
-        }
-        int otp = new Random().nextInt(999999);
-        otpStorage.put(email, otp);
-        try {
-            emailService.sendEmail(email, "Verify your email", "Your OTP is: " + otp);
-            return ResponseEntity.ok("OTP sent successfully");
-        } catch (MessagingException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in sending OTP: " + e.getMessage());
-        }
-    }
-    
-    @PostMapping("/register/verifyOtp")
-    public ResponseEntity<?> verifyOtp(@RequestBody Map<String, String> payload) {
-        String email = payload.get("email");
-        try {
-            int otp = Integer.parseInt(payload.get("otp"));
-            if (otpStorage.getOrDefault(email, -1) == otp) {
-                otpStorage.remove(email);
-                return ResponseEntity.ok("Email verified successfully");
-            } else {
-                return ResponseEntity.badRequest().body("Invalid OTP");
-            }
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("OTP must be a number");
-        }
-    }
 
 
 } // 끝
