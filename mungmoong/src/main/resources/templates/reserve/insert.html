@@ -10,6 +10,139 @@
         border-radius: 49px;
       }
     </style>
+        <style>
+          body {
+              font-family: 'Jua', sans-serif;
+              background-color: #FFFAED; 
+              margin: 0;
+              padding: 0;
+          }
+  
+          .container {
+              background-color: #ffffff;
+              padding: 20px;
+              border-radius: 10px;
+              margin: 20px auto;
+              max-width: 1200px;
+          }
+  
+          .my-page {
+              padding: 20px;
+              margin: 20px auto;
+              max-width: 1200px;
+              display: flex;
+              flex-direction: column;
+              align-items: left;
+              justify-content: left;
+          }
+          
+          main {
+              padding: 20px;
+              border-radius: 10px;
+              max-width: 1200px;
+          }
+  
+          .my-page h1 {
+              font-size: 4em;
+              color: #F6C542;
+              margin-bottom: 20px;
+          }
+          
+          .buttons {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin-bottom: 20px;
+          }
+  
+          .buttons button {
+              background-color: transparent;
+              color: #F6C542;
+              border: 2px solid #F6C542;
+              padding: 10px 20px;
+              border-radius: 25px;
+              margin: 5px 0;
+              cursor: pointer;
+              font-size: 1em;
+              transition: background-color 0.3s, color 0.3s;
+          }
+  
+          .buttons button:hover {
+              background-color: #F6C542;
+              color: white;
+          }
+  
+          .my-info, .my-pets {
+              margin-bottom: 40px;
+          }
+  
+          .my-info h2, .my-pets h2 {
+              font-size: 1.5em;
+              color: #337AF7;
+              margin-bottom: 20px;
+              border-radius: 25px;
+              font-weight: bold; /* 폰트 굵기 추가 */
+          }
+  
+          .info-card, .pet-card {
+              background-color: #E5EFF7;
+              padding: 20px;
+              border-radius: 10px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              display: flex;
+              align-items: center;
+              margin-bottom: 20px;
+              text-align: left;
+          }
+  
+          .info-card img, .pet-card img {
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              object-fit: cover;
+              margin-right: 20px;
+          }
+  
+          .info-card .info, .pet-card .pet-info {
+              flex: 1;
+          }
+  
+          .info-card p, .pet-card p {
+              margin: 5px 0;
+              font-weight: bold; /* 폰트 굵기 추가 */
+          }
+  
+          .custom-button {
+              background-color: #B9D6DC;
+              color: white;
+              padding: 10px 20px;
+              border: none;
+              border-radius: 25px;
+              cursor: pointer;
+              font-size: 0.9em;
+          }
+  
+          .custom-button:hover {
+              background-color: #B9D6DC;
+          }
+  
+          .bottom-btn {
+              text-align: center;
+              margin-top: 20px;
+          }
+  
+          @media (min-width: 576px) {
+              .buttons {
+                  flex-direction: row;
+                  gap: 10px;
+                  margin-top: 20px;
+              }
+  
+              .buttons button {
+                  margin: 0 5px;
+              }
+          }
+      </style>
 </head>
   <!-- 모달 -->
  <body layout:fragment="content">
@@ -27,7 +160,8 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name">예약자</label>
-                  <input type="text" class="form-control" id="user_id" name="user_id" value="" required>
+                  <input type="text" class="form-control" id="user_id" name="user_id" th:value="${session.user.name}" 
+                              readonly>
                   <div class="invalid-feedback">
                     이름을 입력해주세요.
                   </div>
@@ -42,7 +176,7 @@
                 </div>
               </div>
     
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="email">이메일</label>
                 <input type="email" class="form-control" id="mail" name="mail" placeholder="you@example.com" required>
                 <div class="invalid-feedback">
@@ -67,8 +201,8 @@
               <div class="mb-3">
                 <label for="adress2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
                 <input type="text" class="form-control" id="adress2" placeholder="상세주소를 입력해주세요.">
-              </div>
-              <div class="mb-3">
+              </div> -->
+              <!-- <div class="mb-3">
                 <label for="pet">견종</label>
                 <input type="pet" class="form-control" id="pet" placeholder="예시 : 요크셔테리어" required>
                 <div class="invalid-feedback">
@@ -82,18 +216,62 @@
                   반려견나이를 입력해주세요
                 </div>
               </div>
-              <div>
+              <div> -->
+                <div class="my-pets">
+                  <h2>나의 강아지</h2>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="pet-card d-flex align-items-center p-3 mb-3">
+                              <img src="/img/users/pet1.png" alt="루비" class="mr-3">
+                              <div class="pet-info">
+                                  <p><strong>루비 ♂</strong></p>
+                                  <p>생일: 5월 20일</p>
+                                  <p>나이: 4살</p>
+                                  <p>성격: 순하고 사람들을 잘 따름</p>
+                                  <p>특이 사항: 강아지가 많이 심심해 해서 많이 놀아줘야 합니다.</p>
+                              </div>
+                             <input type="radio" name="petNo" id="" value="0"> 
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="pet-card d-flex align-items-center p-3 mb-3">
+                              <img src="/img/users/pet2.png" alt="뭉이" class="mr-3">
+                              <div class="pet-info">
+                                  <p><strong>뭉이 ♂</strong></p>
+                                  <p>생일: 5월 20일</p>
+                                  <p>나이: 3살</p>
+                                  <p>성격: 순하고 사람들을 잘 따름</p>
+                                  <p>특이 사항: 활발하고 산책하는걸 좋아합니다.</p>
+                              </div>
+                             <input type="radio" name="petNo" id="" value="0"> 
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="pet-card d-flex align-items-center p-3 mb-3">
+                              <img src="/img/users/pet3.png" alt="두부" class="mr-3">
+                              <div class="pet-info">
+                                  <p><strong>두부 ♂</strong></p>
+                                  <p>생일: 1월 1일</p>
+                                  <p>나이: 2살</p>
+                                  <p>성격: 순하고 사람들을 잘 따름</p>
+                                  <p>특이 사항: 강아지가 손으로 마사지하는걸 좋아해서 만져주면 좋아합니다.</p>
+                              </div>
+                             <input type="radio" name="petNo" id="" value="0"> 
+                          </div>
+                      </div>
+                  </div>
+              </div>
                 <p>요청사항</p>
                 <textarea rows="4" cols="47" style="width: 100%;border: 1px solid #dfdfdf; border-radius: 20px;"></textarea>
              </div>
              <div class="row">
-              <div class="col-md-6 mb-3" id="priceDisplay">
+              <!-- <div class="col-md-6 mb-3" id="priceDisplay">
                 <label for="code">금액</label>
                 <input type="text" class="form-control" id="priceDisplay" name="priceDisplay" placeholder="" required="">   
             </div>
              <div class="mb-3" id="priceDisplay" style="margin-top: auto; width: 50%;flex-direction: row;">
                 <a onclick="pay()" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" style="flex-direction: revert;">결제</a>
-            </div>
+            </div> -->
           </div>
             <!-- <div class="fileuploadbox">
               <label for="images" class="image-upload-title">첨부파일</label>
