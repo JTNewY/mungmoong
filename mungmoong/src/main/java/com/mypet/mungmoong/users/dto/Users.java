@@ -21,7 +21,6 @@ public class Users {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
-    private String gender;
     private String address;
     private String mail;
     private String phone;
@@ -29,9 +28,13 @@ public class Users {
     private Date updDate;
     private int enabled;
     private int role;
+    private String gender;
+
 
     private Trainer trainer;
     private List<UserAuth> authList;
+    private List<Pet> petList;
 
     private Pet pet;
+
 }

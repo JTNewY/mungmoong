@@ -250,6 +250,8 @@ VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92',
 
 INSERT INTO user_auth ( auth_no, user_id,  auth )
 VALUES (1,'user', 'ROLE_USER' );
+INSERT INTO user_auth ( auth_no, user_id,  auth )
+VALUES (2, 'user123', 'ROLE_USER' );
 
 
 INSERT INTO `trainer` (`no`, `order_no`, `name`, `gender`, `birth`, `address`, `reg_date`, `upd_date`, `career`, `certificate`, `content`, `user_id`, `mail`, `phone`)

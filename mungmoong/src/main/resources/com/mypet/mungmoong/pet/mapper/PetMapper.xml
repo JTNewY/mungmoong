@@ -6,7 +6,7 @@
 <mapper namespace="com.mypet.mungmoong.pet.mapper.PetMapper">
     
     <!-- 새로운 반려동물 추가 -->
-    <insert id="insertPet" >
+    <insert id="insertPet">
       INSERT INTO pet (petname, age, gender, pettype, `character`, reg_date, upd_date, order_no, user_id)
     VALUES (#{petname}, #{age}, #{gender}, #{pettype}, #{character}, now(), now(), #{orderNo}, #{userId})
     </insert>
@@ -32,4 +32,10 @@
         WHERE pet_no = #{petNo}
     </select>
     
+    <select id="findPetByUserId" resultType="Pet">
+        SELECT *
+        FROM pet
+        ORDER BY reg_date DESC
+    </select>
+
 </mapper>
