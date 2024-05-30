@@ -1,14 +1,18 @@
 package com.mypet.mungmoong.pet.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.mapper.PetMapper;
+import com.mypet.mungmoong.users.mapper.UsersMapper;
 
 @Service
 public class PetServiceImpl implements PetService {
 
+    @Autowired
     private final PetMapper petMapper;
 
     @Autowired
@@ -34,5 +38,11 @@ public class PetServiceImpl implements PetService {
     @Override
     public Pet findPetById(int petNo) {
         return petMapper.findPetById(petNo);
+    }
+
+    @Override
+    public List<Pet> findPetByUserId(String userId) throws Exception {
+        List<Pet> petList = petMapper.findPetByUserId(userId);
+        return petList;
     }
 }
