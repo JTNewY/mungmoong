@@ -1,7 +1,10 @@
 package com.mypet.mungmoong.trainer.mapper;
 
 
-import java.util.List;
+// import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;

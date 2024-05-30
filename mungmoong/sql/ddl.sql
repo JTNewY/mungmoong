@@ -1,5 +1,5 @@
 
--- Active: 1716856468698@@127.0.0.1@3306@mungmoong
+-- Active: 1716798076500@@127.0.0.1@3306@mypet
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
@@ -14,8 +14,9 @@ CREATE TABLE `pet` (
 	`user_id`	VARCHAR(100)	NOT NULL
 );
 
+DROP TABLE IF EXISTS trainer;
 CREATE TABLE `trainer` (
-	`no`			INT			NOT NULL,	-- 훈련사 번호
+	`no`			INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
 	`order_no`		INT			NOT NULL,	-- 결제 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별

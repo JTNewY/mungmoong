@@ -29,6 +29,7 @@ public class Users {
     private int enabled;
     private int role;
 
+
     private Trainer trainer;
     private List<UserAuth> authList;
 
