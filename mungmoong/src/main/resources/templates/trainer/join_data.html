@@ -48,19 +48,19 @@
                         <tr class="text-center-content">
                             <td>아이디</td>
                             <td class="text-start">
-                                <input type="text" name="" th:value="${session.user.userId}">
+                                <input type="text" name="userId" th:value="${session.user.userId}">
                             </td>
                         </tr>
                         <tr class="text-center-content">
                             <td>이름</td>
                             <td class="text-start">
-                                <input type="text" name="" th:value="${session.user.name}" placeholder="훈련사 이름을 입력하세요">
+                                <input type="text" name="name" th:value="${session.user.name}" placeholder="훈련사 이름을 입력하세요">
                             </td>
                         </tr>
                         <tr class="text-center-content">
                             <td>생년월일</td>
                             <td class="text-start">
-                                <input type="date" name=""
+                                <input type="date" name="birth"
                                     th:value="${ #dates.format( session.user.birth, 'yyyy-MM-dd' )}"
                                     placeholder="생년월일을 입력하세요">
                             </td>
@@ -114,7 +114,7 @@
                         <tr>
                             <td>소개</td>
                             <td class="text-start">
-                                <input id="textarea" class="file" type="file" name="thumbnail">
+                                <input type="file" id="thumbnail" class="thumbnail"  name="thumbnail">
                                 <!-- <img src="/img/프로필.png" alt="Trainer Image" class="img-preview mb-2"><br> -->
                                 <!-- <button type="button" class="btn btn-custom1 mb-2">이미지 업로드</button> -->
                                 <textarea class="form-control" name="content" rows="3"></textarea>

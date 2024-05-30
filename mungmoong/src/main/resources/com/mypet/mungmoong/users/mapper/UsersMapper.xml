@@ -45,16 +45,20 @@
 
     <!-- 로그인 - username -->
     <select id="login" resultMap="userMap">
-     SELECT u.user_id ,
-     u.password ,
-     u.name ,
-     u.address ,
-     u.mail ,
-     u.phone ,
-     u.reg_date 
-     ,u.upd_date 
-     ,u.enabled 
-     ,auth 
+         SELECT u.user_id
+              ,u.password
+              ,u.name
+              ,u.birth
+              ,u.gender
+              ,u.address
+              ,u.mail
+              ,u.phone
+              ,u.gender
+              ,u.reg_date
+              ,u.upd_date
+              ,u.enabled
+              ,u.role
+              ,auth
      FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id 
      WHERE u.user_id = #{userId}
     </select>
@@ -91,8 +95,11 @@
     <update id="update" >
         UPDATE users
            SET name = #{name}
-              ,mail = #{mail}
               ,birth = #{birth}
+              ,address = #{address}
+              ,birth = #{birth}
+              ,mail = #{mail}
+              ,role = #{role}
               ,upd_date = now()
         WHERE user_id = #{userId}
     </update>
