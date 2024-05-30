@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.Users;
-import com.mypet.mungmoong.users.service.EmailService;
 import com.mypet.mungmoong.users.service.UsersService;
 
 
