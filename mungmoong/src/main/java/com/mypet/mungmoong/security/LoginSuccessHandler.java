@@ -67,6 +67,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         // User user = (User) authentication.getPrincipal();
         CustomUser loginUser = (CustomUser) authentication.getPrincipal();
         Users user = loginUser.getUser();
+        log.info("--------------------------------------------------------");
+        log.info("user : " + user);
 
         String userId = user.getUserId();
         Trainer trainer = trainerMapper.select(userId);
@@ -74,14 +76,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if( trainer != null ) {
             user.setTrainer(trainer);
         }
-        
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
-
         log.info("아이디 : " + loginUser.getUsername());
         log.info("패스워드 : " + loginUser.getPassword());       // 보안상 노출❌
         log.info("권한 : " + loginUser.getAuthorities());    
-        
         super.onAuthenticationSuccess(request, response, authentication);
     }
 

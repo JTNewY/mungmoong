@@ -6,13 +6,6 @@ body {
 }
 
 
-
-
-
-.header-logo img {
-    height: 50px;
-}
-
 nav ul {
     list-style: none;
     display: flex;
