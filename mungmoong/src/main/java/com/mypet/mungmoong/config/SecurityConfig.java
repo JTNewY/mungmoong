@@ -1,6 +1,6 @@
 package com.mypet.mungmoong.config;
 
-import javax.servlet.http.Cookie;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
