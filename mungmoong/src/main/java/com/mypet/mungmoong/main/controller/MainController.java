@@ -75,8 +75,8 @@ public class MainController {
 
         return "trainer";
     }
-    @GetMapping("QnA")
-    public String QnA(Principal principal
+    @GetMapping("reserve")
+    public String reserve(Principal principal
                      ,Authentication auth) {
         log.info("메인");
         log.info(":::::::::: 메인 ::::::::::");
@@ -93,7 +93,7 @@ public class MainController {
             log.info("주소 : " + address);
         }
 
-        return "QnA";
+        return "reserve/list";
     }
 
     // @GetMapping("/{page}")

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 Internal Server Error</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .error-code {
+            font-size: 100px;
+            margin: 0;
+            color: #dc3545;
+        }
+        .error-message {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+        .error-description {
+            font-size: 16px;
+            color: #7f7f7f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="error-code">500</h1>
+        <h2 class="error-message">서버 내부 오류</h2>
+        <p class="error-description">죄송합니다, 서버에 오류가 발생하여 요청을 처리할 수 없습니다.</p>
+        <a href="/" class="btn btn-danger">홈으로 돌아가기</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

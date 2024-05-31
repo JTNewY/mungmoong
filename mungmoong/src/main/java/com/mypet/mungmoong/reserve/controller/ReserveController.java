@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.reserve.dto.Reserve;
 import com.mypet.mungmoong.reserve.service.ReserveService;
+import com.mypet.mungmoong.trainer.dto.Trainer;
+import com.mypet.mungmoong.trainer.service.TrainerService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +24,8 @@ public class ReserveController {
     //의존성 자동 주입
     @Autowired                 
     private ReserveService reserveService;
+    @Autowired                 
+    private TrainerService trainerService;
 
 
 
@@ -50,7 +54,15 @@ public class ReserveController {
         return "/reserve/read";
     }
     @GetMapping("/insert")
-    public String insert() {
+    public String insert(Model model
+                        ,@RequestParam("date") String date
+                        ,@RequestParam("trainerId") String trainerId) throws Exception {
+        log.info("date : " + date);
+        log.info("trainerId : " + trainerId);
+        Trainer trainer = trainerService.select(trainerId);
+        log.info("훈련사 정보 : " + trainer);
+        
+        model.addAttribute("trainer", trainer);
         return "/reserve/insert";
     }
 /**

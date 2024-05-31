@@ -6,15 +6,15 @@
 <mapper namespace="com.mypet.mungmoong.pet.mapper.PetMapper">
     
     <!-- 새로운 반려동물 추가 -->
-    <insert id="insertPet" >
-        INSERT INTO pet (name, age, gender, property, reg_date, upd_date, order_no, user_id)
-        VALUES (#{name}, #{age}, #{gender}, #{property}, #{regDate}, #{updDate}, #{orderNo}, #{userId})
+    <insert id="insertPet">
+      INSERT INTO pet (petname, age, gender, pettype, `character`, reg_date, upd_date, order_no, user_id)
+    VALUES (#{petname}, #{age}, #{gender}, #{pettype}, #{character}, now(), now(), #{orderNo}, #{userId})
     </insert>
     
     <!-- 반려동물 정보 수정 -->
     <update id="updatePet">
         UPDATE pet
-        SET name = #{name}, age = #{age}, gender = #{gender}, property = #{property}, 
+        SET petname = #{petname}, age = #{age}, gender = #{gender}, `character` = #{character}, 
             upd_date = #{updDate}
         WHERE pet_no = #{petNo}
     </update>
@@ -32,4 +32,11 @@
         WHERE pet_no = #{petNo}
     </select>
     
+<select id="findPetByUserId" resultType="Pet">
+    SELECT p.*
+    FROM pet p
+    INNER JOIN users u ON p.user_id = u.user_id
+    WHERE p.user_id = #{userId}
+</select>
+
 </mapper>

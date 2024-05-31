@@ -1,16 +1,19 @@
 package com.mypet.mungmoong.trainer.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mypet.mungmoong.trainer.dto.Career;
+import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
-import com.mypet.mungmoong.trainer.dto.Option;
-import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.mapper.TrainerMapper;
+import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,40 +22,38 @@ import lombok.extern.slf4j.Slf4j;
 public class TrainerServiceImpl implements TrainerService {
     
     @Autowired
-    private TrainerMapper TrainerMapper;
+    private TrainerMapper trainerMapper;
     
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private CertificateService certificateService;
 
-    /**
-     * 게시글 목록 조회
-     */
-    @Override
-    // public List<Trainer> list(Page page, Option option) throws Exception {
-    public List<Trainer> list(Page page) throws Exception {
-        // 게시글 데이터 개수 조회
-        // int total = TrainerMapper.count(option);
-        // page.setTotal(total);
-        
-        // trainerMapper 인터페이스 호출 -> trainerMapper.xml 호출
-        // List<Trainer> trainerList = TrainerMapper.list(page, option);
-        List<Trainer> trainerList = TrainerMapper.list(page);
-        return trainerList;
-    }
+    @Autowired
+    private CareerService careerService;
+    
+    @Autowired
+    private UsersService usersService;
+
+    /*
+        여기에 certificate랑 career 의존성 주입하고,
+        trainermapper가 result > 0 이라면 나머지
+        자격증과 경력들도 반복문 돌리면서 들어가도록
+    */ 
 
     /**
      * 게시글 조회
      * - no 매개변수로 게시글 번호를 전달받아서 데이터베이스에 조회 요청
      */
     @Override
-    public Trainer select(int no) throws Exception {
+    public Trainer select(String userId) throws Exception {
         // TrainerMapper 로 select(no) 호출
         /*
          *        ➡ trainer trainer 로 받아옴
          *        ➡ return trainer
          */
-        Trainer trainer = TrainerMapper.select(no);
+        Trainer trainer = trainerMapper.select(userId);
         // 추가 작업 •••
         // 만일 추가 작업이 없다면 바로 return에 넣어도 됨
         
@@ -71,11 +72,49 @@ public class TrainerServiceImpl implements TrainerService {
         *        ➡ int result 로 데이터 처리 행(개수) 받아옴
         *        ➡ return result
         */
-        int result = TrainerMapper.insert(trainer);
+        Trainer oldTrainer = trainerMapper.select(trainer.getUserId());
+        if( oldTrainer != null ) return 0;
+
+        int result = trainerMapper.insert(trainer);
+        if( result == 0 ) {
+            return 0;
+        }
+        int trainerNo = trainerMapper.maxPk();
+        trainer.setNo(trainerNo);
         
-        // 파일 업로드
+        // user - role : 1(승인요청) 로 변경 
+        Users user = usersService.select(trainer.getUserId());
+        user.setRole(1);
+        int userResult = usersService.update(user);
+        if( userResult > 0 ) log.info("user - role : 1 로 수정됨");
+
+
+        List<String> careerName = trainer.getCareerName();        
+        List<String> certificateName = trainer.getCertificateName();  
+
+        // 경력 추가
+        if( careerName != null ) {
+            for (String name : careerName) {
+                Career career = new Career();
+                career.setName(name);
+                career.setTrainerNo(trainerNo);
+                careerService.insert(career);
+            }
+        }        
+        // 자격증 추가
+        if( certificateName != null ) {
+            for (String name : certificateName) {
+                Certificate certificate = new Certificate();
+                certificate.setName(name);
+                certificate.setTrainerNo(trainerNo);
+                certificateService.insert(certificate);
+            }
+        }      
+
+         
+        // // 파일 업로드
         String parentTable = "trainer";
-        int parentNo = TrainerMapper.maxPk();
+        int parentNo = trainerNo;
         
         // 썸네일 업로드 (한 건)
         // - 부모테이블, 부모번호, 멀티파트파일, 파일코드:1(썸네일)
@@ -94,20 +133,20 @@ public class TrainerServiceImpl implements TrainerService {
         }
         
         // 첨부파일 업로드 (한 건 이상)
-        // List<MultipartFile> fileList = trainer.getFile();
-        // if( !fileList.isEmpty() ) {
-        //     for (MultipartFile file : fileList) {
-        //         if( file.isEmpty() ) continue;
+        List<MultipartFile> fileList = trainer.getFile();
+        if(fileList != null && !fileList.isEmpty() ) {
+            for (MultipartFile file : fileList) {
+                if( file.isEmpty() ) continue;
                 
-        //         // 파일 업로드 요청
-        //         Files uploadFile = new Files();
-        //         uploadFile.setParentTable(parentTable);
-        //         uploadFile.setParentNo(parentNo);
-        //         uploadFile.setFile(file);
+                // 파일 업로드 요청
+                Files uploadFile = new Files();
+                uploadFile.setParentTable(parentTable);
+                uploadFile.setParentNo(parentNo);
+                uploadFile.setFile(file);
 
-        //         fileService.upload(uploadFile);
-        //     }
-        // }
+                fileService.upload(uploadFile);
+            }
+        }
 
         return result;
     }
@@ -122,25 +161,16 @@ public class TrainerServiceImpl implements TrainerService {
          *        ➡ int result 로 데이터 처리 행(개수) 받아옴
          *        ➡ return result
          */
-        int result = TrainerMapper.update(trainer);
+        int result = trainerMapper.update(trainer);
         return result;
     }
 
-
-
-    /**
-     * 조회 수 증가
-     */
     @Override
-    public int view(int no) throws Exception {
-        log.info(no + "빈 글 조회 수 증가 •••");
-        return TrainerMapper.view(no);
-    }
+    public List<Trainer> trainerList() throws Exception {
 
-    @Override
-    public List<Trainer> search(Option option) throws Exception {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        List<Trainer> trainerList = trainerMapper.trainerList();
+
+        return trainerList;
     }
 
 

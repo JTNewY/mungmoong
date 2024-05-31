@@ -3,7 +3,7 @@ package com.mypet.mungmoong.reserve.dto;
 import java.util.Date;
 
 import lombok.Data;
-
+ 
 @Data
 public class Reserve {
     private int date_no;

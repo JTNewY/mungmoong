@@ -28,35 +28,35 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-primary">확인</button>
+          <button type="button" class="buttons button" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="buttons button">확인</button>
         </div>
       </div>
     </div>
   </div>
   <h4 style="padding: 3% 25% 0 25%;font-family: 'Jua';">회원님 결제정보</h4>
   <div class="input-form-backgroud row"
-  style="padding: 3%;
+  style="padding: 3%;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 50%;
   border-radius: 15px;
   margin: 0 auto;
   margin-bottom: 4%;
   background: #fff4d5">                          
           <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">결제정보</h4>
-            <form class="validation-form" novalidate>
-            <input type="hidden" name="order_no" value="123">
+            <h4 class="mb-3">결제정보상세</h4>
+            <form class="validation-form" novalidate action="/orders/delete" method="post">
+            <input type="hidden" name="order_no"  th:value="${orders.order_no}">
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name">예약자</label>
-                  <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                  <input type="text" class="form-control"  name="userId" th:value="${order.userId}" required>
                   <div class="invalid-feedback">
                     이름을 입력해주세요.
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="nickname">훈련사명</label>
-                  <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                  <input type="text" class="form-control" id="trainerCheck" th:value="${order.trainerCheck}" required>
                   <div class="invalid-feedback">
                     훈련사를 입력해주세요.
                   </div>
@@ -65,7 +65,7 @@
     
               <div class="mb-3">
                 <label for="cardno">카드번호</label>
-                <input type="text" class="form-control" id="card_no" placeholder="12*-***-****" required>
+                <input type="text" class="form-control" id="cardNo" th:value="${order.cardNo}" placeholder="12*-***-****" required>
                 <div class="invalid-feedback">
                   카드번호를 입력해주세요.
                 </div>
@@ -73,12 +73,12 @@
               <div class="mb-3">
                 <label for="priceDisplay">결제금액</label>
 
-                <input type="text" class="form-control" id="priceDisplay" placeholder="" required
+                <input type="text" class="form-control" id="priceCheck" name="priceCheck" placeholder="" required
                         th:value="${ordersDetail.orderPrice}"> 
               </div>
               <div class="mb-3">
                 <label for="order_date">결제일자</label>
-                <input type="text" class="form-control" id="order_date" placeholder="20240505" required>
+                <input type="text" class="form-control" id="orderDate" name="orderDate" placeholder="" required>
                 <div class="invalid-feedback">
                   결제일자
                 </div>
@@ -89,7 +89,7 @@
               </div>
               <div class="mb-3">
                 <label for="order_no">결제번호</label>
-                <input type="pet" class="form-control" id="order_no" placeholder="123***" required>
+                <input type="pet" class="form-control" id="order_no" name="order_no" placeholder="" required>
                 <div class="invalid-feedback">
                   결제번호를 입력해주세요.
                 </div>
@@ -101,10 +101,10 @@
             </div>
               <div class="mb-4" style="text-align: center;padding: 3% 0;">               
               <!-- 모달을 실행할 버튼 -->
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" class="buttons button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 취소
               </button>
-              <button type="button"onclick="reserveList()" class="btn btn-outline-warning">목록</button>
+              <button type="button"onclick="reserveList()" class="buttons button">목록</button>
               </div>
               
             </form>

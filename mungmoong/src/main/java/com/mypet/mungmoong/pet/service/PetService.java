@@ -1,12 +1,12 @@
 package com.mypet.mungmoong.pet.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 
-@Service
 public interface PetService {
-    
+
+
     void addPet(Pet pet);
 
     void updatePet(Pet pet);
@@ -14,4 +14,6 @@ public interface PetService {
     void deletePet(int petNo);
 
     Pet findPetById(int petNo);
+
+    public List<Pet> findPetByUserId(String userId) throws Exception;
 }

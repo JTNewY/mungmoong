@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.board.mapper.noticeMapper">
+    <resultMap id="noticeResultMap" type="com.mypet.mungmoong.board.model.Notice">
+        <id column="notice_no" property="noticeNo"/>
+        <result column="notice_content" property="noticeContent"/>
+        <result column="writer" property="writer"/>
+        <result column="age" property="age"/>
+        <result column="currer" property="currer"/>
+    </resultMap>
+
+    <insert id="insertNotice" parameterType="com.mypet.mungmoong.board.model.Notice">
+        INSERT INTO notice (notice_no, notice_content, writer, age, currer) 
+        VALUES (#{noticeNo}, #{noticeContent}, #{writer}, #{age}, #{currer})
+    </insert>
+
+    <select id="getAllNotices" resultMap="noticeResultMap">
+        SELECT * FROM notice
+    </select>
+
+    
+    <!-- 관리자 영역 -->
+    <select id="list" resultType="notice">
+        SELECT *
+        FROM notice
+        ORDER BY reg_date DESC
+    </select>
+</mapper>

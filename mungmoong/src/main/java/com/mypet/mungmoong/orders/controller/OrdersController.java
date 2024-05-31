@@ -28,8 +28,8 @@ public class OrdersController {
     private OrdersService ordersService;
     @Autowired                 
     private OrdersDetailService ordersDetailService;
-    @Autowired                 
-    private TrainerService trainerService;
+    // @Autowired                 
+    // private TrainerService trainerService;
     /**
      * 결제목록 조회 화면
      */

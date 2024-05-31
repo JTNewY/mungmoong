@@ -7,10 +7,11 @@ import lombok.Data;
 @Data
 public class Pet {
     private int petNo;
-    private String name;
+    private String petname;
+    private String pettype;
     private int age;
     private int gender;
-    private String property;
+    private String character;
     private Date regDate;
     private Date updDate;
     private int orderNo;

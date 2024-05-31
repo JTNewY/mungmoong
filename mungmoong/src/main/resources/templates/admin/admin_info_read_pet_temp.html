@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/admin_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공펫</title>
+</head>
+
+<body layout:fragment="content">
+    <div class="container-fluid container">
+        <div class="inner">
+            <h1>회원정보 : mypet</h1>
+            <div class="tab_tr_btn">
+                <ul>
+                    <li><a th:href="/admin/admin_info_read">회원정보</a></li>
+                    <li><a th:href="|/admin/admin_info_read_pet?petNo=${pet.petNo}|">반려견</a></li>
+                </ul>
+            </div>
+            <form class="form-group" action="admin/admin_info_read_pet" method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="/img/admin/admin_pet.png" class="img-fluid" alt="반려견 이미지">
+                    </div>
+                    <div class="col-md-8 fmCont">
+                        <ul>
+                            <li>
+                                <label for="petname" name="petname">이름</label>
+                                <input type="text" name="petname" id="petname" th:value="${pet.petname}">
+                            </li>
+                            <li>
+                                <label for="petgender" name="petgender">성별</label>
+                                <input type="text" name="petgender" id="petgender" th:value="${pet.petgender}">
+                            </li>
+                            <li>
+                                <label for="petAge" name="age">나이</label>
+                                <input type="text" name="age" id="age" value="${pet.age}">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="paging">
+                    <ul>
+                        <li><a href="#">&lt&lt;</a></li>
+                        <li><a href="#">&lt;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">&gt;</a></li>
+                        <li><a href="#">&gt&gt;</a></li>
+                    </ul>
+                </div>
+                <!-- 하단 버튼 영역 -->
+                <div class="bottom-btn">
+                    <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
+                    <button type="button" class="btn btn-secondary btn-lg updateBtn"  onclick="moveToUpdate()">수정</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function moveToList() {
+            location.href = '/admin/admin_info'
+        }
+        function moveToUpdate() {
+            location.href = '/admin/admin_info_pet_update'
+        }
+    </script>
+</body>
+
+</html>

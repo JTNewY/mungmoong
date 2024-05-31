@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.kakaojoin.mapper.UserMapper">
+
+    <resultMap type="Users" id="userMap">
+        <id property="id" column="id" />
+        
+        <result property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="profile" column="profile" />
+        <result property="enabled" column="enabled" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+        
+        <collection property="authList" resultMap="authMap"></collection>
+    </resultMap>
+        
+    <resultMap type="UserAuth" id="authMap">
+        <result property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="auth" column="auth" />
+    </resultMap>
+
+    <!-- 로그인 - username -->
+    <select id="login" resultMap="userMap">
+        SELECT u.id
+              ,u.username
+              ,password
+              ,name
+              ,email
+              ,profile
+              ,enabled
+              ,created_at
+              ,updated_at
+              ,auth
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.name = auth.username
+        WHERE u.username = #{username}
+    </select>
+
+
+    <!-- 회원 조회 - id -->
+    <select id="select" resultMap="userMap">
+        SELECT u.id
+              ,u.username
+              ,password
+              ,name
+              ,email
+              ,profile
+              ,enabled
+              ,created_at
+              ,updated_at
+              ,auth
+        FROM user u LEFT OUTER JOIN user_auth auth ON u.username = auth.username
+        WHERE u.id = #{id}
+    </select>
+
+    <!-- 회원 가입 -->
+    <insert id="join">
+        INSERT INTO user ( id, username, password, name, email, profile )
+        VALUES ( UUID(), #{username}, #{password}, #{name}, #{email}, #{profile} )
+    </insert>
+
+    <!-- 회원 정보 수정 -->
+    <update id="update">
+        UPDATE user
+           SET name = #{name}
+              ,email = #{email}
+              ,profile = #{profile}
+              ,updated_at = now()
+        WHERE username = #{username}
+    </update>
+
+    <!-- 회원 권한 등록 -->
+    <insert id="insertAuth">
+        INSERT INTO user_auth( id, username, auth )
+        VALUES ( UUID(), #{username}, #{auth} )
+    </insert>
+
+    <!-- 소셜 회원 가입 -->
+    <insert id="insertSocial">
+        INSERT INTO user_social ( id, username, provider, social_id, name, email, picture )
+        VALUES ( UUID(), #{username}, #{provider}, #{socialId}, #{name}, #{email}, #{picture} )
+    </insert>
+
+
+    <!-- 소셜 회원 조회 -->
+    <select id="selectSocial" resultType="UserSocial">
+        SELECT * 
+        FROM user_social
+        WHERE provider = #{provider} 
+        AND social_id = #{socialId}
+    </select>
+
+
+    <!-- 소셜 회원 수정 -->
+    <update id="updateSocial">
+        UPDATE user_social
+           SET user_id = #{userId}
+              ,provider = #{provider}
+              ,social_id = #{socialId}
+              ,name = #{name}
+              ,email = #{email}
+              ,picture = #{picture}
+              ,updated_at = #{updatedAt}
+        WHERE provider = #{provider} 
+        AND user_id = #{userId}
+    </update>
+
+    <!-- 소셜정보로 회원 조회 -->
+    <select id="selectBySocial" resultMap="userMap">
+        SELECT u.id
+              ,u.username
+              ,password
+              ,name
+              ,email
+              ,profile
+              ,enabled
+              ,created_at
+              ,updated_at
+              ,auth
+        FROM user u 
+             LEFT OUTER JOIN user_auth auth ON u.username = auth.username
+        WHERE u.username = (
+                        SELECT username
+                          FROM user_social
+                        WHERE provider = #{provider} 
+                          AND social_id = #{socialId}
+                    )
+    </select>
+
+</mapper>
