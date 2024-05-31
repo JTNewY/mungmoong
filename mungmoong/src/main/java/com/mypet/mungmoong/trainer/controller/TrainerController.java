@@ -85,10 +85,10 @@ public class TrainerController {
     @GetMapping("/info")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
-        int trainerNo = trainer.getNo();
+        // int trainerNo = trainer.getNo();
         // Career career = careerService.select(trainerNo);
-        List<Career> careerList = careerService.select(trainerNo);
-        List<Certificate> certificateList = certificateService.select(trainerNo);
+        List<Career> careerList = careerService.select(userId);
+        List<Certificate> certificateList = certificateService.select(userId);
         model.addAttribute("trainer", trainer);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);

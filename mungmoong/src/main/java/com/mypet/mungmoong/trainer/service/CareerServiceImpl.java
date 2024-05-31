@@ -22,8 +22,8 @@ public class CareerServiceImpl implements CareerService {
     private FileService fileService;
 
     @Override
-    public List<Career> select(int trainerNo) throws Exception {
-        List<Career> careerList = careerMapper.select(trainerNo);
+    public List<Career> select(String userId) throws Exception {
+        List<Career> careerList = careerMapper.select(userId);
 
         return careerList;
     }

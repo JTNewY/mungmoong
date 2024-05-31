@@ -50,7 +50,7 @@ CREATE TABLE `trainer` (
 TRUNCATE TABLE EXISTS career;
 CREATE TABLE `career` (
 	`no`			INT		PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
-	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
+	`user_id`   VARCHAR(100)NOT NULL, -- 회원 아이디
 	`name`	VARCHAR(100)		NULL, -- 경력 이름
 	`reg_date`	TIMESTAMP		NULL, -- 등록일
 	`upd_date`	TIMESTAMP		NULL  -- 수정일
@@ -60,10 +60,10 @@ CREATE TABLE `career` (
 TRUNCATE TABLE EXISTS certificate;
 CREATE TABLE `certificate` (
 	`no`	INT		 	PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
-	`trainer_no`	INT	NOT NULL, -- 훈련사 번호
-	`name`	VARCHAR(100)	NULL, -- 자격증 명
-	`reg_date`	TIMESTAMP	NULL, -- 등록일   
-	`upd_date`	TIMESTAMP	NULL  -- 수정일
+	`user_id`  VARCHAR(100)	NOT NULL, -- 회원 아이디
+	`name`	VARCHAR(100)		NULL, -- 자격증 명
+	`reg_date`	TIMESTAMP		NULL, -- 등록일   
+	`upd_date`	TIMESTAMP		NULL  -- 수정일
 );
 
 ALTER TABLE career
