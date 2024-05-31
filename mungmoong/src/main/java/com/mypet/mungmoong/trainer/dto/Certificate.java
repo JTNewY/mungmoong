@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Certificate {
     private int no;                // 자격증 번호
-    private int trainerNo;         // 훈련사 번호
+    private String userId;         // 회원 아이디
     private String name;           // 자격증 명
     private Date regDate;          // 등록일
     private Date updDate;          // 수정일

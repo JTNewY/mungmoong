@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            SET title = #{title}
               ,user_id = #{userId}
               ,content = #{content}
-              ,upd_date = now()
+              ,upd_date = now()     
         WHERE board_no = #{boardNo}
     </update>
 

@@ -11,7 +11,7 @@ import com.mypet.mungmoong.trainer.dto.Certificate;
 public interface CertificateMapper {
 
     // 자격증 조회 리스트
-    public List<Certificate> select(int trainerNo);
+    public List<Certificate> select(String userId);
     // 자격증 등록
     public int insert(Certificate certificate) throws Exception;
     // 자격증 수정

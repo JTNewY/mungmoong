@@ -115,11 +115,11 @@
             <thead>
                 <tr>
                     <th>번호</th>
-                    <th>답변여부</th>
+                    <th>제목</th>
                     <th>내용</th>
                     <th>작성자</th>
                     <th>등록일자</th>
-                    <th>구분</th>
+                    <th>수정일자</th>
                 </tr>
             </thead>
             <tbody>
@@ -138,8 +138,8 @@
                             <a th:href="|/QnA/read?no=${board.boardNo}|" 
                             th:text="${board.title}"></a>
                         </td>
+                        <td align="center" th:text="${board.content}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
                         <td align="center" th:text="${board.userId}"></td>
-        
                         <td align="center">
                             <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
                         </td>
@@ -171,6 +171,9 @@
             </ul>
         </nav>
     </div>
+    <script>
+        document.getElementById('content')
+    </script>
 </body>
 </html>
     
