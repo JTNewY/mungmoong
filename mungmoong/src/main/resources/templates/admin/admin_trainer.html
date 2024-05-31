@@ -31,61 +31,37 @@
                 </div>
             </nav>
 
+
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col" style="width: 5%;">no</th>
                         <th scope="col" style="width: 10%;">ID</th>
-                        <th scope="col" style="width: 10%;">비밀번호</th>
+                        <!-- <th scope="col" style="width: 10%;">비밀번호</th> -->
                         <th scope="col" style="width: 10%;">이름</th>
-                        <th scope="col" style="width: 10%;">닉네임</th>
-                        <th scope="col" style="width: 10%;">전화번호</th>
-                        <th scope="col" style="width: 10%;">금액</th>
-                        <th scope="col" style="width: 10%;">진행여부</th>
-                        <th scope="col" style="width: 15%;">훈련가능 견종</th>
-                        <th scope="col" style="width: 10%;">승인여부</th>
+                        <!-- <th scope="col" style="width: 10%;">닉네임</th> -->
+                        <!-- <th scope="col" style="width: 10%;">전화번호</th> -->
+                        <!-- <th scope="col" style="width: 10%;">금액</th> -->
+                        <!-- <th scope="col" style="width: 10%;">진행여부</th> -->
+                        <!-- <th scope="col" style="width: 15%;">훈련가능 견종</th> -->
+                        <!-- <th scope="col" style="width: 10%;">승인여부</th> -->
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="/admin/admin_trainer_read">joeun</a></td>
-                        <td class="text-truncate">123456</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">01011112222</td>
-                        <td class="text-truncate">$120,000</td>
-                        <td class="text-truncate">대기</td>
-                        <td class="text-truncate">소형견</td>
-                        <td class="text-truncate">
+                <th:block th:each="trainer : ${trainerList}">
+                <tr>
+                    <td th:text="${trainer.no}"></td>
+                    <td><a th:href="|/admin/admin_trainer_read?userId=${trainer.userId}|" th:text="${trainer.userId}"></a></td>
+                    <td class="text-truncate" th:text="${trainer.name}"></td>
+                    <!-- <td class="text-truncate">
                             <div class="sm-bottom-btn">
                                 <button type="button"
                                     class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
                                 <button type="button"
                                     class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="/admin/admin_trainer_read">joeun</a></td>
-                        <td class="text-truncate">123456</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">01011112222</td>
-                        <td class="text-truncate">$120,000</td>
-                        <td class="text-truncate">대기</td>
-                        <td class="text-truncate">소형견</td>
-                        <td class="text-truncate">
-                            <div class="sm-bottom-btn">
-                                <button type="button"
-                                    class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
-                                <button type="button"
-                                    class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
+                        </td> -->
+                </tr>
+                </th:block>
             </table>
             <!-- 페이징 버튼 영역 -->
             <div class="paging">

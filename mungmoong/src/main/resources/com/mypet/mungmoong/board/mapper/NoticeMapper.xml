@@ -20,4 +20,12 @@
     <select id="getAllNotices" resultMap="noticeResultMap">
         SELECT * FROM notice
     </select>
+
+    
+    <!-- 관리자 영역 -->
+    <select id="list" resultType="notice">
+        SELECT *
+        FROM notice
+        ORDER BY reg_date DESC
+    </select>
 </mapper>

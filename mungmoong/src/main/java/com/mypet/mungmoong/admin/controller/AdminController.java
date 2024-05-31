@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
+import com.mypet.mungmoong.trainer.dto.Trainer;
+import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Slf4j
 @Controller
@@ -30,6 +34,9 @@ public class AdminController {
     @Autowired
     private PetService petService;
 
+    @Autowired
+    private TrainerService trainerService;
+
     /**
      * 관리자 회원정보 조회
      * 
@@ -40,7 +47,7 @@ public class AdminController {
     public String list(Model model) throws Exception {
 
         List<Users> usersList = userService.list();
-        log.info(usersList.toString());
+        // log.info(usersList.toString());
         model.addAttribute("usersList", usersList);
 
         return "/admin/admin_info";
@@ -100,7 +107,7 @@ public class AdminController {
     }
 
     /**
-     * 
+     * 관리자 회원 반려견 정보
      * @param petNo
      * @param model
      * @return
@@ -136,5 +143,81 @@ public class AdminController {
 
         return "redirect:/admin/admin_info_read_update?userId=" + userId + "&error";
     }
+
+
+
+    /**
+     * 관리자 훈련사 
+     * @param no
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/admin_trainer")
+    public String trainerList(Model model) throws Exception {
+
+        List<Trainer> trainerList = trainerService.trainerList();
+        log.info(trainerList.toString());
+
+        model.addAttribute("trainerList", trainerList);
+
+        return "/admin/admin_trainer";
+    }
+
+    /**
+     * 관리자 훈련사정보 상세 페이지(이동)
+     * @param userId
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/admin_trainer_read")
+    public String select(@RequestParam("userId") String userId, Model model) throws Exception {
+        Trainer trainer = trainerService.select(userId);
+        // log.info("트레이너 상세화면 : " + trainer.toString());
+        model.addAttribute("trainer", trainer);
+        return "/admin/admin_trainer_read";
+    }
+
+    /**
+     * 관리자 훈련사정보 수정페이지(이동)
+     * @param param
+     * @return
+     */
+    // @GetMapping("path")
+    // public String getMethodName(@RequestParam String param) {
+    //     return new String();
+    // }
+
+    /**
+     * 관리자 훈련사정보 수정(처리)
+     * @param entity
+     * @return
+     */
+    // @PostMapping("path")
+    // public String postMethodName(@RequestBody String entity) {
+    //     //TODO: process POST request
+        
+    //     return entity;
+    // }
+    
+    /**
+     * 관리자 훈련사정보 삭제
+     * @param entity
+     * @return
+     */
+    // @PostMapping("path")
+    // public String postMethodName(@RequestBody String entity) {
+    //     //TODO: process POST request
+        
+    //     return entity;
+    // }
+    
+    @GetMapping("/admin_board")
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
+    
 
 }

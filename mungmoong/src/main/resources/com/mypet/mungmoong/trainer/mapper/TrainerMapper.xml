@@ -66,4 +66,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE no = #{no}
     </update>
 
+    <!-- 관리자 영역 -->
+    <select id="trainerList" resultType="trainer">
+        SELECT *
+        FROM trainer
+        ORDER BY reg_date DESC
+    </select>
+
 </mapper>

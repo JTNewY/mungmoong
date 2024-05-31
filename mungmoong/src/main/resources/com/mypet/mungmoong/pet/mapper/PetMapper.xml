@@ -32,10 +32,11 @@
         WHERE pet_no = #{petNo}
     </select>
     
-    <select id="findPetByUserId" resultType="Pet">
-        SELECT *
-        FROM pet
-        ORDER BY reg_date DESC
-    </select>
+<select id="findPetByUserId" resultType="Pet">
+    SELECT p.*
+    FROM pet p
+    INNER JOIN users u ON p.user_id = u.user_id
+    WHERE p.user_id = #{userId}
+</select>
 
 </mapper>

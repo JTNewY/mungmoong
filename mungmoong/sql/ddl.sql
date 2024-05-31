@@ -1,7 +1,8 @@
 
 -- Active: 1715069578448@@127.0.0.1@3306@mypet
 
-
+-- 반려견 테이블
+TRUNCATE TABLE EXISTS pet;
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
 	`petname`	VARCHAR(50)	NOT NULL,
@@ -27,9 +28,10 @@ SELECT * FROM trainer;
 SELECT * FROM career;
 SELECT * FROM certificate;
 
-
+-- 훈련사 테이블
 DROP TABLE IF EXISTS trainer;
-
+DROP TABLE trainer;
+TRUNCATE TABLE trainer;
 CREATE TABLE `trainer` (
 	`no`			INT			PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
@@ -44,6 +46,8 @@ CREATE TABLE `trainer` (
 	`user_id`		VARCHAR(100)	NOT NULL-- 회원 아이디
 );
 
+-- 경력 테이블
+TRUNCATE TABLE EXISTS career;
 CREATE TABLE `career` (
 	`no`			INT		PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
 	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
@@ -52,6 +56,8 @@ CREATE TABLE `career` (
 	`upd_date`	TIMESTAMP		NULL  -- 수정일
 );
 
+-- 자격증 정보 테이블
+TRUNCATE TABLE EXISTS certificate;
 CREATE TABLE `certificate` (
 	`no`	INT		 	PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
 	`trainer_no`	INT	NOT NULL, -- 훈련사 번호
@@ -66,9 +72,8 @@ ADD CONSTRAINT fk_career_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(
 ALTER TABLE certificate
 ADD CONSTRAINT fk_certificate_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
 
-
-
-
+-- 스케줄 테이블
+TRUNCATE TABLE EXISTS schedule;
 CREATE TABLE `schedule` (
 	`schedule_no`	INT		NOT NULL, -- 스케쥴 번호
 	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
@@ -79,7 +84,8 @@ CREATE TABLE `schedule` (
 	`upd_date`	TIMESTAMP		NULL  -- 수정일
 );
 
-
+-- 예약 테이블
+TRUNCATE TABLE EXISTS reserve;
 CREATE TABLE `reserve` (
 	`date_no`	INT	NOT NULL,
 	`date_time`	TIMESTAMP	NULL,
@@ -91,6 +97,8 @@ CREATE TABLE `reserve` (
 	`order_no`	INT	NOT NULL
 );
 
+-- 결제정보 테이블
+TRUNCATE TABLE EXISTS ordersdetail;
 CREATE TABLE `ordersdetail` (
 	`order_id`	INT	NOT NULL,
 	`card_no`	VARCHAR(100)	NULL,
@@ -101,6 +109,8 @@ CREATE TABLE `ordersdetail` (
 	`order_no`	INT	NOT NULL
 );
 
+-- 결제 테이블
+TRUNCATE TABLE EXISTS orders;
 CREATE TABLE `orders` (
 	`order_no`	INT	NOT NULL,
 	`user_check`	BOOLEAN	NULL,
@@ -112,11 +122,9 @@ CREATE TABLE `orders` (
 	`trainer_check`	INT	NULL
 );
 
-
+-- 이미지 파일 테이블
 DROP TABLE IF EXISTS `img_file`;
-
 DROP TABLE IF EXISTS `img_file`;
-
 CREATE TABLE `img_file` (
 	`no`	INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`parent_no`	INT	NOT NULL,
@@ -129,9 +137,8 @@ CREATE TABLE `img_file` (
 	`upd_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP
 );
 
-
-
-
+-- 댓글 테이블
+TRUNCATE TABLE EXISTS reply;
 CREATE TABLE `reply` (
 	`file_no`	INT	NOT NULL,
 	`board_no`	INT	NULL,
@@ -143,6 +150,8 @@ CREATE TABLE `reply` (
 	`board_no2`	INT	NOT NULL
 );
 
+-- 공지사항 테이블
+TRUNCATE TABLE EXISTS notice;
 CREATE TABLE `notice` (
 	`notice_no`	INT	NOT NULL,
 	`notice_content`	VARCHAR(1000)	NOT NULL,
@@ -151,6 +160,8 @@ CREATE TABLE `notice` (
 	`currer`	TIMESTAMP	NULL
 );
 
+-- 게시판 테이블
+TRUNCATE TABLE EXISTS board;
 CREATE TABLE `board` (
 	`board_no`	INT	NOT NULL,
 	`title`	VARCHAR(100)	NOT NULL,
@@ -162,6 +173,8 @@ CREATE TABLE `board` (
 	`board_type`	INT	NULL
 );
 
+-- 리뷰 테이블
+TRUNCATE TABLE EXISTS review;
 CREATE TABLE `review` (
 	`review_no`	VARCHAR(50)	NOT NULL,
 	`trainer_id`	VARCHAR(100)	NOT NULL,
@@ -172,7 +185,8 @@ CREATE TABLE `review` (
 	`upd_date`	TIMESTAMP	NULL
 );
 
-TRUNCATE TABLE EXISTS  users;
+-- 회원 테이블
+TRUNCATE TABLE EXISTS users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,
@@ -190,7 +204,8 @@ CREATE TABLE `users` (
 );
 
 
-
+-- 회원권한 테이블
+TRUNCATE TABLE EXISTS user_auth;
 DROP TABLE IF EXISTS user_auth;
 CREATE TABLE `user_auth` (
 	`auth_no`	INT	PRIMARY KEY AUTO_INCREMENT,
@@ -250,6 +265,5 @@ ALTER TABLE `schedule` ADD CONSTRAINT `PK_SCHEDULE` PRIMARY KEY (
 	`schedule_no`
 );
 
-TRUNCATE TABLE users;
 
 
