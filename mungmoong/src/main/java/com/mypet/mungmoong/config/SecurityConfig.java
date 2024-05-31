@@ -37,18 +37,19 @@ public class SecurityConfig {
 
         // ✅ 인가 설정
         http.authorizeRequests(requests -> requests
+                                            // .antMatchers("/user").hasRole("USER")
                                             .antMatchers("/**").permitAll()
                                             .anyRequest().authenticated());
 
         // 🔐 폼 로그인 설정
-        http.formLogin(login -> login
-            .loginPage("/users/login")
-            .loginProcessingUrl("/login")
-            .usernameParameter("userId")
-            .passwordParameter("password")
-            .defaultSuccessUrl("/")
-            .successHandler(loginSuccessHandler)
-            .failureUrl("/loginError"));
+        // ✅ 커스텀 로그인 페이지
+        http.formLogin(login -> login.loginPage("/users/login")
+                                     .loginProcessingUrl("/login")
+                                     .usernameParameter("userId")
+                                     .passwordParameter("password")
+                                     .defaultSuccessUrl("/")
+                                     .successHandler(loginSuccessHandler)
+                                     );
 
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);
