@@ -12,36 +12,32 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            position: relative;
+          
         }
-        .container{
+        .container { 
             position: absolute;
-            width: 500px;
-            height: 500px;
-            left: 50%;
-            top:50%;
-            transform: translate(-50%,-50%);
-            background-image: url(/img/error/error02.png);
+            width: 50%;
+            background-image: url(/img/error/error404.png);
             background-repeat: no-repeat;
             background-size: contain;
-        }
-     .btn.btn-danger{
-        position: absolute;
-            width: 150px;
-            height: 40px;
-            left: 50%;
-            bottom: 20%;
-            transform: translate(-50%,-20%);
-            background-color: #fb503b;
-     }
+            text-align: center;
+            height: 60%;
+            transform: translate(-50px, -50px);
+ }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="/" class="btn btn-danger">홈으로 돌아가기</a>
+      <a href="/" class="btn btn-danger" style="position: absolute;
+      background: #fb503b;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%);">홈으로 돌아가기</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
