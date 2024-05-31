@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="select" resultType="Board">
         SELECT *
         FROM board
-        WHERE board_no = #{no}
+        WHERE board_no = #{boardNo}
     </select>
 
     <!-- 게시글 등록 -->
@@ -32,14 +32,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            SET title = #{title}
               ,user_id = #{userId}
               ,content = #{content}
-              ,upd_date = now()     
-        WHERE board_no = #{no}
+              ,upd_date = now()
+        WHERE board_no = #{boardNo}
     </update>
 
     <!-- 게시글 삭제 -->
     <delete id="delete">
         DELETE FROM board
         WHERE board_no = #{no}
+
+
+        <!-- 관리자 삭제 -->
+    <delete id="BoardDelete">
+        DELETE FROM board
+        WHERE board_no = #{boardNo}
     </delete>
 
     <!-- 게시글 번호 최댓값 -->

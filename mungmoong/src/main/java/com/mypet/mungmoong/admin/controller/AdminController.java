@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mypet.mungmoong.board.dto.Board;
+import com.mypet.mungmoong.board.service.BoardService;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
 import com.mypet.mungmoong.trainer.dto.Trainer;
@@ -21,6 +23,7 @@ import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -36,6 +39,9 @@ public class AdminController {
 
     @Autowired
     private TrainerService trainerService;
+
+    @Autowired
+    private BoardService boardService;
 
     /**
      * 관리자 회원정보 조회
@@ -205,6 +211,7 @@ public class AdminController {
      * 관리자 훈련사정보 삭제
      * @param entity
      * @return
+     * @throws Exception 
      */
     // @PostMapping("path")
     // public String postMethodName(@RequestBody String entity) {
@@ -213,10 +220,90 @@ public class AdminController {
     //     return entity;
     // }
     
+    /**
+     * 관리자 보드 리스트
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/admin_board")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
+    public String getMethodName(Model model) throws Exception {
+
+        List<Board> boardList = boardService.list();
+        model.addAttribute("boardList", boardList);
+        return "/admin/admin_board";
     }
+
+
+    /**
+     * 관리자 게시판 상세 화면
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    @GetMapping("/admin_board_read")
+    public String read(@RequestParam("boardNo") int no, Model model) throws Exception {
+        Board board = boardService.select(no);
+        log.info("보드 : " + board.toString());
+        model.addAttribute("board", board);
+        return "/admin/admin_board_read";
+    }
+
+
+    /**
+     * 관리자 게시판 수정화면(이동)
+     * @param no
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/admin_board_read_update")
+    public String update(@RequestParam("boardNo") int no, Model model) throws Exception {
+        Board board = boardService.select(no);
+
+        log.info("업데이트 보드 : " + board);
+
+        model.addAttribute("board", board);
+
+
+        return "/admin/admin_board_read_update";
+    
+    }
+
+
+    /**
+     * 관리자 공지사항 수정 처리
+     * @param board
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/admin_board_read_update")
+    public String BupdatePro(Board board) throws Exception {
+
+        int result = boardService.update(board);
+
+        log.info("result : " + result);
+        
+        if(result > 0) {
+            return "redirect:/admin/admin_board";
+        }
+        int no = board.getBoardNo();
+        return "redirect:/admin/admin_board_read_update?" + no + "error";
+    }
+
+
+    @PostMapping("/BoardDelete")
+    public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
+        log.info("no : " + no);
+        int result = boardService.BoardDelete(no);
+
+        if (result > 0) {
+            return "redirect:/admin/admin_board";
+        }
+
+        return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
+    }
+    
     
     
 

@@ -1,5 +1,5 @@
 
--- Active: 1713528331467@@127.0.0.1@3306@mypet
+-- Active: 1716856468698@@127.0.0.1@3306@mypet
 
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
@@ -173,6 +173,13 @@ CREATE TABLE `board` (
 	`board_type`	INT	NULL
 );
 alter Table board MODIFY board_no INT AUTO_INCREMENT PRIMARY KEY;
+
+INSERT INTO `board` (`title`, `content`, `file_name`, `reg_date`, `user_id`, `board_type`) VALUES
+('첫 번째 게시물', '첫 번째 게시물의 내용입니다.', 'file1.jpg', NOW(), 'user1', 1),
+('두 번째 게시물', '두 번째 게시물의 내용입니다.', 'file2.jpg', NOW(), 'user2', 2),
+('세 번째 게시물', '세 번째 게시물의 내용입니다.', NULL, NOW(), 'user3', 1),
+('네 번째 게시물', '네 번째 게시물의 내용입니다.', 'file3.jpg', NOW(), 'user1', 3),
+('다섯 번째 게시물', '다섯 번째 게시물의 내용입니다.', NULL, NOW(), 'user2', 2);
 
 -- 리뷰 테이블
 TRUNCATE TABLE EXISTS review;
