@@ -17,13 +17,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.Users;
@@ -52,6 +53,25 @@ public class UsersController {
         return "/users/" + page;
     }   
  
+    @GetMapping("/login")
+    public String loginPage(HttpServletRequest request, Model model) {
+        Cookie[] cookies = request.getCookies();
+        String rememberedUserId = null;
+        boolean rememberUserId = false;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("remember-id".equals(cookie.getName())) {
+                    rememberedUserId = cookie.getValue();
+                    rememberUserId = true;
+                }
+            }
+        }
+
+        model.addAttribute("userId", rememberedUserId);
+        model.addAttribute("rememberId", rememberUserId);
+        return "users/login";
+    }
 
     @PostMapping("/register")
     public String registerUser(Users user, Pet pet, String userId) throws Exception {
@@ -66,50 +86,7 @@ public class UsersController {
         }
         return "redirect:/register?error";
     }
-
-    /**
-     * 자동로그인
-     * @param username
-     * @param password
-     * @param keepLoggedIn
-     * @param request
-     * @param response
-     * @return
-     */
-    @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, @RequestParam(required = false) boolean keepLoggedIn, HttpServletRequest request, HttpServletResponse response) {
-        // 사용자 인증 로직
-        UsernamePasswordAuthenticationToken authReq
-        = new UsernamePasswordAuthenticationToken(username, password);
-    Authentication auth = authenticationManager.authenticate(authReq);
-        
-        if (auth.isAuthenticated()) {
-            // 로그인 성공 후 로그인 상태 유지를 위해 쿠키 설정
-            Cookie cookie = new Cookie("JSESSIONID", request.getSession().getId());
-            
-            if (keepLoggedIn) {
-                // 로그인 상태 유지 선택 시, 쿠키 만료 시간 설정
-                cookie.setMaxAge(7 * 24 * 60 * 60); // 쿠키를 7일 동안 유지
-            }
-            
-            // 보안 설정
-            cookie.setHttpOnly(true); // JavaScript를 통한 쿠키 접근 방지
-            if (request.isSecure()) {
-                cookie.setSecure(true); // HTTPS를 사용할 경우에만 쿠키 전송
-            }
-    
-            // 응답에 쿠키 추가
-            response.addCookie(cookie);
-            
-            // 인증 상태를 보안 컨텍스트에 저장
-            SecurityContextHolder.getContext().setAuthentication(auth);
-            
-            return "redirect:/userProfile"; // 로그인 후 리디렉트할 페이지
-        }
-        
-        return "loginError"; // 로그인 실패 시
-    }
-
+   
     /**
      * 아이디 중복 검사
      * @param username
