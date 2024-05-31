@@ -72,7 +72,8 @@ public class TrainerServiceImpl implements TrainerService {
         *        ➡ int result 로 데이터 처리 행(개수) 받아옴
         *        ➡ return result
         */
-        Trainer oldTrainer = trainerMapper.select(trainer.getUserId());
+        String userId = trainer.getUserId();
+        Trainer oldTrainer = trainerMapper.select(userId);
         if( oldTrainer != null ) return 0;
 
         int result = trainerMapper.insert(trainer);
@@ -83,7 +84,7 @@ public class TrainerServiceImpl implements TrainerService {
         trainer.setNo(trainerNo);
         
         // user - role : 1(승인요청) 로 변경 
-        Users user = usersService.select(trainer.getUserId());
+        Users user = usersService.select(userId);
         user.setRole(1);
         int userResult = usersService.update(user);
         if( userResult > 0 ) log.info("user - role : 1 로 수정됨");
@@ -97,7 +98,7 @@ public class TrainerServiceImpl implements TrainerService {
             for (String name : careerName) {
                 Career career = new Career();
                 career.setName(name);
-                career.setTrainerNo(trainerNo);
+                career.setUserId(userId);
                 careerService.insert(career);
             }
         }        
@@ -106,13 +107,13 @@ public class TrainerServiceImpl implements TrainerService {
             for (String name : certificateName) {
                 Certificate certificate = new Certificate();
                 certificate.setName(name);
-                certificate.setTrainerNo(trainerNo);
+                certificate.setUserId(userId);
                 certificateService.insert(certificate);
             }
         }      
 
          
-        // // 파일 업로드
+        // 파일 업로드
         String parentTable = "trainer";
         int parentNo = trainerNo;
         

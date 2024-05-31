@@ -7,26 +7,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 밑의 베이스 패키지 경로가 잘 맞는지 확인하기 -->
 <mapper namespace="com.mypet.mungmoong.trainer.mapper.CareerMapper">
 
-    <!-- 훈련사 조회 -->
+    <!-- 경력 조회 -->
     <select id="select" resultType="Trainer">
         SELECT *
-        FROM trainer
+        FROM career
         WHERE user_id = #{userId}
     </select>
 
-    <!-- 경력 등록(훈련사 번호 MAX)  -->
+    <!-- 경력 등록 -->
     <insert id="insert">
-        INSERT INTO career (trainer_no, name, reg_date) 
-        VALUES (
-                (SELECT MAX(no) FROM trainer),
-                #{name},
-                now()       
-        )
+        INSERT INTO career (user_id, name, reg_date, upd_date) 
+        VALUES ( #{userId}, #{name}, now(), now() )
     </insert>
 
-    <!-- 훈련사 수정 -->
+    <!-- 경력 수정 -->
     <update id="update">
-        UPDATE trainer
+        UPDATE career
            SET title = #{title}
               ,writer = #{writer}
               ,content = #{content}
@@ -34,9 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE no = #{no}
     </update>
 
-    <!-- 훈련사 삭제 -->
+    <!-- 경력 삭제 -->
     <delete id="delete">
-        DELETE FROM trainer
+        DELETE FROM career
         WHERE no = #{no}
     </delete>
 
