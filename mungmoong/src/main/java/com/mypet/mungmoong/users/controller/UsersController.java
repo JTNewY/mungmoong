@@ -52,8 +52,8 @@ public class UsersController {
     public String test(@PathVariable("page") String page) {
         return "/users/" + page;
     }   
- 
-    @GetMapping("/login")
+        
+        @GetMapping("/login")
     public String loginPage(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
         String rememberedUserId = null;
@@ -64,13 +64,14 @@ public class UsersController {
                 if ("remember-id".equals(cookie.getName())) {
                     rememberedUserId = cookie.getValue();
                     rememberUserId = true;
+                    break; // 쿠키를 찾으면 루프를 종료합니다.
                 }
             }
         }
 
-        model.addAttribute("userId", rememberedUserId);
-        model.addAttribute("rememberId", rememberUserId);
-        return "users/login";
+        model.addAttribute("userValue", rememberedUserId); // 사용자 ID를 모델에 추가
+        model.addAttribute("rememberId", rememberUserId); // 아이디 저장 여부를 모델에 추가
+        return "users/login"; // 로그인 뷰 이름 반환
     }
 
     @PostMapping("/register")

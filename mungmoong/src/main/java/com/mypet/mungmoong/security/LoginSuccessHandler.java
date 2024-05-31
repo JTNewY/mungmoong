@@ -42,7 +42,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         // 아이디 저장
         String rememberId = request.getParameter("remember-id");    // 아이디 저장 여부
-        String username = request.getParameter("id");               // 아이디
+        String username = request.getParameter("userId");               // 아이디
         log.info("rememberId : " + rememberId);
         log.info("id : " + username);
 
