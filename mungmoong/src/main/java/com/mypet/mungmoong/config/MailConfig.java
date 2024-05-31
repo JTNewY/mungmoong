@@ -22,7 +22,9 @@ public class MailConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
         
-        mailSender.setUsername("jetnewy01@gmail.com");
+
+        mailSender.setUsername("jtnewy01@gmail.com");
+
         mailSender.setPassword("pcrh ilgp hzoj havy"); // 앱 비밀번호 사용 권장
 
         Properties props = mailSender.getJavaMailProperties();

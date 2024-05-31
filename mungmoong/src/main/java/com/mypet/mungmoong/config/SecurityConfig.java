@@ -37,7 +37,8 @@ public class SecurityConfig {
 
         // ✅ 인가 설정
         http.authorizeRequests(requests -> requests
-                                            // .antMatchers("/user").hasRole("USER")
+                                            // .antMatchers("/admin").hasRole("ADMIN") :ADMIN 권한접근허용
+                                            // .antMatchers("/user").hasAnyRole("USER", "ADMIN"):"USER", "ADMIN"권한접근허용
                                             .antMatchers("/**").permitAll()
                                             .anyRequest().permitAll()
                                             );
@@ -51,6 +52,7 @@ public class SecurityConfig {
                                      .defaultSuccessUrl("/")
                                      .successHandler(loginSuccessHandler)
                                      );
+        
 
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);

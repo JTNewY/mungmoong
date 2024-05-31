@@ -11,64 +11,32 @@
 <body layout:fragment="content">
     <div class="container-fluid container">
         <div class="inner">
-            <h1>회원정보 : mypet</h1>
+            <h1>반려견정보 : mypet</h1>
             <div class="tab_tr_btn">
                 <ul>
-                    <li><a th:href="/admin/admin_info_read">회원정보</a></li>
-                    <li th:each="pet : ${users.petList}">
-                        <a th:href="|/admin/admin_info_read_pet?petNo=${pet.petNo}|">반려견</a>
+                    <li><a href="{/admin/admin_info_read}">회원정보</a></li>
+                    <li><a href="{|/admin/admin_info_read_pet?petNo=${pet.petNo}|}">반려견</a>
                     </li>
                 </ul>
             </div>
-            <form class="form-group" action="admin/admin_info_read_pet" method="post">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="/img/admin/admin_pet.png" class="img-fluid" alt="반려견 이미지">
-                    </div>
-                    <div class="col-md-8 fmCont">
-                        <ul>
-                            <li>
-                                <label for="petname" name="petname">이름</label>
-                                <input type="text" name="petname" id="petname" th:value="${pet.petname}">
-                            </li>
-                            <li>
-                                <label for="petgender" name="petgender">성별</label>
-                                <input type="text" name="petgender" id="petgender" th:value="${pet.petgender}">
-                            </li>
-                            <li>
-                                <label for="petAge" name="age">나이</label>
-                                <input type="text" name="age" id="age" th:value="${pet.age}">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="paging">
-                    <ul>
-                        <li><a href="#">&lt&lt;</a></li>
-                        <li><a href="#">&lt;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">&gt;</a></li>
-                        <li><a href="#">&gt&gt;</a></li>
-                    </ul>
-                </div>
-                <!-- 하단 버튼 영역 -->
-                <div class="bottom-btn">
-                    <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
-                    <button type="button" class="btn btn-secondary btn-lg updateBtn"  onclick="moveToUpdate()">수정</button>
-                </div>
-            </form>
-
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 10%;">ID</th>
+                        <th scope="col" style="width: 10%;">등록일자</th>
+                        <th scope="col" style="width: 10%;">수정일자</th>
+                    </tr>
+                </thead>
+                <th:block th:each="pet : ${petList}">
+                    <tr>
+                        <td><a th:href="|/admin/admin_info_read_pet?userId=${pet.petNo}|" th:text="${pet.userId}"></a></td>
+                        <td class="text-truncate" th:text="${#dates.format(pet.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(pet.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    </tr>
+                </th:block>
+            </table>
         </div>
     </div>
-
-    <script>
-        function moveToList() {
-            location.href = '/admin/admin_info'
-        }
-        function moveToUpdate() {
-            location.href = '/admin/admin_info_pet_update'
-        }
-    </script>
 </body>
 
 </html>
