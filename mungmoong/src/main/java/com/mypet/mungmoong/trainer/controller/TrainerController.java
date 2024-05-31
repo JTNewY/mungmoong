@@ -18,8 +18,8 @@ import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
-import com.mypet.mungmoong.trainer.service.UsersService;
 import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,13 +27,13 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  *  /board 경로로 요청 왔을 때 처리
- * [GET]  - /board/list   : 게시글 목록 화면
- * [GET]  - /board/read   : 게시글 조회 화면
- * [GET]  - /board/insert : 게시글 등록 화면
- * [POST] - /board/insert : 게시글 등록 처리
- * [GET]  - /board/update : 게시글 수정 화면
- * [POST] - /board/update : 게시글 수정 처리 
- * [POST] - /board/delete : 게시글 삭제 처리
+ * [GET]  - /trainer/list   : 훈련사 목록 화면
+ * [GET]  - /trainer/read   : 훈련사 조회 화면
+ * [GET]  - /trainer/insert : 훈련사 등록 화면
+ * [POST] - /trainer/insert : 훈련사 등록 처리
+ * [GET]  - /trainer/update : 훈련사 수정 화면
+ * [POST] - /trainer/update : 훈련사 수정 처리 
+ * [POST] - /trainer/delete : 훈련사 삭제 처리
  */
 @Slf4j                                  // 로그 어노테이션
 @Controller                             // 컨트롤러 스프링 빈으로 등록 -> 여러가지 매핑 사용 가능
@@ -41,8 +41,6 @@ import lombok.extern.slf4j.Slf4j;
                                         // 클래스 레벨 요청 경로 매핑 - /board~ 경로의 요청을 처리
 public class TrainerController {
 
-    @Autowired
-    private UsersService usersService;
 
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
@@ -60,27 +58,12 @@ public class TrainerController {
     private TrainerService trainerService;      // @Service를 --Impl에 등록
 
     @Autowired
+    private UsersService usersService;
+
+
+    @Autowired
     private FileService fileService;
-    
-    /**
-     * 훈련사 등록 전, 회원가입 시 Users 정보 GET 
-     * @param no
-     * @return
-     * @throws Exception 
-     */
-    // @RequestParam("파라미터명") : 스프링 부트 3.2 버전 이상에서는 생략하면 매핑 불가능
-    @GetMapping("/join_data")
-    public String read(Model model, HttpSession session) throws Exception {
-        Users loginUser = (Users) session.getAttribute("user");
-        String userId = loginUser.getUserId();
 
-        Users user = usersService.select(userId);
-        model.addAttribute("user", user);
-        
-
-        // 뷰페이지 지정
-        return "/trainer/join_data";
-    }
 
     /**
      * 훈련사 정보 등록 처리
@@ -89,16 +72,22 @@ public class TrainerController {
      * @throws Exception 
      */
     @PostMapping("/join_data")
-    public String joinDataPro(@ModelAttribute Trainer trainer) throws Exception {
+    public String joinDataPro(HttpSession session
+                             ,@ModelAttribute Trainer trainer) throws Exception {
         log.info(":::::::::::::::::::::::::::::::::::::::::");
         log.info("::::::::::::::: trainer :::::::::::::::::");
         log.info(" trainer : " + trainer);
+        Users user = (Users) session.getAttribute("user");
+        String userId = user.getUserId();
+        trainer.setUserId(userId);
 
         // 데이터 요청
         int result = trainerService.insert(trainer);
         
         // 데이터 처리 성공
         if(result > 0) {
+            Users newUser = usersService.select(userId);
+            session.setAttribute("user", newUser);
             return "redirect:/trainer/join_data";
         }
         
@@ -108,7 +97,7 @@ public class TrainerController {
     
     
     /**
-     * 게시글 등록 화면
+     * 훈련사 등록 화면
      * @return
      */
     @GetMapping("/insert")
@@ -134,7 +123,7 @@ public class TrainerController {
     }
 
     /**
-     * 게시글 수정 화면
+     * 훈련사 수정 화면
      * @param no
      * @param model
      * @return
@@ -159,7 +148,7 @@ public class TrainerController {
     }
 
     /**
-     * 게시글 수정 처리
+     * 훈련사 수정 처리
      * @param board
      * @return
      * @throws Exception

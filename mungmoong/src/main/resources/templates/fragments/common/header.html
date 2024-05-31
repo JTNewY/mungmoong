@@ -42,7 +42,11 @@
                     <th:block th:if="${session.user.role == 0}">
                         <a href="/trainer/join_data" class="btn btn-outline-success mx-1 same-style-btn">훈련사 등록</a>
                     </th:block>
+                    <th:block th:if="${session.user.role == 1}">
+                        <a href="javascript:;" class="btn btn-outline-success mx-1 same-style-btn" onclick="trainerConfirm()">훈련사 승인중</a>
+                    </th:block>
                     <th:block sec:authorize="hasRole('ROLE_TRAINER')">
+                        <a href="/trainer/info" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
                     </th:block>
                     <a href="/users/index" class="btn btn-outline-secondary mx-1 same-style-btn">마이페이지</a>
                     <form action="/logout" method="post" class="d-inline">
@@ -66,5 +70,5 @@
            
         </div>
     </header>
-    <script src="header.js"></script>
+    <script src="/js/header.js"></script>
 </th:block>
