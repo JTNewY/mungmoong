@@ -13,3 +13,6 @@ TRUNCATE trainer;
         SELECT *
         FROM users;
 
+update users set role = 0 where role = 1;  
+
+truncate trainer;

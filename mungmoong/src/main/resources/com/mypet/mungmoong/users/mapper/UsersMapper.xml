@@ -94,13 +94,17 @@
     <!-- 회원 정보 수정 -->
     <update id="update" >
         UPDATE users
-           SET name = #{name}
-              ,birth = #{birth}
-              ,address = #{address}
-              ,birth = #{birth}
-              ,mail = #{mail}
-              ,role = #{role}
-              ,upd_date = now()
+        SET password = #{password},
+            name = #{name},
+            birth = #{birth},
+            address = #{address},
+            mail = #{mail},
+            phone = #{phone},
+            reg_date = #{regDate},
+            upd_date = #{updDate},
+            gender = #{gender},
+            role = #{role},
+            enabled = #{enabled}
         WHERE user_id = #{userId}
     </update>
 
