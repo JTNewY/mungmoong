@@ -16,6 +16,7 @@ CREATE TABLE `pet` (
 	`user_id`	VARCHAR(100)	NOT NULL
 );
 
+
 ALTER TABLE career DROP FOREIGN KEY fk_career_trainer_no;
 ALTER TABLE certificate DROP FOREIGN KEY fk_certificate_trainer_no;
 

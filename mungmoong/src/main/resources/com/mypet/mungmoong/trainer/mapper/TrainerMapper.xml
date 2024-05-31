@@ -18,9 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 훈련사 등록 -->
     <insert id="insert">
         INSERT INTO trainer (user_id, name, gender, birth, mail, phone, 
-                             address, content, reg_date) 
+                             address, content, upd_date,reg_date) 
         VALUES (#{userId}, #{name}, #{gender}, #{birth}, #{mail}, #{phone}, 
-                #{address}, #{content}, now())
+                #{address}, #{content}, now(),now())
     </insert>
 
     <!-- 훈련사 수정 -->

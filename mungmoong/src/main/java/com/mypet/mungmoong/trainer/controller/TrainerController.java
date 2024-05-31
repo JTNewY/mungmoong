@@ -111,7 +111,8 @@ public class TrainerController {
         Users user = (Users) session.getAttribute("user");
         String userId = user.getUserId();
         trainer.setUserId(userId);
-
+        usersService.update(user);
+    
         // 데이터 요청
         int result = trainerService.insert(trainer);
         
