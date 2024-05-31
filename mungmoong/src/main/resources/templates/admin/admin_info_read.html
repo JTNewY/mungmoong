@@ -15,9 +15,7 @@
             <div class="tab_tr_btn">
                 <ul>
                     <li><a href="/admin/admin_info_read">회원정보</a></li>
-                    <li th:each="pet : ${users.petList}">
-                        <a th:href="|/admin/admin_info_read_pet?petNo=${pet.petNo}|">반려견</a>
-                    </li>
+                    <li><a href="/admin/admin_info_read_pet">반려견</a></li>
                 </ul>
             </div>
             <form class="form-group" action="/users/delete" method="post">
@@ -25,12 +23,12 @@
                 <div class="col-md-8 fmCont">
                     <ul>
                         <li>
-                            <label for="id" name="id">ID</label>
-                            <input type="text" name="id" id="id" th:value="${users.userId}">
+                            <label for="userId" name="userId">ID</label>
+                            <input type="text" name="userId" id="userId" th:value="${users.userId}">
                         </li>
                         <li>
-                            <label for="pw" name="pw">비밀번호</label>
-                            <input type="password" name="pw" id="pw" th:value="${users.password}">
+                            <label for="password" name="password">비밀번호</label>
+                            <input type="password" name="password" id="password" th:value="${users.password}">
                         </li>
                         <li>
                             <label for="name" name="name">이름</label>

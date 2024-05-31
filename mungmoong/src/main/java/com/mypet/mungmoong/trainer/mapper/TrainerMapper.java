@@ -1,9 +1,12 @@
 package com.mypet.mungmoong.trainer.mapper;
 
 
+import java.util.List;
+
 // import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
 @Mapper     // Mybatis의 매퍼 인터페이스로 지정하는 어노테이션
@@ -28,6 +31,8 @@ public interface TrainerMapper {
     // public List<Board> search(@Param("keyword") String keyword) throws Exception;
     // public List<Trainer> search(/* @Param("option") Option option */) throws Exception;
 
+    // 트레이너 리스트 호출
+    public List<Trainer> trainerList() throws Exception;
 
     
 }

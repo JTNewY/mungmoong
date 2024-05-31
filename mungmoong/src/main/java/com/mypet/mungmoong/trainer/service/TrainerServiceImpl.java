@@ -165,5 +165,13 @@ public class TrainerServiceImpl implements TrainerService {
         return result;
     }
 
+    @Override
+    public List<Trainer> trainerList() throws Exception {
+
+        List<Trainer> trainerList = trainerMapper.trainerList();
+
+        return trainerList;
+    }
+
 
 }

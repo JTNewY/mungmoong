@@ -1,39 +1,42 @@
--- Active: 1716856468698@@127.0.0.1@3306@mypet
-CREATE USER 'joeun'@'localhost' identified BY '123456';
 
-ALTER TABLE users ADD gender VARCHAR(50);
-ALTER TABLE users DROP gender CASCADE;
+-- Active: 1714463131843@@127.0.0.1@3306@mypet
 
-DROP TABLE pet;
-
-
-
-SELECT * from users join pet on pet.user_id=users.user_id;
-
-SELECT * from users;
-
-
-
-
-
+TRUNCATE TABLE users;
 TRUNCATE TABLE pet;
-INSERT INTO `pet` (`petname`, `pettype`, `age`, `petgender`, `character`, `reg_date`, `upd_date`, `order_no`, `user_id`) VALUES
-('Buddy', 'Dog', 3, 1, 'Friendly and energetic', '2023-01-15 10:30:00', '2023-02-15 10:30:00', 101, 'user123'),
-('Mittens', 'Cat', 2, 2, 'Calm and affectionate', '2023-01-20 12:00:00', '2023-02-20 12:00:00', 102, 'user456'),
-('Charlie', 'Dog', 4, 1, 'Playful and loyal', '2023-01-25 14:45:00', '2023-02-25 14:45:00', 103, 'user789'),
-('Luna', 'Cat', 1, 2, 'Curious and active', '2023-02-01 09:15:00', '2023-03-01 09:15:00', 104, 'user321'),
-('Max', 'Dog', 5, 1, 'Protective and brave', '2023-02-10 16:30:00', '2023-03-10 16:30:00', 105, 'user654'),
-('Bella', 'Cat', 3, 2, 'Loving and playful', '2023-02-15 11:00:00', '2023-03-15 11:00:00', 106, 'user987'),
-('Rocky', 'Dog', 2, 1, 'Adventurous and friendly', '2023-02-20 08:30:00', '2023-03-20 08:30:00', 107, 'user135'),
-('Shadow', 'Cat', 4, 2, 'Independent and quiet', '2023-02-25 14:00:00', '2023-03-25 14:00:00', 108, 'user246');
+TRUNCATE TABLE trainer;
+TRUNCATE TABLE career;
+TRUNCATE TABLE certificate;
+TRUNCATE TABLE schedule;
+TRUNCATE TABLE reserve;
+TRUNCATE TABLE ordersdetail;
+TRUNCATE TABLE orders;
+TRUNCATE TABLE img_file;
+TRUNCATE TABLE reply;
+TRUNCATE TABLE notice;
+TRUNCATE TABLE board;
+TRUNCATE TABLE review;
+TRUNCATE TABLE user_auth;
 
 
 
-
--- Active: 1716856468698@@127.0.0.1@3306@mungmoong
+DROP TABLE reserve;
+DROP TABLE ordersdetail;
+DROP TABLE orders;
+DROP TABLE img_file;
+DROP TABLE reply;
+DROP TABLE notice;
+DROP TABLE board;
+DROP TABLE review;
+DROP TABLE user_auth;
+DROP TABLE certificate;
+DROP TABLE schedule;
+DROP TABLE career;
+DROP TABLE trainer;
+DROP TABLE pet;
+DROP TABLE users;
 
 CREATE TABLE `pet` (
-	`pet_no`	INT	NOT NULL,
+	`pet_no`	INT	PRIMARY KEY AUTO_INCREMENT,
 	`petname`	VARCHAR(50)	NOT NULL,
 	`pettype` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
@@ -45,11 +48,23 @@ CREATE TABLE `pet` (
 	`user_id`	VARCHAR(100)	NOT NULL
 );
 
-ALTER TABLE `pet` MODIFY COLUMN `pet_no` INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE career DROP FOREIGN KEY fk_career_trainer_no;
+ALTER TABLE certificate DROP FOREIGN KEY fk_certificate_trainer_no;
+
+
+DROP TABLE trainer;
+DROP TABLE career;
+DROP TABLE certificate;
+
+SELECT * FROM trainer;
+SELECT * FROM career;
+SELECT * FROM certificate;
+
+
+DROP TABLE IF EXISTS trainer;
 
 CREATE TABLE `trainer` (
-	`no`			VARCHAR(50)	NOT NULL,	-- 훈련사 번호
-	`order_no`		INT			NOT NULL,	-- 결제 번호
+	`no`			INT	PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
 	`name`			VARCHAR(50)	NOT NULL,	-- 이름
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`birth`			VARCHAR(50) NOT NULL,	-- 생일
@@ -58,10 +73,43 @@ CREATE TABLE `trainer` (
 	`address`		VARCHAR(150)	NULL,	-- 주소
 	`reg_date`		TIMESTAMP		NULL,	-- 등록일
 	`upd_date`		TIMESTAMP		NULL,	-- 수정일
-	`career`		VARCHAR(100)	NULL,	-- 경력
-	`certificate`	VARCHAR(100)	NULL,	-- 자격증
-	`content`		VARCHAR(1000)	NULL,	-- 소개
-	`user_id`		VARCHAR(40)	NOT NULL	-- 회원 아이디
+	`content`		TEXT			NULL,	-- 소개
+	`user_id`		VARCHAR(100)	NOT NULL-- 회원 아이디
+);
+
+CREATE TABLE `career` (
+	`no`			INT		PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
+	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
+	`name`	VARCHAR(100)		NULL, -- 경력 이름
+	`reg_date`	TIMESTAMP		NULL, -- 등록일
+	`upd_date`	TIMESTAMP		NULL  -- 수정일
+);
+
+CREATE TABLE `certificate` (
+	`no`	INT		 	PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
+	`trainer_no`	INT	NOT NULL, -- 훈련사 번호
+	`name`	VARCHAR(100)	NULL, -- 자격증 명
+	`reg_date`	TIMESTAMP	NULL, -- 등록일   
+	`upd_date`	TIMESTAMP	NULL  -- 수정일
+);
+
+ALTER TABLE career
+ADD CONSTRAINT fk_career_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
+
+ALTER TABLE certificate
+ADD CONSTRAINT fk_certificate_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
+
+
+
+
+CREATE TABLE `schedule` (
+	`schedule_no`	INT		NOT NULL, -- 스케쥴 번호
+	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
+	`title`	VARCHAR(50)			NULL, -- 이게 필요한지, 모달로 띄울건지 고민, 일단 보류 
+	`content`	TEXT			NULL, -- 내용
+	`schedule_date`	TIMESTAMP	NULL, -- 날짜
+	`reg_date`	TIMESTAMP		NULL, -- 등록일
+	`upd_date`	TIMESTAMP		NULL  -- 수정일
 );
 
 
@@ -97,18 +145,25 @@ CREATE TABLE `orders` (
 	`trainer_check`	INT	NULL
 );
 
+
+DROP TABLE IF EXISTS `img_file`;
+
+DROP TABLE IF EXISTS `img_file`;
+
 CREATE TABLE `img_file` (
-	`no`	INT	NULL,
-	`parent_no`	INT	NULL,
-	`parent_table`	VARCHAR(100)	NULL,
+	`no`	INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`parent_no`	INT	NOT NULL,
+	`parent_table`	VARCHAR(100)	NOT NULL,
 	`file_name`	VARCHAR(100)	NOT NULL,
-	`file_path`	VARCHAR(100)	NULL,
+	`file_path`	VARCHAR(100)	NOT NULL,
 	`file_size`	LONG	NULL,
 	`file_code`	VARCHAR(50)	NULL,
-	`user_no`	VARCHAR(100)	NOT NULL,
-	`reg_date`	DATE	NULL,
-	`upd_date`	DATE	NULL
+	`reg_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	`upd_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
 
 CREATE TABLE `reply` (
 	`file_no`	INT	NOT NULL,
@@ -150,12 +205,14 @@ CREATE TABLE `review` (
 	`upd_date`	TIMESTAMP	NULL
 );
 
+DROP TABLE users;
 TRUNCATE TABLE EXISTS  users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
 	`birth`	TIMESTAMP	NOT NULL,
+	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
 	`phone`	VARCHAR(50)	NULL,
@@ -174,22 +231,12 @@ CREATE TABLE `user_auth` (
 	`auth`	VARCHAR(40)	NULL
 );
 
-CREATE TABLE `schedule` (
-	`schedule_no`	VARCHAR(50)	NOT NULL,
-	`trainer_no`	VARCHAR(50)	NOT NULL,
-	`title`	VARCHAR(50)	NULL ,
-	`content`	TEXT	NULL,
-	`schedule_date`	TIMESTAMP	NULL,
-	`reg_date`	TIMESTAMP	NULL,
-	`upd_date`	TIMESTAMP	NULL
-);
 
-ALTER TABLE `pet` ADD CONSTRAINT `PK_PET` PRIMARY KEY (
-	`pet_no`
-);
+ALTER TABLE `pet` MODIFY COLUMN `pet_no` INT AUTO_INCREMENT PRIMARY KEY;
+
 
 ALTER TABLE `trainer` ADD CONSTRAINT `PK_TRAINER` PRIMARY KEY (
-	`no`
+	`trainer_no`
 );
 
 ALTER TABLE `reserve` ADD CONSTRAINT `PK_RESERVE` PRIMARY KEY (
@@ -236,43 +283,45 @@ ALTER TABLE `schedule` ADD CONSTRAINT `PK_SCHEDULE` PRIMARY KEY (
 	`schedule_no`
 );
 
+
+INSERT INTO `trainer` (`name`, `gender`, `birth`, `mail`, `phone`, `address`, `reg_date`, `upd_date`, `content`, `user_id`)
+VALUES 
+('Kim Minsoo', 'Male', '1985-06-15', 'minsoo.kim@example.com', '010-1234-5678', '123 Gangnam-daero, Gangnam-gu, Seoul', NOW(), NOW(), 'Experienced dog trainer specializing in obedience training.', 'user123'),
+('Lee Hyori', 'Female', '1990-08-25', 'hyori.lee@example.com', '010-8765-4321', '456 Apgujeong-ro, Gangnam-gu, Seoul', NOW(), NOW(), 'Passionate about training dogs with positive reinforcement methods.', 'user124'),
+('Park Jisoo', 'Female', '1987-12-30', 'jisoo.park@example.com', '010-1122-3344', '789 Itaewon-ro, Yongsan-gu, Seoul', NOW(), NOW(), 'Specializes in agility training and behavioral correction.', 'user125'),
+('Choi Junho', 'Male', '1992-04-05', 'junho.choi@example.com', '010-9988-7766', '101 Mapo-daero, Mapo-gu, Seoul', NOW(), NOW(), 'Expert in service dog training and assistance dog programs.', 'user126'),
+('Jung Hana', 'Female', '1995-11-20', 'hana.jung@example.com', '010-3344-5566', '202 Yeouido-dong, Yeongdeungpo-gu, Seoul', NOW(), NOW(), 'Enthusiastic about helping dogs overcome anxiety and fear.', 'user127');
+
+
+
 TRUNCATE TABLE users;
+INSERT INTO `users` (`user_id`, `password`, `name`, `birth`, `gender`, `address`, `mail`, `phone`, `reg_date`, `upd_date`, `role`, `enabled`) VALUES
+('user1', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', 'Alice Johnson', '1990-01-01 00:00:00', 'Female', '123 Maple Street', 'alice@example.com', '123-456-7890', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
+('user2', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', 'Bob Smith', '1985-02-02 00:00:00', 'Male', '456 Oak Avenue', 'bob@example.com', '234-567-8901', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
+('user3', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', 'Carol White', '1992-03-03 00:00:00', 'Female', '789 Pine Lane', 'carol@example.com', '345-678-9012', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
+('user4', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', 'David Brown', '1988-04-04 00:00:00', 'Male', '101 Birch Road', 'david@example.com', '456-789-0123', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
+('user5', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', 'Eve Davis', '1995-05-05 00:00:00', 'Female', '202 Cedar Boulevard', 'eve@example.com', '567-890-1234', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+INSERT INTO `user_auth`(`user_id`, `auth`)
+VALUES 	( 'user1', 'ROLE_USER' )
+		,( 'user2', 'ROLE_USER' )
+		,( 'user3', 'ROLE_USER' )
+		,( 'user4', 'ROLE_USER' )
+		,( 'user5', 'ROLE_USER' );
 
-
-
-
-
-
-
-INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role, enabled)
-VALUES ( 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0' ,1);
-
-
-INSERT INTO user_auth ( auth_no, user_id,  auth )
-VALUES (1,'user', 'ROLE_USER' );
-INSERT INTO user_auth ( auth_no, user_id,  auth )
-VALUES (2, 'user123', 'ROLE_USER' );
-
-
-INSERT INTO `trainer` (`no`, `order_no`, `name`, `gender`, `birth`, `address`, `reg_date`, `upd_date`, `career`, `certificate`, `content`, `user_id`, `mail`, `phone`)
-VALUES
-('T001', 1001, '이태원', '남성', '1988-01-01', '서울특별시 강남구 테헤란로 123', '2023-01-15 10:00:00', '2023-05-20 14:30:00', '5년 경력', '공인 전문 도그 트레이너', '긍정적 강화 중심의 개 훈련에 열정적입니다.', 'user123', 'itaewon@example.com', '010-1234-5678'),
-('T002', 1002, '오은아', '여성', '1995-01-01', '부산광역시 해운대구 해운대로 456', '2023-02-18 11:00:00', '2023-06-25 16:45:00', '3년 경력', '공인 도그 행동 컨설턴트', '행동 수정 및 기민 훈련 전문.', 'user456', 'oeuna@example.com', '010-2345-6789'),
-('T003', 1003, '권혁준', '남성', '1983-01-01', '인천광역시 남동구 인주대로 789', '2023-03-22 09:00:00', '2023-07-15 09:15:00', '10년 경력', '공인 개 피트니스 트레이너', '개 피트니스 및 재활 전문가.', 'user789', 'khj@example.com', '010-3456-7890'),
-('T004', 1004, '김재희', '여성', '1991-01-01', '대구광역시 수성구 달구벌대로 321', '2023-04-10 14:00:00', '2023-08-05 11:00:00', '7년 경력', '공인 도그 트레이너 및 행동 전문가', '복종 훈련 및 행동 교정 집중.', 'user101', 'jaehee@example.com', '010-4567-8901'),
-('T005', 1005, '정태진', '남성', '1994-01-01', '대전광역시 서구 둔산로 654', '2023-05-05 13:00:00', '2023-09-10 15:30:00', '4년 경력', '공인 서비스 도그 트레이너', '장애인을 위한 서비스 도그 훈련에 전념.', 'user202', 'taejin@example.com', '010-5678-9012');
-
-
-
-INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role,reg_date,upd_date,enabled )
-VALUES ( 'user1', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '김조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
-,( 'user2', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '이조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
-,( 'user3', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '박조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
-,( 'user4', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '오조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
-,( 'user5', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '배조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
-,( 'user6', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '강조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 )
-,( 'user7', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '신조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 );
-
-INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role,reg_date,upd_date,enabled )
-VALUES ( 'user123', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '김조은', 20000101,'인주대로 1000번길','user@mail.com' , '01012341234','0',now(),now(),1 );
+INSERT INTO pet (`petname`, `pettype`, `age`, `petgender`, `character`, `reg_date`, `upd_date`, `order_no`, `user_id`) 
+VALUES	('Buddy', 'Dog', 3, 1, 'Friendly and energetic', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'user1')
+		,('Mittens', 'Cat', 2, 0, 'Calm and affectionate', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 'user1')
+		,('Rex', 'Dog', 4, 1, 'Loyal and protective', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 'user1')
+		,('Whiskers', 'Cat', 1, 0, 'Playful and curious', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 'user2')
+		,('Spike', 'Dog', 5, 1, 'Brave and bold', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 5, 'user2')
+		,('Fluffy', 'Rabbit', 2, 0, 'Gentle and shy', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 6, 'user2')
+		,('Bella', 'Dog', 3, 0, 'Friendly and active', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 7, 'user3')
+		,('Simba', 'Cat', 3, 1, 'Independent and strong', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 'user3')
+		,('Nibbles', 'Hamster', 1, 1, 'Curious and quick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 9, 'user3')
+		,('Oscar', 'Fish', 1, 1, 'Calm and silent', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 10, 'user4')
+		,('Lola', 'Bird', 2, 0, 'Chirpy and bright', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 11, 'user4')
+		,('Max', 'Dog', 4, 1, 'Loyal and friendly', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 12, 'user4')
+		,('Charlie', 'Dog', 2, 1, 'Playful and happy', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 13, 'user5')
+		,('Coco', 'Cat', 1, 0, 'Mischievous and curious', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 14, 'user5')
+		,('Pepper', 'Parrot', 3, 1, 'Talkative and colorful', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 15, 'user5');
 
