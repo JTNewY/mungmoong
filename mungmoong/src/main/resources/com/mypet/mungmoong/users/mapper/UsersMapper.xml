@@ -110,9 +110,25 @@
         VALUES ( #{userId}, #{auth} )
     </insert>
 
+    <!-- 회원 탈퇴 -->
     <delete id="delete">
         DELETE FROM users
         WHERE user_id = #{userId}
     </delete>
+
+    <!-- 이름과 이메일로 아이디 찾기 -->
+    <select id="findId" resultMap="userMap">
+        SELECT user_id
+        FROM users
+        WHERE name = #{name} AND mail = #{mail}
+    </select>
+
+    <!-- 아이디와 이메일로 비밀번호 찾기  -->
+
+    <select id="findPw" resultMap="userMap">
+        SELECT password
+        FROM users
+        WHERE user_id = #{userid} AND mail = #{mail}
+    </select>
 
 </mapper>
