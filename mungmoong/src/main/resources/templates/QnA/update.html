@@ -105,8 +105,8 @@
         <div class="d-flex justify-content-between mb-3">
 
     <form id="form" action="/QnA/update" method="post">
-        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="{_csrf.token}"> -->
-        <input type="hidden" name="no" th:value="${board.boardNo}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
 
         <table class="table table-bordered mt-3">
             <tr>
