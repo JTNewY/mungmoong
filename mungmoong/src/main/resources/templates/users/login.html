@@ -20,7 +20,7 @@
         <form id="user" class="login-form" action="/login" method="post">
             <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <input type="text" placeholder="사용자 아이디" name="userId" id="userId" th:value="${userId}">
+            <input type="text" placeholder="사용자 아이디" name="userId" id="userId" th:value="${userValue}">
             <input type="password" placeholder="비밀번호" name="password">
             <!-- 로그인 에러 -->
             <th:block th:if="${param.error}">
@@ -31,6 +31,7 @@
                     <input type="checkbox" id="remember-id" name="remember-id" th:checked="${rememberId}">
                     아이디 저장
                 </label>
+           <h1> &nbsp;&nbsp;&nbsp;</h1>
                 <label for="remember-me">
                     <input type="checkbox" id="remember-me" name="remember-me" >
                     로그인 상태 유지 
