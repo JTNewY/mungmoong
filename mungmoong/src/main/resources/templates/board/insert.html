@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 등록</title>
+</head>
+<body>
+    <h1>게시글 등록</h1>
+
+    <form action="/board/insert" method="post">
+        <table border="1">
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title" id="title">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" id="writer">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea name="content" id="content" cols="40" rows="5"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="등록">
+    </form>
+</body>
+</html>

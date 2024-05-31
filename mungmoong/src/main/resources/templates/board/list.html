@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록</title>
+</head>
+<body>
+    <h1>게시글 목록</h1>
+    <a href="/board/insert">글쓰기</a>
+    <table border="1">
+        <tr>
+            <th width="50">번호</th>
+            <th width="300">제목</th>
+            <th width="100">작성자</th>
+            <th width="200">등록일자</th>
+            <th width="200">수정일자</th>
+            <th widht="100">조회수</th>
+        </tr>
+        <!-- 
+            th:if="조건식" 
+            - 타임리프에서 조건에 만족하는 html 만 출력해준다.
+        -->
+        <th:block th:if="${boardList.isEmpty()}">
+            <tr>
+                <td colspan="6" align="center">
+                    조회된 게시글 정보가 없습니다.
+                </td>
+            </tr>
+        </th:block>
+        <th:block th:each="board : ${boardList}">
+            <tr>
+                <td align="center" th:text="${board.no}"></td>
+                <td>
+                    <!-- th:???="|문자열+${표현식}|" -->
+                    <a th:href="|/board/read?no=${board.no}|" 
+                    th:text="${board.title}"></a>
+                </td>
+                <td align="center" th:text="${board.writer}"></td>
+                <!-- 
+                    유틸리티객체.메소드()
+                    #dates.format( 날짜객체명, '날짜포맷' ) 
+                    - #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss' )
+                -->
+                <td align="center">
+                    <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                </td>
+                <td align="center">
+                    <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                </td>
+                <td align="center" th:text="${board.views}"></td>
+            </tr>
+        </th:block>
+    </table>
+
+    
+</body>
+</html>

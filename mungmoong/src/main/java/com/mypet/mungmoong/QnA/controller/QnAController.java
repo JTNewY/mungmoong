@@ -1,4 +1,4 @@
-package com.mypet.mungmoong.board.controller;
+package com.mypet.mungmoong.QnA.controller;
 
 import java.util.List;
 
@@ -13,16 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
 
-
 import lombok.extern.slf4j.Slf4j;
-
 
 @Slf4j
 @Controller
-@RequestMapping("/board")
-public class BoardController {
+@RequestMapping("/QnA")
+public class QnAController {
 
-    // ⭐데이터 요청과 화면 출력
+  // ⭐데이터 요청과 화면 출력
     // Controller --> Service (데이터 요청)
     // Controller <-- Service (데이터 전달)
     // Controller --> Model   (모델 등록)
@@ -41,7 +39,7 @@ public class BoardController {
         // 모델 등록
         model.addAttribute("boardList", boardList);
         // 뷰 페이지 지정
-        return "/board/list";       // resources/templates/board/list.html
+        return "/QnA/list";       // resources/templates/board/list.html
     }
     
     /**
@@ -61,7 +59,7 @@ public class BoardController {
         // 모델 등록
         model.addAttribute("board", board);
         // 뷰페이지 지정
-        return "/board/read";
+        return "/QnA/read";
     }
     
     /**
@@ -71,7 +69,7 @@ public class BoardController {
     @GetMapping("/insert")
     public String insert() {
 
-        return "/board/insert";
+        return "/QnA/insert";
     }
 
     /**
@@ -87,10 +85,10 @@ public class BoardController {
         // 리다이렉트
         // ⭕ 데이터 처리 성공
         if( result > 0 ) {
-            return "redirect:/board/list";
+            return "redirect:/QnA/list";
         }
         // ❌ 데이터 처리 실패
-        return "redirect:/board/insert?error";  
+        return "redirect:/QnA/insert?error";  
     }
     
     /**
@@ -104,7 +102,7 @@ public class BoardController {
     public String update(@RequestParam("no") int no, Model model) throws Exception {
         Board board = boardService.select(no);
         model.addAttribute("board", board);
-        return "/board/update";
+        return "/QnA/update";
     }
 
     /**
@@ -118,10 +116,10 @@ public class BoardController {
         int result = boardService.update(board);
 
         if( result > 0 ) {
-            return "redirect:/board/list";
+            return "redirect:/QnA/list";
         }
         int no = board.getBoardNo();
-        return "redirect:/board/update?no="+ no + "&error";
+        return "redirect:/QnA/update?no="+ no + "&error";
     }
     
     /**
@@ -134,10 +132,9 @@ public class BoardController {
     public String delete(@RequestParam("no") int no) throws Exception {
         int result = boardService.delete(no);
         if( result > 0 ) {
-            return "redirect:/board/list";
+            return "redirect:/QnA/list";
         }
-        return "redirect:/board/update?no=" + no + "&error";
+        return "redirect:/QnA/update?no=" + no + "&error";
     }
     
 }
-

@@ -1,5 +1,5 @@
 
--- Active: 1716856468698@@127.0.0.1@3306@mungmoong
+-- Active: 1714104693276@@127.0.0.1@3306@mypet
 
 CREATE TABLE `pet` (
 	`pet_no`	INT	NOT NULL,
@@ -99,6 +99,7 @@ CREATE TABLE `board` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`board_type`	INT	NULL
 );
+alter Table board MODIFY board_no INT AUTO_INCREMENT PRIMARY KEY;
 
 CREATE TABLE `review` (
 	`review_no`	VARCHAR(50)	NOT NULL,
@@ -109,6 +110,20 @@ CREATE TABLE `review` (
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL
 );
+
+CREATE TABLE qna (
+    `qnaNo` INT AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(100) NOT NULL,
+    `content` VARCHAR(1000) NULL,
+    `fileName` VARCHAR(100),
+    `regDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updDate1` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `userId` VARCHAR(100) NOT NULL,
+    `qnaType` INT NULL
+);
+
+
+
 
 TRUNCATE TABLE EXISTS  users;
 CREATE TABLE `users` (

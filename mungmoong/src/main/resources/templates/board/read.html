@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 조회</title>
+</head>
+<body>
+    <h1>게시글 조회</h1>
+
+    <form action="/board/delete" method="post">
+        <input type="hidden" name="no" th:value="${board.no}">
+        <table>
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title" th:value="${board.title}">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" th:value="${board.writer}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea name="content" id="content" cols="40" rows="5"
+                              th:text="${board.content}"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <button type="button" onclick="moveUpdate()">수정</button>
+            <button type="button" onclick="moveList()">목록</button>
+        </div>
+    </form>
+
+    <script>
+
+        // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
+        let no = "[[${board.no}]]"
+
+        // 수정 화면 이동
+        function moveUpdate() {
+            location.href = '/board/update?no=' + no
+        }
+
+        // 목록 화면 이동
+        function moveList() {
+            location.href = '/board/list'
+        }
+    </script>
+</body>
+</html>

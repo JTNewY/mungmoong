@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<mapper namespace="com.mypet.mungmoong.board.mapper.BoardMapper">
+
+    <!-- 게시글 목록 -->
+    <select id="list" resultType="Board">
+        SELECT *
+        FROM board
+        ORDER BY reg_date DESC
+    </select>
+
+    <!-- 게시글 조회 -->
+    <select id="select" resultType="Board">
+        SELECT *
+        FROM board
+        WHERE board_no = #{no}
+    </select>
+
+    <!-- 게시글 등록 -->
+    <insert id="insert">
+        INSERT INTO board( board_no,title, user_id, content)
+        VALUES ( #{boardNo}, #{title}, #{userId}, #{content})
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="update">
+        UPDATE board
+           SET title = #{title}
+              ,user_id = #{userId}
+              ,content = #{content}
+              ,upd_date = now()     
+        WHERE board_no = #{no}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="delete">
+        DELETE FROM board
+        WHERE board_no = #{no}
+    </delete>
+
+    <!-- 게시글 번호 최댓값 -->
+    <!-- <select id="maxPk" resultType="int">
+        SELECT MAX(no)
+        FROM board
+    </select> -->
+
+
+
+</mapper>

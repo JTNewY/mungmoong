@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/board_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의 게시판</title>
+    <style>
+        body {
+            background-color: #FFFAED;
+            font-family: 'Jua', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 50px auto;
+        }
+
+        h2 {
+            font-weight: 600;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table-bordered {
+            border: none;
+        }
+
+        .table thead th {
+            background-color: #F1F1F1;
+            border-bottom: 2px solid #DEE2E6;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #CCC;
+        }
+
+        .form-control:focus {
+            border-color: #FFC107;
+            box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            background-color: #FFC107;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn-primary:hover,
+        .btn-secondary:hover {
+            background-color: #FFA000;
+        }
+
+        .btn-primary:active,
+        .btn-secondary:active {
+            background-color: #FF8F00;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-danger:active {
+            background-color: #bd2130;
+        }
+    </style>
+    <script type="text/javascript" src="/js/board.js"></script>
+</head>
+<body layout:fragment="content">
+    <div class="container mt-5">
+        <h2>문의 게시판</h2>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="Q&A">
+                <a href="/QnA/insert">글쓰기</a>
+                <!-- <button class="btn btn-primary" onclick="gotoRead()">문의하기</button> -->
+            </div>
+        </div>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>답변여부</th>
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>등록일자</th>
+                    <th>구분</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:if="${boardList.isEmpty()}">
+                    <tr>
+                        <td colspan="6" align="center">
+                            조회된 게시글 정보가 없습니다.
+                        </td>
+                    </tr>
+                </th:block>
+
+                <th:block th:each="board : ${boardList}">
+                    <tr>
+                        <td align="center" th:text="${board.boardNo}"></td>
+                        <td>
+                            <a th:href="|/QnA/read?no=${board.boardNo}|" 
+                            th:text="${board.title}"></a>
+                        </td>
+                        <td align="center" th:text="${board.userId}"></td>
+        
+                        <td align="center">
+                            <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                        </td>
+                        <td align="center">
+                            <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                        </td>
+                       <!-- <td align="center" th:text="${board.boardType}"></td>  -->
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="d-flex">
+                <select class="form-select me-2" style="width: auto;">
+                    <option>----</option>
+                </select>
+                <button class="btn btn-secondary">검색</button>
+            </div>
+        </div>
+      
+        <nav class="text-center">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">다음</a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>
+    

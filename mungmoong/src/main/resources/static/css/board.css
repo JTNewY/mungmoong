@@ -1,0 +1,81 @@
+/* 기본 스타일 */
+body {
+    background-color: #FFFAED; /* 부드러운 파스텔 배경 */
+    font-family: 'Jua', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px; /* 너비 조정 */
+    background-color: #FFFFFF; /* 흰색 배경 */
+    border-radius: 15px; /* 둥근 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 섀도우 */
+    padding: 30px; /* 내부 패딩 */
+    margin: 50px auto; /* 중앙 정렬 */
+}
+
+/* 타이포그래피 */
+h2 {
+    font-weight: 600;
+    margin: 20px 0;
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 테이블 */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-bordered {
+    border: none;
+}
+
+.table thead th {
+    background-color: #F1F1F1; /* 헤더 배경색 */
+    border-bottom: 2px solid #DEE2E6;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+/* 입력 필드 */
+.form-control {
+    border-radius: 10px; /* 둥근 테두리 */
+    border: 1px solid #CCC; /* 테두리 색상 */
+}
+
+.form-control:focus {
+    border-color: #FFC107; /* 포커스 시 테두리 색상 */
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* 포커스 시 섀도우 */
+}
+
+/* 버튼 */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    background-color: #FFC107; /* 버튼 기본 색상 */
+    border: none;
+    border-radius: 20px; /* 둥근 테두리 */
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px; /* 버튼 간격 */
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-danger:hover {
+    background-color: #FFA000; /* 호버 시 색상 */
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-danger:active {
+    background-color: #FF8F00; /* 클릭 시 색상 */
+}
