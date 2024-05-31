@@ -33,4 +33,10 @@ public interface UsersService {
     // 게시글 삭제
     public int delete(String userId) throws Exception;
 
+    // 이름과 이메일로 아이디 찾기
+    public Users findId(String name,String mail) throws Exception;
+
+    // 아이디와 이메일로 비밀번호 찾기
+    public Users findPw(String userId, String mail) throws Exception;
+
 }
