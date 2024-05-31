@@ -18,6 +18,8 @@ public interface BoardMapper {
     public int update(Board board) throws Exception;
     // 게시글 삭제
     public int delete(int no) throws Exception;
+    // 관리자 삭제
+    public int BoardDelete(int no) throws Exception;
     
     // 게시글 번호(기본키) 최댓값
     public int maxPk() throws Exception;

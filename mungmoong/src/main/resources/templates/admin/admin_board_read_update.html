@@ -31,7 +31,7 @@
                 </div>
             </nav>
             <h3>공지사항 수정</h3>
-            <form class="form-group" action="/admin/admin_board_update" method="post">
+            <form class="form-group" id="form" action="/admin/admin_board_read_update" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <input type="hidden" name="boardNo" th:value="${board.boardNo}">
                 <div class="col-md-8 fmCont">
@@ -57,7 +57,8 @@
                 <!-- 하단 버튼 영역 -->
                 <div class="bottom-btn">
                     <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
-                    <button type="button" class="btn btn-secondary btn-lg updateBtn" onclick="moveToUpdate()">수정</button>
+                    <button type="button" class="btn btn-secondary btn-lg updateBtn" onclick="actionDelete()">삭제</button>
+                    <button type="submit" class="btn btn-secondary btn-lg updateBtn">수정</button>
                 </div>
             </form>
         </div>
@@ -65,13 +66,26 @@
 
     <script>
 
+    let form = document.getElementById('form')
+
     let no = '[[${board.boardNo}]]'
+
         function moveToList() {
             location.href = '/admin/admin_board'
         }
 
-        function moveToUpdate() {
-            location.href = '/admin/admin_board_read_update?boardNo=' + no
+        function moveUpdate() {
+            location.href = '/admin/admin_board_read_update?no=' + no
+        }
+
+
+            // 삭제 요청
+            function actionDelete() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( check ) {
+                form.action = '/admin/BoardDelete'
+                form.submit()
+            }
         }
     </script>
 </body>
