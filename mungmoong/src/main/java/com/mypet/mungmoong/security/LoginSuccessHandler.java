@@ -68,8 +68,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         CustomUser loginUser = (CustomUser) authentication.getPrincipal();
         Users user = loginUser.getUser();
 
+        // userId를 가져와 훈련사 객체 가져옴
         String userId = user.getUserId();
         Trainer trainer = trainerMapper.select(userId);
+        
         // 훈련사 회원이면
         if( trainer != null ) {
             user.setTrainer(trainer);

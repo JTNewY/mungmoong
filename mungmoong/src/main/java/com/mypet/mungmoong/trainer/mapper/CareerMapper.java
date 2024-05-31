@@ -1,16 +1,19 @@
 package com.mypet.mungmoong.trainer.mapper;
 
 
+import java.util.List;
+
 // import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import com.mypet.mungmoong.trainer.dto.Career;
 
 @Mapper     // Mybatis의 매퍼 인터페이스로 지정하는 어노테이션
 public interface CareerMapper {
 
-    // 경력 조회
-    public Career select(int no);
+    // 경력 조회 리스트
+    public List<Career> select(int trainerNo);
     // 경력 등록
     public int insert(Career career) throws Exception;
     // 경력 수정

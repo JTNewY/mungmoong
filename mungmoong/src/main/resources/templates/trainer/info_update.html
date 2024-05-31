@@ -16,7 +16,7 @@
                 <div class="collapse navbar-collapse justify-content-start">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="tab-button active" href="/trainer/info">내 정보</a>
+                            <a class="tab-button active" th:href="|/trainer/info?userId=${session.user.userId}|">훈련사 정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
@@ -42,26 +42,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>이름</td>
-                            <td><input type="text" class="form-control" value="김훈련"></td>
-                        </tr>
-                        <tr>
-                            <td>생년월일</td>
-                            <td><input type="text" class="form-control" value="900929"></td>
-                        </tr>
-                        <tr>
-                            <td>주소</td>
-                            <td><input type="text" class="form-control" value="인천 부평구 부평동"></td>
-                        </tr>
-                        <tr>
-                            <td>전화</td>
-                            <td><input type="text" class="form-control" value="010-1234-1234"></td>
-                        </tr>
-                        <tr>
-                            <td>이메일</td>
-                            <td><input type="email" class="form-control" value="1234@gmail.com"></td>
-                        </tr>
                         <tr>
                             <td>경력</td>
                             <td>
