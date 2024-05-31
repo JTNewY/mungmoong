@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mypet.mungmoong.trainer.dto.Career;
+import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.trainer.dto.Trainer;
+import com.mypet.mungmoong.trainer.service.CareerService;
+import com.mypet.mungmoong.trainer.service.CertificateService;
 import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
@@ -63,6 +67,33 @@ public class TrainerController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private CareerService careerService;
+
+    @Autowired
+    private CertificateService certificateService;
+
+
+    /**
+     * 훈련사 정보 조회 (경력, 소개, 자격증)
+     * @param userId
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/info")
+    public String select(@RequestParam("userId") String userId, Model model) throws Exception {
+        Trainer trainer = trainerService.select(userId);
+        int trainerNo = trainer.getNo();
+        // Career career = careerService.select(trainerNo);
+        List<Career> careerList = careerService.select(trainerNo);
+        List<Certificate> certificateList = certificateService.select(trainerNo);
+        model.addAttribute("trainer", trainer);
+        model.addAttribute("careerList", careerList);
+        model.addAttribute("certificateList", certificateList);
+        return "/trainer/info";
+    }
 
 
     /**

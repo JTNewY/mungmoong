@@ -1,8 +1,11 @@
 package com.mypet.mungmoong.trainer.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.mapper.CareerMapper;
 
@@ -19,9 +22,10 @@ public class CareerServiceImpl implements CareerService {
     private FileService fileService;
 
     @Override
-    public Career select(int no) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'select'");
+    public List<Career> select(int trainerNo) throws Exception {
+        List<Career> careerList = careerMapper.select(trainerNo);
+
+        return careerList;
     }
 
     @Override

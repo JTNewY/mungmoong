@@ -45,6 +45,9 @@
                     <th:block th:if="${session.user.role == 1}">
                         <a href="javascript:;" class="btn btn-outline-success mx-1 same-style-btn" onclick="trainerConfirm()">훈련사 승인중</a>
                     </th:block>
+                    <th:block th:if="${session.user.role == 2}">
+                        <a th:href="|/trainer/info?userId=${session.user.userId}|" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
+                    </th:block>
                     <th:block sec:authorize="hasRole('ROLE_TRAINER')">
                         <a href="/trainer/info" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
                     </th:block>

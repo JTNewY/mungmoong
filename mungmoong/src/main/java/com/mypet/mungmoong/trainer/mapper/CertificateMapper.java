@@ -1,7 +1,7 @@
 package com.mypet.mungmoong.trainer.mapper;
 
 
-// import java.util.List;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,8 +10,8 @@ import com.mypet.mungmoong.trainer.dto.Certificate;
 @Mapper     // Mybatis의 매퍼 인터페이스로 지정하는 어노테이션
 public interface CertificateMapper {
 
-    // 자격증 조회
-    public Certificate select(int no);
+    // 자격증 조회 리스트
+    public List<Certificate> select(int trainerNo);
     // 자격증 등록
     public int insert(Certificate certificate) throws Exception;
     // 자격증 수정
