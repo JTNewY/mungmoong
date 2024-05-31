@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="delete">
         DELETE FROM board
         WHERE board_no = #{no}
-
+    </delete>
 
         <!-- 관리자 삭제 -->
     <delete id="BoardDelete">
