@@ -1,5 +1,5 @@
 
--- Active: 1713528331467@@127.0.0.1@3306@mypet
+-- Active: 1716798076500@@127.0.0.1@3306@mypet
 
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
