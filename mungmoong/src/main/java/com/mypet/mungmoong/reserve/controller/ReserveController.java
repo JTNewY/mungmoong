@@ -102,7 +102,7 @@ public class ReserveController {
         if (result > 0) {
             return "redirect:/reserve/list";
         }
-        int no = reserve.getDate_no();
+        int no = reserve.getNo();
         return  "redirect:/reserve/update?no="+ no + "&error";
     }
     

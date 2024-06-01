@@ -64,7 +64,6 @@ public class TrainerController {
     @Autowired
     private UsersService usersService;
 
-
     @Autowired
     private FileService fileService;
 
@@ -73,6 +72,7 @@ public class TrainerController {
 
     @Autowired
     private CertificateService certificateService;
+
 
 
     /**
