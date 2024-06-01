@@ -22,24 +22,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 예약 등록 -->
     <insert id="insert">
-        INSERT INTO reserve( date_no, user_id, date_day,reg_date)
-        VALUES ( #{dateNo}, #{userId}, #{dateDay},#{regDate} )
+        INSERT INTO reserve(user_id, trainer_no, pet_no, date, order_no, request, reg_date)
+        VALUES (#{userId}, #{trainerNo}, {petNo}, #{date}, #{orderNo}, #{request}, now() )
     </insert>
 
     <!-- 예약 수정 -->
     <update id="update">
         UPDATE reserve
-           SET date_no = #{dateNo}
+           SET no = #{no}
               ,user_id = #{userId}
-              ,date_day = #{dateDay}
+              ,date = #{date}
               ,upd_date = now()
-        WHERE date_no = #{dateNo}
+        WHERE no = #{no}
     </update>
 
     <!-- 예약 삭제 -->
     <delete id="delete">
         DELETE FROM reserve
-        WHERE date_no = #{dateNo}
+        WHERE date = #{date}
     </delete>
 
     <!-- 예약 번호 최댓값 -->

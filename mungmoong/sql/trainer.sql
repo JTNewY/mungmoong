@@ -13,6 +13,9 @@ TRUNCATE trainer;
         SELECT *
         FROM users;
 
+select * from users;
 update users set role = 0 where role = 1;  
+update users set role = 2 where role = 0;  
 
 truncate trainer;
+
