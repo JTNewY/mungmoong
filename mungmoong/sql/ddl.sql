@@ -1,3 +1,4 @@
+-- Active: 1713967376592@@127.0.0.1@3306@mypet
 
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
@@ -73,7 +74,7 @@ ADD CONSTRAINT fk_certificate_trainer_no FOREIGN KEY (trainer_no) REFERENCES tra
 -- 스케줄 테이블
 TRUNCATE TABLE EXISTS schedule;
 CREATE TABLE `schedule` (
-	`schedule_no`	INT		NOT NULL, -- 스케쥴 번호
+	`no`			INT		NOT NULL	AUTO_INCREMENT PRIMARY KEY, -- 스케쥴 번호
 	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
 	`title`	VARCHAR(50)			NULL, -- 이게 필요한지, 모달로 띄울건지 고민, 일단 보류 
 	`content`	TEXT			NULL, -- 내용
@@ -84,15 +85,19 @@ CREATE TABLE `schedule` (
 
 -- 예약 테이블
 TRUNCATE TABLE EXISTS reserve;
+
+DROP TABLE reserve;
 CREATE TABLE `reserve` (
-	`date_no`	INT	NOT NULL,
-	`date_time`	TIMESTAMP	NULL,
-	`date_day`	TIMESTAMP	NULL,
-	`reg_date`	TIMESTAMP	NULL,
-	`upd_date`	TIMESTAMP	NULL,
-	`user_id`	VARCHAR(100)	NOT NULL,
-	`trainer_id`	VARCHAR(100)	NOT NULL,
-	`order_no`	INT	NOT NULL
+	`no`	INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,	-- 예약 번호
+	-- `time`	TIMESTAMP	NULL,				-- 예약 시간
+	-- `day`	TIMESTAMP	NULL,				-- 예약 날짜
+	`date`	TIMESTAMP NOT NULL,				-- 예약일자
+	`reg_date`	TIMESTAMP	NULL,			-- 등록일자
+	`upd_date`	TIMESTAMP	NULL,			-- 수정일자
+	`user_id`	VARCHAR(100)	NOT NULL,	-- 회원 아이디	
+	`trainer_no`	INT	NOT NULL,			-- 훈련사 번호
+	`order_no`	INT	NOT NULL,				-- 결제 번호
+	`request` 	VARCHAR(400) NULL			-- 요청 사항
 );
 
 -- 결제정보 테이블
@@ -216,7 +221,6 @@ CREATE TABLE `users` (
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
-	`gender`	VARCHAR(50)	NOT NULL,
 	`phone`	VARCHAR(50)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
