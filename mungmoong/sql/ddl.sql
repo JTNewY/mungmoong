@@ -1,19 +1,22 @@
--- Active: 1713967376592@@127.0.0.1@3306@mypet
 
+
+DROP TABLE pet;
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
+
+DROP TABLE pet;
 CREATE TABLE `pet` (
-	`pet_no`	INT	NOT NULL,
-	`petname`	VARCHAR(50)	NOT NULL,
-	`pettype` VARCHAR(50)	NOT NULL,
+	`no`	INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`name`	VARCHAR(50)	NOT NULL,
+	`type` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`petgender`	INT	NOT NULL,
-	`character`	VARCHAR(100)	NULL,
+	`gender`	VARCHAR(50)	NOT NULL,
+	`temperament`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
-	`order_no`	INT	NOT NULL,
 	`user_id`	VARCHAR(100)	NOT NULL
 );
+
 
 ALTER TABLE career DROP FOREIGN KEY fk_career_trainer_no;
 ALTER TABLE certificate DROP FOREIGN KEY fk_certificate_trainer_no;
@@ -31,40 +34,43 @@ SELECT * FROM certificate;
 DROP TABLE IF EXISTS trainer;
 DROP TABLE trainer;
 TRUNCATE TABLE trainer;
-CREATE TABLE `trainer` (
-	`no`			INT			PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
-	`name`			VARCHAR(50)	NOT NULL,	-- 이름
-	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
-	`birth`			VARCHAR(50) NOT NULL,	-- 생일
-	`mail`			VARCHAR(50)		NULL,	-- 이메일
-    `phone`			VARCHAR(50)		NULL,	-- 핸드폰 번호
-	`address`		VARCHAR(150)	NULL,	-- 주소
-	`reg_date`		TIMESTAMP		NULL,	-- 등록일
-	`upd_date`		TIMESTAMP		NULL,	-- 수정일
-	`content`		TEXT			NULL,	-- 소개
-	`user_id`		VARCHAR(100)	NOT NULL-- 회원 아이디
-);
 
+CREATE TABLE `trainer` (
+    `no` INT PRIMARY KEY AUTO_INCREMENT, -- 훈련사 번호
+    `user_id` VARCHAR(100) NOT NULL, -- 회원 아이디
+    `name` VARCHAR(50) NOT NULL, -- 이름
+    `gender` VARCHAR(50) NOT NULL, -- 성별
+    `birth` VARCHAR(50) NOT NULL, -- 생일
+    `mail` VARCHAR(50) NULL, -- 이메일
+    `phone` VARCHAR(50) NULL, -- 핸드폰 번호
+    `address` VARCHAR(150) NULL, -- 주소
+    `reg_date` TIMESTAMP NULL, -- 등록일
+    `upd_date` TIMESTAMP NULL, -- 수정일
+    `content` TEXT NULL -- 소개
+);
 -- 경력 테이블
 TRUNCATE TABLE EXISTS career;
 CREATE TABLE `career` (
-	`no`			INT		PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
-	`user_id`   VARCHAR(100)NOT NULL, -- 회원 아이디
-	`name`	VARCHAR(100)		NULL, -- 경력 이름
-	`reg_date`	TIMESTAMP		NULL, -- 등록일
-	`upd_date`	TIMESTAMP		NULL  -- 수정일
+    `no` INT PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
+    `user_id` VARCHAR(100) NOT NULL, -- 회원 아이디
+    `trainer_no` INT NOT NULL, -- 훈련사 번호
+    `name` VARCHAR(100) NULL, -- 경력 이름
+    `reg_date` TIMESTAMP NULL, -- 등록일
+    `upd_date` TIMESTAMP NULL, -- 수정일
+    FOREIGN KEY (`trainer_no`) REFERENCES `trainer`(`no`) -- 외래 키 설정
 );
 
 -- 자격증 정보 테이블
 TRUNCATE TABLE EXISTS certificate;
 CREATE TABLE `certificate` (
-	`no`	INT		 	PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
-	`user_id`  VARCHAR(100)	NOT NULL, -- 회원 아이디
-	`name`	VARCHAR(100)		NULL, -- 자격증 명
-	`reg_date`	TIMESTAMP		NULL, -- 등록일   
-	`upd_date`	TIMESTAMP		NULL  -- 수정일
+    `no` INT PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
+    `user_id` VARCHAR(100) NOT NULL, -- 회원 아이디
+    `trainer_no` INT NOT NULL, -- 훈련사 번호
+    `name` VARCHAR(100) NULL, -- 자격증 이름
+    `reg_date` TIMESTAMP NULL, -- 등록일
+    `upd_date` TIMESTAMP NULL, -- 수정일
+    FOREIGN KEY (`trainer_no`) REFERENCES `trainer`(`no`) -- 외래 키 설정
 );
-
 ALTER TABLE career
 ADD CONSTRAINT fk_career_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
 
@@ -86,6 +92,8 @@ CREATE TABLE `schedule` (
 -- 예약 테이블
 TRUNCATE TABLE EXISTS reserve;
 
+-- 나중에 예약 테이블에 주소같은 거 추가합시당당당
+
 DROP TABLE reserve;
 CREATE TABLE `reserve` (
 	`no`	INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,	-- 예약 번호
@@ -97,7 +105,8 @@ CREATE TABLE `reserve` (
 	`user_id`	VARCHAR(100)	NOT NULL,	-- 회원 아이디	
 	`trainer_no`	INT	NOT NULL,			-- 훈련사 번호
 	`order_no`	INT	NOT NULL,				-- 결제 번호
-	`request` 	VARCHAR(400) NULL			-- 요청 사항
+	`request` 	VARCHAR(400) NULL,			-- 요청 사항
+	`pet_no`	INT NOT NULL				-- 펫 번호
 );
 
 -- 결제정보 테이블
@@ -210,15 +219,16 @@ CREATE TABLE qna (
 
 
 
+DROP TABLE users;
 TRUNCATE TABLE EXISTS  users;
 -- 회원 테이블
-TRUNCATE TABLE EXISTS users;
+TRUNCATE TABLE users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
 	`birth`	TIMESTAMP	NOT NULL,
-	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
+	`gender`		VARCHAR(50)	NOT NULL,	
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
 	`phone`	VARCHAR(50)	NULL,
