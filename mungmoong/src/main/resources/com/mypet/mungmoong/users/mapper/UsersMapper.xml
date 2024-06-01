@@ -73,7 +73,7 @@
               ,u.address
               ,u.mail
               ,u.phone
-              <!-- ,u.gender -->
+              ,u.gender
               ,u.reg_date
               ,u.upd_date
               ,u.enabled
@@ -88,7 +88,7 @@
     <!-- 회원 가입 -->
     <insert id="join"  >
         INSERT INTO users ( user_id, password, name, birth, address, mail,phone, enabled ,gender,reg_date,upd_date,role)
-        VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, 1,#{gender},now(),now(),0)
+        VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, 1, #{gender},now(),now(),0)
     </insert>
 
     <!-- 회원 정보 수정 -->

@@ -7,14 +7,14 @@
     
     <!-- 새로운 반려동물 추가 -->
     <insert id="insertPet">
-      INSERT INTO pet (petname, age, gender, pettype, `character`, reg_date, upd_date, order_no, user_id)
-    VALUES (#{petname}, #{age}, #{gender}, #{pettype}, #{character}, now(), now(), #{orderNo}, #{userId})
+      INSERT INTO pet (petname, age, petgender, pettype, `character`, reg_date, upd_date, order_no, user_id)
+    VALUES (#{petname}, #{age}, #{petgender}, #{pettype}, #{character}, now(), now(), #{orderNo}, #{userId})
     </insert>
     
     <!-- 반려동물 정보 수정 -->
     <update id="updatePet">
         UPDATE pet
-        SET petname = #{petname}, age = #{age}, gender = #{gender}, `character` = #{character}, 
+        SET petname = #{petname}, age = #{age}, petgender = #{petgender}, `character` = #{character}, 
             upd_date = #{updDate}
         WHERE pet_no = #{petNo}
     </update>
