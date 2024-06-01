@@ -28,24 +28,24 @@
 <body>
     <h1>게시글 조회</h1>
 
-    <form action="/board/delete" method="post">
-        <input type="hidden" name="no" th:value="${board.no}">
+    <form action="/trainermain/delete" method="post">
+        <input type="hidden" name="userId" th:value="${trainer.no}">
         <table>
             <tr>
                 <td>제목</td>
                 <td>
-                    <input type="text" name="title" th:value="${board.title}">
+                    <input type="text" name="age" th:value="${trainer.age}">
                 </td>
             </tr>
             <tr>
                 <td>작성자</td>
                 <td>
-                    <input type="text" name="writer" th:value="${board.writer}">
+                    <input type="text" name="phone" th:value="${trainer.phone}">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <textarea name="content" id="content" cols="40" rows="5" th:text="${board.content}"></textarea>
+                    <textarea name="content" id="content" cols="40" rows="5" th:text="${trainer.content}"></textarea>
                 </td>
             </tr>
             <tr>
@@ -92,7 +92,7 @@
     <script>
 
         // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-        let no = "[[${board.no}]]"   //글번호
+        let no = "[[${trainer.no}]]"   //글번호
 
         //댓글 목록 요청
         replyList()
@@ -101,12 +101,12 @@
 
         // 수정 화면 이동
         function moveUpdate() {
-            location.href = '/board/update?no=' + no
+            location.href = '/trainermain/update?no=' + no
         }
 
         // 목록 화면 이동
         function moveList() {
-            location.href = '/board/list'
+            location.href = '/trainermain/list'
         }
 
         // 파일 삭제
