@@ -1,4 +1,4 @@
--- Active: 1713528331467@@127.0.0.1@3306@mypet
+
 
 -- user_id, password, name, birth, address, mail,phone, role
 -- #{user_id}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, #{role}
@@ -10,6 +10,10 @@ drop table users;
 
 -- 일반 회원s
 =======
+DROP TABLE users;
+TRUNCATE TABLE EXISTS  users;
+-- 회원 테이블
+TRUNCATE TABLE users;
 CREATE TABLE `users` (
    `user_id`   VARCHAR(100)   NOT NULL,
    `password`   VARCHAR(100)   NOT NULL,
@@ -28,6 +32,9 @@ CREATE TABLE `users` (
 ALTER TABLE `users` ADD CONSTRAINT `PK_USERS` PRIMARY KEY (
 	`user_id`
 );
+
+INSERT INTO `users` (`user_id`, `password`, `name`, `birth`, `gender`, `address`, `mail`, `phone`, `reg_date`, `upd_date`, `role`, `enabled`) 
+VALUES ('user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101, 'Male', '인주대로 1000번길','user@mail.com' , '01012341234',now(),now(),1, 1);
 
 
 INSERT INTO users ( user_id, password, name, birth, address, mail,phone, role,reg_date,upd_date,enabled )
