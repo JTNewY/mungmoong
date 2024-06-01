@@ -93,7 +93,7 @@
                     width: 85px;">예약</a>
               </div>
               <div class="col">
-                
+
                 <h5 style="font-size: 1rem;font-weight:bold;">이용요금</h5>
                 <div style="border: 1px solid #333;border-radius: 10px;padding: 5%;">
                   <div>
@@ -145,30 +145,25 @@
             <h3 style="padding: 3% 0;font-family: 'Jua';">자기소개</h3>
             <table>
               <tr th:each="trainer : ${trainerList}">
-                <td th:text="${trainer.no}">김조은 훈련사프로필</td>
                 <td>
-                <th>대표경력</th>
-                <td th:text="${trainer.mail}">한국애견협회우수승</td>
-                </td>
-                <td>
-                <th>전문분야</th>
-                <td>중형견</td>
-                </td>
-                <td>
-                <th>방문지역</th>
-                <td>인천</td>
-                </td>
+                  <!-- th:???="|문자열+${표현식}|" -->
+                  <a th:href="|/trainermain/read?no=${trainer.userId}|" 
+                  th:text="${trainer.userId}"></a>
+               </td>
+                <th>아이디</th>
+                <td  th:text="${trainer.userId}"></td>
+                <th>이름</th>
+                <td th:text="${trainer.name}"></td>
+                <th>메일</th>
+                <td th:text="${trainer.mail}"></td>
+                <th>성별</th>
+                <td th:text="${trainer.gender}"></td>
+                <th>전화</th>
+                <td th:text="${trainer.phone}"></td>
+                <th>소개</th>
+                <td th:text="${trainer.content}"></td>
               </tr>
             </table>
-            <div style="padding: 5%;">
-              <p>
-                애견훈련사 조승현입니다. 많은 실전 경험, 그리고 지식과 이론 바탕으로 보호자님과 반려견의 <br>
-                상황과 성향에 맞춰 알맞는 교육을 진행하겠습니다. 단순하게 간단하게 끝나는 교육이 아닌 정확한 <br>
-                상황판단과 행동분석을 통해 보호자님 그리고 반려견의 행복한 생활을 위해 노력하겠습니다. <br>
-              </p>
-              <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
-              <label class="btn btn-outline-primary" for="btn-check-outlined">더보기</label><br>
-            </div>
             <div>
               <h3 style="padding: 3% 0;font-family: 'Jua';">리뷰<b>200건</b></h3>
               <div class="container text-center" style="padding: 0;">
