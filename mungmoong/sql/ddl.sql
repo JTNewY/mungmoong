@@ -1,5 +1,6 @@
 
 
+DROP TABLE pet;
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
 CREATE TABLE `pet` (
