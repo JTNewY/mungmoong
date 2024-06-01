@@ -10,7 +10,7 @@ public class Pet {
     private String petname;
     private String pettype;
     private int age;
-    private int gender;
+    private int petgender;
     private String character;
     private Date regDate;
     private Date updDate;

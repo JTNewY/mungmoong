@@ -83,8 +83,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int update(Users user) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        
+       return userMapper.update(user);
     }
 
     @Override
@@ -95,8 +95,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public List<Users> list() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'list'");
+        List<Users> usersList = userMapper.list();
+        return usersList;
     }
 
     @Override

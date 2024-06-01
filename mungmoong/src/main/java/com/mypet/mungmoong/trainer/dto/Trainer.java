@@ -2,6 +2,7 @@ package com.mypet.mungmoong.trainer.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,29 +10,47 @@ import lombok.Data;
 
 @Data
 public class Trainer {
-    private int no;                // 훈련사 번호
-    private String userId;         // 회원 아이디
-    private int orderNo;           // 결제 번호
-    private String name;           // 이름
-    private String gender;         // 성별
-    private String birth;          // 생일
-    private String mail;           // 이메일
-    private String Phone;          // 핸드폰 번호
-    private String address;        // 주소
-    private String content;        // 소개
-    private Date regDate;          // 등록일
-    private Date updDate;          // 수정일
+    private int no;
+    private String userId;
+    private int orderNo;
+    private String name;
+    private String gender;
+    private String birth;
+    private String mail;
+    private String phone;
+    private String address;
+    private String content;
+    private Date regDate;
+    private Date updDate;
 
-    private List<String> careerName;       // 경력
-    private List<String> certificateName;  // 자격증
+    private List<String> careerNames;
+    private List<String> certificateNames;
 
-   // 썸네일 이미지 (한 건)
-   MultipartFile thumbnail;   // 이건 프로필 사진용
+    private MultipartFile thumbnail;
+    private List<MultipartFile> files;
 
-   // 파일 (한 건 이상)
-   List<MultipartFile> file;  // 이건 자격증 사진용
+    private int fileNo;
 
-   // 파일 번호
-   // file_no -> fileNo (myBatis)
-   private int fileNo;
+    private List<Career> careerList;  // 추가된 속성
+    private List<Certificate> certificateList;  // 추가된 속성
+
+    public List<Career> toCareerList() {
+        return careerNames.stream().map(name -> {
+            Career career = new Career();
+            career.setName(name);
+            career.setUserId(this.userId);
+            career.setTrainerNo(this.no);
+            return career;
+        }).collect(Collectors.toList());
+    }
+
+    public List<Certificate> toCertificateList() {
+        return certificateNames.stream().map(name -> {
+            Certificate certificate = new Certificate();
+            certificate.setName(name);
+            certificate.setUserId(this.userId);
+            certificate.setTrainerNo(this.no);
+            return certificate;
+        }).collect(Collectors.toList());
+    }
 }
