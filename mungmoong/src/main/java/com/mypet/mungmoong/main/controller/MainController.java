@@ -113,9 +113,28 @@ public class MainController {
             log.info("주소 : " + address);
         }
 
-        return "reserve/QnA";
+        return "QnA";
     }
+    @GetMapping("trainermain")
+    public String trainerMain(Principal principal
+                     ,Authentication auth) {
+        log.info("메인");
+        log.info(":::::::::: 메인 ::::::::::");
+        log.info("principal  : " + principal);
+        
+        if(principal != null ) {
+            CustomUser loginUser = (CustomUser) auth.getPrincipal();
+            String userId = loginUser.getUser().getUserId(); 
+            String address = loginUser.getUser().getAddress();
+            
+            // String userId = principal.getName();
+            log.info("auth  : " + auth.getPrincipal());
+            log.info("로그인 아이디 : " + userId);
+            log.info("주소 : " + address);
+        }
 
+        return "trainermain";
+    }
     // @GetMapping("/{page}")
     // public String test(@PathVariable("page") String page) {
     //     return "/" + page;
