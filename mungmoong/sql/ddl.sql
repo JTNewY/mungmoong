@@ -3,16 +3,17 @@
 DROP TABLE pet;
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
+
+DROP TABLE pet;
 CREATE TABLE `pet` (
-	`pet_no`	INT	NOT NULL,
-	`petname`	VARCHAR(50)	NOT NULL,
-	`pettype` VARCHAR(50)	NOT NULL,
+	`no`	INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`name`	VARCHAR(50)	NOT NULL,
+	`type` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`petgender`	INT	NOT NULL,
-	`character`	VARCHAR(100)	NULL,
+	`gender`	VARCHAR(50)	NOT NULL,
+	`temperament`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
-	`order_no`	INT	NOT NULL,
 	`user_id`	VARCHAR(100)	NOT NULL
 );
 
@@ -91,6 +92,8 @@ CREATE TABLE `schedule` (
 -- 예약 테이블
 TRUNCATE TABLE EXISTS reserve;
 
+-- 나중에 예약 테이블에 주소같은 거 추가합시당당당
+
 DROP TABLE reserve;
 CREATE TABLE `reserve` (
 	`no`	INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,	-- 예약 번호
@@ -102,7 +105,8 @@ CREATE TABLE `reserve` (
 	`user_id`	VARCHAR(100)	NOT NULL,	-- 회원 아이디	
 	`trainer_no`	INT	NOT NULL,			-- 훈련사 번호
 	`order_no`	INT	NOT NULL,				-- 결제 번호
-	`request` 	VARCHAR(400) NULL			-- 요청 사항
+	`request` 	VARCHAR(400) NULL,			-- 요청 사항
+	`pet_no`	INT NOT NULL				-- 펫 번호
 );
 
 -- 결제정보 테이블
