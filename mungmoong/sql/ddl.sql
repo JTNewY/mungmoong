@@ -33,40 +33,43 @@ SELECT * FROM certificate;
 DROP TABLE IF EXISTS trainer;
 DROP TABLE trainer;
 TRUNCATE TABLE trainer;
-CREATE TABLE `trainer` (
-	`no`			INT			PRIMARY KEY AUTO_INCREMENT,	-- 훈련사 번호
-	`name`			VARCHAR(50)	NOT NULL,	-- 이름
-	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
-	`birth`			VARCHAR(50) NOT NULL,	-- 생일
-	`mail`			VARCHAR(50)		NULL,	-- 이메일
-    `phone`			VARCHAR(50)		NULL,	-- 핸드폰 번호
-	`address`		VARCHAR(150)	NULL,	-- 주소
-	`reg_date`		TIMESTAMP		NULL,	-- 등록일
-	`upd_date`		TIMESTAMP		NULL,	-- 수정일
-	`content`		TEXT			NULL,	-- 소개
-	`user_id`		VARCHAR(100)	NOT NULL-- 회원 아이디
-);
 
+CREATE TABLE `trainer` (
+    `no` INT PRIMARY KEY AUTO_INCREMENT, -- 훈련사 번호
+    `user_id` VARCHAR(100) NOT NULL, -- 회원 아이디
+    `name` VARCHAR(50) NOT NULL, -- 이름
+    `gender` VARCHAR(50) NOT NULL, -- 성별
+    `birth` VARCHAR(50) NOT NULL, -- 생일
+    `mail` VARCHAR(50) NULL, -- 이메일
+    `phone` VARCHAR(50) NULL, -- 핸드폰 번호
+    `address` VARCHAR(150) NULL, -- 주소
+    `reg_date` TIMESTAMP NULL, -- 등록일
+    `upd_date` TIMESTAMP NULL, -- 수정일
+    `content` TEXT NULL -- 소개
+);
 -- 경력 테이블
 TRUNCATE TABLE EXISTS career;
 CREATE TABLE `career` (
-	`no`			INT		PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
-	`user_id`   VARCHAR(100)NOT NULL, -- 회원 아이디
-	`name`	VARCHAR(100)		NULL, -- 경력 이름
-	`reg_date`	TIMESTAMP		NULL, -- 등록일
-	`upd_date`	TIMESTAMP		NULL  -- 수정일
+    `no` INT PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
+    `user_id` VARCHAR(100) NOT NULL, -- 회원 아이디
+    `trainer_no` INT NOT NULL, -- 훈련사 번호
+    `name` VARCHAR(100) NULL, -- 경력 이름
+    `reg_date` TIMESTAMP NULL, -- 등록일
+    `upd_date` TIMESTAMP NULL, -- 수정일
+    FOREIGN KEY (`trainer_no`) REFERENCES `trainer`(`no`) -- 외래 키 설정
 );
 
 -- 자격증 정보 테이블
 TRUNCATE TABLE EXISTS certificate;
 CREATE TABLE `certificate` (
-	`no`	INT		 	PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
-	`user_id`  VARCHAR(100)	NOT NULL, -- 회원 아이디
-	`name`	VARCHAR(100)		NULL, -- 자격증 명
-	`reg_date`	TIMESTAMP		NULL, -- 등록일   
-	`upd_date`	TIMESTAMP		NULL  -- 수정일
+    `no` INT PRIMARY KEY AUTO_INCREMENT, -- 자격증 번호
+    `user_id` VARCHAR(100) NOT NULL, -- 회원 아이디
+    `trainer_no` INT NOT NULL, -- 훈련사 번호
+    `name` VARCHAR(100) NULL, -- 자격증 이름
+    `reg_date` TIMESTAMP NULL, -- 등록일
+    `upd_date` TIMESTAMP NULL, -- 수정일
+    FOREIGN KEY (`trainer_no`) REFERENCES `trainer`(`no`) -- 외래 키 설정
 );
-
 ALTER TABLE career
 ADD CONSTRAINT fk_career_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
 

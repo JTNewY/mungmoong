@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +48,8 @@ import lombok.extern.slf4j.Slf4j;
 public class TrainerController {
 
 
+    private Logger logger = LoggerFactory.getLogger(TrainerController.class);
+
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
         return "/trainer/" + page;
@@ -85,8 +89,6 @@ public class TrainerController {
     @GetMapping("/info")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
-        // int trainerNo = trainer.getNo();
-        // Career career = careerService.select(trainerNo);
         List<Career> careerList = careerService.select(userId);
         List<Certificate> certificateList = certificateService.select(userId);
         model.addAttribute("trainer", trainer);
@@ -95,84 +97,65 @@ public class TrainerController {
         return "/trainer/info";
     }
 
-
-    /**
-     * 훈련사 정보 등록 처리
-     * @param trainer
-     * @return
-     * @throws Exception 
-     */
     @PostMapping("/join_data")
-    public String joinDataPro(HttpSession session
-                             ,@ModelAttribute Trainer trainer) throws Exception {
-        log.info(":::::::::::::::::::::::::::::::::::::::::");
-        log.info("::::::::::::::: trainer :::::::::::::::::");
-        log.info(" trainer : " + trainer);
-        Users user = (Users) session.getAttribute("user");
-        String userId = user.getUserId();
-        trainer.setUserId(userId);
-        usersService.update(user);
-    
-        // 데이터 요청
-        int result = trainerService.insert(trainer);
-        
-        // 데이터 처리 성공
-        if(result > 0) {
-            Users newUser = usersService.select(userId);
-            session.setAttribute("user", newUser);
-            return "redirect:/trainer/join_data";
+    public String insertPro(@ModelAttribute Trainer trainer, HttpSession session, Model model) {
+        try {
+            Users user = (Users) session.getAttribute("user");
+
+            if (user == null) {
+                return "redirect:/login";
+            }
+
+            
+            trainer.setUserId(user.getUserId());
+
+            Users dbUser = usersService.select(user.getUserId());
+
+            if (dbUser == null) {
+                throw new Exception("User not found");
+            }
+
+            trainer.setCareerList(trainer.toCareerList());
+            trainer.setCertificateList(trainer.toCertificateList());
+
+            log.debug("Trainer data: {}", trainer);
+            int result = trainerService.insert(trainer);
+
+            if (result > 0) {
+                return "redirect:/trainer/board/list";
+            }
+        } catch (Exception e) {
+            log.error("Error occurred while processing trainer data", e);
+            model.addAttribute("errorMessage", "Error occurred while processing trainer data: " + e.getMessage());
         }
-        
-        // 데이터 처리 실패
-        return "redirect:/trainer/join_data?error";
+
+        return "redirect:/trainer/board/insert?error";
     }
-    
-    
-    /**
-     * 훈련사 등록 화면
-     * @return
-     */
+
     @GetMapping("/insert")
     public String insert() {
-
         return "/trainer/board/insert";
     }
 
     @PostMapping("/insert")
     public String insertPro(Trainer trainer) throws Exception {
-
         log.info(trainer.toString());
 
-        // 데이터 요청
         int result = trainerService.insert(trainer);
-        // 리다이렉트
-        // ⭕ 데이터 처리 성공
-        if(result > 0) {
+
+        if (result > 0) {
             return "redirect:/trainer/board/list";
         }
-        // ❌ 데이터 처리 실패
         return "redirect:/trainer/board/insert?error";
     }
 
-    /**
-     * 훈련사 수정 화면
-     * @param no
-     * @param model
-     * @return
-     * @throws Exception 
-     */
     @GetMapping("/update")
     public String update(@RequestParam("userId") String userId, Model model, Files file) throws Exception {
-
-        // 데이터 요청
         Trainer trainer = trainerService.select(userId);
 
-        // 파일 목록 요청
         file.setParentTable("board");
-        // file.setParentNo(userId);
         List<Files> fileList = fileService.listByParent(file);
 
-        // 모델 등록
         model.addAttribute("trainer", trainer);
         model.addAttribute("fileList", fileList);
 
@@ -186,7 +169,7 @@ public class TrainerController {
      * @throws Exception
      */
     // @PostMapping("/update")
-    // public String updatePro(Trainer trainer) throws Exception {
+    // public String updatePro(Trainer trainer)     throws Exception {
     //     int result = trainerService.update(trainer);
     //     if(result > 0) {
     //         return "redirect:/trainer/board/list";
