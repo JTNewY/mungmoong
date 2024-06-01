@@ -1,74 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.mypet.mungmoong.trainer.mapper.FileMapper">
+    <resultMap id="FilesResultMap" type="com.mypet.mungmoong.trainer.dto.Files">
+        <id property="no" column="no"/>
+        <result property="parentTable" column="parent_table"/>
+        <result property="parentNo" column="parent_no"/>
+        <result property="fileName" column="file_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileSize" column="file_size"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="updDate" column="upd_date"/>
+        <result property="fileCode" column="file_code"/>
+    </resultMap>
 
-    <!-- 파일 목록 -->
-    <select id="list" resultType="Files">
-        SELECT *
-        FROM img_file
-        ORDER BY reg_date DESC
+    <select id="selectFilesByCareerId" resultMap="FilesResultMap">
+        SELECT * FROM files WHERE parent_table = 'career' AND parent_no = #{no}
     </select>
 
-    <!-- 파일 목록 - 부모 테이블 기준 -->
-    <!-- * 파일이 종속되는 테이블을 기준으로 파일 목록을 조회 -->
-    <!-- * 게시글 번호 10 
-           📄 파일 번호 1
-           📄 파일 번호 2
-           📄 파일 번호 3
-     -->
-    <select id="listByParent" resultType="Files">
-        SELECT *
-        FROM img_file
-        WHERE parent_table = #{parentTable}
-          AND parent_no = #{parentNo}
-        ORDER BY reg_date DESC
+    <select id="selectFilesByCertificateId" resultMap="FilesResultMap">
+        SELECT * FROM files WHERE parent_table = 'certificate' AND parent_no = #{no}
     </select>
 
-    <!-- 파일 조회 -->
-    <select id="select" resultType="Files">
-        SELECT *
-        FROM img_file
-        WHERE no = #{no}
+    <select id="selectFilesByTrainerId" resultMap="FilesResultMap">
+        SELECT * FROM files WHERE parent_table = 'trainer' AND parent_no = #{no}
     </select>
-    
 
-    <!-- 파일 등록 -->
     <insert id="insert">
-        INSERT INTO img_file( parent_table, parent_no, file_name, file_path, file_size, file_code )
-        VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{filePath}, #{fileSize}, #{fileCode} )
+        INSERT INTO img_file(parent_table, parent_no, file_name, file_path, file_size, file_code)
+        VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{filePath}, #{fileSize}, #{fileCode})
     </insert>
 
-    <!-- 파일 수정 -->
     <update id="update">
         UPDATE img_file
-           SET parent_table = #{parentTable}
-              ,parent_no = #{parentNo}
-              ,file_name = #{fileName}
-              ,origin_name = #{originName}
-              ,file_path = #{filePath}
-              ,file_size = #{fileSize}
-              ,file_code = #{fileCode}
+           SET parent_table = #{parentTable}, parent_no = #{parentNo}, file_name = #{fileName},
+               file_path = #{filePath}, file_size = #{fileSize}, file_code = #{fileCode}
         WHERE no = #{no}
     </update>
 
-    <!-- 파일 삭제 -->
     <delete id="delete">
-        DELETE FROM img_file
-        WHERE no = #{no}
+        DELETE FROM img_file WHERE no = #{no}
     </delete>
 
-
-    <!-- 파일 목록 삭제 - 부모 테이블 기준 파일 목록 삭제 -->
     <delete id="deleteByParent">
-        DELETE FROM img_file
-        WHERE parent_table = #{parentTable}
-          AND parent_no = #{parentNo}
+        DELETE FROM img_file WHERE parent_table = #{parentTable} AND parent_no = #{parentNo}
     </delete>
-
-
-
 </mapper>

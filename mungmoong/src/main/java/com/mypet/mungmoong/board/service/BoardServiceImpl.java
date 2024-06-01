@@ -84,8 +84,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int delete(int no) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        int result = boardMapper.BoardDelete(no);
+        return result;
     }
 
 }
