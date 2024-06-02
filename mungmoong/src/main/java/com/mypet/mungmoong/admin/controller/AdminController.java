@@ -24,6 +24,8 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -318,6 +320,20 @@ public class AdminController {
 
         return "/admin/admin_reserve";
     }
+
+
+    @PostMapping("/admin_trainer_role")
+    public String TrainerRole(Users user, Trainer trainer) throws Exception {
+
+        int result = userService.roleUp(user);
+
+        if(result > 0) {
+            return "redirect:/admin/admin_trainer";
+        }
+        int no = trainer.getNo();
+        return "redirect:/admin/admin_trainer?no=" + no + "&error";
+    }
+    
     
     
 
