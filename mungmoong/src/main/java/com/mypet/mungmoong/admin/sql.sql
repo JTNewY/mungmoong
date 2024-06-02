@@ -1,5 +1,5 @@
 
--- Active: 1714463131843@@127.0.0.1@3306@mypet
+-- Active: 1713353106333@@127.0.0.1@3306@mypet
 
 TRUNCATE TABLE users;
 TRUNCATE TABLE pet;
@@ -325,3 +325,7 @@ VALUES	('Buddy', 'Dog', 3, 1, 'Friendly and energetic', CURRENT_TIMESTAMP, CURRE
 		,('Coco', 'Cat', 1, 0, 'Mischievous and curious', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 14, 'user5')
 		,('Pepper', 'Parrot', 3, 1, 'Talkative and colorful', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 15, 'user5');
 
+
+
+INSERT INTO `reserve` (`date`, `reg_date`, `upd_date`, `user_id`, `trainer_no`, `order_no`, `request`) 
+VALUES ('2024-06-01 10:00:00', NOW(), NOW(), 'user123', 1, 1001, 'Please provide a specific training focus on obedience.');

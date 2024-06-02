@@ -30,7 +30,7 @@
                     </ul>
                 </div>
             </nav>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col" style="width: 5%;">선택</th>
@@ -42,16 +42,15 @@
                     </tr>
                 </thead>
                 <th:block th:each="board : ${boardList}">
-                <tbody class="table">
-                    <tr class="first_tr">
-                        <td><input type="checkbox"></td>
-                        <td th:text="${board.userId}"></td>
-                        <td class="text-truncate"><a th:href="|/admin/admin_board_read?boardNo=${board.boardNo}|" th:text="${board.title}"></a></td>
-                        <td class="text-truncate" th:text="${board.content}"></td>
-                        <td class="text-truncate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <tr>
+                            <td class="text-truncate"><input type="checkbox"></td>
+                            <td class="text-truncate" th:text="${board.userId}"></td>
+                            <td class="text-truncate"><a th:href="|/admin/admin_board_read?boardNo=${board.boardNo}|"
+                                    th:text="${board.title}"></a></td>
+                            <td class="text-truncate" th:text="${board.content}"></td>
+                            <td class="text-truncate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td class="text-truncate" th:text="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
-                </tbody>
             </th:block>
             </table>
             <!-- 페이징 버튼 영역 -->
