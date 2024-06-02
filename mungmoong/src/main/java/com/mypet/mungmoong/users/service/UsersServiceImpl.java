@@ -119,5 +119,10 @@ public class UsersServiceImpl implements UsersService {
        return user;
     }
 
+    @Override
+    public int roleUp(Users user) throws Exception {
+        return userMapper.update(user);
+    }
+
     
 }

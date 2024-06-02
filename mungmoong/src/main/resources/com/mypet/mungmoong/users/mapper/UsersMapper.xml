@@ -135,4 +135,11 @@
         WHERE user_id = #{userid} AND mail = #{mail}
     </select>
 
+    <!-- 관리자 권한 업데이트 -->
+    <update id="roleUp">
+        UPDATE trainer
+           SET role = 1
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>
