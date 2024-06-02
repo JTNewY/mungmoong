@@ -16,6 +16,8 @@ import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
+import com.mypet.mungmoong.reserve.dto.Reserve;
+import com.mypet.mungmoong.reserve.service.ReserveService;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
@@ -40,6 +42,9 @@ public class AdminController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private ReserveService reserveService;
 
     /**
      * 관리자 회원정보 조회
@@ -302,6 +307,17 @@ public class AdminController {
         return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
     }
     
+    
+
+    @GetMapping("/admin_reserve")
+    public String ReserveList( Model model) throws Exception {
+
+        List<Reserve> reserveList = reserveService.list();
+
+        model.addAttribute("reserveList", reserveList);
+
+        return "/admin/admin_reserve";
+    }
     
     
 

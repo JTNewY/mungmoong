@@ -3,7 +3,7 @@ li {
     list-style: none;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -22,7 +22,7 @@ body {
 
 }
 
-.inner{
+.inner {
     width: 1200px;
     margin: 0 auto;
     padding: 100px;
@@ -74,6 +74,7 @@ body {
     display: block;
     text-decoration: none;
     color: black;
+    box-sizing: border-box;
 }
 
 /* 상단 탭 버튼 영역 끝 */
@@ -81,19 +82,20 @@ body {
 /* -------------------------------------------------------------------------------------------------------------- */
 /* 리스트 안에 버튼 영역 시작 */
 
-.smBtn{
+.smBtn {
     font-size: 0.8rem !important;
     text-align: center !important;
     border-radius: 20px !important;
 }
 
-.sm-bottom-btn .smBtn-list:hover{
+.sm-bottom-btn .smBtn-list:hover {
     background-color: white !important;
     border: 3px solid #F6C542 !important;
     color: #F6C542 !important;
     font-size: 0.8rem !important;
 }
-.sm-bottom-btn .smBtn-list{
+
+.sm-bottom-btn .smBtn-list {
     background-color: #F6C542 !important;
     border: 3px solid #F6C542 !important;
     border-radius: 15px !important;
@@ -102,13 +104,14 @@ body {
     font-size: 0.8rem !important;
 }
 
-.sm-bottom-btn .smBtn-update:hover{
+.sm-bottom-btn .smBtn-update:hover {
     background-color: white !important;
     border: 3px solid #A19F9D !important;
     color: #A19F9D !important;
     font-size: 0.8rem !important;
 }
-.sm-bottom-btn .smBtn-update{
+
+.sm-bottom-btn .smBtn-update {
     background-color: #A19F9D !important;
     border: 3px solid #A19F9D !important;
     border-radius: 15px !important;
@@ -122,8 +125,12 @@ body {
 /* -------------------------------------------------------------------------------------------------------------- */
 /* 컨테이너 리스트 영역 시작 */
 
+.text-truncate {
+    max-width: 150px;      /* Set the maximum width for the cell (adjust as needed) */
+}
+
 table {
-    text-align: center;
+    width: 100%;
     margin: 30px 0 !important;
 }
 
@@ -133,7 +140,7 @@ table {
 }
 
 .tab-button {
-    font-size: 1.1em;
+    font-size: 0.9em;
     padding: 0.5em 0.75em;
     background-color: #FFE0B2;
     color: #DAA414;
@@ -207,7 +214,9 @@ table tbody tr td:last-child {
 /* -------------------------------------------------------------------------------------------------------------- */
 /* 컨테이너 상세페이지 영역 시작 */
 
-h3{padding-top: 40px;}
+h3 {
+    padding-top: 40px;
+}
 
 form.form-group {
     width: 100%;
@@ -216,14 +225,15 @@ form.form-group {
     justify-content: center;
     padding-bottom: 20px;
 }
-form.form-group .fmCont {
 
-}
+form.form-group .fmCont {}
+
 form.form-group .fmCont ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
 }
+
 form.form-group .fmCont ul li {
     padding-top: 10%;
     display: flex;
@@ -248,10 +258,10 @@ form.form-group .fmCont ul li input {
     border: none;
     background-color: #FFF3D4;
     border-radius: 20px;
-    
+
 }
 
-textarea{
+textarea {
     border: none;
     background-color: #FFF3D4;
     border-radius: 20px;

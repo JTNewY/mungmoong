@@ -12,24 +12,24 @@
     <div class="container">
         <div class="inner">
             <h1>관리자 페이지</h1>
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="collapse navbar-collapse justify-content-start">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="tab-button active" href="/admin/admin_info">회원관리</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="tab-button" href="/admin/admin_trainer">훈련사 관리</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="tab-button" href="/admin/admin_reserve">예약관리</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="tab-button" href="/admin/admin_board">공지사항 관리</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button active" href="/admin/admin_info">회원관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_trainer">훈련사 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_reserve">예약관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_board">공지사항 관리</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -38,19 +38,18 @@
                         <th scope="col" style="width: 10%;">이름</th>
                         <th scope="col" style="width: 10%;">등록일자</th>
                         <th scope="col" style="width: 10%;">수정일자</th>
-                        <th scope="col">주소</th>
+                        <th scope="col" style="width: 50%;">주소</th>
                     </tr>
                 </thead>
                 <th:block th:each="users : ${usersList}">
-                    <tr>
-                        <td><a th:href="|/admin/admin_info_read?userId=${users.userId}|" th:text="${users.userId}"></a>
-                        </td>
-                        <td class="text-truncate" th:text="${users.password}"></td>
-                        <td class="text-truncate" th:text="${users.name}"></td>
-                        <td class="text-truncate" th:text="${#dates.format(users.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td class="text-truncate" th:text="${#dates.format(users.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td class="text-truncate" th:text="${users.address}"></td>
-                    </tr>
+                        <tr>
+                            <td class="text-truncate"><a th:href="|/admin/admin_info_read?userId=${users.userId}|" th:text="${users.userId}"></a></td>
+                            <td class="text-truncate" th:text="${users.password}"></td>
+                            <td class="text-truncate" th:text="${users.name}"></td>
+                            <td class="text-truncate" th:text="${#dates.format(users.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td class="text-truncate" th:text="${#dates.format(users.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td class="text-truncate" th:text="${users.address}"></td>
+                        </tr>
                 </th:block>
             </table>
             <!-- 페이징 버튼 영역 -->
