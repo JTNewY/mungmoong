@@ -41,6 +41,6 @@ public interface UsersService {
 
 
     // 관리자 회원 권한 업데이트
-    public int roleUp(Users user) throws Exception;
+    public int roleUp(Users user) throws Exception;         /* role 권한을 업데이트 하기 위한 userMapper */
 
 }

@@ -89,9 +89,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 관리자 영역 -->
     <select id="trainerList" resultType="trainer">
-        SELECT *
-        FROM trainer
-        ORDER BY reg_date DESC
+        SELECT t.*
+        FROM trainer t
+        JOIN users u ON t.user_id = u.user_id
+        WHERE u.role IN (1, 2)
+        ORDER BY t.reg_date DESC
     </select>
 
 </mapper>

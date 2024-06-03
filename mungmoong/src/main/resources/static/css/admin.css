@@ -83,7 +83,6 @@ body {
 /* 리스트 안에 버튼 영역 시작 */
 
 .smBtn {
-    font-size: 0.8rem !important;
     text-align: center !important;
     border-radius: 20px !important;
 }
@@ -118,7 +117,6 @@ body {
     color: white !important;
     font-weight: bold !important;
     font-size: 0.8rem !important;
-    margin-left: 10px !important;
 }
 
 /* 리스트 안에 버튼 영역 끝 */

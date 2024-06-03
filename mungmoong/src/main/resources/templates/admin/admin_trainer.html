@@ -59,8 +59,7 @@
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <input type="hidden" name="userId" th:value="${trainer.userId}">
                                         <input type="hidden" name="role" value="2">
-                                        <button type="submit" class="btn btn-primary btn-lg listBtn smBtn-list smBtn"
-                                            >승인</button>
+                                        <button type="submit" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
                                     </form>
                                 </th:block>
                                 <th:block th:if="${trainer.user.role == 2}">
