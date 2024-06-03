@@ -47,4 +47,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT MAX(no)
         FROM reserve
     </select>
+
+
+    <!-- 관리자 사용자별 총 예약 금액 조회 -->
+    <select id="listByUser" resultType="Reserve">
+        SELECT user_id, SUM(total_price) AS total_price
+        FROM reserve
+        GROUP BY user_id
+        ORDER BY user_id
+    </select>
 </mapper>
