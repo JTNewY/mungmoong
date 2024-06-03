@@ -13,3 +13,12 @@ VALUES (1,'user', 'ROLE_USER' );
 SELECT * FROM trainer;
 
 
+INSERT INTO `schedule` (`trainer_no`, `date`, `reg_date`)
+VALUES
+    (1, '2024-06-04', now()),
+    (2, '2024-06-04', now()),
+    (1, '2024-06-04', now()),
+    (3, '2024-06-05', now()),
+    (2, '2024-06-05', now())
+;
+
