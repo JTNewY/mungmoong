@@ -24,7 +24,6 @@
     <update id="update">
         UPDATE certificate
            SET name = #{name}, upd_date = now()
-        WHERE no = #{no}
     </update>
 
     <delete id="delete">
