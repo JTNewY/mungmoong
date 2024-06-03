@@ -72,13 +72,19 @@ public class BoardServiceImpl implements BoardService {
      * 게시글 삭제
      */
     @Override
-    public int delete(int no) throws Exception {
+    public int BoardDelete(int no) throws Exception {
         // TODO : boardMapper 로 delete(no) 호출
         /*
          *        ➡ int result 로 데이터 처리 행(개수) 받아옴
          *        ➡ return result
          */
-        int result = boardMapper.delete(no);
+        int result = boardMapper.BoardDelete(no);
+        return result;
+    }
+
+    @Override
+    public int delete(int no) throws Exception {
+        int result = boardMapper.BoardDelete(no);
         return result;
     }
 

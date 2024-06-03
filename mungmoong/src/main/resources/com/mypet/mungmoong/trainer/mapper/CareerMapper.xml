@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" --> 
-<!-- 밑의 베이스 패키지 경로가 잘 맞는지 확인하기 -->
 <mapper namespace="com.mypet.mungmoong.trainer.mapper.CareerMapper">
+    <resultMap id="CareerResultMap" type="com.mypet.mungmoong.trainer.dto.Career">
+        <id property="no" column="no"/>
+        <result property="userId" column="user_id"/>
+        <result property="trainerNo" column="trainer_no"/>
+        <result property="name" column="name"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="updDate" column="upd_date"/>
+        <collection property="files" column="no" select="com.mypet.mungmoong.trainer.mapper.FileMapper.selectFilesByCareerId"/>
+    </resultMap>
 
-    <!-- 훈련사 조회 -->
-    <select id="select" resultType="Trainer">
-        SELECT *
-        FROM trainer
-        WHERE user_id = #{userId}
+    <select id="select" resultType="com.mypet.mungmoong.trainer.dto.Career">
+        SELECT * FROM career WHERE user_id = #{userId}
     </select>
 
-    <!-- 경력 등록(훈련사 번호 MAX)  -->
-    <insert id="insert">
-        INSERT INTO career (trainer_no, name, reg_date) 
-        VALUES (
-                (SELECT MAX(no) FROM trainer),
-                #{name},
-                now()       
-        )
+    <insert id="insert" parameterType="com.mypet.mungmoong.trainer.dto.Career">
+        INSERT INTO career (user_id, trainer_no, name, reg_date, upd_date)
+        VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
     </insert>
 
-    <!-- 훈련사 수정 -->
     <update id="update">
-        UPDATE trainer
-           SET title = #{title}
-              ,writer = #{writer}
-              ,content = #{content}
-              ,upd_date = now()
+        UPDATE career
+           SET name = #{name}, upd_date = now()
         WHERE no = #{no}
     </update>
 
-    <!-- 훈련사 삭제 -->
     <delete id="delete">
-        DELETE FROM trainer
-        WHERE no = #{no}
+        DELETE FROM career WHERE no = #{no}
     </delete>
-
-
 </mapper>

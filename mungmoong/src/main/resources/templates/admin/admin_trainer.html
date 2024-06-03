@@ -35,32 +35,33 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 5%;">no</th>
-                        <th scope="col" style="width: 10%;">ID</th>
-                        <!-- <th scope="col" style="width: 10%;">비밀번호</th> -->
-                        <th scope="col" style="width: 10%;">이름</th>
-                        <!-- <th scope="col" style="width: 10%;">닉네임</th> -->
-                        <!-- <th scope="col" style="width: 10%;">전화번호</th> -->
-                        <!-- <th scope="col" style="width: 10%;">금액</th> -->
-                        <!-- <th scope="col" style="width: 10%;">진행여부</th> -->
-                        <!-- <th scope="col" style="width: 15%;">훈련가능 견종</th> -->
-                        <!-- <th scope="col" style="width: 10%;">승인여부</th> -->
+                        <th scope="col">no</th>
+                        <th scope="col">회원ID</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">성별</th>
+                        <th scope="col">소개글</th>
+                        <th scope="col">승인여부</th>
                     </tr>
                 </thead>
                 <th:block th:each="trainer : ${trainerList}">
-                <tr>
-                    <td th:text="${trainer.no}"></td>
-                    <td><a th:href="|/admin/admin_trainer_read?userId=${trainer.userId}|" th:text="${trainer.userId}"></a></td>
-                    <td class="text-truncate" th:text="${trainer.name}"></td>
-                    <!-- <td class="text-truncate">
-                            <div class="sm-bottom-btn">
-                                <button type="button"
-                                    class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
-                                <button type="button"
-                                    class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
-                            </div>
-                        </td> -->
-                </tr>
+                    <tr>
+                        <td th:text="${trainer.no}"></td>
+                        <td><a th:href="|/admin/admin_trainer_read?userId=${trainer.userId}|"
+                                th:text="${trainer.userId}"></a></td>
+                        <td class="text-truncate" th:text="${trainer.name}"></td>
+                        <td class="text-truncate" th:text="${trainer.gender}"></td>
+                        <td class="text-truncate" th:text="${trainer.content}"></td>
+                        <td class="text-truncate" style="text-align: center;">
+                            <form id="form" action="/admin/admin_trainer_role" method="post">
+                                <div class="sm-bottom-btn">
+                                    <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn"
+                                        onclick="actionRoleUp()">승인</button>
+                                    <button type="button"
+                                        class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
                 </th:block>
             </table>
             <!-- 페이징 버튼 영역 -->
@@ -75,6 +76,16 @@
             </div>
         </div>
     </div>
+    <script>
+        let form = document.getElementById('form')
+
+        let no = '[[${trainer.userId}]]'
+
+        function actionRoleUp() {
+            form.action = '/admin/admin_info_read_update?no='+ no
+            form.submit()
+        }
+    </script>
 </body>
 
 </html>

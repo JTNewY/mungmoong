@@ -3,7 +3,7 @@ package com.mypet.mungmoong.users.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import com.mypet.mungmoong.users.dto.UserAuth;
@@ -35,5 +35,14 @@ public interface UsersMapper {
 
     // 게시글 삭제
     public int delete(String userId) throws Exception;
+
+    // 이름과 이메일로 아이디 찾기
+    public Users findId(@Param("name") String name, @Param("mail") String mail) throws Exception;
+
+    // 아이디와 이메일로 비밀번호 찾기
+    public Users findPw(String userId, String mail) throws Exception;
+
+    // 관리자 회원 권한 업데이트
+    public int roleUp(Users user) throws Exception;
 
 }

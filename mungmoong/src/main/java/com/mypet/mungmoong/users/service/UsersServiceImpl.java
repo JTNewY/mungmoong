@@ -79,17 +79,18 @@ public class UsersServiceImpl implements UsersService {
         }
         return result;
     }
+    
 
     @Override
     public int update(Users user) throws Exception {
-        int result = userMapper.update(user);
-        return result;
+        
+       return userMapper.update(user);
     }
 
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
-        int result = userMapper.insertAuth(userAuth);
-        return result;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'insertAuth'");
     }
 
     @Override
@@ -100,7 +101,28 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int delete(String userId) throws Exception {
-        int result = userMapper.delete(userId);
-        return result;
+        // TODO Auto-generated methodd stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
+
+    @Override
+    public Users findId(String name, String mail) throws Exception {
+        Users user = userMapper.findId(name, mail);
+
+        return user;
+    }
+
+    @Override
+    public Users findPw(String userId, String mail) throws Exception {
+       Users user = userMapper.findPw(userId, mail);
+
+       return user;
+    }
+
+    @Override
+    public int roleUp(Users user) throws Exception {
+        return userMapper.update(user);
+    }
+
+    
 }

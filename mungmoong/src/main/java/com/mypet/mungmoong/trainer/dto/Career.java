@@ -10,16 +10,11 @@ import lombok.Data;
 @Data
 public class Career {
     private int no;                // 경력 번호
-    private int trainerNo;         // 훈련사 번호
+    private String userId;         // 회원 아이디
     private String name;           // 경력 명
     private Date regDate;          // 등록일
     private Date updDate;          // 수정일
+    private int trainerNo;         // Trainer 번호
 
-
-   // 파일 (한 건 이상)
-   List<MultipartFile> file;  // 이건 자격증 사진용
-
-   // 파일 번호
-   // file_no -> fileNo (myBatis)
-   private int fileNo;
+    private List<Files> files;     // 파일 리스트 (자격증 사진 등)
 }

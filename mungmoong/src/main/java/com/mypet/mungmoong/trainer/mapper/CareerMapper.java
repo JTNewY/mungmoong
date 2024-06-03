@@ -13,7 +13,7 @@ import com.mypet.mungmoong.trainer.dto.Career;
 public interface CareerMapper {
 
     // 경력 조회 리스트
-    public List<Career> select(int trainerNo);
+    public List<Career> select(String userId);
     // 경력 등록
     public int insert(Career career) throws Exception;
     // 경력 수정
