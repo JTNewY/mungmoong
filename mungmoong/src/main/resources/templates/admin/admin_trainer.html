@@ -52,14 +52,28 @@
                         <td class="text-truncate" th:text="${trainer.gender}"></td>
                         <td class="text-truncate" th:text="${trainer.content}"></td>
                         <td class="text-truncate" style="text-align: center;">
-                            <form id="form" action="/admin/admin_trainer_role" method="post">
-                                <div class="sm-bottom-btn">
-                                    <button type="button" class="btn btn-primary btn-lg listBtn smBtn-list smBtn"
-                                        onclick="actionRoleUp()">승인</button>
-                                    <button type="button"
+                            
+                            <div class="sm-bottom-btn">
+                                <th:block th:if="${trainer.user.role == 1}">
+                                    <form action="/admin/admin_trainer_role" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                        <input type="hidden" name="userId" th:value="${trainer.userId}">
+                                        <input type="hidden" name="role" value="2">
+                                        <button type="submit" class="btn btn-primary btn-lg listBtn smBtn-list smBtn"
+                                            >승인</button>
+                                    </form>
+                                </th:block>
+                                <th:block th:if="${trainer.user.role == 2}">
+                                    <form action="/admin/admin_trainer_role" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                        <input type="hidden" name="userId" th:value="${trainer.userId}">
+                                        <input type="hidden" name="role" value="1">
+                                        <button type="submit"
                                         class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
-                                </div>
-                            </form>
+                                    </form>
+                                </th:block>
+                                    
+                            </div>
                         </td>
                     </tr>
                 </th:block>
@@ -76,16 +90,5 @@
             </div>
         </div>
     </div>
-    <script>
-        let form = document.getElementById('form')
-
-        let no = '[[${trainer.userId}]]'
-
-        function actionRoleUp() {
-            form.action = '/admin/admin_info_read_update?no='+ no
-            form.submit()
-        }
-    </script>
 </body>
-
 </html>

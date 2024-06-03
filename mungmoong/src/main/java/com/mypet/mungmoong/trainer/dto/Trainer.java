@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mypet.mungmoong.users.dto.Users;
+
 import lombok.Data;
 
 @Data
@@ -33,6 +35,8 @@ public class Trainer {
 
     private List<Career> careerList;  // 추가된 속성
     private List<Certificate> certificateList;  // 추가된 속성
+
+    private Users user;
 
     public List<Career> toCareerList() {
         return careerNames.stream().map(name -> {

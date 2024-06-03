@@ -44,4 +44,9 @@ public class ReserveServiceImpl implements ReserveService {
    int result = reserveMapper.delete(date_no);
     return result;
     }
+
+    @Override
+    public List<Reserve> listByUser() throws Exception {
+        return reserveMapper.listByUser();
+    }
 }

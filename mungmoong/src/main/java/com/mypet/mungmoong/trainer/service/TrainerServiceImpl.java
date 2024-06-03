@@ -127,6 +127,13 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public List<Trainer> trainerList() throws Exception {
         List<Trainer> trainerList = trainerMapper.trainerList();
+
+        for (Trainer trainer : trainerList) {
+            String userId = trainer.getUserId();
+            Users user = usersService.select(userId);
+            trainer.setUser(user);
+        }
+
         return trainerList;
     }
 }
