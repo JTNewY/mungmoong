@@ -16,6 +16,9 @@ import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service("userServiceImplForUsers")
 public class UsersServiceImpl implements UsersService {
 
@@ -89,8 +92,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insertAuth'");
+        return userMapper.insertAuth(userAuth);
     }
 
     @Override
@@ -121,7 +123,18 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int roleUp(Users user) throws Exception {
-        return userMapper.update(user);
+        log.info("user : " + user);
+        int result = userMapper.roleUp(user);
+        log.info("result : " + result);
+
+        if (result > 0 ) {
+            log.info("권한이 " + user.getRole() + "으로 업데이트 됨!");
+            UserAuth userAuth = new UserAuth();
+            userAuth.setUserId(user.getUserId());
+            userAuth.setAuth("ROLE_TRAINER");
+            insertAuth(userAuth);
+        }
+        return result;
     }
 
     

@@ -311,13 +311,14 @@ public class AdminController {
     
     
 
+    // 사용자별 총 예약 금액을 보여주는 관리자 예약 목록
     @GetMapping("/admin_reserve")
-    public String ReserveList( Model model) throws Exception {
+    public String ReserveList(Model model) throws Exception {
 
-        List<Reserve> reserveList = reserveService.list();
+        List<Reserve> reserveList = reserveService.listByUser();
 
         model.addAttribute("reserveList", reserveList);
-
+        
         return "/admin/admin_reserve";
     }
 
