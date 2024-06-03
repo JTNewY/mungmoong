@@ -39,4 +39,8 @@ public interface UsersService {
     // 아이디와 이메일로 비밀번호 찾기
     public Users findPw(String userId, String mail) throws Exception;
 
+
+    public int updatePassword(String userId, String mail, String password) throws Exception;
+        
+    
 }

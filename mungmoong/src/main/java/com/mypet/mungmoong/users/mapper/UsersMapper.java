@@ -35,13 +35,15 @@ public interface UsersMapper {
 
     // 게시글 삭제
     public int delete(String userId) throws Exception;
-
-
     
     // 이름과 이메일로 아이디 찾기
     public Users findId(@Param("name") String name, @Param("mail") String mail) throws Exception;
 
     // 아이디와 이메일로 비밀번호 찾기
-    public Users findPw(String userId, String mail) throws Exception;
+    public Users findPw(@Param("userId") String userId, @Param("mail") String mail) throws Exception;
+
+    // 비밀번호 업데이트
+    public int updatePassword(@Param("userId") String userId,@Param("mail") String mail,@Param("password") String password) throws Exception;
+
 
 }

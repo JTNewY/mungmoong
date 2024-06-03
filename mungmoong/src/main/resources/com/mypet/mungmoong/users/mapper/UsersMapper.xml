@@ -129,10 +129,16 @@
 
     <!-- 아이디와 이메일로 비밀번호 찾기  -->
 
-    <select id="findPw" resultMap="userMap">
-        SELECT password
-        FROM users
-        WHERE user_id = #{userid} AND mail = #{mail}
+   <select id="findPw" resultMap="userMap">
+    SELECT password
+    FROM users
+    WHERE user_id = #{userId} AND mail = #{mail}
     </select>
+
+
+  <!-- 비밀번호 업데이트 -->
+        <update id="updatePassword">
+            UPDATE users SET password = #{password} WHERE user_id = #{userId} AND mail = #{mail}
+        </update>
 
 </mapper>

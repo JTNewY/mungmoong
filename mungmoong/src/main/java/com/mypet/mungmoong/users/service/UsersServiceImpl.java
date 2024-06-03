@@ -114,10 +114,13 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Users findPw(String userId, String mail) throws Exception {
-       Users user = userMapper.findPw(userId, mail);
+       Users user = userMapper.findPw(userId,mail);
 
        return user;
     }
 
+    public int updatePassword(String userId, String mail, String password) throws Exception {
+        return userMapper.updatePassword(userId, mail, password);
+    }
     
 }
