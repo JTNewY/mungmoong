@@ -2,6 +2,9 @@ package com.mypet.mungmoong.board.service;
 
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.mapper.BoardMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,29 +75,29 @@ public class BoardServiceImpl implements BoardService {
      * 게시글 삭제
      */
     @Override
-    public int BoardDelete(int no) throws Exception {
+    public int delete(int no) throws Exception {
         // TODO : boardMapper 로 delete(no) 호출
         /*
          *        ➡ int result 로 데이터 처리 행(개수) 받아옴
          *        ➡ return result
          */
-        int result = boardMapper.BoardDelete(no);
+        int result = boardMapper.delete(no);
         return result;
     }
 
-    @Override
-    public int delete(int no) throws Exception {
-        int result = boardMapper.BoardDelete(no);
-        return result;
-    }
+    // @Override
+    // public int delete(int no) throws Exception {
+    //     int result = boardMapper.BoardDelete(no);
+    //     return result;
+    // }
 
-    @Override
-    public List<Board> checkDelete(int no) throws Exception {
+    // @Override
+    // public List<Board> checkDelete(int no) throws Exception {
 
-        List<Board> deleteList = boardMapper.checkDelete(no);
+    //     List<Board> deleteList = boardMapper.checkDelete(no);
 
-        return deleteList;
+    //     return deleteList;
 
-    }
+    // }
 
 }
