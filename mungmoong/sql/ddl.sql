@@ -1,5 +1,5 @@
 
--- Active: 1713528331467@@127.0.0.1@3306@mypet
+-- Active: 1714104693276@@127.0.0.1@3306@mypet
 
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
@@ -202,6 +202,7 @@ CREATE TABLE qna (
 
 TRUNCATE TABLE EXISTS  users;
 -- 회원 테이블
+DROP TABLE users;
 TRUNCATE TABLE EXISTS users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
@@ -211,7 +212,6 @@ CREATE TABLE `users` (
 	`gender`		VARCHAR(50)	NOT NULL,	-- 성별
 	`address`	VARCHAR(150)	NULL,
 	`mail`	VARCHAR(50)	NULL,
-	`gender`	VARCHAR(50)	NOT NULL,
 	`phone`	VARCHAR(50)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
