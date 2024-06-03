@@ -2,8 +2,6 @@ package com.mypet.mungmoong.users.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.users.dto.UserAuth;
@@ -16,7 +14,7 @@ public interface UsersService {
     public boolean login(Users user) throws Exception;
 
     // 조회
-    public Users select(String username) throws Exception;
+    public Users select(String id) throws Exception;
 
     // 회원 가입
     public int join(Users user) throws Exception;

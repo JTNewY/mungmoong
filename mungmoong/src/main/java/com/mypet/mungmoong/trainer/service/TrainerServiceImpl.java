@@ -126,7 +126,20 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public List<Trainer> trainerList() throws Exception {
-        List<Trainer> trainerList = trainerMapper.trainerList();
-        return trainerList;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'trainerList'");
     }
+
+    // @Override
+    // public List<Trainer> trainerList() throws Exception {
+    //     List<Trainer> trainerList = trainerMapper.trainerList();
+
+    //     for (Trainer trainer : trainerList) {               /* foreach문으로 트레이너에 트레이너 리스트를 하나하나 가져옴 */
+    //         String userId = trainer.getUserId();            /* trainer의 userId를 가져와서 userId변수에 담음 */
+    //         Users user = usersService.select(userId);       /* userService.select에 userId를 담아서 users를 조회 */
+    //         trainer.setUser(user);                          /* 조회된 users값을 trainer에 세팅 함 */
+    //     }
+
+    //     return trainerList;
+    // }
 }

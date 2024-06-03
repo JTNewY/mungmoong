@@ -1,91 +1,233 @@
 package com.mypet.mungmoong.orders.controller;
-
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mypet.mungmoong.orders.dto.Orders;
-import com.mypet.mungmoong.orders.dto.OrdersDetail;
-import com.mypet.mungmoong.orders.service.OrdersDetailService;
+import com.mypet.mungmoong.orders.model.OrderItems;
+import com.mypet.mungmoong.orders.model.Orders;
+import com.mypet.mungmoong.orders.model.Payments;
+import com.mypet.mungmoong.orders.model.PaymentsStatus;
+import com.mypet.mungmoong.orders.model.Shipments;
+import com.mypet.mungmoong.orders.service.OrderItemsService;
 import com.mypet.mungmoong.orders.service.OrdersService;
-import com.mypet.mungmoong.trainer.service.TrainerService;
+import com.mypet.mungmoong.orders.service.PaymentsService;
+import com.mypet.mungmoong.orders.service.ShipmentsService;
+import com.mypet.mungmoong.users.model.Address;
+import com.mypet.mungmoong.users.model.Users;
+import com.mypet.mungmoong.users.service.AddressService;
 
 import lombok.extern.slf4j.Slf4j;
 
 
-
+/**
+ * TODO: 전체적으로 권한 설정 및 본인 확인 처리 필요
+ */
 @Slf4j
-@Controller
+@Controller("orders")
 @RequestMapping("/orders")
 public class OrdersController {
-    @Autowired                 
+
+
+    @Autowired
     private OrdersService ordersService;
-    @Autowired                 
-    private OrdersDetailService ordersDetailService;
-    // @Autowired                 
-    // private TrainerService trainerService;
+
+    @Autowired
+    private OrderItemsService orderItemsService;
+
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private ShipmentsService shipmentsService;
+
+    @Autowired
+    private PaymentsService paymentsService;
+
+
     /**
-     * 결제목록 조회 화면
+     * 주문하기
+     * @param param
+     * @return
      */
-    @GetMapping("/list")
-    public String list(Model model)throws Exception {
-        //데이터 요청
-        List<Orders> ordersList = ordersService.list();
-        //데이터 등록
-        model.addAttribute("ordersService", ordersService);
-        //뷰페이지 등록
-        return "/orders/list"; 
+    @GetMapping("")
+    public String orders() {
+
+
+        return "/orders/index";
     }
-    /** */
-      @GetMapping("/orders")
-      public String insert() {
-        return "/orders/orders";
-    }
+
     /**
-     * 예약 등록 처리
+     * 주문 등록
+     * - product - id, quantity
      * @param entity
      * @return
      * @throws Exception 
      */
-    @PostMapping("/orders")
-    public String insertPro(Orders orders) throws Exception {
-        //데이터 요청
-        int result = ordersService.insert(orders);
-        //리다이렉트
-        //⭕데이터 처리 성공
-        if (result > 0) {
-            return "redirect:/orders/list";
-        }
-        //❌데이터 처리 실패
-        return "redirect:/orders/orders?error";
-    }
-    /**
-     * 예약 조회 화면
-     */
-    @GetMapping("/ordersdetail")
-    public String read(@RequestParam("order_no") int order_no, Model model) throws Exception {
-        log.info("order_no : " + order_no);
-        // 데이터 요청
-        Orders orders = ordersService.select(order_no);
-        log.info("orders : " + orders);
-        int orderId = orders.getOrderId();
-        OrdersDetail ordersDetail = ordersDetailService.select(orderId);
-        log.info("ordersDetail : " + ordersDetail);
-
+    @PostMapping("")
+    public String orderPost(Orders orders
+                           ,HttpSession session
+                           ,@RequestParam List<String> productId
+                           ,@RequestParam List<Integer> quantity) throws Exception {
         
-        // 모델 등록
-        model.addAttribute("orders", orders);
-        model.addAttribute("ordersDetail", ordersDetail);
-        // 뷰페이지 지정
-        return "/orders/ordersdetail";
+        log.info("::::::::: 주문 등록 - orderPost() ::::::::::");
+        log.info("productId : " + productId);
+        log.info("quantity : " + quantity);
+        Users user = (Users) session.getAttribute("user");
+        orders.setUserId(user.getId());
+        orders.setProductId(productId);
+        orders.setQuantity(quantity);
+
+        // 주문 등록
+        int result = ordersService.insert(orders);
+        // TODO: 배송 등록
+
+        log.info("신규 등록된 주문ID : " + orders.getId() );
+        if( result > 0 ) {
+            return "redirect:/orders/" + orders.getId();
+        }
+        // TODO : 주문 실패시 어디로 가는게 좋을지? - 장바구니? 주문내역? 상품목록?
+        else {
+            return "redirect:/orders";
+        }
     }
 
 
-}
+    /**
+     * 주문 완료
+     * @param model
+     * @param session
+     * @param ordersId
+     * @return
+     * @throws Exception 
+     */
+    @GetMapping("/success")
+    public String orderSuccess(Model model
+                              ,Payments payments
+                              ,HttpSession session
+                              ,@RequestParam("orderId") String orderId) throws Exception {
 
+        payments.setOrdersId(orderId);
+        payments.setStatus(PaymentsStatus.PAID);
+        paymentsService.merge(payments);
+
+        Shipments shipments = shipmentsService.selectByOrdersId(orderId);
+        log.info(":::::::::::::::::::: 주문 완료 - /order/success ::::::::::::::::::::");
+        log.info(":::::::::::::::::::: shipments ::::::::::::::::::::");
+        log.info(shipments.toString());
+        
+        payments = paymentsService.selectByOrdersId(orderId);
+        log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
+        log.info(payments.toString());
+
+        Orders order = ordersService.select(orderId);
+        log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
+        log.info(payments.toString());
+
+        model.addAttribute("shipments", shipments);
+        model.addAttribute("payments", payments);
+        model.addAttribute("order", order);
+        return "/orders/success";
+    }
+    
+
+    /**
+     * 주문 실패 
+     * @param model
+     * @param session
+     * @param ordersId
+     * @return
+     * @throws Exception 
+     */
+    @GetMapping("/fail")
+    public String orderFail(Model model
+                              ,Payments payments
+                              ,HttpSession session
+                              ,@RequestParam("orderId") String orderId
+                              ,@ModelAttribute String errorMsg) throws Exception {
+
+        payments.setOrdersId(orderId);
+        payments.setStatus(PaymentsStatus.PAID);
+        paymentsService.insert(payments);
+
+        Shipments shipments = shipmentsService.selectByOrdersId(orderId);
+        log.info(":::::::::::::::::::: 주문 완료 - /order/success ::::::::::::::::::::");
+        log.info(":::::::::::::::::::: shipments ::::::::::::::::::::");
+        log.info(shipments.toString());
+        
+        // ⭐ 결제 실패 시, 결제 상태 PENDING 으로 변경
+        payments = paymentsService.selectByOrdersId(orderId);
+        payments.setStatus(PaymentsStatus.PENDING);
+        paymentsService.merge(payments);
+        log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
+        log.info(payments.toString());
+
+        Orders order = ordersService.select(orderId);
+        log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
+        log.info(payments.toString());
+
+        log.info("[결제 실패] 에러 메시지 : " + errorMsg);
+
+        model.addAttribute("shipments", shipments);
+        model.addAttribute("payments", payments);
+        model.addAttribute("order", order);
+        return "/orders/fail";
+    }
+    
+
+
+    /**
+     * 주문/결제  
+     * - ➡ 결제하기
+     * @param model
+     * @param orderId
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/{orderId}")
+    public String checkout(Model model
+                          ,HttpSession session
+                          ,@PathVariable("orderId") String orderId) throws Exception {
+        
+        // 로그인 사용자
+        Users user = (Users) session.getAttribute("user");
+        // 주문 정보
+        Orders order = ordersService.select(orderId);
+        // 주문 항목 정보
+        List<OrderItems> orderItems = orderItemsService.listByOrderId(orderId);
+        // 기본 배송지
+        List<Address> addressList = addressService.listByUserId(user.getId());
+        if( addressList == null || addressList.size() == 0) {
+            return "redirect:/orders/checkout?noAddress";
+        }
+        Address address = addressList.stream().filter((add) -> {return add.getIsDefault();}).findFirst().get();
+        log.info("기본 배송지 : " + address.getAddress());
+        
+        if( order == null ) return "redirect:/orders?error";
+        log.info(":::::::::::::::::::: order ::::::::::::::::::::");
+        log.info(order.toString());
+        log.info(":::::::::::::::::::: order items ::::::::::::::::::::");
+        log.info(orderItems.toString());
+
+
+        model.addAttribute("order", order);
+        model.addAttribute("orderItems", orderItems);
+        model.addAttribute("address", address);
+        return "/orders/checkout";
+    }
+    
+
+
+    
+    
+    
+}

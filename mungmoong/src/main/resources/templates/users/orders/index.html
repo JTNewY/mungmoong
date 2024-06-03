@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/users_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 페이지 > 주문 내역</title>
+</head>
+<body layout:fragment="content">
+
+  
+  <div class="container">
+    <div class="my-5">
+      <h1>주문 내역</h1>
+
+      <!--  -->
+      <div class="d-flex justify-content-between my-3">
+        <div class="item">
+          <!-- <a href="orderItems/insert" class="btn btn-primary">등록하기</a> -->
+        </div>
+        <div class="item">
+          <div class="dropdown dropstart">
+            <span class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical fs-3"></i>
+            </span>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="javascript:;" onclick="deleteItem()">
+                  <i class="bi bi-trash3-fill"></i>
+                  선택삭제
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      
+      <!--  -->
+      <form id="form" action="/user/orders/delete" method="post">
+        <!-- CSRF TOKEN -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <table class="table">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">#</th>
+              <th scope="col">배송상태</th>
+              <th scope="col">주문제목</th>
+              <th scope="col">총가격</th>
+              <th scope="col">총수량</th>
+              <th scope="col"><i class="bi bi-gear"></i></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+          <th:block th:each="order : ${orders}">
+              <tr class="align-middle">
+                <th class="text-center">
+                  <input type="checkbox" name="deleteIdList" id="deleteIdList" class="form-check-input" th:value="${order.id}">
+                </th>
+                <td class="text-center"><span th:text="${order.shipments.status}"></span></td>
+                <td class="text-center"><span th:text="${order.title}"></span></td>
+                <td class="text-center"><span th:text="${order.totalPrice}"></span></td>
+                <td class="text-center"><span th:text="${order.totalQuantity}"></span></td>
+                <td class="text-center"><span th:text="${#dates.format(order.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
+                <td class="text-center">
+                  <th:block th:if="${payments == null || payments.status == 'PENDING'}">
+                    <a th:href="|/orders/${order.id}|" class="btn btn-warning">결제</a>
+                  </th:block>
+                  <th:block th:if="${payments != null || payments.status == 'PAID'}">
+                    <a th:href="|/user/orders/${order.id}|" class="btn btn-primary">주문/배송 취소</a>
+                  </th:block>
+                </td>
+                
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function deleteItem() {
+      const form = $('#form')
+      form.submit()
+    }
+  </script>
+</body>
+</html>
