@@ -1,6 +1,7 @@
 package com.mypet.mungmoong.trainermain.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
 import com.mypet.mungmoong.trainer.dto.Career;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.CareerService;
 import com.mypet.mungmoong.trainer.service.FileService;
@@ -37,11 +41,22 @@ public class TrainerMainController {
     BoardService boardService;
   
     @GetMapping("/trainer")
-    public String trainer(Model model, Career career) throws Exception {
+    public String trainer(Model model) throws Exception {
+        List<Board> boardList = boardService.list(); 
         List<Trainer> trainerList = trainerService.trainerList();
         Class<? extends CareerService> trainerCareer = careerService.getClass();
         log.info("안녕");
         model.addAttribute("trainerList", trainerList);
+
+       // 동적으로 옵션값을 가져오는 경우
+        List<Option> optionList = new ArrayList<Option>();
+        optionList.add(new Option("전체", 0));
+        optionList.add(new Option("제목", 1));
+        optionList.add(new Option("내용", 2));
+        optionList.add(new Option("제목+내용", 3));
+        optionList.add(new Option("작성자", 4));
+        model.addAttribute("optionList", optionList);
+
         return "/trainermain/trainer";
     }
     @GetMapping("/list")
@@ -49,6 +64,7 @@ public class TrainerMainController {
         List<Trainer> trainerList = trainerService.trainerList();
         
         model.addAttribute("trainerList", trainerList);
+       
         return "/trainermain/list";
     }
        /**
