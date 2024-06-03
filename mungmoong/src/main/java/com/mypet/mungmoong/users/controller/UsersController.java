@@ -1,12 +1,15 @@
 package com.mypet.mungmoong.users.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +52,7 @@ public class UsersController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
- 
+    
 
 
     @GetMapping("/{page}")
@@ -79,7 +82,13 @@ public class UsersController {
     }
 
 
-    
+    @GetMapping("/index")
+    public String myPets(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        List<Pet> pets = (List<Pet>) session.getAttribute("pets");
+        model.addAttribute("pets", pets);
+        return "users/index"; // mypets.html 템플릿을 반환합니다.
+    }
 
     @PostMapping("/register")
     public String registerUser(Users user, Pet pet, String userId) throws Exception {

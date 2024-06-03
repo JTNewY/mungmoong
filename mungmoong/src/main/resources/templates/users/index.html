@@ -170,47 +170,21 @@
             <div class="my-pets">
                 <h2>나의 강아지</h2>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div th:each="pet : ${pets}" class="col-md-6">
                         <div class="pet-card d-flex align-items-center p-3 mb-3">
-                            <img src="/img/users/pet1.png" alt="루비" class="mr-3">
+                            <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
                             <div class="pet-info">
-                                <p><strong>루비 ♂</strong></p>
-                                <p>생일: 5월 20일</p>
-                                <p>나이: 4살</p>
-                                <p>성격: 순하고 사람들을 잘 따름</p>
-                                <p>특이 사항: 강아지가 많이 심심해 해서 많이 놀아줘야 합니다.</p>
-                            </div>
-                            <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pet-card d-flex align-items-center p-3 mb-3">
-                            <img src="/img/users/pet2.png" alt="뭉이" class="mr-3">
-                            <div class="pet-info">
-                                <p><strong>뭉이 ♂</strong></p>
-                                <p>생일: 5월 20일</p>
-                                <p>나이: 3살</p>
-                                <p>성격: 순하고 사람들을 잘 따름</p>
-                                <p>특이 사항: 활발하고 산책하는걸 좋아합니다.</p>
-                            </div>
-                            <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pet-card d-flex align-items-center p-3 mb-3">
-                            <img src="/img/users/pet3.png" alt="두부" class="mr-3">
-                            <div class="pet-info">
-                                <p><strong>두부 ♂</strong></p>
-                                <p>생일: 1월 1일</p>
-                                <p>나이: 2살</p>
-                                <p>성격: 순하고 사람들을 잘 따름</p>
-                                <p>특이 사항: 강아지가 손으로 마사지하는걸 좋아해서 만져주면 좋아합니다.</p>
+                                <p><strong th:text="${pet.petname} + ' '"></strong></p>
+                                <p>나이: <span th:text="${pet.age} + '살'"></span></p>
+                                <p>성격: <span th:text="${pet.character}"></span></p>
+                                <!-- 특이 사항 부분 추가 -->
                             </div>
                             <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
             <div class="bottom-btn">
                 <button type="button" class="custom-button" onclick="location.href='/users/petadd'">펫 추가</button>
                 <button type="button" class="custom-button" onclick="location.href='/users/delete'">펫 삭제</button>
