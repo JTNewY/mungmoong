@@ -21,7 +21,7 @@
            <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="text" placeholder="사용자 아이디" name="userId" value="user" id="userId" th:value="${userValue}">
-            <input type="password" placeholder="비밀번호" value="123456" name="password">
+            <input type="password" placeholder="비밀번호" name="password">
             <!-- 로그인 에러 -->
             <th:block th:if="${param.error}">
                 <p class="text-center text-danger">아이디 또는 비밀번호를 잘못 입력했습니다.</p>

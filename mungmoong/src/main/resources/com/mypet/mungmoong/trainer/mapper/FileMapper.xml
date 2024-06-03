@@ -47,23 +47,22 @@
         WHERE no = #{no}
     </select>
 
+    <!-- 파일 등록 -->
     <insert id="insert">
         INSERT INTO img_file(parent_table, parent_no, file_name, file_path, file_size, file_code)
         VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{filePath}, #{fileSize}, #{fileCode})
     </insert>
 
-    <update id="update">
-        UPDATE img_file
-           SET parent_table = #{parentTable}, parent_no = #{parentNo}, file_name = #{fileName},
-               file_path = #{filePath}, file_size = #{fileSize}, file_code = #{fileCode}
-        WHERE no = #{no}
-    </update>
 
+    <!-- 파일 삭제 -->
     <delete id="delete">
-        DELETE FROM img_file WHERE no = #{no}
+        DELETE FROM img_file 
+        WHERE no = #{no}
     </delete>
 
+    <!-- 부모 테이블 기준으로 파일 삭제 -->
     <delete id="deleteByParent">
-        DELETE FROM img_file WHERE parent_table = #{parentTable} AND parent_no = #{parentNo}
+        DELETE FROM img_file 
+        WHERE parent_table = #{parentTable} AND parent_no = #{parentNo}
     </delete>
 </mapper>
