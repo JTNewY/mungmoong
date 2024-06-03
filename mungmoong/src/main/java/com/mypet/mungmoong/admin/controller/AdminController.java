@@ -334,6 +334,17 @@ public class AdminController {
         int no = trainer.getNo();
         return "redirect:/admin/admin_trainer?no=" + no + "&error";
     }
+
+
+
+    // @PostMapping("/admin/checkDelete")
+    // public String BoardCheckDelete(int no) {
+
+        
+        
+    //     return entity;
+    // }
+    
     
     
     

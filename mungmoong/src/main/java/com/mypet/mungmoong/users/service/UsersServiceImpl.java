@@ -131,8 +131,8 @@ public class UsersServiceImpl implements UsersService {
             log.info("권한이 " + user.getRole() + "으로 업데이트 됨!");     /*  */
             UserAuth userAuth = new UserAuth();                             /* userAuth를 userAuth변수에 가져옴 */
             userAuth.setUserId(user.getUserId());                           /* userAuth에 user에서 userId를 가져와서 세팅함 */
-            userAuth.setAuth("ROLE_TRAINER");                           /* userAuth에 userAuth를 ROLE_TRAINER로 세팅함 */
-            insertAuth(userAuth);                                           /* userAuth 업데이트 */
+            userAuth.setAuth("ROLE_TRAINER");                           /* userAuth에 userAuth에 ROLE_TRAINER로 업데이트 */
+            insertAuth(userAuth);                                           /* 업데이트 처리 */
         }
         return result;
     }
