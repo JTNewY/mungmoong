@@ -7,14 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mypet.mungmoong.orders.mapper.OrdersDetailMapper">
 
     <!-- 결제 목록 -->
-    <select id="list" resultType="OrdersDetail">
+    <select id="list" >
         SELECT *
         FROM OrdersDetail
         ORDER BY order_date DESC
     </select>
 
     <!-- 결제 조회 -->
-    <select id="select" resultType="OrdersDetail">
+    <select id="select">
         SELECT *
         FROM OrdersDetail
         WHERE order_id = #{orderId}

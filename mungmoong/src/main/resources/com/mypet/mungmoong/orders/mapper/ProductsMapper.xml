@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.orders.mapper.ProductsMapper">
+
+    <!-- 목록 -->
+    <select id="list">
+        SELECT p.id
+              ,p.name
+              ,p.category
+              ,p.description
+              ,p.content
+              ,p.price
+              ,p.stock
+              ,p.created_at
+              ,p.updated_at
+              ,( SELECT id FROM files WHERE parent_table = 'products' AND parent_id = p.id AND is_main = 1 ) thumbnail_id 
+              ,( SELECT name FROM categories WHERE code = p.category ) category_name
+        FROM products p
+        ORDER BY p.created_at DESC
+    </select>
+
+    <!-- 조회 -->
+    <select id="select">
+        SELECT p.id
+              ,p.name
+              ,p.category
+              ,p.description
+              ,p.content
+              ,p.price
+              ,p.stock
+              ,p.created_at
+              ,p.updated_at
+              ,( SELECT name FROM categories WHERE code = p.category ) category_name
+        FROM products p
+        WHERE id = #{id}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insert">
+        INSERT INTO products ( id, name, category, description, content, price, stock )
+        VALUES ( #{id}, #{name}, #{category}, #{description}, #{content}, #{price}, #{stock} )
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        UPDATE products
+           SET name = #{name}
+              ,content = #{content}
+              ,price = #{price}
+              ,stock = #{stock}
+              ,updated_at = now()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM products
+        WHERE id IN ( ${id} )
+    </delete>
+
+</mapper>
