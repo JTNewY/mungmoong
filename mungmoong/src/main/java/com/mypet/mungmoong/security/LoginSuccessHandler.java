@@ -1,6 +1,7 @@
 package com.mypet.mungmoong.security;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -13,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.mypet.mungmoong.pet.dto.Pet;
+import com.mypet.mungmoong.pet.mapper.PetMapper;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.mapper.TrainerMapper;
 import com.mypet.mungmoong.users.dto.CustomUser;
@@ -29,6 +32,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     
     @Autowired
     private TrainerMapper trainerMapper;
+
+    @Autowired
+    private PetMapper petMapper;
     
     /**
      * 인증 성공 시 실행되는 메소드
@@ -72,15 +78,37 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         // userId를 가져와 훈련사 객체 가져옴
         
-        String userId = user.getUserId();
-        Trainer trainer = trainerMapper.select(userId);
         
+        String userId = user.getUserId();
+        
+        List<Pet> pets = petMapper.findPetsByUserId(userId);
+        Trainer trainer = trainerMapper.select(userId);
+      
+
+       
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("pets", pets);
+
+            if (pets != null && !pets.isEmpty()) {
+                for (Pet pet : pets) {
+                    log.info("Pet Information:");
+                    log.info("Pet ID: " + pet.getUserId());
+                    log.info("Pet Name: " + pet.getPetname());
+                    log.info("Pet Type: " + pet.getPettype());
+                }
+            } else {
+                log.info("No pets found for user with ID: " + userId);
+            }
+        }
+
         // 훈련사 회원이면
         if( trainer != null ) {
             user.setTrainer(trainer);
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
+   
         log.info("아이디 : " + loginUser.getUsername());
         log.info("패스워드 : " + loginUser.getPassword());       // 보안상 노출❌
         log.info("권한 : " + loginUser.getAuthorities());    
