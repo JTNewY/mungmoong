@@ -39,6 +39,15 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public Trainer select(String userId) throws Exception {
         Trainer trainer = trainerMapper.select(userId);
+
+        int no = trainer.getNo();
+        Files file = new Files();
+        file.setParentTable("trainer");
+        file.setParentNo(no);
+        Files imgFile = fileService.selectByParent(file);
+        log.info("프로필 이미지 : " + imgFile);
+        trainer.setImgFile(imgFile);
+
         return trainer;
     }
 

@@ -14,7 +14,6 @@ import com.mypet.mungmoong.orders.dto.Orders;
 import com.mypet.mungmoong.orders.dto.OrdersDetail;
 import com.mypet.mungmoong.orders.service.OrdersDetailService;
 import com.mypet.mungmoong.orders.service.OrdersService;
-import com.mypet.mungmoong.trainer.service.TrainerService;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -32,6 +32,7 @@ public class Trainer {
     private List<MultipartFile> files;
 
     private int fileNo;
+    private Files imgFile;          // 이미지 파일 조회 시 씀
 
     private List<Career> careerList;  // 추가된 속성
     private List<Certificate> certificateList;  // 추가된 속성

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.mapper.PetMapper;
-import com.mypet.mungmoong.users.mapper.UsersMapper;
 
 @Service
 public class PetServiceImpl implements PetService {
