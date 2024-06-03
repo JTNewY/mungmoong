@@ -122,7 +122,7 @@ public class TrainerController {
             int result = trainerService.insert(trainer);
 
             if (result > 0) {
-                return "redirect:/trainer/board/list";
+                return "redirect:/";
             }
         } catch (Exception e) {
             log.error("Error occurred while processing trainer data", e);
