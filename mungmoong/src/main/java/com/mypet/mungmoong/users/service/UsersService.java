@@ -2,8 +2,6 @@ package com.mypet.mungmoong.users.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.users.dto.UserAuth;
@@ -16,7 +14,7 @@ public interface UsersService {
     public boolean login(Users user) throws Exception;
 
     // 조회
-    public Users select(String username) throws Exception;
+    public Users select(String id) throws Exception;
 
     // 회원 가입
     public int join(Users user) throws Exception;
@@ -39,8 +37,8 @@ public interface UsersService {
     // 아이디와 이메일로 비밀번호 찾기
     public Users findPw(String userId, String mail) throws Exception;
 
-
+    public int updatePassword(String userId, String mail, String password) throws Exception;
+        
     // 관리자 회원 권한 업데이트
-    public int roleUp(Users user) throws Exception;
-
+    public int roleUp(Users user) throws Exception;         /* role 권한을 업데이트 하기 위한 userMapper */
 }

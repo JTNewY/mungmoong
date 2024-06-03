@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main_layout}"
+      >
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문/결제</title>
+</head>
+<body layout:fragment="content">
+
+  <section>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+        <div class="main-title py-5">
+          <h3 class="display-4 fw-bold text-body-emphasis text-center">주문/결제</h3>
+        </div>
+
+        <div class="row my-3 row-gap-3">
+          <!-- 구매자 정보 -->
+          <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3>구매자 정보</h3>
+                </div>
+                <table class="table">
+                  <tr>
+                    <th class="table-secondary">이름</th>
+                    <td>
+                      <p class="m-0" th:text="${order.user.name}" id="name"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="table-secondary">전화번호</th>
+                    <td>
+                      <p class="m-0" th:text="${order.user.phone}" id="tel"></p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- 받는사람 정보 -->
+          <!-- address -->
+          <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3>받는사람 정보</h3>
+                </div>
+                <table class="table">
+                  <tr>
+                    <th class="table-secondary">이름</th>
+                    <td>
+                      <p class="m-0" th:text="${address.recipient}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="table-secondary">주소</th>
+                    <td>
+                      <p class="m-0" th:text="${address.address}">데이터 확인</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="table-secondary">연락처</th>
+                    <td>
+                      <p class="m-0" th:text="${address.phone}">데이터 확인</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="table-secondary">요청사항</th>
+                    <td>
+                      <p class="m-0" th:text="${address.request}">데이터 확인</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 주문 정보 -->
+        <div class="row my-3">
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3>주문 정보</h3>
+                </div>
+                <!-- ################### orders ################### -->
+                <table class="table my-0">
+                  <tr>
+                    <th class="col-4 col-md-2 table-secondary">주문 정보</th>
+                    <td class="col-8 col-md-10">
+                      <p class="m-0" th:text="${order.title}" id="orderTitle">주문 제목</p>
+                    </td>
+                  </tr>
+                </table>
+                <table class="table my-0">
+                  <tr>
+                    <th class="col-md-2 table-secondary">주문개수/총수량</th>
+                    <td class="col-md-4"><span th:text="${order.totalCount}">1</span>종 / <span th:text="${order.totalQuantity}">1</span>개</td>
+                    <th class="col-md-2 table-secondary">총 가격</th>
+                    <!-- ✨ 타임리프 - 천단위 구분기호 -->
+                    <td class="col-md-4">&#8361; <span th:text="${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')}"></span> 원</td>
+                  </tr>
+                </table>
+                <!-- ################### order items ################### -->
+                <div class="my-3">
+                  <h5 class="fx-3 fw-bold">주문 상품 항목</h5>
+                  <th:block th:each="orderItem : ${orderItems}">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-2">
+                            <a th:href="|/products/${orderItem.product.id}|">
+                              <div class="img-box w-100">
+                                <img th:src="|/files/img/${orderItem.product.thumbnailId}|" class="w-100" alt="상품 이미지" 
+                                      style="max-height: 200px; object-fit: contain;">
+                              </div>
+                            </a>
+                          </div>
+                          <div class="col-12 col-md-10">
+                            <div class="card-title">
+                              <h5 class="fx-5 fw-bold" th:text="${orderItem.product.name}">상품명</h5>
+                              <p th:text="${orderItem.product.description}"></p>
+                            </div>
+                            <div class="card-text">
+                              <div class="d-flex justify-content-between align-items-center">
+                                <table class="table text-center">
+                                  <tr>
+                                    <th>가격</th>
+                                    <th>수량</th>
+                                    <th>금액</th>
+                                  </tr>
+                                  <tr class="align-middle">
+                                    <td><p class="m-0" th:text="|&#8361; ${#numbers.formatInteger(orderItem.price, 0, 'COMMA')} 원|"></p></td>
+                                    <td><p class="m-0" th:text="${orderItem.quantity}"></p></td>
+                                    <td><p class="m-0" th:text="|&#8361; ${#numbers.formatInteger(orderItem.amount, 0, 'COMMA')} 원|"></p></td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </th:block>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- 결제 정보 -->
+        <div class="row my-3">
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3>결제 정보</h3>
+                </div>
+                <div class="card-text">
+                  <table class="table my-0">
+                    <tr>
+                      <th class="col-4 col-md-2 table-secondary">총상품가격</th>
+                      <td class="col-8 col-md-10">
+                        <p class="m-0" th:text="|&#8361; ${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')} 원|"></p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="col-4 col-md-2 table-secondary">총결제금액</th>
+                      <td class="col-8 col-md-10">
+                        <!-- TODO: 나중에 할인/쿠폰 고려 -->
+                        <p class="m-0" th:text="|&#8361; ${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')} 원|"></p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="d-grid gap-2 my-5">
+                  <!-- TODO: 배송지ID 가져오기 -->
+                  <input type="hidden" name="addressId" id="addressId" value="">
+                  <input type="hidden" name="totalPrice" id="totalPrice" th:value="${order.totalPrice}">
+                  <button class="btn btn-primary" type="button" onclick="requestPay()">결제하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+  </section>
+  
+
+  <!-- 1️⃣ 포트원 라이브러리 추가  -->
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+  <script>
+      // 2️⃣  객체 초기화 하기
+      var IMP = window.IMP; 
+      // IMP.init("imp67011510"); 
+      IMP.init("imp48458232"); 
+      
+
+      var orderId = "[[${order.id}]]"
+      var today = new Date();   
+      var hours = today.getHours(); // 시
+      var minutes = today.getMinutes();  // 분
+      var seconds = today.getSeconds();  // 초
+      var milliseconds = today.getMilliseconds();
+      var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+
+      
+      
+      // 3️⃣ 결제 요청하기
+      function requestPay() {
+
+          // 결제 정보 가져오기
+          let productName = document.getElementById('orderTitle').value
+          let price = document.getElementById('totalPrice').value
+          let name = document.getElementById('name').value
+          let tel = document.getElementById('tel').value
+          // let email = document.getElementById('email').value
+
+          IMP.request_pay({
+              pg : 'kcp',                                 // PG사
+              // TODO: 결제 방식 선택 UI 추가, 옵션 뭐가 있는지 개발문서 확인하기
+              pay_method : 'card',                        // 결제방식
+              // merchant_uid: "IMP"+makeMerchantUid,        // 주문번호(상품ID)
+              merchant_uid: orderId,        // 주문번호(상품ID)
+              name : productName,                         // 상품명
+              amount : price,                              // 결제금액
+              buyer_email : '',                        // 결제자 이메일
+              buyer_name : name,                          // 결제자 이름
+              buyer_tel : tel,                            // 결제자 전화번호
+              buyer_addr : '',                       // 결제자 주소
+              buyer_postcode : '',                   // 결제자 우편번호
+              // m_redirect_url : "success"          //  "리디렉션 URL", (리디렉션 방식의 경우 callback은 실행되지 않습니다.)
+          }, function (rsp) { // callback
+              if (rsp.success) {
+                  // 결제 성공
+                  console.log(rsp);
+                  // 결제 완료 페이지로 이동
+                  location.href = `/orders/success?orderId=${orderId}`
+
+                  // 또는 ajax 요청 처리 후 이동
+              } else {
+                  // 결제 실패
+                  console.log(rsp);
+                  let errorMsg = rsp.error_msg;
+                  errorMsg = errorMsg.replace(/\[|\]/g, '');
+                  // 결제 실패 페이지로 이동
+                  location.href = `/orders/fail?orderId=${orderId}&errorMsg=${errorMsg}`
+              }
+          });
+      }
+  </script>
+</body>
+</html>

@@ -18,6 +18,9 @@ public interface ReserveMapper {
        public int update(Reserve reserve) throws Exception;
        // 예약 삭제
        public int delete(int date_no) throws Exception;
+
+       // 관리자 예약금액 조회 리스트
+       public List<Reserve> listByUser() throws Exception;
        
        @Override
        String toString();

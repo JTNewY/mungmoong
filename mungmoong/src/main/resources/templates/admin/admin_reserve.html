@@ -39,7 +39,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">예약번호</th>
                         <th scope="col">회원ID</th>
                         <th scope="col">요청사항</th>
                         <th scope="col">훈련사 승인 상태</th>
@@ -54,9 +53,8 @@
                 </thead>
                 <th:block th:each="reserve : ${reserveList}">
                     <tr class="first_tr">
-                        <td th:text="${reserve.no}"></td>
                         <td class="text-truncate" th:text="${reserve.userId}"></td>
-                        <td class="text-truncate" th:text="${reserve.request}"></td>
+                        <td class="text-truncate" th:text="${reserve.requst}"></td>
                         <td class="text-truncate" th:text="${reserve.condition}"></td>
                         <td class="text-truncate" th:text="${reserve.title}"></td>
                         <td class="text-truncate" th:text="${reserve.totalQuantity}"></td>

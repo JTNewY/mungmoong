@@ -37,13 +37,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 훈련사 등록 -->
-    <insert id="insert">
+    <insert id="insert" parameterType="Trainer" useGeneratedKeys="true" keyProperty="no">
+        <!-- trainer 테이블에 데이터 삽입 -->
         INSERT INTO trainer (user_id, name, gender, birth, mail, phone, 
-                             address, content, upd_date,reg_date) 
+                            address, content, upd_date, reg_date) 
         VALUES (#{userId}, #{name}, #{gender}, #{birth}, #{mail}, #{phone}, 
-                #{address}, #{content}, now(),now())
+                #{address}, #{content}, now(), now())
     </insert>
-
     <!-- 훈련사 수정 -->
     <update id="update">
         UPDATE trainer
@@ -89,9 +89,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 관리자 영역 -->
     <select id="trainerList" resultType="trainer">
-        SELECT *
-        FROM trainer
-        ORDER BY reg_date DESC
+        SELECT t.*
+        FROM trainer t
+        JOIN users u ON t.user_id = u.user_id
+        WHERE u.role IN (1, 2)
+        ORDER BY t.reg_date DESC
     </select>
 
 </mapper>

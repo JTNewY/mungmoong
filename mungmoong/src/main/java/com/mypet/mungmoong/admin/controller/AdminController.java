@@ -24,8 +24,6 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 
 @Slf4j
@@ -207,7 +205,6 @@ public class AdminController {
      */
     // @PostMapping("path")
     // public String postMethodName(@RequestBody String entity) {
-    //     //TODO: process POST request
         
     //     return entity;
     // }
@@ -220,7 +217,6 @@ public class AdminController {
      */
     // @PostMapping("path")
     // public String postMethodName(@RequestBody String entity) {
-    //     //TODO: process POST request
         
     //     return entity;
     // }
@@ -297,27 +293,28 @@ public class AdminController {
     }
 
 
-    @PostMapping("/BoardDelete")
-    public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
-        log.info("no : " + no);
-        int result = boardService.BoardDelete(no);
+    // @PostMapping("/BoardDelete")
+    // public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
+    //     log.info("no : " + no);
+    //     int result = boardService.BoardDelete(no);
 
-        if (result > 0) {
-            return "redirect:/admin/admin_board";
-        }
+    //     if (result > 0) {
+    //         return "redirect:/admin/admin_board";
+    //     }
 
-        return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
-    }
+    //     return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
+    // }
     
     
 
+    // 사용자별 총 예약 금액을 보여주는 관리자 예약 목록
     @GetMapping("/admin_reserve")
-    public String ReserveList( Model model) throws Exception {
+    public String ReserveList(Model model) throws Exception {
 
-        List<Reserve> reserveList = reserveService.list();
+        List<Reserve> reserveList = reserveService.listByUser();
 
         model.addAttribute("reserveList", reserveList);
-
+        
         return "/admin/admin_reserve";
     }
 
@@ -333,6 +330,17 @@ public class AdminController {
         int no = trainer.getNo();
         return "redirect:/admin/admin_trainer?no=" + no + "&error";
     }
+
+
+
+    // @PostMapping("/admin/checkDelete")
+    // public String BoardCheckDelete(int no) {
+
+        
+        
+    //     return entity;
+    // }
+    
     
     
     

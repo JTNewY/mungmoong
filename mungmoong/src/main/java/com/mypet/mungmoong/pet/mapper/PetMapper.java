@@ -22,6 +22,5 @@ public interface PetMapper {
     // 반려동물 정보 검색
     Pet findPetById(int petNo);
 
-    public List<Pet> findPetByUserId(String userId) throws Exception;
-
+    List<Pet> findPetsByUserId(String userId);
 }

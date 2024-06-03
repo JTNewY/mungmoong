@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.mapper.PetMapper;
-import com.mypet.mungmoong.users.mapper.UsersMapper;
 
 @Service
 public class PetServiceImpl implements PetService {
@@ -41,8 +40,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<Pet> findPetByUserId(String userId) throws Exception {
-        List<Pet> petList = petMapper.findPetByUserId(userId);
+    public List<Pet> findPetByUserId(String userId) {
+        List<Pet> petList = petMapper.findPetsByUserId(userId);
         return petList;
     }
 }

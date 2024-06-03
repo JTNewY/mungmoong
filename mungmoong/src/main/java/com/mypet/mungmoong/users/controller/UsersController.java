@@ -1,17 +1,15 @@
 package com.mypet.mungmoong.users.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +17,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.Users;
-import com.mypet.mungmoong.users.mapper.UsersMapper;
 import com.mypet.mungmoong.users.service.EmailService;
 import com.mypet.mungmoong.users.service.UsersService;
 
@@ -52,7 +49,10 @@ public class UsersController {
     @Autowired
     private EmailService emailService;
 
- 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    
 
 
     @GetMapping("/{page}")
@@ -82,7 +82,13 @@ public class UsersController {
     }
 
 
-    
+    @GetMapping("/index")
+    public String myPets(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        List<Pet> pets = (List<Pet>) session.getAttribute("pets");
+        model.addAttribute("pets", pets);
+        return "users/index"; // mypets.html 템플릿을 반환합니다.
+    }
 
     @PostMapping("/register")
     public String registerUser(Users user, Pet pet, String userId) throws Exception {
@@ -142,6 +148,44 @@ public class UsersController {
         model.addAttribute("foundId", foundId);
         return "findIdCheck";
     }
+
+
+    @PostMapping("/findPw")
+    public String findPWPro(@RequestParam("userId") String userId, @RequestParam("mail") String mail, Model model) throws Exception {
+        Users user = userService.findPw(userId, mail);
+    
+        if (user != null && user.getPassword() != null) {
+            System.out.println("찾은 userPw " + user.getPassword());
+            model.addAttribute("foundId", user.getPassword());
+            model.addAttribute("userId", userId); // userId 추가
+            model.addAttribute("mail", mail); // mail 추가
+            return "/users/changePw"; // 템플릿으로 직접 이동
+        } else {
+            System.out.println("유저 ID를 찾을 수 없음");
+            model.addAttribute("errorMessage", "해당 유저 정보를 찾을수 없습니다.");
+            return "/users/findId"; // 에러 메시지를 포함한 폼으로 다시 이동
+        }
+    }
+
+   
+    @PostMapping("/resetPw")
+    public String resetPassword(@RequestParam("userId") String userId, @RequestParam("mail") String mail,
+                                @RequestParam("password") String password, Model model) throws Exception {
+        // 비밀번호 해싱
+        String hashedPassword = passwordEncoder.encode(password);
+
+        // Hashed password를 실제 요청 파라미터인 password에 할당
+        int result = userService.updatePassword(userId, mail, hashedPassword);
+        if (result > 0) {
+            model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+            return "redirect:../"; // 로그인 페이지로 리디렉션
+        } else {
+            model.addAttribute("errorMessage", "비밀번호 변경에 실패했습니다.");
+            return "users/changePw";
+        }
+    }
+    
+    
     // #################################### 회원가입 ##############################################
     
     private Map<String, Integer> otpStorage = new HashMap<>();
@@ -189,7 +233,7 @@ public class UsersController {
         int otp = new Random().nextInt(999999);
         otpStorage.put(email, otp);
         try {
-            emailService.sendEmail(email, "[멍뭉] 아이디 찾기 이메일을 인증해주세요. ", "이메일을 인증해주세요.\n" +"이메일 OTP번호: " + otp);
+            emailService.sendEmail(email, "[멍뭉] 아이디/비밀번호 찾기 이메일을 인증해주세요. ", "이메일을 인증해주세요.\n" +"이메일 OTP번호: " + otp);
             return ResponseEntity.ok("인증번호를 발송하였습니다.");
         } catch (MessagingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in sending OTP: " + e.getMessage());

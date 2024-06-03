@@ -60,6 +60,13 @@ public class FileServiceImpl implements FileService {
         return result;
     }
 
+    @Override
+    public Files selectByParent(Files file) throws Exception {
+        Files result = fileMapper.selectByParent(file);
+        return result;
+    }
+    
+
     // 부모 테이블 기준으로 파일 목록 조회
     @Override
     public List<Files> listByParent(Files file) throws Exception {
@@ -123,10 +130,10 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Files download(int no) throws Exception {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'download'");
+       return download(no);
     }
 
+    
 
     
 }

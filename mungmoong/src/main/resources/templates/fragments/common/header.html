@@ -29,7 +29,7 @@
                 <a href="/introduce">소개</a>
                 <a href="/trainer">훈련사</a>
                 <a href="/QnA/list">문의</a>
-                <a href="/board/notice">공지사항</a>
+                <a href="/board/list">공지사항</a>
             </nav>
             <div class="auth" id="auth">
                 <!-- 비 로그인 시 -->
@@ -51,9 +51,9 @@
                     <th:block th:if="${session.user.role == 3}">
                         <a href="/admin/admin_info" class="btn btn-outline-success mx-1 same-style-btn">관리자</a>
                     </th:block>
-                    <th:block sec:authorize="hasRole('ROLE_TRAINER')">
+                    <!-- <th:block sec:authorize="hasRole('ROLE_TRAINER')">
                         <a href="/trainer/info" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
-                    </th:block>
+                    </th:block> -->
                     <a href="/users/index" class="btn btn-outline-secondary mx-1 same-style-btn">마이페이지</a>
                     <form action="/logout" method="post" class="d-inline">
                         <!-- CSRF TOKEN -->

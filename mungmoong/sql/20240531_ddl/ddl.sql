@@ -84,8 +84,8 @@ CREATE TABLE `schedule` (
 	`no`			INT		NOT NULL	AUTO_INCREMENT PRIMARY KEY, -- 스케쥴 번호
 	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
 	`title`	VARCHAR(50)			NULL, -- 이게 필요한지, 모달로 띄울건지 고민, 일단 보류 
-	`content`	TEXT			NULL, -- 내용
-	`schedule_date`	TIMESTAMP	NULL, -- 날짜
+	`content`	TEXT			NULL, -- //
+	`date`	TIMESTAMP		NOT	NULL, -- 날짜
 	`reg_date`	TIMESTAMP		NULL, -- 등록일
 	`upd_date`	TIMESTAMP		NULL  -- 수정일
 );
