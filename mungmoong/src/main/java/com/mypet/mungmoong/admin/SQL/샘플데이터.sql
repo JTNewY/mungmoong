@@ -1,3 +1,4 @@
+-- Active: 1716856468698@@127.0.0.1@3306@mypet
 -- 샘플 데이터 삽입
 -- pet 테이블
 INSERT INTO `pet` (`no`, `file_no`, `name`, `age`, `petgender`, `character`, `type`)
@@ -74,6 +75,24 @@ VALUES
 (3, 'user3', 'Updates', 'Admin', 'Recent updates on the platform.'),
 (4, 'user4', 'Events', 'Admin', 'Upcoming events for members.'),
 (5, 'user5', 'Support', 'Admin', 'How to contact support.');
+
+
+
+
+
+INSERT INTO board( board_no,title, user_id, content)
+VALUES ( 1, 안녕, user1, 내용);
+
+INSERT INTO `board` (`board_no`, `user_id`, `title`, `content`)
+VALUES()
+
+SELECT *
+FROM board
+
+
+
+
+
 
 -- review 테이블
 INSERT INTO `review` (`review_no`, `user_id`, `rating`, `content`)

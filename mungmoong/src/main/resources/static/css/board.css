@@ -7,26 +7,50 @@ body {
     padding: 0;
 }
 
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
 .container {
-    max-width: 900px; /* 너비 조정 */
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.inner{
+    margin: 0 auto; /* 중앙 정렬 */
     background-color: #FFFFFF; /* 흰색 배경 */
     border-radius: 15px; /* 둥근 테두리 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 섀도우 */
     padding: 30px; /* 내부 패딩 */
-    margin: 50px auto; /* 중앙 정렬 */
 }
+
+/* ---------------------------------------------------------- */
+
+.inputArea{
+    border: none !important;
+    background-color: gray;
+} 
+
+/* ---------------------------------------------------------- */
 
 /* 타이포그래피 */
 h2 {
     font-weight: 600;
     margin: 20px 0;
     text-align: center; /* 텍스트 중앙 정렬 */
+    padding-bottom: 10px;
 }
 
 /* 테이블 */
 .table {
     border-radius: 10px;
     overflow: hidden;
+    margin-top: 20px;
 }
 
 .table-bordered {
@@ -41,6 +65,38 @@ h2 {
 .table th,
 .table td {
     vertical-align: middle;
+    text-align: center;
+}
+
+.table th {
+    background-color: #f8f8f8;
+}
+
+.pagination {
+    margin: 20px 0;
+}
+
+.pagination .page-item .page-link {
+    border-radius: 0 !important;
+}
+
+.text-center p {
+    font-size: 14px;
+    color: #888;
+}
+
+nav.text-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.text-center button {
+    margin: 0 10px;
+}
+
+textarea.form-control {
+    resize: none;
 }
 
 /* 입력 필드 */
@@ -79,3 +135,93 @@ h2 {
 .btn-danger:active {
     background-color: #FF8F00; /* 클릭 시 색상 */
 }
+
+/* 컨테이너 리스트 영역 시작 */
+
+.text-truncate {
+    max-width: 150px;      /* Set the maximum width for the cell (adjust as needed) */
+}
+
+table {
+    width: 100%;
+    margin: 30px 0 !important;
+}
+
+.tab-button:focus {
+    background-color: #F6C542;
+    color: white
+}
+
+.tab-button {
+    font-size: 0.9em;
+    padding: 0.5em 0.75em;
+    background-color: #FFE0B2;
+    color: #DAA414;
+    border-radius: 25px;
+    width: 120px;
+    text-align: center;
+}
+
+.bottom-btn {
+    text-align: right;
+}
+
+.listBtn:hover {
+    background-color: #F6C542 !important;
+    border: 3px solid #F6C542 !important;
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.listBtn {
+    width: 80px !important;
+    background-color: white !important;
+    border: 3px solid #F6C542 !important;
+    border-radius: 30px !important;
+    color: #F6C542 !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+.updateBtn:hover {
+    background-color: #A19F9D !important;
+    border: 3px solid #A19F9D !important;
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.updateBtn {
+    width: 80px !important;
+    background-color: white !important;
+    border: 3px solid #A19F9D !important;
+    border-radius: 30px !important;
+    color: #A19F9D !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    margin-left: 10px !important;
+}
+
+.deleteBtn:hover {
+    background-color: #A19F9D !important;
+    border: 3px solid #A19F9D !important;
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.deleteBtn {
+    width: 80px !important;
+    background-color: white !important;
+    border: 3px solid #A19F9D !important;
+    border-radius: 30px !important;
+    color: #A19F9D !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    margin-left: 10px !important;
+}
+
+table tbody tr td:last-child {
+    text-align: left;
+}
+
+/* 컨테이너 리스트 영역 끝 */
+
