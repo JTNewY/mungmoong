@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/users_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 페이지 > 배송지관리 > 수정하기</title>
+</head>
+<body layout:fragment="content">
+
+  
+  <div class="container">
+    <div class="my-5">
+      <h1>배송지관리 > 수정하기</h1>
+
+      <form action="/users/address/update" method="post" th:object="${address}">
+        <!-- CSRF TOKEN -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="hidden" name="id" th:field="*{id}">
+
+        <div class="inner py-5">
+          <div class="mb-3">
+            <label for="title" class="form-label">배송지 제목</label>
+            <input type="text" class="form-control" th:field="*{title}"  />
+          </div>
+          <div class="mb-3">
+            <label for="recipient" class="form-label">받는 사람</label>
+            <input type="text" class="form-control" th:field="*{recipient}"  />
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">주소</label>
+            <input type="text" class="form-control" th:field="*{address}"  />
+          </div>
+          <div class="mb-3">
+            <label for="addressDetail" class="form-label">상세주소</label>
+            <input type="text" class="form-control" th:field="*{addressDetail}"  />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">전화번호</label>
+            <input type="text" class="form-control" th:field="*{phone}"  />
+          </div>
+          <div class="mb-3">
+            <label for="request" class="form-label">요청사항</label>
+            <input type="text" class="form-control" th:field="*{request}"  />
+          </div>
+          <div class="mb-3">
+            <label for="accessNo" class="form-label">공동현관 출입번호</label>
+            <input type="text" class="form-control" th:field="*{accessNo}"  />
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="isDefault" name="isDefault" value="true"
+                     th:checked="${address.isDefault == true}">
+              <label class="form-check-label" for="isDefault">
+                기본 배송지
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary" >수정하기</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</body>
+</html>

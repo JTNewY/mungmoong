@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/admin_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 > 상품관리 > 수정하기</title>
+</head>
+<body layout:fragment="content">
+
+  
+  <div class="container">
+    <div class="my-5">
+      <h1>상품관리 > 수정하기</h1>
+
+      <form action="/admin/products/update" method="post" th:object="${product}" enctype="multipart/form-data">
+        <!-- CSRF TOKEN -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="hidden" name="id" th:field="*{id}">
+
+        <div class="inner py-5">
+          <div class="mb-3">
+            <label for="thumbnail" class="form-label">썸네일</label>
+            <div class="row">
+              <div class="col-md-6">
+                <div id="preview" class="w-100">
+                  <th:block th:if="${product.thumbnailId != null}">
+                    <img th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="기존 썸네일"
+                         style="height: 360px; object-fit: contain;">
+                    <div class="box">
+                      <a th:href="|javascript: deleteThumbnail('${product.thumbnailId}');|" class="btn btn-danger w-100" id="deleteThumbnail" >파일 삭제</a>
+                    </div>
+                  </th:block>
+                </div>
+                <input type="file" id="thumbnail" name="thumbnail" class="d-none">
+              </div>
+              <div class="col-md-6">
+                <th:block th:if="${product.thumbnailId != null}">
+                  <div class="d-none" id="upload-box">
+                </th:block>
+                  <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title text-center">파일 업로드</h5>
+                          <div id="drop-area" class="border border-primary rounded p-4 text-center">
+                              <p>여기에 파일을 드래그 해주세요</p>
+                              <button type="button" class="btn btn-primary" onclick="document.getElementById('thumbnail').click()">파일 선택</button>
+                          </div>
+                          <div class="box">
+                            <button type="button" class="btn btn-danger w-100" id="cancelUpload">선택 취소</button>
+                          </div>
+                      </div>
+                  </div>
+                <th:block th:if="${product.thumbnailId != null}">
+                  </div>
+                </th:block>
+
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">상품명</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}"  />
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">카테고리</label>
+            <select class="form-select" aria-label="category" name="category">
+              <th:block th:each="category : ${categories}">
+                <option th:value="${category.code}"
+                        th:text="${category.name}"
+                        th:selected="${category.code} == ${product.category}">
+                </option>
+            </th:block>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">설명</label>
+            <textarea class="form-control" id="content" rows="3" th:field="*{content}"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">가격</label>
+            <input type="number" class="form-control" id="price" th:field="*{price}" />
+          </div>
+          <div class="mb-3">
+            <label for="stock " class="form-label">재고수</label>
+            <input type="number" class="form-control" id="stock" th:field="*{stock}" /> 
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary" >수정하기</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    // 💍 CRSF TOKEN
+    var csrfToken = "[[${_csrf.token}]]"
+  </script>
+  <script src="/js/dropzone.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 완료</title>
+</head>
+<body layout:fragment="content">
+
+  <section>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+        <div class="main-title py-5">
+          <h3 class="display-4 fw-bold text-body-emphasis text-center">주문 완료</h3>
+          <p class="text-center">주문이 완료되었습니다. 감사합니다.</p>
+        </div>
+
+        <div class="row py-5">
+          <!-- 받는 사람 정보 -->
+          <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3>받는사람 정보</h3>
+                </div>
+                <table class="table">
+                  <tr>
+                    <th class="table-secondary">이름</th>
+                    <td>
+                      <p class="m-0" th:text="${shipments.address.recipient}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="table-secondary">주소</th>
+                    <td>
+                      <p class="m-0" th:text="${shipments.address.address}">데이터 확인</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="table-secondary">연락처</th>
+                    <td>
+                      <p class="m-0" th:text="${shipments.address.phone}">데이터 확인</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="table-secondary">요청사항</th>
+                    <td>
+                      <p class="m-0" th:text="${shipments.address.request}">데이터 확인</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- 결제 정보 -->
+          <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3>결제 정보</h3>
+                </div>
+                <table class="table">
+                  <tr>
+                    <th class="table-secondary">주문금액</th>
+                    <td>
+                      <p class="m-0" th:text="|&#8361; ${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')} 원|"></p>
+                    </td>
+                  </tr>
+                  <!-- TODO : 나중에 할인 고려 -->
+                  <!-- <tr>
+                    <th class="table-secondary">할인금액</th>
+                    <td>
+                      <p class="m-0">0</p>
+                    </td>
+                  </tr> -->
+                  <tr>
+                    <th class="table-secondary">결제방식</th>
+                    <td>
+                      <p class="m-0" th:text="${payments.paymentMethod}">결제 방식</p>
+                    </td>
+                  </tr>
+                </table>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5>총 결제금액</h5>
+                  <h5 class="text-danger fw-bold" th:text="|&#8361; ${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')} 원|"></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center gap-2">
+          <div class="item">
+            <a href="" class="btn btn-outline-primary">주문 상세보기</a>
+          </div>
+          <div class="item">
+            <a href="" class="btn btn-primary">쇼핑 계속하기</a>
+          </div>
+        </div>
+    </div>
+  </section>
+  
+
+ 
+</body>
+</html>

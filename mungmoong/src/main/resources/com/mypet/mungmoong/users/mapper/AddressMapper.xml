@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.users.mapper.AddressMapper">
+
+    <!-- 목록 조회 -->
+    <select id="list" >
+        SELECT *
+        FROM ADDRESS
+    </select>
+
+    <!-- 단일 조회 -->
+    <select id="select">
+        SELECT *
+        FROM ADDRESS
+        WHERE ID = #{id}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insert">
+        INSERT INTO ADDRESS (ID, USER_ID, TITLE, RECIPIENT, ADDRESS, ADDRESS_DETAIL, PHONE, REQUEST, IS_DEFAULT, ACCESS_NO, CREATED_AT, UPDATED_AT)
+        VALUES (UUID(), #{userId}, #{title}, #{recipient}, #{address}, #{addressDetail}, #{phone}, #{request}, #{isDefault}, #{accessNo}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        UPDATE ADDRESS
+        SET USER_ID = #{userId},
+            TITLE = #{title},
+            RECIPIENT = #{recipient},
+            ADDRESS = #{address},
+            ADDRESS_DETAIL = #{addressDetail},
+            PHONE = #{phone},
+            REQUEST = #{request},
+            IS_DEFAULT = #{isDefault},
+            ACCESS_NO = #{accessNo},
+            UPDATED_AT = CURRENT_TIMESTAMP
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM ADDRESS
+        WHERE id IN ( ${id} )
+    </delete>
+
+
+    <!-- 목록 조회 - userId -->
+    <select id="listByUserId" >
+        SELECT *
+        FROM ADDRESS
+        WHERE user_id = #{userId}
+    </select>
+
+</mapper>

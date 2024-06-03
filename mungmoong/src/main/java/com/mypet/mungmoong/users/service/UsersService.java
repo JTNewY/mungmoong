@@ -14,7 +14,7 @@ public interface UsersService {
     public boolean login(Users user) throws Exception;
 
     // 조회
-    public Users select(String username) throws Exception;
+    public Users select(String id) throws Exception;
 
     // 회원 가입
     public int join(Users user) throws Exception;
