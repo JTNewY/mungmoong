@@ -14,16 +14,37 @@
         <result property="fileCode" column="file_code"/>
     </resultMap>
 
-    <select id="selectFilesByCareerId" resultMap="FilesResultMap">
-        SELECT * FROM files WHERE parent_table = 'career' AND parent_no = #{no}
+    <!-- 파일 목록 -->
+    <select id="list" resultType="Files">
+        SELECT *
+        FROM img_file
+        ORDER BY reg_date DESC
     </select>
 
-    <select id="selectFilesByCertificateId" resultMap="FilesResultMap">
-        SELECT * FROM files WHERE parent_table = 'certificate' AND parent_no = #{no}
+    <!-- 부모 테이블 기준으로 파일 조회 -->
+    <select id="selectByParent" resultType="Files">
+        SELECT *
+        FROM img_file
+        WHERE parent_table = #{parentTable}
+          AND parent_no = #{parentNo}
+          AND file_code = 1
     </select>
 
-    <select id="selectFilesByTrainerId" resultMap="FilesResultMap">
-        SELECT * FROM files WHERE parent_table = 'trainer' AND parent_no = #{no}
+    <!-- 부모 테이블 기준으로 파일 리스트 조회 -->
+    <select id="listByParent" resultType="Files">
+        SELECT *
+        FROM img_file
+        WHERE parent_table = #{parentTable}
+          AND parent_no = #{parentNo}
+          AND file_code = 0
+        ORDER BY reg_date DESC
+    </select>    
+
+    <!-- 파일 조회 -->
+    <select id="select" resultType="Files">
+        SELECT *
+        FROM img_file
+        WHERE no = #{no}
     </select>
 
     <insert id="insert">

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/admin_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 목록</title>
 </head>
-<body>
-    <h1>게시글 목록</h1>
+<body layout:fragment="content">
+    <div class="container">
+    <h2>게시글 목록</h1>
     <a href="/board/insert">글쓰기</a>
-    <table border="1">
+    <table class="table" border="1">
         <tr>
             <th width="50">번호</th>
             <th width="300">제목</th>
-            <th width="100">작성자</th>
             <th width="200">등록일자</th>
             <th width="200">수정일자</th>
-            <th widht="100">조회수</th>
         </tr>
         <!-- 
             th:if="조건식" 
@@ -30,13 +30,13 @@
         </th:block>
         <th:block th:each="board : ${boardList}">
             <tr>
-                <td align="center" th:text="${board.no}"></td>
+                <td align="center" th:text="${board.boardNo}"></td>
                 <td>
                     <!-- th:???="|문자열+${표현식}|" -->
-                    <a th:href="|/board/read?no=${board.no}|" 
+                    <a th:href="|/board/read?no=${board.boardNo}|" 
                     th:text="${board.title}"></a>
                 </td>
-                <td align="center" th:text="${board.writer}"></td>
+                <!-- <td align="center" th:text="${board.writer}"></td> -->
                 <!-- 
                     유틸리티객체.메소드()
                     #dates.format( 날짜객체명, '날짜포맷' ) 
@@ -48,11 +48,11 @@
                 <td align="center">
                     <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
                 </td>
-                <td align="center" th:text="${board.views}"></td>
+                <!-- <td align="center" th:text="${board.views}"></td> -->
             </tr>
         </th:block>
     </table>
-
+</div>
     
 </body>
 </html>

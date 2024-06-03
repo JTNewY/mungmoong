@@ -40,9 +40,13 @@ public interface UsersMapper {
     public Users findId(@Param("name") String name, @Param("mail") String mail) throws Exception;
 
     // 아이디와 이메일로 비밀번호 찾기
-    public Users findPw(String userId, String mail) throws Exception;
+    public Users findPw(@Param("userId") String userId, @Param("mail") String mail) throws Exception;
+
+    // 비밀번호 업데이트
+    public int updatePassword(@Param("userId") String userId,@Param("mail") String mail,@Param("password") String password) throws Exception;
+
 
     // 관리자 회원 권한 업데이트
-    public int roleUp(Users user) throws Exception;
+    public int roleUp(Users user) throws Exception;         /* role 권한을 업데이트 하기 위한 userMapper */
 
 }

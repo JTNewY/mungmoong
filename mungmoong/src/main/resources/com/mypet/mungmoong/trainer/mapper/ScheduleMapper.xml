@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.trainer.mapper.ScheduleMapper">
+
+    <select id="select" resultType="com.mypet.mungmoong.trainer.dto.Schedule">
+        SELECT * FROM career WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO career (user_id, trainer_no, name, reg_date, upd_date)
+        VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
+    </insert>
+
+    <update id="update">
+        UPDATE career
+           SET name = #{name}, upd_date = now()
+        WHERE no = #{no}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM career WHERE no = #{no}
+    </delete>
+    
+</mapper>
