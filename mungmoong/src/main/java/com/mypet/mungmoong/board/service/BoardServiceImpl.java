@@ -88,4 +88,13 @@ public class BoardServiceImpl implements BoardService {
         return result;
     }
 
+    @Override
+    public List<Board> checkDelete(int no) throws Exception {
+
+        List<Board> deleteList = boardMapper.checkDelete(no);
+
+        return deleteList;
+
+    }
+
 }

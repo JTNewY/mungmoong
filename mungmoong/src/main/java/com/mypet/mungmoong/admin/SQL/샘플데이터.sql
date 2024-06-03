@@ -58,16 +58,16 @@ VALUES
 (5, 605, 'user5', '0', 'User5', 'Excellent write-up.');
 
 -- notice 테이블
-INSERT INTO `notice` (`notice_no`, `notice_content`, `writer`)
+INSERT INTO `board` (`title`, `content`, `file_name`, `reg_date`, `upd_date`, `user_id`, `board_type`)
 VALUES
-(1, 'System maintenance on Sunday.', 'Admin'),
-(2, 'New features coming soon.', 'Admin'),
-(3, 'Scheduled downtime.', 'Admin'),
-(4, 'Service update.', 'Admin'),
-(5, 'Holiday announcement.', 'Admin');
+('공지사항 제목 1', '공지사항 내용 1', 'file1.pdf', '2024-06-03 10:00:00', '2024-06-03 10:00:00', 'user1', 1),
+('공지사항 제목 2', '공지사항 내용 2', 'file2.pdf', '2024-06-03 11:00:00', '2024-06-03 11:00:00', 'user2', 2),
+('공지사항 제목 3', '공지사항 내용 3', 'file3.pdf', '2024-06-03 12:00:00', '2024-06-03 12:00:00', 'user3', 3),
+('공지사항 제목 4', '공지사항 내용 4', 'file4.pdf', '2024-06-03 13:00:00', '2024-06-03 13:00:00', 'user4', 1),
+('공지사항 제목 5', '공지사항 내용 5', 'file5.pdf', '2024-06-03 14:00:00', '2024-06-03 14:00:00', 'user5', 2);
 
 -- board 테이블
-INSERT INTO `board` (`no`, `user_id`, `title`, `writer`, `content`)
+INSERT INTO `board` (`board_no`, `user_id`, `title`, `content`)
 VALUES
 (1, 'user1', 'Welcome', 'Admin', 'Welcome to our community!'),
 (2, 'user2', 'Guidelines', 'Admin', 'Please read the guidelines.'),
@@ -137,6 +137,10 @@ VALUES
 ('user3', 3, 3, 3, 'Bob Brown', 'password3', '1990-03-03', '789 Boulevard', 'bob@example.com', '3456789012', 'Male', 1, 1),
 ('user4', 4, 4, 4, 'Alice Green', 'password4', '1995-04-04', '101 Parkway', 'alice@example.com', '4567890123', 'Female', 1, 2),
 ('user5', 5, 5, 5, 'Charlie Black', 'password5', '2000-05-05', '202 Lane', 'charlie@example.com', '5678901234', 'Male', 1, 1);
+
+-- 바뀌기 전 샘플데이터
+INSERT INTO `users` (`user_id`, `password`, `name`, `birth`, `gender`, `address`, `mail`, `phone`, `reg_date`, `upd_date`, `role`, `enabled`) 
+VALUES ('user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101, 'Male', '인주대로 1000번길','user@mail.com' , '01012341234',now(),now(),1, 1);
 
 -- PRODUCTS 테이블
 INSERT INTO `PRODUCTS` (`no`, `no2`, `NAME`, `CAREGORY`, `DESCRIPTION`, `PRICE`)
