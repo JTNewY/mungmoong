@@ -15,5 +15,5 @@ public interface PetService {
 
     Pet findPetById(int petNo);
 
-    public List<Pet> findPetByUserId(String userId) throws Exception;
+    List<Pet> findPetByUserId(String userId);
 }
