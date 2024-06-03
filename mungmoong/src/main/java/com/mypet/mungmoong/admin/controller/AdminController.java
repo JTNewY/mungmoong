@@ -293,17 +293,17 @@ public class AdminController {
     }
 
 
-    @PostMapping("/BoardDelete")
-    public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
-        log.info("no : " + no);
-        int result = boardService.BoardDelete(no);
+    // @PostMapping("/BoardDelete")
+    // public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
+    //     log.info("no : " + no);
+    //     int result = boardService.BoardDelete(no);
 
-        if (result > 0) {
-            return "redirect:/admin/admin_board";
-        }
+    //     if (result > 0) {
+    //         return "redirect:/admin/admin_board";
+    //     }
 
-        return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
-    }
+    //     return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
+    // }
     
     
 
