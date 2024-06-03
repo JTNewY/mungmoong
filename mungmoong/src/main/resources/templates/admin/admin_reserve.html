@@ -39,41 +39,32 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 5%;">no</th>
-                        <th scope="col" style="width: 10%;">회원 ID</th>
-                        <th scope="col" style="width: 10%;">닉네임</th>
-                        <th scope="col" style="width: 10%;">이름</th>
-                        <th scope="col" style="width: 10%;">예약날짜</th>
-                        <th scope="col" style="width: 10%;">예약시간</th>
-                        <th scope="col" style="width: 10%;">방문여부</th>
-                        <th scope="col" style="width: 10%;">진행상태</th>
-                        <th scope="col">주소</th>
+                        <th scope="col">회원ID</th>
+                        <th scope="col">요청사항</th>
+                        <th scope="col">훈련사 승인 상태</th>
+                        <th scope="col">예약제목</th>
+                        <th scope="col">총예약일</th>
+                        <th scope="col">총항목수</th>
+                        <th scope="col">총가격</th>
+                        <th scope="col">승인상태</th>
+                        <th scope="col">등록일자</th>
+                        <th scope="col">수정일자</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>joeun</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">2024-05-24</td>
-                        <td class="text-truncate">오전 10:00</td>
-                        <td class="text-truncate">방문</td>
-                        <td class="text-truncate">대기</td>
-                        <td class="text-truncate">인천광역시 부평구 더조은컴퓨터 아카데미 7층</td>
+                <th:block th:each="reserve : ${reserveList}">
+                    <tr class="first_tr">
+                        <td class="text-truncate" th:text="${reserve.userId}"></td>
+                        <td class="text-truncate" th:text="${reserve.requst}"></td>
+                        <td class="text-truncate" th:text="${reserve.condition}"></td>
+                        <td class="text-truncate" th:text="${reserve.title}"></td>
+                        <td class="text-truncate" th:text="${reserve.totalQuantity}"></td>
+                        <td class="text-truncate" th:text="${reserve.totalCount}"></td>
+                        <td class="text-truncate" th:text="${reserve.totalPrice}"></td>
+                        <td class="text-truncate" th:text="${reserve.status}"></td>
+                        <td class="text-truncate" th:text="${reserve.regDate}"></td>
+                        <td class="text-truncate" th:text="${reserve.updDate}"></td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>joeun</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">2024-05-24</td>
-                        <td class="text-truncate">오전 10:00</td>
-                        <td class="text-truncate">방문</td>
-                        <td class="text-truncate">대기</td>
-                        <td class="text-truncate">인천광역시 부평구 더조은컴퓨터 아카데미 7층</td>
-                    </tr>
-                </tbody>
+                </th:block>
             </table>
             <!-- 페이징 버튼 영역 -->
             <div class="paging">

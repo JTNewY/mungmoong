@@ -1,18 +1,19 @@
 
--- Active: 1716798076500@@127.0.0.1@3306@mypet
 
+DROP TABLE pet;
 -- 반려견 테이블
 TRUNCATE TABLE EXISTS pet;
+
+DROP TABLE pet;
 CREATE TABLE `pet` (
-	`pet_no`	INT	NOT NULL,
-	`petname`	VARCHAR(50)	NOT NULL,
-	`pettype` VARCHAR(50)	NOT NULL,
+	`no`	INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`name`	VARCHAR(50)	NOT NULL,
+	`type` VARCHAR(50)	NOT NULL,
 	`age`	INT	NOT NULL,
-	`petgender`	INT	NOT NULL,
-	`character`	VARCHAR(100)	NULL,
+	`gender`	VARCHAR(50)	NOT NULL,
+	`temperament`	VARCHAR(100)	NULL,
 	`reg_date`	TIMESTAMP	NULL,
 	`upd_date`	TIMESTAMP	NULL,
-	`order_no`	INT	NOT NULL,
 	`user_id`	VARCHAR(100)	NOT NULL
 );
 
@@ -79,26 +80,33 @@ ADD CONSTRAINT fk_certificate_trainer_no FOREIGN KEY (trainer_no) REFERENCES tra
 -- 스케줄 테이블
 TRUNCATE TABLE EXISTS schedule;
 CREATE TABLE `schedule` (
-	`schedule_no`	INT		NOT NULL, -- 스케쥴 번호
+	`no`			INT		NOT NULL	AUTO_INCREMENT PRIMARY KEY, -- 스케쥴 번호
 	`trainer_no`	INT		NOT NULL, -- 훈련사 번호
 	`title`	VARCHAR(50)			NULL, -- 이게 필요한지, 모달로 띄울건지 고민, 일단 보류 
-	`content`	TEXT			NULL, -- 내용
-	`schedule_date`	TIMESTAMP	NULL, -- 날짜
+	`content`	TEXT			NULL, -- //
+	`date`	TIMESTAMP		NOT	NULL, -- 날짜
 	`reg_date`	TIMESTAMP		NULL, -- 등록일
 	`upd_date`	TIMESTAMP		NULL  -- 수정일
 );
 
 -- 예약 테이블
 TRUNCATE TABLE EXISTS reserve;
+
+-- 나중에 예약 테이블에 주소같은 거 추가합시당당당
+
+DROP TABLE reserve;
 CREATE TABLE `reserve` (
-	`date_no`	INT	NOT NULL,
-	`date_time`	TIMESTAMP	NULL,
-	`date_day`	TIMESTAMP	NULL,
-	`reg_date`	TIMESTAMP	NULL,
-	`upd_date`	TIMESTAMP	NULL,
-	`user_id`	VARCHAR(100)	NOT NULL,
-	`trainer_id`	VARCHAR(100)	NOT NULL,
-	`order_no`	INT	NOT NULL
+	`no`	INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,	-- 예약 번호
+	-- `time`	TIMESTAMP	NULL,				-- 예약 시간
+	-- `day`	TIMESTAMP	NULL,				-- 예약 날짜
+	`date`	TIMESTAMP NOT NULL,				-- 예약일자
+	`reg_date`	TIMESTAMP	NULL,			-- 등록일자
+	`upd_date`	TIMESTAMP	NULL,			-- 수정일자
+	`user_id`	VARCHAR(100)	NOT NULL,	-- 회원 아이디	
+	`trainer_no`	INT	NOT NULL,			-- 훈련사 번호
+	`order_no`	INT	NOT NULL,				-- 결제 번호
+	`request` 	VARCHAR(400) NULL,			-- 요청 사항
+	`pet_no`	INT NOT NULL				-- 펫 번호
 );
 
 -- 결제정보 테이블
@@ -178,6 +186,13 @@ CREATE TABLE `board` (
 );
 alter Table board MODIFY board_no INT AUTO_INCREMENT PRIMARY KEY;
 
+INSERT INTO `board` (`title`, `content`, `file_name`, `reg_date`, `user_id`, `board_type`) VALUES
+('첫 번째 게시물', '첫 번째 게시물의 내용입니다.', 'file1.jpg', NOW(), 'user1', 1),
+('두 번째 게시물', '두 번째 게시물의 내용입니다.', 'file2.jpg', NOW(), 'user2', 2),
+('세 번째 게시물', '세 번째 게시물의 내용입니다.', NULL, NOW(), 'user3', 1),
+('네 번째 게시물', '네 번째 게시물의 내용입니다.', 'file3.jpg', NOW(), 'user1', 3),
+('다섯 번째 게시물', '다섯 번째 게시물의 내용입니다.', NULL, NOW(), 'user2', 2);
+
 -- 리뷰 테이블
 TRUNCATE TABLE EXISTS review;
 CREATE TABLE `review` (
@@ -204,9 +219,10 @@ CREATE TABLE qna (
 
 
 
+DROP TABLE users;
 TRUNCATE TABLE EXISTS  users;
 -- 회원 테이블
-TRUNCATE TABLE EXISTS users;
+TRUNCATE TABLE users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,

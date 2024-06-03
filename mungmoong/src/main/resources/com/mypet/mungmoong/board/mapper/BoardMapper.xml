@@ -42,6 +42,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE board_no = #{boardNo}
     </delete>
 
+        <!-- 관리자 삭제 -->
+    <delete id="BoardDelete">
+        DELETE FROM board
+        WHERE board_no = #{boardNo}
+    </delete>
+
     <!-- 게시글 번호 최댓값 -->
     <!-- <select id="maxPk" resultType="int">
         SELECT MAX(no)

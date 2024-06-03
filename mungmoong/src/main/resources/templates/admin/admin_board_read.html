@@ -31,43 +31,47 @@
                 </div>
             </nav>
             <h3>공지사항 수정</h3>
-            <form class="form-group">
+            <form class="form-group" action="/admin/admin_board_update" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="boardNo" th:value="${board.boardNo}">
                 <div class="col-md-8 fmCont">
                     <ul>
                         <li>
-                            <label for="" name="id">제목</label>
-                            <input type="text" name="id" id="id" value="제목">
+                            <label for="title" name="title">제목</label>
+                            <input type="text" name="title" id="title" th:value="${board.title}">
                         </li>
                         <li>
-                            <label for="pw" name="pw">작성일</label>
-                            <input type="password" name="pw" id="pw" value="password">
-                        </li>
-                        <li>
-                            <label for="writer" name="writer">작성자</label>
-                            <input type="writer" name="writer" id="writer" value="writer">
-                        </li>
-                        <li>
-                            <label for="updDate" name="updDate">수정일</label>
-                            <input type="updDate" name="updDate" id="updDate" value="수정일">
+                            <label for="userId" name="userId">아이디</label>
+                            <input type="text" name="userId" id="userId" th:value="${board.userId}">
                         </li>
                         <li>
                             <label for="content" name="content">내용</label>
-                            <textarea name="content" id="content"></textarea>
+                            <textarea name="content" id="content" th:text="${board.content}"></textarea>
+                        </li>
+                        <li>
+                            <label for="updDate" name="updDate">수정일</label>
+                            <input type="updDate" name="updDate" id="updDate" th:value="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}">
                         </li>
                     </ul>
                 </div>
+                <!-- 하단 버튼 영역 -->
+                <div class="bottom-btn">
+                    <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
+                    <button type="button" class="btn btn-secondary btn-lg updateBtn" onclick="moveToUpdate()">수정</button>
+                </div>
             </form>
-            <!-- 하단 버튼 영역 -->
-            <div class="bottom-btn">
-                <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
-                <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
-            </div>
         </div>
     </div>
 
     <script>
+
+    let no = '[[${board.boardNo}]]'
         function moveToList() {
             location.href = '/admin/admin_board'
+        }
+
+        function moveToUpdate() {
+            location.href = '/admin/admin_board_read_update?boardNo=' + no
         }
     </script>
 </body>
