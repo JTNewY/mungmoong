@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.trainer.dto.Certificate;
+import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.trainer.mapper.CertificateMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +23,18 @@ public class CertificateServiceImpl implements CertificateService {
     private FileService fileService;
 
     @Override
-    public List<Certificate> select(String userId) throws Exception {
-        List<Certificate> certificateList = certificateMapper.select(userId);
+    public List<Certificate> listByUserId(String userId) throws Exception {
+        List<Certificate> certificateList = certificateMapper.listByUserId(userId);
+
+        for (Certificate certificate : certificateList) {
+            int no = certificate.getNo();
+            Files file = new Files();
+            file.setParentTable("certificate");
+            file.setParentNo(no);
+            Files imgFile = fileService.listByParent(file).get(0);
+            log.info("자격증 이미지 : " + imgFile);
+            certificate.setImgFile(imgFile);
+        }
         return certificateList;
     }
 

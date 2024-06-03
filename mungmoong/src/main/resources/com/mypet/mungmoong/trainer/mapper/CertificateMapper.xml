@@ -12,19 +12,18 @@
         <collection property="files" column="no" select="com.mypet.mungmoong.trainer.mapper.FileMapper.selectFilesByCertificateId"/>
     </resultMap>
 
-    <select id="select" resultType="com.mypet.mungmoong.trainer.dto.Certificate">
+    <select id="listByUserId" resultType="com.mypet.mungmoong.trainer.dto.Certificate">
         SELECT * FROM certificate WHERE user_id = #{userId}
     </select>
 
-  <insert id="insert" parameterType="com.mypet.mungmoong.trainer.dto.Certificate" useGeneratedKeys="true" keyProperty="no">
-    INSERT INTO certificate (user_id, trainer_no, name, reg_date, upd_date)
-    VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
-</insert>
+    <insert id="insert" parameterType="com.mypet.mungmoong.trainer.dto.Certificate" useGeneratedKeys="true" keyProperty="no">
+        INSERT INTO certificate (user_id, trainer_no, name, reg_date, upd_date)
+        VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
+    </insert>
 
     <update id="update">
         UPDATE certificate
            SET name = #{name}, upd_date = now()
-        WHERE no = #{no}
     </update>
 
     <delete id="delete">

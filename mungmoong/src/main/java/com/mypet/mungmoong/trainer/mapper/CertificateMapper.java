@@ -11,13 +11,13 @@ import com.mypet.mungmoong.trainer.dto.Certificate;
 public interface CertificateMapper {
 
     // 자격증 조회 리스트
-    public List<Certificate> select(String userId);
+    public List<Certificate> listByUserId(String userId);
     // 자격증 등록
     public int insert(Certificate certificate) throws Exception;
     // 자격증 수정
     public int update(Certificate certificate) throws Exception;
     
-    // 자격증 번호(기본키) 최댓값
+    // 자격증 번호(기본키) 최댓값        
     public int maxPk() throws Exception;
 
     // 자격증 데이터 개수 조회
