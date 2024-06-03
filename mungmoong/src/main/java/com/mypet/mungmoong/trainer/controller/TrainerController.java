@@ -139,12 +139,16 @@ public class TrainerController {
     @GetMapping("/info_update")
     public String update(@RequestParam("userId") String userId, Model model, Files file) throws Exception {
         Trainer trainer = trainerService.select(userId);
-
+        List<Career> careerList = careerService.select(userId);
+        List<Certificate> certificateList = certificateService.listByUserId(userId);
+        List<Files> fileList = fileService.listByParent(file);
+        
         file.setParentTable("trainer");
         file.setParentTable("certificate");
-        List<Files> fileList = fileService.listByParent(file);
-
+        
         model.addAttribute("trainer", trainer);
+        model.addAttribute("careerList", careerList);
+        model.addAttribute("certificateList", certificateList);
         model.addAttribute("fileList", fileList);
 
         return "/trainer/info_update";

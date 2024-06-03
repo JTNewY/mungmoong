@@ -5,6 +5,8 @@
 
 <head>
     <title>내 정보 수정</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://kit.fontawesome.com/e1baf9e274.js" crossorigin="anonymous"></script>
     <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 </head>
 
@@ -16,7 +18,8 @@
                 <div class="collapse navbar-collapse justify-content-start">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="tab-button active" th:href="|/trainer/info?userId=${session.user.userId}|">훈련사 정보</a>
+                            <a class="tab-button active" th:href="|/trainer/info?userId=${session.user.userId}|">훈련사
+                                정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
@@ -45,47 +48,49 @@
                     <tbody>
                         <tr>
                             <td>경력</td>
-                            <td>
-                                <input type="text" class="form-control mb-1" value="서울 훈련연수소 강사">
-                                <input type="text" class="form-control mb-1" value="서울 실력연수소 강사">
-                                <input type="text" class="form-control" value="서울 학연연수소 강사">
-                                <input type="text" class="form-control" style="color: lightgray;" value="값을 입력해주세요.">
-                                <input type="text" class="form-control" style="color: lightgray;" value="값을 입력해주세요.">
+                            <td id="career">
+                                <th:block th:each="career : ${careerList}">
+                                    <input type="text" class="form-control mb-1" th:value="${career.name}">
+                                </th:block>
+                                <button type="button" class="btn btn-custom5" onclick="addCareerInput()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </td>
                         </tr>
                         <tr>
                             <td>소개</td>
                             <td class="text-start">
-                                <img src="/img/프로필.png" alt="Trainer Image" class="img-preview mb-2"><br>
-                                <button type="button" class="btn btn-custom1 mb-2">이미지 업로드</button>
-                                <textarea class="form-control" rows="3" th:value="${trainer.content}></textarea>
+                                <img th:src="|/file/img/${trainer.imgFile.no}|" alt="Trainer Image"><br>
+                                <button type="button" class="btn btn-custom1 mb-2" style="margin-top: 0.3rem;"
+                                    onclick="">이미지 업로드</button>
+                                <textarea class="form-control" rows="3" th:value="${trainer.content}"></textarea>
                             </td>
-                        </tr>
                         </tr>
                         <tr>
                             <td>자격증</td>
-                            <td id="tdtd" class="d-flex justify-content-start mt-3">
-                                <div class="d-flex flex-column align-items-center mx-2">
-                                    <img src="/img/자격증.jpg" alt="Certificate Image">
-                                    <p>어쩌구~ 자격증</p>
+                            <td id="certificate">
+                                <div class="d-flex justify-content-start mt-3 gap-5 mx-4">
+                                    <th:block th:each="certificate : ${certificateList}">
+                                        <div id="certificateImg" class="d-flex flex-column align-items-center mx-2">
+                                            <img th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
+                                            <button type="button" class="delete-icon" th:onclick="deleteCertificate(${certificate.id})">
+                                                <i class="fa-solid fa-circle-xmark"></i>
+                                            </button>    
+                                            <p th:text="${certificate.name}"></p>
+                                        </div>
+                                    </th:block>
                                 </div>
-                                <div class="d-flex flex-column align-items-center mx-2">
-                                    <img src="/img/자격증.jpg" alt="Certificate Image">
-                                    <p>어쩌구~ 자격증</p>
-                                </div>
-                                <div class="d-flex flex-column align-items-center mx-2">
-                                    <img src="/img/자격증.jpg" alt="Certificate Image">
-                                    <p>어쩌구~ 자격증</p>
-                                </div>
-                                <button id="button_1" type="button" class="btn btn-custom1 align-self-end">이미지
-                                    업로드</button>
+                                <button type="button" class="btn btn-custom5" onclick="addCertificateInput()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="bottom-btn text-end">
                     <button type="button" class="btn btn-lg btn-custom2">저장</button>
-                    <a href="/trainer/info"><button type="button" class="btn btn-lg btn-custom3">목록</button></a>
+                    <a th:href="|/trainer/info?userId=${session.user.userId}|"><button type="button"
+                            class="btn btn-lg btn-custom3">목록</button></a>
                 </div>
             </form>
         </div>
@@ -94,6 +99,47 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function addCareerInput() {
+            var careerContainer = document.getElementById("career");
+            var input = document.createElement("input");
+            input.type = "text";
+            input.className = "form-control mb-1";
+            input.name = "careerNames";
+            input.placeholder = "경력을 입력해주세요.";
+            careerContainer.insertBefore(input, careerContainer.lastElementChild);
+        }
+
+        function addCertificateInput() {
+            var certificateContainer = document.getElementById("certificate");
+            var div = document.createElement("div");
+            div.className = "d-flex";
+            div.innerHTML = `
+                <input class="form-control mb-1" type="text" name="certificateNames" placeholder="자격명">
+                <input class="form-control mb-1" type="file" name="files">
+            `;
+            certificateContainer.insertBefore(div, certificateContainer.lastElementChild);
+        }
+
+        function deleteCertificate(certificateId) {
+            // 삭제할 이미지와 버튼의 부모 요소인 div를 찾
+            var certificateDiv = document.getElementById("certificate-" + certificateId);
+
+            // 만약 해당 div가 존재한다면 삭제
+            if (certificateDiv) {
+                certificateDiv.remove();
+            }
+        }
+
+        // 삭제 요청
+        function actionDelete() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( check ) {
+                // form.action = '/file/delete'
+                form.submit()
+            }
+        }
+    </script>
 </body>
 
 </html>

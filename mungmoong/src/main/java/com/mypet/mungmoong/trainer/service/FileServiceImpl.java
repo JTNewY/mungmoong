@@ -56,7 +56,28 @@ public class FileServiceImpl implements FileService {
     // 파일 삭제
     @Override
     public int delete(int no) throws Exception {
+        // 파일 정보 조회
+        Files file = fileMapper.select(no);
+
+        // DB 파일 정보 삭제
         int result = fileMapper.delete(no);
+
+        // 파일 시스템의 실제 파일 삭제
+        if(result > 0) {
+            String filePath = file.getFilePath();
+            File deleteFile = new File(filePath);
+            // 파일 존재 확인
+            if( !deleteFile.exists() ) {
+                return result;
+            }
+            // 파일 삭제
+            if( deleteFile.delete() ) {
+                log.info("파일이 정상적으로 삭제되었습니다.");
+                log.info("file : " + filePath);
+            } else {
+                log.info("파일 삭제에 실패하였습니다.");
+            }
+        }
         return result;
     }
 
