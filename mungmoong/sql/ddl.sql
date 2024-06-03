@@ -216,6 +216,19 @@ CREATE TABLE qna (
     `qnaType` INT NULL
 );
 
+DROP TABLE board;
+
+CREATE TABLE `board` (
+  `board_no` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `content` varchar(1000) DEFAULT NULL,
+  `file_name` varchar(100) DEFAULT NULL,
+  `reg_date` timestamp NOT NULL,
+  `upd_date` timestamp NULL DEFAULT NULL,
+  `user_id` varchar(100) NOT NULL,
+  `board_type` int DEFAULT NULL;
+--   PRIMARY KEY (`board_no`);
+
 
 
 
