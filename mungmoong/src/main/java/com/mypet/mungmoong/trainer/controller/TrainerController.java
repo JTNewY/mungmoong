@@ -68,7 +68,6 @@ public class TrainerController {
     @Autowired
     private UsersService usersService;
 
-
     @Autowired
     private FileService fileService;
 
@@ -77,6 +76,7 @@ public class TrainerController {
 
     @Autowired
     private CertificateService certificateService;
+
 
 
     /**
@@ -90,7 +90,7 @@ public class TrainerController {
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
         List<Career> careerList = careerService.select(userId);
-        List<Certificate> certificateList = certificateService.select(userId);
+        List<Certificate> certificateList = certificateService.listByUserId(userId);
         model.addAttribute("trainer", trainer);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);
@@ -132,69 +132,53 @@ public class TrainerController {
         return "redirect:/trainer/board/insert?error";
     }
 
-    @GetMapping("/insert")
-    public String insert() {
-        return "/trainer/board/insert";
-    }
 
-    @PostMapping("/insert")
-    public String insertPro(Trainer trainer) throws Exception {
-        log.info(trainer.toString());
-
-        int result = trainerService.insert(trainer);
-
-        if (result > 0) {
-            return "redirect:/trainer/board/list";
-        }
-        return "redirect:/trainer/board/insert?error";
-    }
-
-    @GetMapping("/update")
+    /**
+     * 훈련사 수정 화면
+     */
+    @GetMapping("/info_update")
     public String update(@RequestParam("userId") String userId, Model model, Files file) throws Exception {
         Trainer trainer = trainerService.select(userId);
 
-        file.setParentTable("board");
+        file.setParentTable("trainer");
+        file.setParentTable("certificate");
         List<Files> fileList = fileService.listByParent(file);
 
         model.addAttribute("trainer", trainer);
         model.addAttribute("fileList", fileList);
 
-        return "/trainer/board/update";
+        return "/trainer/info_update";
     }
 
-    /**
-     * 훈련사 수정 처리
-     * @param board
-     * @return
-     * @throws Exception
-     */
-    // @PostMapping("/update")
-    // public String updatePro(Trainer trainer)     throws Exception {
-    //     int result = trainerService.update(trainer);
-    //     if(result > 0) {
-    //         return "redirect:/trainer/board/list";
-    //     }
-    //     // String no = trainer.getNo();
-    //     // return "redirect:/trainer/board/update?no=" + no + "&error";
-    // }
+
+    @PostMapping("/info_update")
+    public String updatePro(Trainer trainer) throws Exception {
+        int result = trainerService.update(trainer);
+        if(result > 0) {
+            return "redirect:/trainer/info_update?userId =" + trainer.getUserId();
+        }
+
+        String userId = trainer.getUserId();
+        return "redirect:/trainer/info_update?userId=" + userId + "&error";
+    }
     
 
-    // @PostMapping("/delete")
-    // public String delete(@RequestParam("no") int no) throws Exception {
-    //     // 글 삭제 요청
-    //     int result = TrainerService.delete(no);
-    //     // 글 삭제가 되면, 첨부파일도 같이 삭제
-    //     if(result > 0) {
-
-    //         // 첨부파일 삭제
-    //         Files file = new Files();
-    //         file.setParentTable("board");
-    //         file.setParentNo(no);
-    //         fileService.deleteByParent(file);
+    @PostMapping("/delete")
+    public String delete(@RequestParam("no") int no) throws Exception {
+        // 글 삭제 요청
+        // int result = trainerService.delete(no);
+        int result = 0;
+        // 글 삭제가 되면, 첨부파일도 같이 삭제
+        if(result > 0) {
+            // 첨부파일 삭제
+            Files file = new Files();
+            file.setParentTable("board");
+            file.setParentNo(no);
+            fileService.deleteByParent(file);
             
-    //         return "redirect:/trainer/board/list";
-    //     }
-    //     return "redirect:/trainer/board/update?no=" + no + "&error";
-    // }
+            return "redirect:/trainer/board/list";
+        }
+        return "redirect:/trainer/board/update?no=" + no + "&error";
+    }
     
 }

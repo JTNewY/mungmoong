@@ -16,6 +16,9 @@ import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service("userServiceImplForUsers")
 public class UsersServiceImpl implements UsersService {
 
@@ -89,19 +92,17 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insertAuth'");
+        return userMapper.insertAuth(userAuth);
     }
 
     @Override
     public List<Users> list() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'list'");
+        List<Users> usersList = userMapper.list();
+        return usersList;
     }
 
     @Override
     public int delete(String userId) throws Exception {
-        // TODO Auto-generated methodd stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
@@ -119,8 +120,25 @@ public class UsersServiceImpl implements UsersService {
        return user;
     }
 
+    @Override
     public int updatePassword(String userId, String mail, String password) throws Exception {
         return userMapper.updatePassword(userId, mail, password);
+    }
+
+    @Override
+    public int roleUp(Users user) throws Exception {
+        log.info("user : " + user);
+        int result = userMapper.roleUp(user);
+        log.info("result : " + result);
+
+        if (result > 0 ) {
+            log.info("권한이 " + user.getRole() + "으로 업데이트 됨!");     /*  */
+            UserAuth userAuth = new UserAuth();                             /* userAuth를 userAuth변수에 가져옴 */
+            userAuth.setUserId(user.getUserId());                           /* userAuth에 user에서 userId를 가져와서 세팅함 */
+            userAuth.setAuth("ROLE_TRAINER");                           /* userAuth에 userAuth에 ROLE_TRAINER로 업데이트 */
+            insertAuth(userAuth);                                           /* 업데이트 처리 */
+        }
+        return result;
     }
     
 }

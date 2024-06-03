@@ -42,7 +42,7 @@
                 <div class="calendar">
                     <div class="header">
                         <button id="prev-month">❮</button>
-                        <span id="month-year">2024년 5월</span>
+                        <span id="month-year"></span>
                         <button id="next-month">❯</button>
                     </div>
                     <table>
@@ -170,7 +170,7 @@
                 // 날짜 클릭 이벤트
                 btn.addEventListener('click', () => {
                     let clickedDay = btn.textContent
-                    let clickedDate = `${currentYear}-${currentMonth}-${clickedDay}`
+                    let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`
 
                     if( btn.classList.contains('clicked') ) {
                         btn.classList.remove('clicked')

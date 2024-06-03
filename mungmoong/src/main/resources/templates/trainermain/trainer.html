@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/reserve_layout}">
+
+<head>
+  <title>예약 페이지</title>
+</head>
+<style>
+  .accordion {
+    background: #fff;
+    border: 0;
+  }
+
+  accordion-button:not(.collapsed) {
+    background: #fff;
+  }
+</style>
+
+<body layout:fragment="content">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+  <!--모달start-->
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalToggleLabel" data="trainer123">예약하기</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          예약날짜를 선택해주세요
+          <div id="calendar" class="input-group">
+            <input type="date" id="selectedDate" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="submitDate" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+            data-bs-dismiss="modal">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalToggleLabel2">예약확인</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p th:text="${selectedDate}">예약날짜</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit" onclick="moveInsert()" data-bs-target="#exampleModalToggle"
+            data-bs-toggle="modal" data-bs-dismiss="modal">확인</button>
+          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+            data-bs-dismiss="modal">수정</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--모달end-->
+  <div class="container" style="padding: 70px;">
+    <div class="accordion" id="accordionExample">
+      <!--start-->
+      <div class="accordion-item" style="border: 0;">
+        <h2 class="accordion-header" id="headingOne">
+          <div class="accordion-button" style=" background: #fff;" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <!--훈련사리스트부분시작-->
+            <div class="row">
+              <div class="col" style="width:320px; height:320px; background:#fff6df; border-radius:30px;">
+                <div style="padding: 3% 0;">
+                  <img src="/img/thumnail.png" class="img-thumbnail" alt="훈련사"
+                    style="background: none;border:0;display: block;width: 197px;margin: 0 auto;">
+                  <div style="display: flex; padding: 3% 0; width: 100%; padding: 0 36%; justify-content: center;">
+                    <img src="/img/kakao.png" class="img-thumbnail" alt="훈련사"
+                      style="background: none;border:0;display: block;width: 35px;margin: 0 auto;float: left;">
+                    <img src="/img/twitter.png" class="img-thumbnail" alt="훈련사"
+                      style="background: none;border:0;display: block;width: 35px;margin: 0 auto;float: left;">
+                  </div>
+                </div>
+                <a class="btn btn-primary btn-reserv" data="user" data-bs-toggle="modal" href="#exampleModalToggle"
+                  role="button" style="letter-spacing: 3px;
+                    font-size: .75rem;
+                    display: block;
+                    margin: 0 auto;
+                    background: #3742fa;
+                    font-weight: bold;
+                    padding: 4% 0%;
+                    width: 85px;">예약</a>
+              </div>
+              <div class="col">
+
+                <h5 style="font-size: 1rem;font-weight:bold;">이용요금</h5>
+                <div style="border: 1px solid #333;border-radius: 10px;padding: 5%;">
+                  <div>
+                    <span>100분 방문교육</span>
+                    <span>W 150,000</span>
+                  </div>
+                  <div>
+                    <span>120분 방문교육</span>
+                    <span>W 150,000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--훈련사리스트부분끝-->
+          </div>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <h3 style="font-family: 'Jua';">경력자격증</h3>
+            <a href="/trainermain/list">훈련사 게시판가기</a>
+            <div class="container px-4 text-center row" style="padding: 0;">
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+
+            </div>
+            <h3 style="padding: 3% 0;font-family: 'Jua';">자기소개</h3>
+            <table>
+              <tr th:each="trainer : ${trainerList}">
+                <td>
+                  <!-- th:???="|문자열+${표현식}|" -->
+                  <a th:href="|/trainermain/read?no=${trainer.userId}|" 
+                  th:text="${trainer.userId}"></a>
+               </td>
+                <th>아이디</th>
+                <td  th:text="${trainer.userId}"></td>
+                <th>이름</th>
+                <td th:text="${trainer.name}"></td>
+                <th>메일</th>
+                <td th:text="${trainer.mail}"></td>
+                <th>성별</th>
+                <td th:text="${trainer.gender}"></td>
+                <th>전화</th>
+                <td th:text="${trainer.phone}"></td>
+                <th>소개</th>
+                <td th:text="${trainer.content}"></td>
+              </tr>
+            </table>
+            <div>
+              <h3 style="padding: 3% 0;font-family: 'Jua';">리뷰<b>200건</b></h3>
+              <div class="container text-center" style="padding: 0;">
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left; padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left;padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글끝-->
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left;padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글끝-->
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-3">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="row">
+                    <textarea style="padding: 2% 0;margin:3%  0">
+                                </textarea>
+                    <div style="padding-top: 2%;">
+                      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary me-md-2" type="button">등록</button>
+                        <button class="btn btn-primary me-md-2" type="button">취소</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--댓글끝-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end-->
+      <!--start-->
+      <div class="accordion-item" style="border: 0;">
+        <h2 class="accordion-header" id="headingTwo">
+          <div class="accordion-button" style="background: #fff;" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <!--훈련사리스트부분시작-->
+            <div class="row">
+              <div class="col" style="width: 320px;height:320px;background:#fff6df;border-radius: 30px; ">
+                <div style="padding: 3% 0;">
+                  <img src="/img/thumnail.png" class="img-thumbnail" alt="훈련사"
+                    style="background: none;border:0;display: block;width: 197px;margin: 0 auto;">
+                  <div style="display: flex;
+                        padding: 3% 0;
+                        width: 100%;
+                        padding: 0 36%;
+                        justify-content: center;">
+                    <img src="/img/kakao.png" class="img-thumbnail" alt="훈련사"
+                      style="background: none;border:0;display: block;width: 35px;margin: 0 auto;float: left;">
+                    <img src="/img/twitter.png" class="img-thumbnail" alt="훈련사"
+                      style="background: none;border:0;display: block;width: 35px;margin: 0 auto;float: left;">
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary" style=" letter-spacing: 3px;
+                   font-size: .75rem;
+                   display: block;
+                   margin: 0 auto;
+                   background: #3742fa;
+                   font-weight: bold;
+                   padding: 4% 10%;">예약</button>
+              </div>
+              <div class="col">
+                <h3 style="padding: 3% 0;">김조은 훈련사프로필</h3>
+                <table>
+                  <tr>
+                    <th>대표경력</th>
+                    <td>한국애견협회우수승</td>
+                  </tr>
+                  <tr>
+                    <th>전문분야</th>
+                    <td>중형견</td>
+                  </tr>
+                  <tr>
+                    <th>방문지역</th>
+                    <td>인천</td>
+                  </tr>
+                </table>
+                <h5 style="font-size: 1rem;font-weight:bold;">이용요금</h5>
+                <div style="border: 1px solid #333;border-radius: 10px;padding: 5%;">
+                  <div>
+                    <span>100분 방문교육</span>
+                    <span>W 150,000</span>
+                  </div>
+                  <div>
+                    <span>120분 방문교육</span>
+                    <span>W 150,000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--훈련사리스트부분끝-->
+          </div>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <h3 style="font-family: 'Jua';">경력자격증</h3>
+            <div class="container px-4 text-center row" style="padding: 0;">
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+
+            </div>
+            <h3 style="padding: 3% 0;font-family: 'Jua';">자기소개</h3>
+            <div style="padding: 5%;">
+              <p>
+                애견훈련사 조승현입니다. 많은 실전 경험, 그리고 지식과 이론 바탕으로 보호자님과 반려견의 <br>
+                상황과 성향에 맞춰 알맞는 교육을 진행하겠습니다. 단순하게 간단하게 끝나는 교육이 아닌 정확한 <br>
+                상황판단과 행동분석을 통해 보호자님 그리고 반려견의 행복한 생활을 위해 노력하겠습니다. <br>
+              </p>
+              <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btn-check-outlined">더보기</label><br>
+            </div>
+            <div>
+              <h3 style="padding: 3% 0;font-family: 'Jua';">리뷰<b>200건</b></h3>
+              <div class="container text-center" style="padding: 0;">
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left; padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left; padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글끝-->
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left;padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글끝-->
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-3">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="row">
+                    <textarea style="padding: 2% 0;margin:3%  0">
+                                </textarea>
+                    <div style="padding-top: 2%;">
+                      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary me-md-2" type="button">등록</button>
+                        <button class="btn btn-primary me-md-2" type="button">취소</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--댓글끝-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end-->
+      <!--start-->
+      <div class="accordion-item" style="border: 0;">
+        <h2 class="accordion-header" id="headingThree">
+          <div class="accordion-button" style="background: #fff;" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <!--훈련사리스트부분시작-->
+            <div class="row">
+              <div class="col" style="width: 320px;height:320px;background:#fff6df;border-radius: 30px; ">
+                <div style="padding: 3% 0;">
+                  <img src="/img/thumnail.png" class="img-thumbnail" alt="훈련사"
+                    style="background: none;border:0;display: block;width: 197px;margin: 0 auto;">
+                  <div style="display: flex;
+                        padding: 3% 0;
+                        width: 100%;
+                        padding: 0 36%;
+                        justify-content: center;">
+                    <img src="/img/kakao.png" class="img-thumbnail" alt="훈련사"
+                      style="background: none;border:0;display: block;width: 35px;margin: 0 auto;float: left;">
+                    <img src="/img/twitter.png" class="img-thumbnail" alt="훈련사"
+                      style="background: none;border:0;display: block;width: 35px;margin: 0 auto;float: left;">
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary" style=" letter-spacing: 3px;
+                   font-size: .75rem;
+                   display: block;
+                   margin: 0 auto;
+                   background: #3742fa;
+                   font-weight: bold;
+                   padding: 4% 10%;">예약</button>
+              </div>
+              <div class="col">
+                <h3 style="padding: 3% 0;">김조은 훈련사프로필</h3>
+                <table>
+                  <tr>
+                    <th>대표경력</th>
+                    <td>한국애견협회우수승</td>
+                  </tr>
+                  <tr>
+                    <th>전문분야</th>
+                    <td>중형견</td>
+                  </tr>
+                  <tr>
+                    <th>방문지역</th>
+                    <td>인천</td>
+                  </tr>
+                </table>
+                <h5 style="font-size: 1rem;font-weight:bold;">이용요금</h5>
+                <div style="border: 1px solid #333;border-radius: 10px;padding: 5%;">
+                  <div>
+                    <span>100분 방문교육</span>
+                    <span>W 150,000</span>
+                  </div>
+                  <div>
+                    <span>120분 방문교육</span>
+                    <span>W 150,000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--훈련사리스트부분끝-->
+          </div>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <h3 style="font-family: 'Jua';">경력자격증</h3>
+            <div class="container px-4 text-center row" style="padding: 0;">
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="p-3">
+                  <img src="/img/license.png" class="img-thumbnail" alt="자격증">
+                </div>
+                <div class="col">
+                  <div class="p-3">KKF 인증 3등 훈련사</div>
+                </div>
+              </div>
+
+            </div>
+            <h3 style="padding: 3% 0;font-family: 'Jua';">자기소개</h3>
+            <div style="padding: 5%;">
+              <p>
+                애견훈련사 조승현입니다. 많은 실전 경험, 그리고 지식과 이론 바탕으로 보호자님과 반려견의 <br>
+                상황과 성향에 맞춰 알맞는 교육을 진행하겠습니다. 단순하게 간단하게 끝나는 교육이 아닌 정확한 <br>
+                상황판단과 행동분석을 통해 보호자님 그리고 반려견의 행복한 생활을 위해 노력하겠습니다. <br>
+              </p>
+              <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btn-check-outlined">더보기</label><br>
+            </div>
+            <div>
+              <h3 style="padding: 3% 0;font-family: 'Jua';">리뷰<b>200건</b></h3>
+              <div class="container text-center" style="padding: 0;">
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left;padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left; padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글끝-->
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="col col-md-5">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-primary me-md-2" type="button">수정</button>
+                      <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                  </div>
+                  <div>
+                    <span style="float: left;text-align: left;padding: 3% 0;">
+                      너무 잘 돌봐주셔서 감사드립니다<br>
+                      김조은강사남 덕분에 저희 강아지의 행동이 많이 좋아졌습니다<br>
+                      사료도 잘먹고 산책도 너무 편해졌어요 다음에 또 부탁드리겠습니다.
+                    </span>
+                  </div>
+                </div>
+                <!--댓글끝-->
+                <!--댓글시작-->
+                <div class="row">
+                  <hr>
+                  <div class="col col-md-1" style="display: flex;justify-content: space-between;">
+                    <div class="col align-items-start">
+                      <img src="/img/myimg01.png" class="img-thumbnail" alt="썸네일"
+                        style="background: none;display:block;width: 73px;border: 0;">
+                    </div>
+                  </div>
+                  <div class="col col-md-3">
+                    <span style="float:left;font-size: 16px; font-family: jua;">조은아빠님 (토이푸들-10개월)</span>
+                    <br>
+                    <span style="float:left;">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                      21시간전
+                    </span>
+                  </div>
+                  <div class="row">
+                    <textarea style="padding: 2% 0;margin:3%  0">
+                                </textarea>
+                    <div style="padding-top: 2%;">
+                      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary me-md-2" type="button">등록</button>
+                        <button class="btn btn-primary me-md-2" type="button">취소</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--댓글끝-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end-->
+    </div>
+  </div>
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.js"></script> -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+  <script>
+
+    let trainerId = ''
+    $(function () {
+
+      $('.btn-reserv').on('click', function () {
+        trainerId = $(this).attr('data')
+
+      })
+    })
+
+    //달력 기본값설정(오늘로)
+    document.addEventListener("DOMContentLoaded", function () {
+      const today = new Date();
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month;
+      }
+      let day = today.getDate();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      const todayString = `${year}-${month}-${day}`;
+      document.getElementById("selectedDate").value = todayString;
+    });
+
+    document.getElementById("submitDate").addEventListener("click", function () {
+      const selectedDate = document.getElementById("selectedDate").value;
+      localStorage.setItem("selectedDate", selectedDate); // 선택된 날짜를 로컬 스토리지에 저장
+      showModal(); // 모달 표시 함수 호출
+    });
+    //예약날짜 저장스크립트
+    document.getElementById("submitDate").addEventListener("click", function () {
+      const selectedDate = document.getElementById("selectedDate").value;
+      const date = encodeURIComponent(selectedDate)
+      window.location.href = `/reserve/insert?date=${date}&trainerId=${trainerId}`;
+    });
+
+
+
+    //예약날짜 지정후 저장 모달버튼
+    function moveInsert() {
+      location.href = '/reserve/insert';
+    }
+
+
+
+  </script>
+</body>
+
+</html>
