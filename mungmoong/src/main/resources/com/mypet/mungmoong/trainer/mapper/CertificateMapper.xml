@@ -16,10 +16,10 @@
         SELECT * FROM certificate WHERE user_id = #{userId}
     </select>
 
-    <insert id="insert" parameterType="com.mypet.mungmoong.trainer.dto.Certificate">
-        INSERT INTO certificate (user_id, trainer_no, name, reg_date, upd_date)
-        VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
-    </insert>
+  <insert id="insert" parameterType="com.mypet.mungmoong.trainer.dto.Certificate" useGeneratedKeys="true" keyProperty="no">
+    INSERT INTO certificate (user_id, trainer_no, name, reg_date, upd_date)
+    VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
+</insert>
 
     <update id="update">
         UPDATE certificate
