@@ -161,12 +161,11 @@ public class TrainerServiceImpl implements TrainerService {
             List<Career> careers = trainer.getCareerList();
 
 
-            log.info(careers.toString());
+            // log.info(careers.toString());
             
             if (careers != null) {
                 for (Career career : careers) {
                     career.setTrainerNo(trainerNo);
-                    log.debug("Updating/Inserting career: {}", career);
                     int careerNo =  career.getNo();
                     if (careerNo == 0) {
                         careerService.insert(career);
@@ -174,45 +173,6 @@ public class TrainerServiceImpl implements TrainerService {
                         careerService.update(career);
                     }
                 }
-            }
-    
-            // Certificate : 아예 삭제 뒤 추가
-            List<Certificate> certificates = trainer.getCertificateList();
-            if (certificates != null) {
-                for (Certificate certificate : certificates) {
-                    certificate.setTrainerNo(trainerNo);
-                    log.debug("Updating/Inserting certificate: {}", certificate);
-                    if (certificate.getNo() == 0) {
-                        certificateService.insert(certificate);
-                    } else {
-                        certificateService.update(certificate);
-                    }
-    
-                    MultipartFile file = trainer.getFiles().get(certificates.indexOf(certificate));
-                    if (file != null && !file.isEmpty()) {
-                        Files uploadFile = new Files();
-                        uploadFile.setParentTable("certificate");
-                        uploadFile.setParentNo(certificate.getNo());
-                        uploadFile.setFileName(file.getOriginalFilename());
-                        uploadFile.setFilePath("C:/upload/" + file.getOriginalFilename());
-                        uploadFile.setFileSize(file.getSize());
-                        uploadFile.setFile(file);
-                        fileService.upload(uploadFile);
-                    }
-                }
-            }
-    
-            MultipartFile thumbnailFile = trainer.getThumbnail();
-            if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
-                Files thumbnail = new Files();
-                thumbnail.setParentTable("trainer");
-                thumbnail.setParentNo(trainerNo);
-                thumbnail.setFileName(thumbnailFile.getOriginalFilename());
-                thumbnail.setFilePath("C:/upload/" + thumbnailFile.getOriginalFilename());
-                thumbnail.setFileSize(thumbnailFile.getSize());
-                thumbnail.setFile(thumbnailFile);
-                thumbnail.setFileCode(1);
-                fileService.upload(thumbnail);
             }
     
             return result;
