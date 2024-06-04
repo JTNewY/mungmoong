@@ -1,5 +1,6 @@
 package com.mypet.mungmoong.trainer.dto;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,13 +50,18 @@ public class Trainer {
         }).collect(Collectors.toList());
     }
 
+
     public List<Certificate> toCertificateList() {
-        return certificateNames.stream().map(name -> {
-            Certificate certificate = new Certificate();
-            certificate.setName(name);
-            certificate.setUserId(this.userId);
-            certificate.setTrainerNo(this.no);
-            return certificate;
-        }).collect(Collectors.toList());
+    if (certificateNames == null) {
+        return Collections.emptyList(); // 빈 리스트를 반환
     }
+    return certificateNames.stream().map(name -> {
+        Certificate certificate = new Certificate();
+        certificate.setName(name);
+        certificate.setUserId(this.userId);
+        certificate.setTrainerNo(this.no);
+        return certificate;
+    }).collect(Collectors.toList());
+}
+
 }
