@@ -79,8 +79,9 @@ public class BoardController {
      * @return
      */
     @GetMapping("/insert")
-    public String insert(@SessionAttribute("user") Users user) {
-        String userId = user.getUserId();
+    public String insert(HttpSession session, Users user) {
+        Users userId = (Users) session.getAttribute("user");
+        
         
         log.info("저장된 아이디 : " + userId);
 
@@ -95,20 +96,15 @@ public class BoardController {
      * @throws Exception
      */
     @PostMapping("/insert")
-    public String insertPro(@SessionAttribute("user") Users user, Board board) throws Exception {
-        String userId = user.getUserId();
-        board.setUserId(userId);
-
-        log.info(board.toString());
-        // 데이터 요청
-        int result = boardService.insert(board);
-        // 리다이렉트
-        // ⭕ 데이터 처리 성공
-        if (result > 0) {
-            return "redirect:/board/list";
+    public String insertPro(Board board, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        if (user != null) {
+            board.setUserId(user.getUserId());
+        } else {
+            board.setUserId("person");
         }
-        // ❌ 데이터 처리 실패
-        return "redirect:/board/insert?error";
+        boardService.insert(board);
+        return "redirect:/board/list";
     }
 
     /**
