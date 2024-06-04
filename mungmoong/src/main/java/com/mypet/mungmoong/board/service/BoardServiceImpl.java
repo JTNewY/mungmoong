@@ -47,7 +47,7 @@ public class BoardServiceImpl implements BoardService {
      */
     @Override
     public int update(Board board) throws Exception {
-        int result = boardMapper.update(board);
+        int result = boardMapper.boardUpdate(board);
         return result;
     }
 

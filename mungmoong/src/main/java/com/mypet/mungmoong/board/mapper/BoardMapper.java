@@ -16,6 +16,8 @@ public interface BoardMapper {
     public int insert(Board board) throws Exception;
     // 게시글 수정
     public int update(Board board) throws Exception;
+    // 보드 게시글 수정
+    public int boardUpdate(Board board) throws Exception;
     // 게시글 삭제
     public int delete(int no) throws Exception;
     // 관리자 삭제

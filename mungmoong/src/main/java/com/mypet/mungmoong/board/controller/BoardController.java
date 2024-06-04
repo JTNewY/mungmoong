@@ -64,7 +64,7 @@ public class BoardController {
     // - 스프링 부트 3.2버전 이하, 생략해도 자동 매핑된다.
     // - 스프링 부트 3.2버전 이상, 필수로 명시해야 매핑된다.
     @GetMapping("/read")
-    public String read(@RequestParam("no") int no, Model model) throws Exception {
+    public String read(@RequestParam("boardNo") int no, Model model) throws Exception {
         // 데이터 요청
         Board board = boardService.select(no);
         // 모델 등록
@@ -120,7 +120,7 @@ public class BoardController {
      * @throws Exception
      */
     @GetMapping("/update")
-    public String update(@RequestParam("no") int no, Model model) throws Exception {
+    public String update(@RequestParam("boardNo") int no, Model model) throws Exception {
         Board board = boardService.select(no);
         model.addAttribute("board", board);
         return "/board/update";
@@ -152,7 +152,7 @@ public class BoardController {
      * @throws Exception
      */
     @PostMapping("/delete")
-    public String delete(@RequestParam("no") int no) throws Exception {
+    public String delete(@RequestParam("boardNo") int no) throws Exception {
         int result = boardService.delete(no);
         if (result > 0) {
             return "redirect:/board/list";
