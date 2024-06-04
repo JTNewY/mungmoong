@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/layouts/admin_layout}">
+    layout:decorate="~{/layouts/board_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 조회</title>
 </head>
-<body layout:fragment="content">
-    <h1>게시글 조회</h1>
 
-    <form action="/board/delete" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
-        <table>
-            <tr>
-                <td>제목</td>
-                <td>
-                    <input type="text" name="title" th:value="${board.title}" disabled>
-                </td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td>
-                    <input type="text" name="userId" th:value="${board.userId}" disabled>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea name="content" id="content" cols="40" rows="5"
-                              th:text="${board.content}" disabled></textarea>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <button type="button" onclick="moveUpdate()">수정</button>
-            <button type="button" onclick="moveList()">목록</button>
+<body layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+
+
+            <h1>게시글 조회</h1>
+
+            <form action="/board/delete" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+                <table>
+                    <tr>
+                        <td class="titarea">제목</td>
+                        <td>
+                            <input class="inputArea" name="title" th:value="${board.title}" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="titarea">작성자</td>
+                        <td>
+                            <input class="inputArea" type="text" name="userId" th:value="${board.userId}" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <textarea name="content" id="content" cols="40" rows="5" th:text="${board.content}"
+                                disabled></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <div class="BtnArea">
+                    <button class="insertBtn" type="button" onclick="moveUpdate()">수정</button>
+                    <button class="BlistBtn" type="button" onclick="moveList()">목록</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 
     <script>
-
         // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
         let no = "[[${board.boardNo}]]"
 
@@ -54,4 +61,5 @@
         }
     </script>
 </body>
+
 </html>
