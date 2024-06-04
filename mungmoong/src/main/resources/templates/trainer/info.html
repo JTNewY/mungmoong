@@ -65,7 +65,7 @@
                                     <div class="d-flex justify-content-start mt-3 gap-5 mx-4">
                                         <th:block th:each="certificate : ${certificateList}">
                                             <div class="d-flex flex-column align-items-center mx-2">
-                                                <img th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
+                                                <img th:if="${certificate.imgFile != null}" th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
                                                 <p th:text="${certificate.name}"></p>
                                             </div>
                                         </th:block>

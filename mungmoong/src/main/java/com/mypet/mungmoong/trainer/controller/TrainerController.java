@@ -129,7 +129,7 @@ public class TrainerController {
             model.addAttribute("errorMessage", "Error occurred while processing trainer data: " + e.getMessage());
         }
 
-        return "redirect:/trainer/board/insert?error";
+        return "redirect:/trainer/join_data?error";
     }
 
 
@@ -155,18 +155,30 @@ public class TrainerController {
     }
 
 
+    /**
+     * 훈련사 수정 처리
+     * @param trainer
+     * @param session
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/info_update")
-    public String updatePro(Trainer trainer) throws Exception {
+    public String updatePro(Trainer trainer, HttpSession session, Model model) throws Exception {
+        trainer.setCareerList(trainer.toCareerList());
+        trainer.setCertificateList(trainer.toCertificateList());
+
+        log.debug("Trainer data : {}", trainer);
         int result = trainerService.update(trainer);
+        
         if(result > 0) {
-            return "redirect:/trainer/info_update?userId =" + trainer.getUserId();
+            return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
         }
-
-        String userId = trainer.getUserId();
-        return "redirect:/trainer/info_update?userId=" + userId + "&error";
+        return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
     }
-    
 
+    
+    // [은아] - 나는 이거 안 씀
     @PostMapping("/delete")
     public String delete(@RequestParam("no") int no) throws Exception {
         // 글 삭제 요청
