@@ -157,11 +157,23 @@ public class TrainerController {
      * @param trainer
      * @param session
      * @param model
-     * @return
      * @throws Exception
      */
     @PostMapping("/info_update")
     public String updatePro(Trainer trainer) throws Exception {
+        List<Career> careerList = trainer.toCareerList();
+
+        for (Career career : careerList) {
+            int result = careerService.update(career);
+
+            if(result>0) log.info("수정했다!!");
+            else{
+                log.info(career.toString());
+                log.info("수정못햇따");
+            }
+            
+        }
+
         
         int result = trainerService.update(trainer);
     
