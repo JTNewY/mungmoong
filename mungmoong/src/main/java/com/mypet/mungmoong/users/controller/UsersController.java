@@ -90,6 +90,14 @@ public class UsersController {
         return "users/index"; // mypets.html 템플릿을 반환합니다.
     }
 
+    @GetMapping("/using")
+    public String myPets2(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        List<Pet> pets = (List<Pet>) session.getAttribute("pets");
+        model.addAttribute("pets", pets);
+        return "users/using"; // mypets.html 템플릿을 반환합니다.
+    }
+
     @PostMapping("/register")
     public String registerUser(Users user, Pet pet, String userId) throws Exception {
        user.setUserId(userId);

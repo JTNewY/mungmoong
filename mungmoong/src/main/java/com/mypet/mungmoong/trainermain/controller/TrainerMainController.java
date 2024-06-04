@@ -65,6 +65,8 @@ public class TrainerMainController {
     public String list(Model model) throws Exception {
         List<Trainer> trainerList = trainerService.trainerList();
 
+        model.addAttribute("trainerList", trainerList);
+
         return "/trainermain/list";
     }
        /**

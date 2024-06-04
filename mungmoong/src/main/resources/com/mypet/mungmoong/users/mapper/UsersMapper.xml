@@ -67,21 +67,20 @@
 
     <!-- 회원 조회 - id -->
     <select id="select" resultMap="userMap">
-        SELECT user_id
-              ,password
-              ,name
-              ,birth
-              ,address
-              ,mail
-              ,phone
-              ,gender
-              ,reg_date
-              ,upd_date
-              ,enabled
-              ,role
-        FROM users
-        WHERE user_id = #{userId} 
-    </select>   
+        SELECT u.user_id
+              ,u.password
+              ,u.name
+              ,u.birth
+              ,u.address
+              ,u.mail
+              ,u.phone
+              ,u.gender
+              ,u.reg_date
+              ,u.upd_date
+              ,u.enabled
+              ,u.role
+        FROM users u
+        WHERE u.user_id = #{userId}
 
     <!-- 회원 가입 -->
     <insert id="join"  >
