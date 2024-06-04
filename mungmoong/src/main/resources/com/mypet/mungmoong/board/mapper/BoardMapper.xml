@@ -36,6 +36,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE board_no = #{boardNo}
     </update>
 
+    <update id="boardUpdate">
+        UPDATE board
+           SET title = #{title}
+              <!-- ,user_id = #{userId} -->
+              ,content = #{content}
+              ,upd_date = now()     
+        WHERE board_no = #{boardNo}
+    </update>
+
     <!-- 게시글 삭제 -->
     <delete id="delete">
         DELETE FROM board

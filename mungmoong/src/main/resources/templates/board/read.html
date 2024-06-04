@@ -10,24 +10,25 @@
     <h1>게시글 조회</h1>
 
     <form action="/board/delete" method="post">
-        <input type="hidden" name="no" th:value="${board.no}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
         <table>
             <tr>
                 <td>제목</td>
                 <td>
-                    <input type="text" name="title" th:value="${board.title}">
+                    <input type="text" name="title" th:value="${board.title}" disabled>
                 </td>
             </tr>
             <tr>
                 <td>작성자</td>
                 <td>
-                    <input type="text" name="writer" th:value="${board.writer}">
+                    <input type="text" name="userId" th:value="${board.userId}" disabled>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <textarea name="content" id="content" cols="40" rows="5"
-                              th:text="${board.content}"></textarea>
+                              th:text="${board.content}" disabled></textarea>
                 </td>
             </tr>
         </table>
@@ -40,11 +41,11 @@
     <script>
 
         // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-        let no = "[[${board.no}]]"
+        let no = "[[${board.boardNo}]]"
 
         // 수정 화면 이동
         function moveUpdate() {
-            location.href = '/board/update?no=' + no
+            location.href = '/board/update?boardNo=' + no
         }
 
         // 목록 화면 이동
