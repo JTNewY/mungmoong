@@ -86,7 +86,7 @@ public class TrainerController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/info")
+    @GetMapping("/info_insert")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
         List<Career> careerList = careerService.select(userId);
@@ -94,7 +94,7 @@ public class TrainerController {
         model.addAttribute("trainer", trainer);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);
-        return "/trainer/info";
+        return "/trainer/info_insert";
     }
 
     @PostMapping("/join_data")
@@ -105,20 +105,17 @@ public class TrainerController {
             if (user == null) {
                 return "redirect:/login";
             }
-
             
             trainer.setUserId(user.getUserId());
 
-            Users dbUser = usersService.select(user.getUserId());
-
-            if (dbUser == null) {
-                throw new Exception("User not found");
-            }
+            // Users dbUser = usersService.select(user.getUserId());
+            // if (dbUser == null) {
+            //     throw new Exception("User not found");
+            // }
 
             trainer.setCareerList(trainer.toCareerList());
             trainer.setCertificateList(trainer.toCertificateList());
 
-            log.debug("Trainer data: {}", trainer);
             int result = trainerService.insert(trainer);
 
             if (result > 0) {
