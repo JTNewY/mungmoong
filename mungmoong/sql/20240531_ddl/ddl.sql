@@ -1,4 +1,5 @@
 
+-- Active: 1714104693276@@127.0.0.1@3306@mypet
 
 DROP TABLE pet;
 -- 반려견 테이블
@@ -235,7 +236,7 @@ CREATE TABLE `board` (
 DROP TABLE users;
 TRUNCATE TABLE EXISTS  users;
 -- 회원 테이블
-TRUNCATE TABLE users;
+TRUNCATE TABLE EXISTS users;
 CREATE TABLE `users` (
 	`user_id`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,

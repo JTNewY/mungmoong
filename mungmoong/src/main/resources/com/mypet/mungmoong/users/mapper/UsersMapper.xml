@@ -52,7 +52,7 @@
               ,u.address
               ,u.mail
               ,u.phone
-              ,u.gender
+              <!-- ,u.gender -->
               ,u.reg_date
               ,u.upd_date
               ,u.enabled
