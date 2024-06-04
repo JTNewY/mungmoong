@@ -23,6 +23,7 @@ import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.service.UsersService;
 
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -39,6 +40,7 @@ public class TrainerMainController {
     FileService fileService;
     @Autowired
     BoardService boardService;
+    
   
     @GetMapping("/trainer")
     public String trainer(Model model) throws Exception {
@@ -63,6 +65,7 @@ public class TrainerMainController {
     public String list(Model model) throws Exception {
         List<Trainer> trainerList = trainerService.trainerList();
         
+        file
         model.addAttribute("trainerList", trainerList);
        
         return "/trainermain/list";
