@@ -64,10 +64,7 @@ public class TrainerMainController {
     @GetMapping("/list")
     public String list(Model model) throws Exception {
         List<Trainer> trainerList = trainerService.trainerList();
-        
-        file
-        model.addAttribute("trainerList", trainerList);
-       
+
         return "/trainermain/list";
     }
        /**
