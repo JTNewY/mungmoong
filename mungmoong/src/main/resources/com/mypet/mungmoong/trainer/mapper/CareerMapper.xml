@@ -16,14 +16,18 @@
         SELECT * FROM career WHERE user_id = #{userId}
     </select>
 
+    <select id="selectByTrainerNo" resultType="com.mypet.mungmoong.trainer.dto.Career">
+        SELECT * FROM career WHERE trainer_no = #{trainerNo}
+    </select>
+
     <insert id="insert" parameterType="com.mypet.mungmoong.trainer.dto.Career">
         INSERT INTO career (user_id, trainer_no, name, reg_date, upd_date)
         VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
     </insert>
 
-    <update id="update">
+    <update id="update" parameterType="com.mypet.mungmoong.trainer.dto.Career">
         UPDATE career
-           SET name = #{name}, upd_date = now()
+           SET name = #{name}, reg_date = now(), upd_date = now()
         WHERE no = #{no}
     </update>
 

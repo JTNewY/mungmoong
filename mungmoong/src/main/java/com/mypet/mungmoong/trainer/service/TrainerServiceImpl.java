@@ -54,45 +54,140 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public int insert(Trainer trainer) throws Exception {
         try {
+            // 사용자 ID 가져옴
             String userId = trainer.getUserId();
             log.debug("Inserting trainer with userId: {}", userId);
-
+    
+            // 사용자 정보 조회
             Users user = usersService.select(userId);
             if (user == null) {
-                throw new Exception("User not found");
+                throw new Exception("User not found"); 
             }
-
+    
+            // 기존 훈련사 정보를 조회하여 이미 존재하는 경우 stop
             Trainer oldTrainer = trainerMapper.select(userId);
             if (oldTrainer != null) return 0;
-
+    
+            // 새로운 훈련사 정보를 삽입하고 결과 반환
             int result = trainerMapper.insert(trainer);
             if (result == 0) {
-                return 0;
+                return 0; 
             }
-
+    
+            // 삽입된 훈련사의 번호를 가져와 설정
             int trainerNo = trainer.getNo();
             log.debug("Inserted trainer with trainerNo: {}", trainerNo);
             trainer.setNo(trainerNo);
-
+    
+            // 사용자의 역할을 훈련 승인중으로 변경하고 업데이트
             user.setRole(1);
             usersService.update(user);
-
+    
+            // 훈련사의 경력 목록을 가져와 각각의 경력을 삽입
             List<Career> careers = trainer.getCareerList();
             if (careers != null) {
                 for (Career career : careers) {
+                    // 각 경력 객체의 trainerNo 속성을 설정
                     career.setTrainerNo(trainerNo);
                     log.debug("Inserting career: {}", career);
-                    careerService.insert(career);
+                    careerService.insert(career); // 경력 정보를 삽입
                 }
             }
-
+    
+            // 훈련사의 자격증 목록을 가져와 각각의 자격증 삽입
             List<Certificate> certificates = trainer.getCertificateList();
             if (certificates != null) {
                 for (Certificate certificate : certificates) {
                     certificate.setTrainerNo(trainerNo);
                     log.debug("Inserting certificate: {}", certificate);
-                    certificateService.insert(certificate);
+                    certificateService.insert(certificate); // 자격증 정보를 삽입
+    
+                    // 자격증과 연결된 파일 업로드
+                    MultipartFile file = trainer.getFiles().get(certificates.indexOf(certificate));
+                    if (file != null && !file.isEmpty()) {
+                        Files uploadFile = new Files();
+                        uploadFile.setParentTable("certificate");
+                        uploadFile.setParentNo(certificate.getNo());
+                        uploadFile.setFileName(file.getOriginalFilename());
+                        uploadFile.setFilePath("C:/upload/" + file.getOriginalFilename());
+                        uploadFile.setFileSize(file.getSize());
+                        uploadFile.setFile(file);
+                        fileService.upload(uploadFile); // 파일 업로드
+                    }
+                }
+            }
+    
+            // 썸네일 파일이 있는 경우 업로드
+            MultipartFile thumbnailFile = trainer.getThumbnail();
+            if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+                Files thumbnail = new Files();
+                thumbnail.setParentTable("trainer");
+                thumbnail.setParentNo(trainerNo);
+                thumbnail.setFileName(thumbnailFile.getOriginalFilename());
+                thumbnail.setFilePath("C:/upload/" + thumbnailFile.getOriginalFilename());
+                thumbnail.setFileSize(thumbnailFile.getSize());
+                thumbnail.setFile(thumbnailFile);
+                thumbnail.setFileCode(1); // 썸네일 파일 코드를 설정
+                fileService.upload(thumbnail); // 썸네일 파일을 업로드
+            }
+    
+            return result;
+        } catch (Exception e) {
+            log.error("Error occurred while inserting trainer data", e);
+            throw e;
+        }
+    }
+    
 
+    @Override
+    public int update(Trainer trainer) throws Exception {
+        try {
+            String userId = trainer.getUserId();
+    
+            Trainer existingTrainer = trainerMapper.select(userId);
+            if (existingTrainer == null) {
+                throw new Exception("Trainer not found");
+            }
+    
+            int trainerNo = existingTrainer.getNo();
+            trainer.setNo(trainerNo);
+    
+            int result = trainerMapper.update(trainer);
+            if (result == 0) {
+                return 0;
+            }
+    
+            // Career : 수정 / 추가
+            List<Career> careers = trainer.getCareerList();
+
+
+            log.info(careers.toString());
+            
+            if (careers != null) {
+                for (Career career : careers) {
+                    career.setTrainerNo(trainerNo);
+                    log.debug("Updating/Inserting career: {}", career);
+                    int careerNo =  career.getNo();
+                    if (careerNo == 0) {
+                        careerService.insert(career);
+                    } else {
+                        careerService.update(career);
+                    }
+                }
+            }
+    
+            // Certificate : 아예 삭제 뒤 추가
+            List<Certificate> certificates = trainer.getCertificateList();
+            if (certificates != null) {
+                for (Certificate certificate : certificates) {
+                    certificate.setTrainerNo(trainerNo);
+                    log.debug("Updating/Inserting certificate: {}", certificate);
+                    if (certificate.getNo() == 0) {
+                        certificateService.insert(certificate);
+                    } else {
+                        certificateService.update(certificate);
+                    }
+    
                     MultipartFile file = trainer.getFiles().get(certificates.indexOf(certificate));
                     if (file != null && !file.isEmpty()) {
                         Files uploadFile = new Files();
@@ -106,7 +201,7 @@ public class TrainerServiceImpl implements TrainerService {
                     }
                 }
             }
-
+    
             MultipartFile thumbnailFile = trainer.getThumbnail();
             if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
                 Files thumbnail = new Files();
@@ -119,19 +214,14 @@ public class TrainerServiceImpl implements TrainerService {
                 thumbnail.setFileCode(1);
                 fileService.upload(thumbnail);
             }
-
+    
             return result;
         } catch (Exception e) {
-            log.error("Error occurred while inserting trainer data", e);
+            log.error("Error occurred while updating trainer data", e);
             throw e;
         }
     }
-
-    @Override
-    public int update(Trainer trainer) throws Exception {
-        int result = trainerMapper.update(trainer);
-        return result;
-    } 
+    
 
     @Override
     public List<Trainer> trainerList() throws Exception {

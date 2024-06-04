@@ -3,8 +3,6 @@ package com.mypet.mungmoong.trainer.dto;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
 
 @Data

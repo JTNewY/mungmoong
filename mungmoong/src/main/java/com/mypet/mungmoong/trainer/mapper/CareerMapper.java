@@ -14,6 +14,10 @@ public interface CareerMapper {
 
     // 경력 조회 리스트
     public List<Career> select(String userId);
+
+    // 경력 조회
+    public Career selectByTrainerNo(int trainerNo) throws Exception;
+
     // 경력 등록
     public int insert(Career career) throws Exception;
     // 경력 수정

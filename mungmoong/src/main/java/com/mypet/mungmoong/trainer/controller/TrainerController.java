@@ -164,12 +164,11 @@ public class TrainerController {
      * @throws Exception
      */
     @PostMapping("/info_update")
-    public String updatePro(Trainer trainer, HttpSession session, Model model) throws Exception {
-        trainer.setCareerList(trainer.toCareerList());
-        trainer.setCertificateList(trainer.toCertificateList());
-
-        log.debug("Trainer data : {}", trainer);
+    public String updatePro(Trainer trainer) throws Exception {
+        
         int result = trainerService.update(trainer);
+    
+        log.debug("Trainer data : {}", trainer);
         
         if(result > 0) {
             return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
