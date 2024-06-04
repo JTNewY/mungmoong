@@ -79,10 +79,7 @@
               ,u.upd_date
               ,u.enabled
               ,u.role
-              ,auth
-              ,pet_no
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
-        LEFT JOIN pet p ON p.user_id=u.user_id
+        FROM users u
         WHERE u.user_id = #{userId}
     </select>   
 

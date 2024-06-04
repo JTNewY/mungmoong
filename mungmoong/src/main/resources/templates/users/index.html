@@ -158,10 +158,10 @@
                 <div class="info-card d-flex align-items-center p-3">
                     <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3">
                     <div class="info">
-                        <p th:text="${session.user.userId}"></strong></p>
+                        <p th:text="${session.user.name} + ' (' + ${session.user.userId} + ')' " ></strong></p>
                         <p th:text="${session.user.mail}"></p>
                         <p th:text="${session.user.phone}"></p>
-                        <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}">1월 1일</span></p>
+                        <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
                         <p th:text="${session.user.address}"></p>
                     </div>
                     <button type="button" class="custom-button" onclick="location.href='/users/update'">정보수정</button>

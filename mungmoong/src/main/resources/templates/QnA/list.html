@@ -37,7 +37,17 @@
 
         .table-bordered {
             border: none;
+            background-color: #F1F1F1;
+            border-bottom: 2px solid #DEE2E6;
+            
         }
+
+        .table tr
+       {
+            background-color: #F1F1F1;
+            border-bottom: 2px solid #DEE2E6;
+        }
+
 
         .table thead th {
             background-color: #F1F1F1;
@@ -46,7 +56,31 @@
 
         .table th,
         .table td {
+            border: 2px solid #ffffff00;
             vertical-align: middle;
+        }
+
+        .form-select {
+            height: 100%;
+            --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e);
+            display: block;
+            width: 30%;
+            padding: .375rem 2.25rem .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 100;
+            line-height: 1.5;
+            color: var(--bs-body-color);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: var(--bs-body-bg);
+            background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+            background-size: 16px 12px;
+            border: var(--bs-border-width) solid var(--bs-border-color);
+            border-radius: var(--bs-border-radius);
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
 
         .form-control {
@@ -61,6 +95,8 @@
 
         .btn-primary,
         .btn-secondary {
+            margin: 0;
+            height: 100%;
             background-color: #FFC107;
             border: none;
             border-radius: 20px;
@@ -68,7 +104,6 @@
             padding: 10px 20px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin: 10px;
         }
 
         .btn-primary:hover,
