@@ -151,10 +151,10 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Files download(int no) throws Exception {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'download'");
+       return download(no);
     }
 
+    
 
     
 }

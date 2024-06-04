@@ -40,8 +40,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<Pet> findPetByUserId(String userId) throws Exception {
-        List<Pet> petList = petMapper.findPetByUserId(userId);
+    public List<Pet> findPetByUserId(String userId) {
+        List<Pet> petList = petMapper.findPetsByUserId(userId);
         return petList;
     }
 }

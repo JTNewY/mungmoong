@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main_layout}"
+      >
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인 화면</title>
+    <style>
+        #carousel { 
+            max-width: 100%;
+            width: 768px; 
+            height: 512px;
+        }
+
+        .divider {
+          width: 100%;
+          height: 3rem;
+          background-color: rgba(0, 0, 0, .1);
+          border: solid rgba(0, 0, 0, .15);
+          border-width: 1px 0;
+          box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+    </style>
+</head>
+<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+<body layout:fragment="content">
+
+  <!-- 상품 목록  -->
+  <section>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+        <div class="main-title py-5">
+          <h3 class="display-4 fw-bold text-body-emphasis text-center">상품 목록</h3>
+        </div>
+
+        <!-- 상품 목록 -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+          <!-- 상품 아이템 -->
+          <th:block th:each="product : ${products}">
+            <div class="col">
+              <div class="card shadow-sm">
+                <a th:href="|/products/${product.id}|">
+                  <!-- <img src="/img/about.png" class="w-100" alt="about"> -->
+                  <img src="/img/about.png" th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about">
+                </a>
+                <div class="card-body">
+                  <h3 class="card-title fs-5" th:text="${product.name}"></h3>
+                  <p class="card-text" th:text="${product.description}"></p>
+                  <!-- <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-body-secondary">9 mins</small>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </th:block>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- masonry lib -->
+  <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script></body>
+</body>
+</html>

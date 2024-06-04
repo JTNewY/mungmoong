@@ -23,7 +23,7 @@
                 <p style="text-align: left">아이디: <span th:text="${foundId}">[아이디]</span></p>
                 <p style="text-align: left">아이디를 확인해주세요</p>
             </div>
-            <button class="btn btn-primary w-100" style="background-color: #BAD5F3;">다음</button>
+            <button class="btn btn-primary w-100" style="background-color: #BAD5F3;" onclick="redirectToLogin()">확인</button>
         </div>
     </div>
        
@@ -40,6 +40,12 @@
             }
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
+        }
+    </script>
+
+    <script>
+        function redirectToLogin() {
+            window.location.href = '/users/login';
         }
     </script>
 

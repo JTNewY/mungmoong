@@ -7,7 +7,8 @@
 
     <resultMap type="Users" id="userMap">
         <id property="userId" column="user_id" />
-        
+
+        <result property="userId" column="user_id" />
         <result property="password" column="password" />
         <result property="name" column="name" />
         <result property="birth" column="birth" />
@@ -129,17 +130,23 @@
 
     <!-- 아이디와 이메일로 비밀번호 찾기  -->
 
-    <select id="findPw" resultMap="userMap">
-        SELECT password
-        FROM users
-        WHERE user_id = #{userid} AND mail = #{mail}
+   <select id="findPw" resultMap="userMap">
+    SELECT password
+    FROM users
+    WHERE user_id = #{userId} AND mail = #{mail}
     </select>
 
+  <!-- 비밀번호 업데이트 -->
+        <update id="updatePassword">
+            UPDATE users SET password = #{password} WHERE user_id = #{userId} AND mail = #{mail}
+        </update>
+  
     <!-- 관리자가 권한 업데이트 -->
     <update id="roleUp">
         UPDATE users
            SET role = #{role} <!-- 롤 권한을 변수로 선언해서 넘겨 값을 넘겨 받는다. -->
         WHERE user_id = #{userId}
     </update>
+
 
 </mapper>
