@@ -131,7 +131,7 @@ public class TrainerServiceImpl implements TrainerService {
     public int update(Trainer trainer) throws Exception {
         int result = trainerMapper.update(trainer);
         return result;
-    }
+    } 
 
     @Override
     public List<Trainer> trainerList() throws Exception {
