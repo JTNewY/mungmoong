@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/layouts/trainer_layout}">
-<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+    <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>스케쥴 관리</title>
-
     <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 </head>
-
 <body class="body" layout:fragment="content">
     <div class="container">
         <div class="inner">
@@ -67,12 +65,11 @@
                 <p class="msg">휴무일을 선택해주세요.</p>
             </div>
             <div class="text-end">
-                <button type="button" class="btn-custom2">저장</button>
+                <button type="button" class="btn-custom2" id="save-dates">저장</button>
             </div>
         </div>
     </div>
     <script>
-
         const now = new Date();
         const year = now.getFullYear();
         const month = now.getMonth();
@@ -80,9 +77,7 @@
         let currentYear = year;
         let currentMonth = month; 
 
-        let clickedDateList = new Array()
-
-        
+        let clickedDateList = new Array();
 
         const monthNames = [
             "1월", "2월", "3월", "4월", "5월", "6월",
@@ -107,7 +102,6 @@
         document.getElementById('next-month').addEventListener('click', () => {
             changeMonth(1);
         });
-
 
         function changeMonth(delta) {
             currentMonth += delta;
@@ -147,51 +141,88 @@
                             cell.classList.add('holiday');
                         }
                         cell.addEventListener('click', () => {
-                            // const selectedDate = `${currentYear}년 ${currentMonth + 1}월 ${date}일`;
-                            // document.getElementById('selected-date').innerText = `선택된 날짜: ${selectedDate}`;
-                            // console.log(`날짜 클릭됨: ${selectedDate}`);
+                            // let clickedDay = cell.textContent;
+                            // let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`;
+
+                            // if (cell.classList.contains('clicked')) {
+                            //     cell.classList.remove('clicked');
+                            //     const index = clickedDateList.indexOf(clickedDate);
+                            //     if (index !== -1) {
+                            //         clickedDateList.splice(index, 1);
+                            //     }
+                            // } else {
+                            //     cell.classList.add('clicked');
+                            //     clickedDateList.push(clickedDate);
+                            // }
                         });
                         date++;
                     }
                     row.appendChild(cell);
                 }
-
                 calendarBody.appendChild(row);
             }
         }
 
+        document.getElementById('save-dates').addEventListener('click', () => {
+            let csrfToken = "[[${_csrf.token}]]";
+            let url = "/trainer/schedule";         // 요청 경로      //   /replys
+            
+            $.ajax({
+                type: 'POST',                                       // 요청 메소드 - GET, POST, PUT, DELETE
+                url: url,                                           // 요청 URL
+                data: JSON.stringify({ dates: clickedDateList }),   // 요청 데이터
+                contentType: 'application/json',                    // 요청 데이터 타입
+                dataType: 'html',                                   // 응답 데이터 타입
+                beforeSend: function(xhr) {
+                    // 💍 CSRF 토큰을 요청 헤더에 추가
+                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                },
+                // 요청 성공 
+                success: function(response, status) {
+                    // response : 응답 데이터
+                    // status   : 응답 상태
+                    let result = JSON.parse(response);
+                    // 추가 작업...
+                    alert('날짜가 저장되었습니다.');
+                },
+                // 에러
+                error: function(xhr, status) {
+                    // xhr      : XMLHttpRequest 객체
+                    // status   : 응답 상태
+                    alert('에러 발생');
+                }
+            });
+        });
+
         updateCalendar();
 
         document.addEventListener("DOMContentLoaded", function() {
-            let $dateButtons = document.getElementsByClassName('clickable')
-            
+            let $dateButtons = document.getElementsByClassName('clickable');
+
             for (let i = 0; i < $dateButtons.length; i++) {
                 const btn = $dateButtons[i];
                 // 날짜 클릭 이벤트
                 btn.addEventListener('click', () => {
-                    let clickedDay = btn.textContent
-                    let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`
+                    let clickedDay = btn.textContent;
+                    let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`;
 
                     if( btn.classList.contains('clicked') ) {
-                        btn.classList.remove('clicked')
+                        btn.classList.remove('clicked');
                         // 선택한 날짜 배열에서 제거
                         // clickedDateList.remove(clickedDate)
                         const index = clickedDateList.indexOf(clickedDate);
                         if (index !== -1) {
                             clickedDateList.splice(index, 1);
                         }
-                    }
-                    else {
-                        btn.classList.add('clicked')
+                    } else {
+                        btn.classList.add('clicked');
                         // 선택한 날짜 배열에 추가
-                        clickedDateList.push(clickedDate)
+                        clickedDateList.push(clickedDate);
                     }
                     alert(clickedDateList)
                 });
             }
-            
-        })
+        });
     </script>
 </body>
-
 </html>
