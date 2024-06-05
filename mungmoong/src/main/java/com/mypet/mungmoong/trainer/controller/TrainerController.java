@@ -87,7 +87,8 @@ public class TrainerController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/info_insert")
+    // 현재 info_insert 페이지 ❌ -> info (조회만 하는 페이지로 변경)
+    @GetMapping("/info")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
         List<Career> careerList = careerService.select(userId);
@@ -95,7 +96,7 @@ public class TrainerController {
         model.addAttribute("trainer", trainer);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);
-        return "/trainer/info_insert";
+        return "/trainer/info";
     }
 
     @PostMapping("/join_data")
