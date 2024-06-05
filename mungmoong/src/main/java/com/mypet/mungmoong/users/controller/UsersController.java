@@ -16,9 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.pet.dto.Pet;
+import com.mypet.mungmoong.users.dto.CustomUser;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.EmailService;
 import com.mypet.mungmoong.users.service.UsersService;
@@ -52,7 +54,7 @@ public class UsersController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    
+
 
 
     @GetMapping("/{page}")
