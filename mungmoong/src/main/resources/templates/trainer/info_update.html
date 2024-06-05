@@ -46,8 +46,7 @@
                             <td>경력</td>
                             <td id="career">
                                 <th:block th:each="career : ${careerList}">
-                                    <input type="hidden" name="careerNos
-                                    " th:value="${career.no}">
+                                    <input type="hidden" name="careerNos" th:value="${career.no}">
                                     <input type="text" class="form-control mb-1" th:value="${career.name}" name="careerNames">
                                 </th:block>
                             </td>

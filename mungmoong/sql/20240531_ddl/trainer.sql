@@ -1,3 +1,4 @@
+-- Active: 1715069578448@@127.0.0.1@3306@mypet
 TRUNCATE trainer;
 
 
@@ -141,3 +142,15 @@ VALUES ('t', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', 'ì‚
 INSERT INTO user_auth ( user_id,  auth ) VALUES ( 't', 'ROLE_USER' );
 INSERT INTO user_auth ( user_id,  auth ) VALUES ( 't', 'ROLE_TRAINER' );
 
+
+INSERT INTO career (user_id, trainer_no, name, reg_date, upd_date) VALUES 
+('user', 6, 'Trainer', '2023-03-18 21:44:46', '2024-01-27 20:13:25'),
+('user', 6, 'Advisor', '2021-08-28 08:33:39', '2023-04-05 14:44:46'),
+('user', 6, 'Advisor', '2021-04-26 00:07:25', '2024-05-10 14:32:11'),
+('user', 6, 'Consultant', '2021-08-19 03:47:57', '2023-02-23 05:25:48'),
+('user', 6, 'Consultant', '2021-05-06 11:06:28', '2024-02-20 16:51:28'),
+('user', 6, 'Advisor', '2023-06-01 21:28:07', '2024-05-29 17:15:44'),
+('user', 6, 'Advisor', '2024-04-13 09:19:45', '2024-05-26 23:07:20'),
+('user', 6, 'Coach', '2024-01-07 08:31:41', '2024-06-04 12:22:26'),
+('user', 6, 'Consultant', '2024-01-18 02:47:09', '2024-04-09 23:47:34'),
+('user', 6, 'Coach', '2020-11-13 21:05:50', '2022-05-14 02:08:57');
