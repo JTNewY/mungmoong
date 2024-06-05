@@ -90,6 +90,8 @@ public class UsersController {
         return "users/index"; // mypets.html 템플릿을 반환합니다.
     }
 
+    
+
     @PostMapping("/register")
     public String registerUser(Users user, Pet pet, String userId) throws Exception {
        user.setUserId(userId);

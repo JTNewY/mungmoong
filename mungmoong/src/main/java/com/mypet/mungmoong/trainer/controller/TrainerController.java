@@ -117,6 +117,7 @@ public class TrainerController {
 
             trainer.setCareerList(trainer.toCareerList());
             trainer.setCertificateList(trainer.toCertificateList());
+            log.info("trainer 로그조회 : " + trainer);
 
             log.debug("Trainer data: {}", trainer);
             int result = trainerService.insert(trainer);
