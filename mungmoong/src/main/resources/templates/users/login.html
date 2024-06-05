@@ -18,7 +18,7 @@
     <div class="login-wrapper">
         <img src="/img/logo.png" alt="댕댕이" style="width: 80%;">
         <form id="user" class="login-form" action="/login" method="post">
-           <!-- CSRF TOKEN -->
+            <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="text" placeholder="사용자 아이디" name="userId" value="user" id="userId" th:value="${userValue}">
             <input type="password" placeholder="비밀번호" name="password">
@@ -32,9 +32,9 @@
                     <input type="checkbox" id="remember-id" name="remember-id" th:checked="${rememberId}">
                     아이디 저장
                 </label>
-           <h1> &nbsp;&nbsp;&nbsp;</h1>
+                <h1> &nbsp;&nbsp;&nbsp;</h1>
                 <label for="remember-me">
-                    <input type="checkbox" id="remember-me" name="remember-me" >
+                    <input type="checkbox" id="remember-me" name="remember-me">
                     로그인 상태 유지 
                 </label>
             </div>
@@ -47,24 +47,17 @@
         <div class="social-login">
             <h3>소셜로그인</h3>
             <button class="naver">
-                <img src="/img/naver.svg" style="width: 30px;">  네이버로 로그인하기</button>
+                <a href="/oauth2/authorization/naver" style="color: white; text-decoration: none;">
+                    <img src="/img/naver.svg" style="width: 30px;"> 네이버로 로그인하기
+                </a>
+            </button>
             <button class="kakao">
-                <a href="/oauth2/authorization/kakao">
-                <img src="/img/kakao.png" style="width: 30px;">  카카오로 로그인하기
-            </a>
+                <a href="/oauth2/authorization/kakao" style="color: black; text-decoration: none;">
+                    <img src="/img/kakao.png" style="width: 30px;"> 카카오로 로그인하기
+                </a>
             </button>
         </div>
     </div>
-    
-    <script th:inline="none">
-        function showForm(formId) {
-            document.querySelectorAll('.login-form').forEach(form => form.style.display = 'none');
-            document.getElementById(formId).style.display = 'block';
-            document.querySelectorAll('.tabs button').forEach(button => button.classList.remove('active'));
-            document.querySelector(`.tabs button[onclick="showForm('${formId}')"]`).classList.add('active');
-        }
-    </script>
-    
     <br>
 </body>
 </html>

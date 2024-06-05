@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import com.mypet.mungmoong.users.dto.SocialUserResponse;
 import com.mypet.mungmoong.users.dto.UserAuth;
+import com.mypet.mungmoong.users.dto.UserJoinRequest;
 import com.mypet.mungmoong.users.dto.UserSocial;
 import com.mypet.mungmoong.users.dto.Users;
 
@@ -61,6 +63,6 @@ public interface UsersMapper {
 
     // 소셜 정보로 회원 조회
     public Users selectBySocial(UserSocial userSocial) throws Exception;
-
+    
 
 }
