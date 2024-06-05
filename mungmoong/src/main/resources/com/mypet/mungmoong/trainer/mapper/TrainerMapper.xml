@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="content" column="content"/>
         <result property="regDate" column="reg_date"/>
         <result property="updDate" column="upd_date"/>
+        
         <collection property="careers" column="no"
                     select="com.mypet.mungmoong.trainer.mapper.CareerMapper.selectByTrainerId"/>
         <collection property="certificates" column="no"

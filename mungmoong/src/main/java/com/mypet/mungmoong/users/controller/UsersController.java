@@ -2,6 +2,7 @@ package com.mypet.mungmoong.users.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +44,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.CustomUser;
+import com.mypet.mungmoong.users.dto.LoginResponse;
+import com.mypet.mungmoong.users.dto.SocialLoginRequest;
+import com.mypet.mungmoong.users.dto.SocialUserResponse;
+import com.mypet.mungmoong.users.dto.UserJoinRequest;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.EmailService;
 import com.mypet.mungmoong.users.service.LoginService;
@@ -63,6 +74,11 @@ public class UsersController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private OAuth2AuthorizedClientService authorizedClientService ;
+
+
 
 
     @GetMapping("/{page}")
@@ -275,37 +291,31 @@ public class UsersController {
         }
     }
    // ################################# 네이버 로그인 ##################################################
-     @GetMapping("/naver-login")
-    public void naverLogin(HttpServletRequest request, HttpServletResponse response) throws MalformedURLException, UnsupportedEncodingException, URISyntaxException {
-        String url = loginService.getNaverAuthorizeUrl("authorize");
-        try {
-            response.sendRedirect(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+  
+   @GetMapping("/naver-login")
+   public String naverLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authentication) throws Exception {
+       if (authentication == null) {
+           throw new IllegalArgumentException("Authentication information is missing");
+       }
 
-    // @GetMapping("/oauth/login")
-    // public void callBack(HttpServletRequest request, HttpServletResponse response, NaverCallback callback) throws MalformedURLException, UnsupportedEncodingException, URISyntaxException, JsonProcessingException {
+       String registrationId = authentication.getAuthorizedClientRegistrationId();
+       OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
+               registrationId, authentication.getName());
 
-    //     if (callback.getError() != null) {
-    //         System.out.println(callback.getError_description());
-    //     }
+       if (authorizedClient != null) {
+           String accessToken = authorizedClient.getAccessToken().getTokenValue();
 
-    //     String responseToken = loginService.getNaverTokenUrl("token", callback);
+           // Naver API를 통해 사용자 정보 가져오기
+           SocialUserResponse userInfo = userService.getUserInfo(accessToken);
 
-    //     ObjectMapper mapper = new ObjectMapper();
-    //     NaverToken token = mapper.readValue(responseToken, NaverToken.class);
-    //     String responseUser = loginService.getNaverUserByToken(token);
-    //     NaverRes naverUser = mapper.readValue(responseUser, NaverRes.class);
+           // 사용자 정보 로그 출력
+          // log.info("User Info: {}", userInfo);
 
-    //     System.out.println("naverUser.toString() : " + naverUser.toString());
-    //     System.out.println("naverUser.getResonse().getGender() : " + naverUser.getResponse().getGender());
-    //     System.out.println("naverUser.getResonse().getBirthyear() : " + naverUser.getResponse().getBirthyear());
-    //     System.out.println("naverUser.getResonse().getAge() : " + naverUser.getResponse().getAge());
+           // 사용자 정보 처리 로직 추가 (예: DB 저장)
+           userService.joinUser(new UserJoinRequest(userInfo.getUserId(), userInfo.getMail(), userInfo.getName()));
+       }
 
-    // }
-
-    
+       return "redirect:/";
+   }
 
 } // 끝

@@ -38,4 +38,14 @@ public class Users {
 
     private Pet pet;
 
+    public Users() {
+    
+    }
+
+    public Users(String userId, String mail, String name) {
+        this.userId = userId;
+        this.mail = mail;
+        this.name = name;
+    }
+
 }
