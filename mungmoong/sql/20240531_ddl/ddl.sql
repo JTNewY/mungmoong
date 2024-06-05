@@ -1,5 +1,5 @@
 
--- Active: 1714104693276@@127.0.0.1@3306@mypet
+-- Active: 1716856468698@@127.0.0.1@3306@mypet
 
 DROP TABLE pet;
 -- 반려견 테이블
@@ -79,6 +79,7 @@ ALTER TABLE certificate
 ADD CONSTRAINT fk_certificate_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
 
 -- 스케줄 테이블
+DROP TABLE IF EXISTS schedule;
 TRUNCATE TABLE EXISTS schedule;
 CREATE TABLE `schedule` (
 	`no`			INT		NOT NULL	AUTO_INCREMENT PRIMARY KEY, -- 스케쥴 번호
@@ -216,6 +217,19 @@ CREATE TABLE qna (
     `userId` VARCHAR(100) NOT NULL,
     `qnaType` INT NULL
 );
+
+DROP TABLE board;
+
+CREATE TABLE `board` (
+  `board_no` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `content` varchar(1000) DEFAULT NULL,
+  `file_name` varchar(100) DEFAULT NULL,
+  `reg_date` timestamp NOT NULL,
+  `upd_date` timestamp NULL DEFAULT NULL,
+  `user_id` varchar(100) NOT NULL,
+  `board_type` int DEFAULT NULL;
+--   PRIMARY KEY (`board_no`);
 
 
 

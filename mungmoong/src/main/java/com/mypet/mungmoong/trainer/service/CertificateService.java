@@ -13,6 +13,7 @@ public interface CertificateService {
     public int insert(Certificate certificate) throws Exception;
     // 자격증 수정
     public int update(Certificate certificate) throws Exception;
-
+    // 자격증 삭제 - no 와, ImgFile 안에 no(fileNo) 를 가져와야함
+    public int delete(Certificate certificate) throws Exception;
     
 }

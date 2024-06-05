@@ -26,7 +26,6 @@
 
     </resultMap>
 
-        
     <resultMap type="UserAuth" id="authMap">
         <result property="authNo" column="auth_no" />
         <result property="userId" column="user_id" />
@@ -36,7 +35,6 @@
     <resultMap type="Pet" id="petMap">
         <result property="petNo" column="pet_no" />
     </resultMap>
-
 
     <select id="list" resultMap="userMap">
         SELECT *
@@ -64,36 +62,32 @@
      WHERE u.user_id = #{userId}
     </select>
 
-
     <!-- 회원 조회 - id -->
     <select id="select" resultMap="userMap">
-        SELECT u.user_id
-              ,u.password
-              ,u.name
-              ,u.birth
-              ,u.address
-              ,u.mail
-              ,u.phone
-              ,u.gender
-              ,u.reg_date
-              ,u.upd_date
-              ,u.enabled
-              ,u.role
-              ,auth
-              ,pet_no
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_id = auth.user_id
-        LEFT JOIN pet p ON p.user_id=u.user_id
-        WHERE u.user_id = #{userId}
+        SELECT user_id
+              ,password
+              ,name
+              ,birth
+              ,address
+              ,mail
+              ,phone
+              ,gender
+              ,reg_date
+              ,upd_date
+              ,enabled
+              ,role
+        FROM users
+        WHERE user_id = #{userId} 
     </select>   
 
     <!-- 회원 가입 -->
-    <insert id="join"  >
+    <insert id="join">
         INSERT INTO users ( user_id, password, name, birth, address, mail,phone, enabled ,gender,reg_date,upd_date,role)
         VALUES ( #{userId}, #{password}, #{name}, #{birth}, #{address}, #{mail}, #{phone}, 1, #{gender},now(),now(),0)
     </insert>
 
     <!-- 회원 정보 수정 -->
-    <update id="update" >
+    <update id="update">
         UPDATE users
         SET password = #{password},
             name = #{name},
@@ -128,25 +122,72 @@
         WHERE name = #{name} AND mail = #{mail}
     </select>
 
-    <!-- 아이디와 이메일로 비밀번호 찾기  -->
-
-   <select id="findPw" resultMap="userMap">
-    SELECT password
-    FROM users
-    WHERE user_id = #{userId} AND mail = #{mail}
+    <!-- 아이디와 이메일로 비밀번호 찾기 -->
+    <select id="findPw" resultMap="userMap">
+        SELECT password
+        FROM users
+        WHERE user_id = #{userId} AND mail = #{mail}
     </select>
 
-  <!-- 비밀번호 업데이트 -->
-        <update id="updatePassword">
-            UPDATE users SET password = #{password} WHERE user_id = #{userId} AND mail = #{mail}
-        </update>
+    <!-- 비밀번호 업데이트 -->
+    <update id="updatePassword">
+        UPDATE users SET password = #{password} WHERE user_id = #{userId} AND mail = #{mail}
+    </update>
   
     <!-- 관리자가 권한 업데이트 -->
     <update id="roleUp">
         UPDATE users
-           SET role = #{role} <!-- 롤 권한을 변수로 선언해서 넘겨 값을 넘겨 받는다. -->
+        SET role = #{role} <!-- 롤 권한을 변수로 선언해서 넘겨 값을 넘겨 받는다. -->
         WHERE user_id = #{userId}
     </update>
+
+  <!-- 소셜 회원 가입 -->
+    <insert id="insertSocial">
+        INSERT INTO user_social (id, user_id, social_platform, social_id, name, mail, picture, linked_date, updated_date)
+        VALUES (UUID(), #{userId}, #{socialPlatform}, #{socialId}, #{name}, #{mail}, #{picture}, NOW(), NOW())
+    </insert>
+
+    <!-- 소셜 회원 조회 -->
+    <select id="selectSocial" resultType="com.mypet.mungmoong.users.dto.UserSocial">
+        SELECT * 
+        FROM user_social
+        WHERE social_platform = #{socialPlatform} 
+        AND social_id = #{socialId}
+    </select>
+
+    <!-- 소셜 회원 수정 -->
+    <update id="updateSocial">
+        UPDATE user_social
+           SET user_id = #{userId},
+               social_platform = #{socialPlatform},
+               social_id = #{socialId},
+               name = #{name},
+               mail = #{mail},
+               picture = #{picture},
+               updated_date = NOW()
+        WHERE social_platform = #{socialPlatform} 
+        AND social_id = #{socialId}
+    </update>
+
+    <!-- 소셜정보로 회원 조회 -->
+    <select id="selectBySocial" resultMap="userMap">
+        SELECT u.user_id,
+               u.password,
+               u.name,
+               u.mail,
+               u.enabled,
+               u.reg_date,
+               u.upd_date,
+               a.auth
+        FROM users u 
+        LEFT JOIN user_auth a ON u.user_id = a.user_id
+        WHERE u.user_id = (
+            SELECT user_id
+            FROM user_social
+            WHERE social_platform = #{socialPlatform} 
+            AND social_id = #{socialId}
+        )
+    </select>
 
 
 </mapper>

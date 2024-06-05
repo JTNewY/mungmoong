@@ -27,14 +27,14 @@
             <form class="validation-form" novalidate>
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="name">예약자</label>
-                  <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                  <label for="name" >예약자</label>
+                  <input type="text" class="form-control" id="name" th:value="${session.user.name}" placeholder="" value="" required>
                   <div class="invalid-feedback">
                     이름을 입력해주세요.
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="nickname">훈련사명</label>
+                  <label for="nickname" >훈련사명</label>
                   <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
                   <div class="invalid-feedback">
                     훈련사를 입력해주세요.

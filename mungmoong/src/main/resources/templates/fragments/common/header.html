@@ -27,7 +27,7 @@
             </div>
             <nav id="nav">
                 <a href="/introduce">소개</a>
-                <a href="/trainer">훈련사</a>
+                <a href="/trainermain/list">훈련사</a>
                 <a href="/QnA/list">문의</a>
                 <a href="/board/list">공지사항</a>
             </nav>
@@ -46,13 +46,13 @@
                         <a href="javascript:;" class="btn btn-outline-success mx-1 same-style-btn" onclick="trainerConfirm()">훈련사 승인중</a>
                     </th:block>
                     <th:block th:if="${session.user.role == 2}">
-                        <a th:href="|/trainer/info?userId=${session.user.userId}|" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
+                        <a th:href="|/trainer/info_insert?userId=${session.user.userId}|" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
                     </th:block>
                     <th:block th:if="${session.user.role == 3}">
                         <a href="/admin/admin_info" class="btn btn-outline-success mx-1 same-style-btn">관리자</a>
                     </th:block>
                     <!-- <th:block sec:authorize="hasRole('ROLE_TRAINER')">
-                        <a href="/trainer/info" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
+                        <a href="/trainer/info_insert" class="btn btn-outline-success mx-1 same-style-btn">훈련사</a>
                     </th:block> -->
                     <a href="/users/index" class="btn btn-outline-secondary mx-1 same-style-btn">마이페이지</a>
                     <form action="/logout" method="post" class="d-inline">

@@ -3,8 +3,6 @@ package com.mypet.mungmoong.trainer.dto;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
 
 @Data
@@ -17,4 +15,4 @@ public class Career {
     private int trainerNo;         // Trainer 번호
 
     private List<Files> files;     // 파일 리스트 (자격증 사진 등)
-}
+} 

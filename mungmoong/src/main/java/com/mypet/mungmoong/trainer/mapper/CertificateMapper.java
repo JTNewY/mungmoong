@@ -16,6 +16,8 @@ public interface CertificateMapper {
     public int insert(Certificate certificate) throws Exception;
     // 자격증 수정
     public int update(Certificate certificate) throws Exception;
+    // 자격증 삭제
+    public int delete(int no) throws Exception;
     
     // 자격증 번호(기본키) 최댓값        
     public int maxPk() throws Exception;

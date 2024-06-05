@@ -17,7 +17,8 @@
 </style>
 
 <body layout:fragment="content">
-  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+  <a href="/trainermain/list">훈련사 게시판가기</a>
   <!--모달start-->
   <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
     tabindex="-1">
@@ -114,7 +115,6 @@
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <h3 style="font-family: 'Jua';">경력자격증</h3>
-            <a href="/trainermain/list">훈련사 게시판가기</a>
             <div class="container px-4 text-center row" style="padding: 0;">
               <div class="col col-md-3">
                 <div class="p-3">
@@ -816,6 +816,7 @@
       <!--end-->
     </div>
   </div>
+
   <!-- <script src="https://code.jquery.com/jquery-3.2.1.js"></script> -->
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>

@@ -55,7 +55,7 @@ public class ReserveController {
     }
     @GetMapping("/insert")
     public String insert(Model model
-                        ,@RequestParam("date") String date
+                        ,@RequestParam("date_no") String date
                         ,@RequestParam("trainerId") String trainerId) throws Exception {
         log.info("date : " + date);
         log.info("trainerId : " + trainerId);

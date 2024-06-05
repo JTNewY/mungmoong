@@ -22,8 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO board( board_no,title, user_id, content)
-        VALUES ( #{boardNo}, #{title}, #{userId}, #{content})
+        INSERT INTO board( board_no,title, user_id, content, reg_date)
+        VALUES ( #{boardNo}, #{title}, #{userId}, #{content}, now())
     </insert>
 
     <!-- 게시글 수정 -->
@@ -31,6 +31,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         UPDATE board
            SET title = #{title}
               ,user_id = #{userId}
+              ,content = #{content}
+              ,upd_date = now()     
+        WHERE board_no = #{boardNo}
+    </update>
+
+    <update id="boardUpdate">
+        UPDATE board
+           SET title = #{title}
+              <!-- ,user_id = #{userId} -->
               ,content = #{content}
               ,upd_date = now()     
         WHERE board_no = #{boardNo}

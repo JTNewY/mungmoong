@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/layouts/admin_layout}">
+    layout:decorate="~{/layouts/board_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 등록</title>
 </head>
+
 <body layout:fragment="content">
+    <div class="container">
+    <div class="inner">
     <h1>게시글 등록</h1>
 
     <form action="/board/insert" method="post">
-        <table border="1">
-            <tr>
-                <td>제목</td>
-                <td>
-                    <input type="text" name="title" id="title">
-                </td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td>
-                    <input type="text" name="writer" id="writer">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea name="content" id="content" cols="40" rows="5"></textarea>
-                </td>
-            </tr>
-        </table>
-        <input type="submit" value="등록">
-    </form>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <table>
+                <tr>
+                    <td class="titarea">제목</td>
+                    <td>
+                        <input class="inputArea" type="text" name="title" id="title">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titarea">작성자</td>
+                    <td>
+                        <input class="inputArea" type="text" name="writer" id="writer" th:value="${session.user != null ? session.user.userId : 'person'}" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <textarea name="content" id="content" cols="40" rows="5"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <input class="insertBtn" type="submit" value="등록">
+        </form>
+    </div>
+</div>
 </body>
+
 </html>

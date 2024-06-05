@@ -1,5 +1,6 @@
 package com.mypet.mungmoong.trainer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -86,7 +87,7 @@ public class TrainerController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/info")
+    @GetMapping("/info_insert")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
         List<Career> careerList = careerService.select(userId);
@@ -94,7 +95,7 @@ public class TrainerController {
         model.addAttribute("trainer", trainer);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);
-        return "/trainer/info";
+        return "/trainer/info_insert";
     }
 
     @PostMapping("/join_data")
@@ -105,21 +106,18 @@ public class TrainerController {
             if (user == null) {
                 return "redirect:/login";
             }
-
             
             trainer.setUserId(user.getUserId());
 
-            Users dbUser = usersService.select(user.getUserId());
-
-            if (dbUser == null) {
-                throw new Exception("User not found");
-            }
+            // Users dbUser = usersService.select(user.getUserId());
+            // if (dbUser == null) {
+            //     throw new Exception("User not found");
+            // }
 
             trainer.setCareerList(trainer.toCareerList());
             trainer.setCertificateList(trainer.toCertificateList());
             log.info("trainer 로그조회 : " + trainer);
 
-            log.debug("Trainer data: {}", trainer);
             int result = trainerService.insert(trainer);
 
             if (result > 0) {
@@ -130,7 +128,7 @@ public class TrainerController {
             model.addAttribute("errorMessage", "Error occurred while processing trainer data: " + e.getMessage());
         }
 
-        return "redirect:/trainer/board/insert?error";
+        return "redirect:/trainer/join_data?error";
     }
 
 
@@ -138,32 +136,88 @@ public class TrainerController {
      * 훈련사 수정 화면
      */
     @GetMapping("/info_update")
-    public String update(@RequestParam("userId") String userId, Model model, Files file) throws Exception {
+    public String update(@RequestParam("userId") String userId, Model model, Files file, HttpSession session) throws Exception {
         Trainer trainer = trainerService.select(userId);
+        List<Career> careerList = careerService.select(userId);  // select -> listByUserId
+        List<Certificate> certificateList = certificateService.listByUserId(userId);
+        List<Files> fileList = fileService.listByParent(file);
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if(trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+        }
 
+        log.info("--------------------------------------------------------------");
+        log.info(careerList.toString());
+        
         file.setParentTable("trainer");
         file.setParentTable("certificate");
-        List<Files> fileList = fileService.listByParent(file);
-
+        
         model.addAttribute("trainer", trainer);
+        model.addAttribute("trainerNo", trainerNo);
+        model.addAttribute("careerList", careerList);
+        model.addAttribute("certificateList", certificateList);
         model.addAttribute("fileList", fileList);
 
         return "/trainer/info_update";
     }
 
 
+    /**
+     * 훈련사 수정 처리
+     * @param trainer
+     * @param session
+     * @param model
+     * @throws Exception
+     */
     @PostMapping("/info_update")
-    public String updatePro(Trainer trainer) throws Exception {
-        int result = trainerService.update(trainer);
-        if(result > 0) {
-            return "redirect:/trainer/info_update?userId =" + trainer.getUserId();
+    public String updatePro(Trainer trainer, HttpSession session) throws Exception {
+        List<Career> careerList = trainer.toCareerList();
+
+        log.info("--------------------------------");
+        log.info(careerList.toString());
+        log.info("트레이너 번호가 뭘까요 : " + trainer.getNo());
+
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if(trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error=session";
+        }
+        log.info("세션에서 가져온 트레이너 번호 : " + trainerNo);
+
+        for (Career career : careerList) {
+            career.setTrainerNo(trainerNo);
+            log.info("trainerNo : " + trainerNo);
+
+            int result = 0;
+            if(career.getNo() > 0) {
+                result = careerService.update(career);
+                log.info("수정했다!!");
+            } else {
+                career.setTrainerNo(trainerNo);
+                result = careerService.insert(career);
+                log.info("등록했다");
+            }
+
+            if(result > 0) {
+                log.info("성공했다");
+            } else {
+                log.info(career.toString());
+                log.info("망했다");
+            }
         }
 
-        String userId = trainer.getUserId();
-        return "redirect:/trainer/info_update?userId=" + userId + "&error";
-    }
-    
+        int result = trainerService.update(trainer);
 
+        log.debug("Trainer data : {}", trainer);
+
+        if(result > 0) {
+            return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
+        }
+        return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
+    }
+
+    
+    // [은아] - 나는 이거 안 씀
     @PostMapping("/delete")
     public String delete(@RequestParam("no") int no) throws Exception {
         // 글 삭제 요청

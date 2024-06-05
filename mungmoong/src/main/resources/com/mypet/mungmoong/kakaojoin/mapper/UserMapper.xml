@@ -7,7 +7,7 @@
 
     <resultMap type="Users" id="userMap">
         <id property="id" column="id" />
-        
+
         <result property="id" column="id" />
         <result property="username" column="username" />
         <result property="password" column="password" />
@@ -15,12 +15,12 @@
         <result property="email" column="email" />
         <result property="profile" column="profile" />
         <result property="enabled" column="enabled" />
-        <result property="createdAt" column="created_at" />
+<result property="createdAt" column="created_at" />
         <result property="updatedAt" column="updated_at" />
         
         <collection property="authList" resultMap="authMap"></collection>
-    </resultMap>
-        
+            </resultMap>
+
     <resultMap type="UserAuth" id="authMap">
         <result property="id" column="id" />
         <result property="username" column="username" />
@@ -29,7 +29,7 @@
 
     <!-- 로그인 - username -->
     <select id="login" resultMap="userMap">
-        SELECT u.id
+         SELECT u.id
               ,u.username
               ,password
               ,name
@@ -39,8 +39,8 @@
               ,created_at
               ,updated_at
               ,auth
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.name = auth.username
-        WHERE u.username = #{username}
+     FROM users u LEFT OUTER JOIN user_auth auth ON u.name = auth.username 
+     WHERE u.username = #{username}
     </select>
 
 
@@ -57,8 +57,8 @@
               ,updated_at
               ,auth
         FROM user u LEFT OUTER JOIN user_auth auth ON u.username = auth.username
-        WHERE u.id = #{id}
-    </select>
+        WHERE u.id = #{id} 
+    </select>   
 
     <!-- 회원 가입 -->
     <insert id="join">
@@ -91,13 +91,13 @@
 
     <!-- 소셜 회원 조회 -->
     <select id="selectSocial" resultType="UserSocial">
-        SELECT * 
+        SELECT *
         FROM user_social
         WHERE provider = #{provider} 
         AND social_id = #{socialId}
     </select>
 
-
+    
     <!-- 소셜 회원 수정 -->
     <update id="updateSocial">
         UPDATE user_social
@@ -111,7 +111,7 @@
         WHERE provider = #{provider} 
         AND user_id = #{userId}
     </update>
-
+  
     <!-- 소셜정보로 회원 조회 -->
     <select id="selectBySocial" resultMap="userMap">
         SELECT u.id

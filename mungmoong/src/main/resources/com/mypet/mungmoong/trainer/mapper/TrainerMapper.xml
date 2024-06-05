@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="content" column="content"/>
         <result property="regDate" column="reg_date"/>
         <result property="updDate" column="upd_date"/>
+        
         <collection property="careers" column="no"
                     select="com.mypet.mungmoong.trainer.mapper.CareerMapper.selectByTrainerId"/>
         <collection property="certificates" column="no"
@@ -44,14 +45,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES (#{userId}, #{name}, #{gender}, #{birth}, #{mail}, #{phone}, 
                 #{address}, #{content}, now(), now())
     </insert>
+    
     <!-- 훈련사 수정 -->
     <update id="update">
         UPDATE trainer
-           SET title = #{title}
-              ,writer = #{writer}
-              ,content = #{content}
-              ,upd_date = now()
-        WHERE no = #{no}
+        SET content = #{content}
+            ,upd_date = now()
+        WHERE user_id = #{userId}
+
     </update>
 
     <!-- 훈련사 삭제 -->
@@ -64,6 +65,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="maxPk" resultType="int">
         SELECT MAX(no)
         FROM trainer
+    </select>
+
+    <!-- 훈련사 번호 조회 -->
+    <select id="selectTrainerNo" resultType="int">
+        SELECT DISTINCT t.no
+        FROM trainer t, career c
+        WHERE t.no = c.trainer_no
     </select>
 
     <!-- 데이터 개수 조회 - [검색] -->
