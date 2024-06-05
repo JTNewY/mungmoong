@@ -86,7 +86,7 @@ public class TrainerController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/info")
+    @GetMapping("/info_insert")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
         List<Career> careerList = careerService.select(userId);
@@ -94,7 +94,7 @@ public class TrainerController {
         model.addAttribute("trainer", trainer);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);
-        return "/trainer/info";
+        return "/trainer/info_insert";
     }
 
     @PostMapping("/join_data")
@@ -105,20 +105,17 @@ public class TrainerController {
             if (user == null) {
                 return "redirect:/login";
             }
-
             
             trainer.setUserId(user.getUserId());
 
-            Users dbUser = usersService.select(user.getUserId());
-
-            if (dbUser == null) {
-                throw new Exception("User not found");
-            }
+            // Users dbUser = usersService.select(user.getUserId());
+            // if (dbUser == null) {
+            //     throw new Exception("User not found");
+            // }
 
             trainer.setCareerList(trainer.toCareerList());
             trainer.setCertificateList(trainer.toCertificateList());
 
-            log.debug("Trainer data: {}", trainer);
             int result = trainerService.insert(trainer);
 
             if (result > 0) {
@@ -129,7 +126,7 @@ public class TrainerController {
             model.addAttribute("errorMessage", "Error occurred while processing trainer data: " + e.getMessage());
         }
 
-        return "redirect:/trainer/board/insert?error";
+        return "redirect:/trainer/join_data?error";
     }
 
 
@@ -155,18 +152,41 @@ public class TrainerController {
     }
 
 
+    /**
+     * 훈련사 수정 처리
+     * @param trainer
+     * @param session
+     * @param model
+     * @throws Exception
+     */
     @PostMapping("/info_update")
     public String updatePro(Trainer trainer) throws Exception {
-        int result = trainerService.update(trainer);
-        if(result > 0) {
-            return "redirect:/trainer/info_update?userId =" + trainer.getUserId();
+        List<Career> careerList = trainer.toCareerList();
+
+        for (Career career : careerList) {
+            int result = careerService.update(career);
+
+            if(result>0) log.info("수정했다!!");
+            else{
+                log.info(career.toString());
+                log.info("수정못햇따");
+            }
+            
         }
 
-        String userId = trainer.getUserId();
-        return "redirect:/trainer/info_update?userId=" + userId + "&error";
-    }
+        
+        int result = trainerService.update(trainer);
     
+        log.debug("Trainer data : {}", trainer);
+        
+        if(result > 0) {
+            return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
+        }
+        return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
+    }
 
+    
+    // [은아] - 나는 이거 안 씀
     @PostMapping("/delete")
     public String delete(@RequestParam("no") int no) throws Exception {
         // 글 삭제 요청

@@ -98,39 +98,13 @@ public class TrainerMainController {
         optionList.add(new Option("작성자", 4));
         model.addAttribute("optionList", optionList);
 
-        // 뷰 페이지 지정
-        return "/trainermain/list";       // resources/templates/board/list.html
+        return "/trainermain/trainer";
     }
-    
-    /**
-     * 게시글 조회 화면
-     * - /board/read?no=💎
-     * @param no
-     * @return
-     * @throws Exception 
-     */
-    // @RequestParam("파라미터명") 
-    // - 스프링 부트 3.2버전 이하, 생략해도 자동 매핑된다.
-    // - 스프링 부트 3.2버전 이상, 필수로 명시해야 매핑된다.
-    @GetMapping("/read")
-    public String read(@RequestParam("boardId") int no
-                      , Model model
-                      , Files file) throws Exception {
-        // 데이터 요청
-        Board board = boardService.select(no);
+    @GetMapping("/list")
+    public String list(Model model) throws Exception {
+        List<Trainer> trainerList = trainerService.trainerList();
 
-
-        // 파일 목록 요청
-        file.setParentTable("board");
-        file.setParentNo(no);
-        List<Files> fileList = fileService.listByParent(file);
-
-        // 모델 등록
-        model.addAttribute("board", board);
-        model.addAttribute("fileList", fileList);
-        
-        // 뷰페이지 지정
-        return "/trainermain/read";
+        return "/trainermain/list";
     }
     
     /**

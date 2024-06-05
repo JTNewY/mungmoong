@@ -1,3 +1,4 @@
+-- Active: 1714104693276@@127.0.0.1@3306@mypet
 DROP TABLE users;
 DROP TABLE trainer;
 

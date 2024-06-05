@@ -31,10 +31,65 @@ a {
 
 /* ---------------------------------------------------------- */
 
+/* 보드 insert화면 시작 */
+
+table tr {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+table tr td.titarea{
+    text-align: center;
+}
+
 .inputArea{
-    border: none !important;
-    background-color: gray;
-} 
+    width: 100%;
+    margin : 10px 0 !important;
+    border-radius: 10px;
+    border: none;
+    background-color: white !important;
+    border: 3px solid #F6C542 !important;
+}
+
+table tr td textarea {
+    width: 100%;
+    margin : 10px 0 !important;
+    border: none;
+    border-radius: 10px;
+    background-color: white !important;
+    border: 3px solid #F6C542 !important;
+
+}
+
+.insertBtn {
+    padding: 10px 20px;
+    display: block;
+    border-radius: 10px;
+    background-color: white !important;
+    border: 3px solid #F6C542 !important;
+    color: #F6C542 !important;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.BlistBtn {
+    border-radius: 10px;
+    background-color: white !important;
+    border: 3px solid #A19F9D !important;
+    color: #A19F9D !important;
+    font-size: 14px !important;
+}
+
+.BtnArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    column-gap: 10px;
+    padding-bottom: 20px;
+}
+
+
+/* 보드 insert화면 끝 */
 
 /* ---------------------------------------------------------- */
 
@@ -224,4 +279,6 @@ table tbody tr td:last-child {
 }
 
 /* 컨테이너 리스트 영역 끝 */
+
+
 

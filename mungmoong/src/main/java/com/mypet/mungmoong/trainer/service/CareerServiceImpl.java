@@ -18,8 +18,6 @@ public class CareerServiceImpl implements CareerService {
     @Autowired
     private CareerMapper careerMapper;
     
-    @Autowired
-    private FileService fileService;
 
     @Override
     public List<Career> select(String userId) throws Exception {
@@ -37,7 +35,15 @@ public class CareerServiceImpl implements CareerService {
 
     @Override
     public int update(Career career) throws Exception {
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        int result = careerMapper.update(career);
+
+        return result;
+    }
+
+    @Override
+    public Career selectByTrainerNo(int trainerNo) throws Exception {
+        Career career = careerMapper.selectByTrainerNo(trainerNo);
+        return career;
     }
 
 }

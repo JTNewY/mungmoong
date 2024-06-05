@@ -122,13 +122,13 @@ VALUES
 (5, 'user5', 705, 'Grooming', 'Regular grooming session.', '2023-06-05 13:00:00');
 
 -- career 테이블
-INSERT INTO `career` (`no`, `user_id`, `name`)
-VALUES
-(1, 'user1', 'Veterinarian'),
-(2, 'user2', 'Trainer'),
-(3, 'user3', 'Groomer'),
-(4, 'user4', 'Behaviorist'),
-(5, 'user5', 'Nutritionist');
+INSERT INTO `career` (`no`, `user_id`, `name`, `reg_date`, `upd_date`) VALUES
+(1, 'user1', 'Career 1', '2024-06-01 10:00:00', '2024-06-01 10:00:00'),
+(2, 'user2', 'Career 2', '2024-06-02 11:00:00', '2024-06-02 11:00:00'),
+(3, 'user3', 'Career 3', '2024-06-03 12:00:00', '2024-06-03 12:00:00'),
+(4, 'user4', 'Career 4', '2024-06-04 13:00:00', '2024-06-04 13:00:00'),
+(5, 'user5', 'Career 5', '2024-06-05 14:00:00', '2024-06-05 14:00:00');
+
 
 -- certificate 테이블
 INSERT INTO `certificate` (`no`, `user_id`, `name`)
