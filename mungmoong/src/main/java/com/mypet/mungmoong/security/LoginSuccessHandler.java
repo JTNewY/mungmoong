@@ -102,11 +102,14 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             }
         }
 
+        HttpSession session = request.getSession();
+
         // 훈련사 회원이면
         if( trainer != null ) {
             user.setTrainer(trainer);
+            session.setAttribute("trainerNo", trainer.getNo());  
+            log.info("세션에 저장된 훈련사 번호 : " +trainer.getNo());  
         }
-        HttpSession session = request.getSession();
         session.setAttribute("user", user);
    
         log.info("아이디 : " + loginUser.getUsername());

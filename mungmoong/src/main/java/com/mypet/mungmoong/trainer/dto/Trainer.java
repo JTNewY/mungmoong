@@ -52,6 +52,7 @@ public class Trainer {
             career.setName(careerNames.get(i));
             career.setUserId(this.userId);
             career.setTrainerNo(this.no);
+            
     
             // careerNos가 있고 현재 인덱스가 careerNos 크기 내에 있는 경우
             if (careerNos != null && i < careerNos.size() && careerNos.get(i) != null) {
