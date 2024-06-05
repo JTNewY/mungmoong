@@ -223,17 +223,14 @@ TRUNCATE TABLE users;
 
 CREATE TABLE `users` (
     `user_id` VARCHAR(100) NOT NULL PRIMARY KEY,
-    `user_no` INT AUTO_INCREMENT,
-    `pet_no` INT NOT NULL,
-    `no` INT NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `password` VARCHAR(100) NOT NULL,
-    `birth` VARCHAR(50) NOT NULL,
+    `birth` VARCHAR(50) NULL,
     `address` VARCHAR(150) NULL,
     `mail` VARCHAR(50) NULL,
     `phone` VARCHAR(50) NULL,
     `gender` VARCHAR(50) NULL,
-    `enable` INT NULL,
+    `enabled` INT NULL,
     `role` INT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP

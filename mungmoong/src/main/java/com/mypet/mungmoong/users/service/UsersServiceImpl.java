@@ -3,6 +3,7 @@ package com.mypet.mungmoong.users.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,7 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.mapper.PetMapper;
+import com.mypet.mungmoong.users.dto.LoginResponse;
+import com.mypet.mungmoong.users.dto.SocialLoginRequest;
+import com.mypet.mungmoong.users.dto.SocialUserResponse;
 import com.mypet.mungmoong.users.dto.UserAuth;
+import com.mypet.mungmoong.users.dto.UserJoinRequest;
+import com.mypet.mungmoong.users.dto.UserSocial;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
 
@@ -22,21 +28,26 @@ import lombok.extern.slf4j.Slf4j;
 @Service("userServiceImplForUsers")
 public class UsersServiceImpl implements UsersService {
 
-    @Autowired
-    private UsersMapper userMapper;
-
-    @Autowired
+    private  UsersMapper userMapper;
     private PetMapper petMapper;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private  PasswordEncoder passwordEncoder;
+    
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
+
+    @Autowired
+    public UsersServiceImpl(UsersMapper userMapper, PetMapper petMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+        this.userMapper = userMapper;
+        this.petMapper = petMapper;
+        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+    }
+
     @Override
     public boolean login(Users user) throws Exception {
-        // // 💍 토큰 생성
+        // 💍 토큰 생성
         String username = user.getUserId(); // 아이디
         String password = user.getPassword(); // 암호화되지 않은 비밀번호
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
@@ -82,12 +93,10 @@ public class UsersServiceImpl implements UsersService {
         }
         return result;
     }
-    
 
     @Override
     public int update(Users user) throws Exception {
-        
-       return userMapper.update(user);
+        return userMapper.update(user);
     }
 
     @Override
@@ -109,15 +118,13 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Users findId(String name, String mail) throws Exception {
         Users user = userMapper.findId(name, mail);
-
         return user;
     }
 
     @Override
     public Users findPw(String userId, String mail) throws Exception {
-       Users user = userMapper.findPw(userId,mail);
-
-       return user;
+        Users user = userMapper.findPw(userId, mail);
+        return user;
     }
 
     @Override
@@ -131,14 +138,51 @@ public class UsersServiceImpl implements UsersService {
         int result = userMapper.roleUp(user);
         log.info("result : " + result);
 
-        if (result > 0 ) {
-            log.info("권한이 " + user.getRole() + "으로 업데이트 됨!");     /*  */
-            UserAuth userAuth = new UserAuth();                             /* userAuth를 userAuth변수에 가져옴 */
-            userAuth.setUserId(user.getUserId());                           /* userAuth에 user에서 userId를 가져와서 세팅함 */
-            userAuth.setAuth("ROLE_TRAINER");                           /* userAuth에 userAuth에 ROLE_TRAINER로 업데이트 */
-            insertAuth(userAuth);                                           /* 업데이트 처리 */
+        if (result > 0) {
+            log.info("권한이 " + user.getRole() + "으로 업데이트 됨!");
+            UserAuth userAuth = new UserAuth();
+            userAuth.setUserId(user.getUserId());
+            userAuth.setAuth("ROLE_TRAINER");
+            insertAuth(userAuth);
         }
         return result;
     }
-    
+
+    @Override
+    public int insertSocial(UserSocial userSocial) throws Exception {
+        throw new UnsupportedOperationException("Unimplemented method 'insertSocial'");
+    }
+
+    @Override
+    public UserSocial selectSocial(UserSocial userSocial) throws Exception {
+        throw new UnsupportedOperationException("Unimplemented method 'selectSocial'");
+    }
+
+    @Override
+    public int updateSocial(UserSocial userSocial) throws Exception {
+        throw new UnsupportedOperationException("Unimplemented method 'updateSocial'");
+    }
+
+    @Override
+    public Users selectBySocial(UserSocial userSocial) throws Exception {
+        throw new UnsupportedOperationException("Unimplemented method 'selectBySocial'");
+    }
+
+    @Override
+    public SocialUserResponse getUserInfo(String accessToken) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUserInfo'");
+    }
+
+    @Override
+    public void joinUser(UserJoinRequest request) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'joinUser'");
+    }
+
+    @Override
+    public LoginResponse doSocialLogin(SocialLoginRequest request) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'doSocialLogin'");
+    }
 }

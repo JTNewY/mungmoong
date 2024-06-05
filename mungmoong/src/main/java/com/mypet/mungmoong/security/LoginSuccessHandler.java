@@ -80,16 +80,16 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         
         
         String userId = user.getUserId();
-        
         List<Pet> pets = petMapper.findPetsByUserId(userId);
         Trainer trainer = trainerMapper.select(userId);
-      
-
-       
+        
+        
         if (user != null) {
             HttpSession session = request.getSession();
+            session.setAttribute("user", user);
             session.setAttribute("pets", pets);
-
+            
+            
             if (pets != null && !pets.isEmpty()) {
                 for (Pet pet : pets) {
                     log.info("Pet Information:");
@@ -102,11 +102,14 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             }
         }
 
+        HttpSession session = request.getSession();
+
         // 훈련사 회원이면
         if( trainer != null ) {
             user.setTrainer(trainer);
+            session.setAttribute("trainerNo", trainer.getNo());  
+            log.info("세션에 저장된 훈련사 번호 : " +trainer.getNo());  
         }
-        HttpSession session = request.getSession();
         session.setAttribute("user", user);
    
         log.info("아이디 : " + loginUser.getUsername());

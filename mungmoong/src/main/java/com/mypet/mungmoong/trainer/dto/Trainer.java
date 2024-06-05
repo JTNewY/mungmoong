@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,20 +42,29 @@ public class Trainer {
 
     private Users user;
 
+    // 트레이너에게 리스트로 담기 위해 사용.
+    // 조회할 때가 아니라 데이터를 insert할 때 사용!
     public List<Career> toCareerList() {
-        if (careerNames == null || careerNos == null) {
-            return Collections.emptyList();
+        List<Career> careers = new ArrayList<>();
+    
+        for (int i = 0; i < careerNames.size(); i++) {
+            Career career = new Career();
+            career.setName(careerNames.get(i));
+            career.setUserId(this.userId);
+            career.setTrainerNo(this.no);
+            
+    
+            // careerNos가 있고 현재 인덱스가 careerNos 크기 내에 있는 경우
+            if (careerNos != null && i < careerNos.size() && careerNos.get(i) != null) {
+                career.setNo(careerNos.get(i)); // Career 클래스에 setNo 메소드가 있다고 가정
+            }
+    
+            careers.add(career);
         }
-        return IntStream.range(0, careerNames.size())
-                        .mapToObj(index -> {
-                            Career career = new Career();
-                            career.setNo(careerNos.get(index));
-                            career.setName(careerNames.get(index));
-                            career.setUserId(this.userId);
-                            career.setTrainerNo(this.no);
-                            return career;
-                        }).collect(Collectors.toList());
+    
+        return careers;
     }
+    
 
     public List<Certificate> toCertificateList() {
         if (certificateNames == null) {

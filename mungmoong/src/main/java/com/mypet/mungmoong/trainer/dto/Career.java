@@ -15,4 +15,4 @@ public class Career {
     private int trainerNo;         // Trainer 번호
 
     private List<Files> files;     // 파일 리스트 (자격증 사진 등)
-}
+} 

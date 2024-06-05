@@ -1,5 +1,6 @@
 package com.mypet.mungmoong.trainer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -86,7 +87,8 @@ public class TrainerController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/info_insert")
+    // 현재 info_insert 페이지 ❌ -> info (조회만 하는 페이지로 변경)
+    @GetMapping("/info")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
         List<Career> careerList = careerService.select(userId);
@@ -94,7 +96,7 @@ public class TrainerController {
         model.addAttribute("trainer", trainer);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);
-        return "/trainer/info_insert";
+        return "/trainer/info";
     }
 
     @PostMapping("/join_data")
@@ -115,6 +117,7 @@ public class TrainerController {
 
             trainer.setCareerList(trainer.toCareerList());
             trainer.setCertificateList(trainer.toCertificateList());
+            log.info("trainer 로그조회 : " + trainer);
 
             int result = trainerService.insert(trainer);
 
@@ -134,16 +137,24 @@ public class TrainerController {
      * 훈련사 수정 화면
      */
     @GetMapping("/info_update")
-    public String update(@RequestParam("userId") String userId, Model model, Files file) throws Exception {
+    public String update(@RequestParam("userId") String userId, Model model, Files file, HttpSession session) throws Exception {
         Trainer trainer = trainerService.select(userId);
-        List<Career> careerList = careerService.select(userId);
+        List<Career> careerList = careerService.select(userId);  // select -> listByUserId
         List<Certificate> certificateList = certificateService.listByUserId(userId);
         List<Files> fileList = fileService.listByParent(file);
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if(trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+        }
+
+        log.info("--------------------------------------------------------------");
+        log.info(careerList.toString());
         
         file.setParentTable("trainer");
         file.setParentTable("certificate");
         
         model.addAttribute("trainer", trainer);
+        model.addAttribute("trainerNo", trainerNo);
         model.addAttribute("careerList", careerList);
         model.addAttribute("certificateList", certificateList);
         model.addAttribute("fileList", fileList);
@@ -160,25 +171,46 @@ public class TrainerController {
      * @throws Exception
      */
     @PostMapping("/info_update")
-    public String updatePro(Trainer trainer) throws Exception {
+    public String updatePro(Trainer trainer, HttpSession session) throws Exception {
         List<Career> careerList = trainer.toCareerList();
 
-        for (Career career : careerList) {
-            int result = careerService.update(career);
+        log.info("--------------------------------");
+        log.info(careerList.toString());
+        log.info("트레이너 번호가 뭘까요 : " + trainer.getNo());
 
-            if(result>0) log.info("수정했다!!");
-            else{
-                log.info(career.toString());
-                log.info("수정못햇따");
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if(trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error=session";
+        }
+        log.info("세션에서 가져온 트레이너 번호 : " + trainerNo);
+
+        for (Career career : careerList) {
+            career.setTrainerNo(trainerNo);
+            log.info("trainerNo : " + trainerNo);
+
+            int result = 0;
+            if(career.getNo() > 0) {
+                result = careerService.update(career);
+                log.info("수정했다!!");
+            } else {
+                career.setTrainerNo(trainerNo);
+                result = careerService.insert(career);
+                log.info("등록했다");
             }
-            
+
+            if(result > 0) {
+                log.info("성공했다");
+            } else {
+                log.info(career.toString());
+                log.info("망했다");
+            }
         }
 
-        
         int result = trainerService.update(trainer);
-    
+
         log.debug("Trainer data : {}", trainer);
-        
+
         if(result > 0) {
             return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
         }

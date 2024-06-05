@@ -1,5 +1,9 @@
 package com.mypet.mungmoong.users.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,15 +12,27 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +42,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mypet.mungmoong.pet.dto.Pet;
+import com.mypet.mungmoong.users.dto.CustomUser;
+import com.mypet.mungmoong.users.dto.LoginResponse;
+import com.mypet.mungmoong.users.dto.SocialLoginRequest;
+import com.mypet.mungmoong.users.dto.SocialUserResponse;
+import com.mypet.mungmoong.users.dto.UserJoinRequest;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.EmailService;
+import com.mypet.mungmoong.users.service.LoginService;
 import com.mypet.mungmoong.users.service.UsersService;
 
 
@@ -50,7 +74,13 @@ public class UsersController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    
+    @Autowired
+    private LoginService loginService;
+
+    @Autowired
+    private OAuth2AuthorizedClientService authorizedClientService ;
+
+
 
 
     @GetMapping("/{page}")
@@ -95,6 +125,7 @@ public class UsersController {
         model.addAttribute("pets", pets);
         return "users/using"; // mypets.html 템플릿을 반환합니다.
     }
+
 
     @PostMapping("/register")
     public String registerUser(Users user, Pet pet, String userId) throws Exception {
@@ -262,4 +293,32 @@ public class UsersController {
             return ResponseEntity.badRequest().body("OTP는 숫자여야 합니다.");
         }
     }
+   // ################################# 네이버 로그인 ##################################################
+  
+   @GetMapping("/naver-login")
+   public String naverLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authentication) throws Exception {
+       if (authentication == null) {
+           throw new IllegalArgumentException("Authentication information is missing");
+       }
+
+       String registrationId = authentication.getAuthorizedClientRegistrationId();
+       OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
+               registrationId, authentication.getName());
+
+       if (authorizedClient != null) {
+           String accessToken = authorizedClient.getAccessToken().getTokenValue();
+
+           // Naver API를 통해 사용자 정보 가져오기
+           SocialUserResponse userInfo = userService.getUserInfo(accessToken);
+
+           // 사용자 정보 로그 출력
+          // log.info("User Info: {}", userInfo);
+
+           // 사용자 정보 처리 로직 추가 (예: DB 저장)
+           userService.joinUser(new UserJoinRequest(userInfo.getUserId(), userInfo.getMail(), userInfo.getName()));
+       }
+
+       return "redirect:/";
+   }
+
 } // 끝

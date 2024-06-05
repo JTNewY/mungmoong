@@ -12,6 +12,7 @@
         <collection property="files" column="no" select="com.mypet.mungmoong.trainer.mapper.FileMapper.selectFilesByCareerId"/>
     </resultMap>
 
+    
     <select id="select" resultType="com.mypet.mungmoong.trainer.dto.Career">
         SELECT * FROM career WHERE user_id = #{userId}
     </select>

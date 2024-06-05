@@ -137,79 +137,14 @@
                     </thead>
                     <tbody>
                         <!-- 반복 구문을 통해 데이터 삽입 -->
-                        <tr>
-                            <td>1</td>
-                            <td>가나다</td>
-                            <td>2023-05-01</td>
-                            <td>완료</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>일이삼</td>
-                            <td>2023-05-02</td>
-                            <td>진행 중</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>사오육</td>
-                            <td>2023-05-03</td>
-                            <td>취소됨</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>칠팔구</td>
-                            <td>2023-05-04</td>
-                            <td>완료</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>한지우</td>
-                            <td>2023-05-05</td>
-                            <td>완료</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>리자몽</td>
-                            <td>2023-05-06</td>
-                            <td>완료</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>오박사</td>
-                            <td>2023-05-07</td>
-                            <td>진행 중</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>스쿠나</td>
-                            <td>2023-05-08</td>
-                            <td>취소됨</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>에레브</td>
-                            <td>2023-05-09</td>
-                            <td>완료</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>이슬이</td>
-                            <td>2023-05-10</td>
-                            <td>완료</td>
-                        </tr>
-                        <!-- 반복 구문 종료 -->
+                        <tr th:each="reservation : ${reservations}">
+                <td th:text="${reservation.reservationId}"></td>
+                <td th:text="${reservation.userName}"></td>
+                <td th:text="${reservation.date}"></td>
+                <td th:text="${reservation.status}"></td>
+            </tr>
                     </tbody>
                 </table>
-                <div class="pagination">
-                    <a href="#">&laquo;</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">&raquo;</a>
-                </div>
             </div>
         </main>
     </div>

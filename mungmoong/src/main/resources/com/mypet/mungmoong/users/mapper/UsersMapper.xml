@@ -141,4 +141,53 @@
         WHERE user_id = #{userId}
     </update>
 
+  <!-- 소셜 회원 가입 -->
+    <insert id="insertSocial">
+        INSERT INTO user_social (id, user_id, social_platform, social_id, name, mail, picture, linked_date, updated_date)
+        VALUES (UUID(), #{userId}, #{socialPlatform}, #{socialId}, #{name}, #{mail}, #{picture}, NOW(), NOW())
+    </insert>
+
+    <!-- 소셜 회원 조회 -->
+    <select id="selectSocial" resultType="com.mypet.mungmoong.users.dto.UserSocial">
+        SELECT * 
+        FROM user_social
+        WHERE social_platform = #{socialPlatform} 
+        AND social_id = #{socialId}
+    </select>
+
+    <!-- 소셜 회원 수정 -->
+    <update id="updateSocial">
+        UPDATE user_social
+           SET user_id = #{userId},
+               social_platform = #{socialPlatform},
+               social_id = #{socialId},
+               name = #{name},
+               mail = #{mail},
+               picture = #{picture},
+               updated_date = NOW()
+        WHERE social_platform = #{socialPlatform} 
+        AND social_id = #{socialId}
+    </update>
+
+    <!-- 소셜정보로 회원 조회 -->
+    <select id="selectBySocial" resultMap="userMap">
+        SELECT u.user_id,
+               u.password,
+               u.name,
+               u.mail,
+               u.enabled,
+               u.reg_date,
+               u.upd_date,
+               a.auth
+        FROM users u 
+        LEFT JOIN user_auth a ON u.user_id = a.user_id
+        WHERE u.user_id = (
+            SELECT user_id
+            FROM user_social
+            WHERE social_platform = #{socialPlatform} 
+            AND social_id = #{socialId}
+        )
+    </select>
+
+
 </mapper>

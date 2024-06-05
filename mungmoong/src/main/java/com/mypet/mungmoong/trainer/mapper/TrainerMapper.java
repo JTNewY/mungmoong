@@ -35,6 +35,9 @@ public interface TrainerMapper {
     // public List<Board> search(@Param("keyword") String keyword) throws Exception;
     // public List<Trainer> search(/* @Param("option") Option option */) throws Exception;
 
+    // 훈련사 번호 조회
+    // public int selectTrainerNo() throws Exception;
+
     // 트레이너 리스트 호출
     public List<Trainer> trainerList() throws Exception;
 
