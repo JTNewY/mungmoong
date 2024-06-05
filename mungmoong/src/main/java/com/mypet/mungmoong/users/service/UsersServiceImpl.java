@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.mapper.PetMapper;
 import com.mypet.mungmoong.users.dto.UserAuth;
+import com.mypet.mungmoong.users.dto.UserSocial;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
 
@@ -139,6 +140,30 @@ public class UsersServiceImpl implements UsersService {
             insertAuth(userAuth);                                           /* 업데이트 처리 */
         }
         return result;
+    }
+
+    @Override
+    public int insertSocial(UserSocial userSocial) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'insertSocial'");
+    }
+
+    @Override
+    public UserSocial selectSocial(UserSocial userSocial) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'selectSocial'");
+    }
+
+    @Override
+    public int updateSocial(UserSocial userSocial) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateSocial'");
+    }
+
+    @Override
+    public Users selectBySocial(UserSocial userSocial) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'selectBySocial'");
     }
     
 }
