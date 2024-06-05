@@ -44,7 +44,7 @@
               <div class="card shadow-sm">
                 <a th:href="|/products/${product.id}|">
                   <!-- <img src="/img/about.png" class="w-100" alt="about"> -->
-                  <img src="/img/about.png" th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about">
+                  <img th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about">
                 </a>
                 <div class="card-body">
                   <h3 class="card-title fs-5" th:text="${product.name}"></h3>
