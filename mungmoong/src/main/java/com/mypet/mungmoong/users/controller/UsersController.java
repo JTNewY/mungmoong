@@ -1,5 +1,8 @@
 package com.mypet.mungmoong.users.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +11,7 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +33,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.CustomUser;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.EmailService;
+import com.mypet.mungmoong.users.service.LoginService;
 import com.mypet.mungmoong.users.service.UsersService;
 
 
@@ -54,7 +61,8 @@ public class UsersController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    @Autowired
+    private LoginService loginService;
 
 
     @GetMapping("/{page}")
@@ -266,4 +274,38 @@ public class UsersController {
             return ResponseEntity.badRequest().body("OTP는 숫자여야 합니다.");
         }
     }
+   // ################################# 네이버 로그인 ##################################################
+     @GetMapping("/naver-login")
+    public void naverLogin(HttpServletRequest request, HttpServletResponse response) throws MalformedURLException, UnsupportedEncodingException, URISyntaxException {
+        String url = loginService.getNaverAuthorizeUrl("authorize");
+        try {
+            response.sendRedirect(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // @GetMapping("/oauth/login")
+    // public void callBack(HttpServletRequest request, HttpServletResponse response, NaverCallback callback) throws MalformedURLException, UnsupportedEncodingException, URISyntaxException, JsonProcessingException {
+
+    //     if (callback.getError() != null) {
+    //         System.out.println(callback.getError_description());
+    //     }
+
+    //     String responseToken = loginService.getNaverTokenUrl("token", callback);
+
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     NaverToken token = mapper.readValue(responseToken, NaverToken.class);
+    //     String responseUser = loginService.getNaverUserByToken(token);
+    //     NaverRes naverUser = mapper.readValue(responseUser, NaverRes.class);
+
+    //     System.out.println("naverUser.toString() : " + naverUser.toString());
+    //     System.out.println("naverUser.getResonse().getGender() : " + naverUser.getResponse().getGender());
+    //     System.out.println("naverUser.getResonse().getBirthyear() : " + naverUser.getResponse().getBirthyear());
+    //     System.out.println("naverUser.getResonse().getAge() : " + naverUser.getResponse().getAge());
+
+    // }
+
+    
+
 } // 끝
