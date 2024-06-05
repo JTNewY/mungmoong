@@ -161,6 +161,7 @@ public class TrainerController {
      * @param trainer
      * @param session
      * @param model
+     * @return
      * @throws Exception
      */
     @PostMapping("/info_update")
@@ -200,6 +201,10 @@ public class TrainerController {
                 log.info("수정못햇따");
             }
         }
+
+
+    public String updatePro(Trainer trainer) throws Exception {
+        
 
         int result = trainerService.update(trainer);
 
