@@ -78,6 +78,7 @@ ALTER TABLE certificate
 ADD CONSTRAINT fk_certificate_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
 
 -- 스케줄 테이블
+DROP TABLE IF EXISTS schedule;
 TRUNCATE TABLE EXISTS schedule;
 CREATE TABLE `schedule` (
 	`no`			INT		NOT NULL	AUTO_INCREMENT PRIMARY KEY, -- 스케쥴 번호

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/reserve_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 수정</title>
 </head>
 <body>
+
+    <body layout:fragment="content">
+        <div class="container">
     <h1>게시글 수정</h1>
 
-    <form id="form" action="/board/update" method="post">
-        <input type="hidden" name="no" th:value="${board.no}">
+    <form id="form" action="/trainermain/update" method="post">
+        <input type="hidden" name="boardId" th:value="${board.boardId}">
 
         <table>
             <tr>
@@ -37,7 +41,7 @@
             <button type="button" onclick="moveList()">목록</button>
         </div>
     </form>
-
+</div>
     <script>
         let form = document.getElementById('form')
 
