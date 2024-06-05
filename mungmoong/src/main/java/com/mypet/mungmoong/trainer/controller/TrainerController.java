@@ -1,5 +1,6 @@
 package com.mypet.mungmoong.trainer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -136,9 +137,12 @@ public class TrainerController {
     @GetMapping("/info_update")
     public String update(@RequestParam("userId") String userId, Model model, Files file) throws Exception {
         Trainer trainer = trainerService.select(userId);
-        List<Career> careerList = careerService.select(userId);
+        List<Career> careerList = careerService.select(userId);  // select -> listByUserId
         List<Certificate> certificateList = certificateService.listByUserId(userId);
         List<Files> fileList = fileService.listByParent(file);
+
+        log.info("--------------------------------------------------------------");
+        log.info(careerList.toString());
         
         file.setParentTable("trainer");
         file.setParentTable("certificate");
@@ -160,31 +164,52 @@ public class TrainerController {
      * @throws Exception
      */
     @PostMapping("/info_update")
-    public String updatePro(Trainer trainer) throws Exception {
-        List<Career> careerList = trainer.toCareerList();
+        public String updatePro(Trainer trainer) throws Exception {
+        // 로그 추가
+        log.info("Received Trainer: {}", trainer);
+        log.info("Career Names: {}", trainer.getCareerNames());
+        log.info("Career Nos: {}", trainer.getCareerNos());
+
+        // Career 리스트를 직접 구성
+        List<Career> careerList = new ArrayList<>();
+        List<String> careerNames = trainer.getCareerNames();
+        List<Integer> careerNos = trainer.getCareerNos();
+
+        if (careerNames != null && careerNos != null && careerNames.size() == careerNos.size()) {
+            for (int i = 0; i < careerNames.size(); i++) {
+                Career career = new Career();
+                career.setNo(careerNos.get(i));
+                career.setName(careerNames.get(i));
+                career.setUserId(trainer.getUserId());
+                career.setTrainerNo(trainer.getNo());
+                careerList.add(career);
+            }
+        } else {
+            log.error("Career names and numbers are not correctly aligned");
+        }
+
+        log.info("Generated Career List: {}", careerList);
 
         for (Career career : careerList) {
             int result = careerService.update(career);
 
-            if(result>0) log.info("수정했다!!");
-            else{
+            if (result > 0) {
+                log.info("수정했다!!");
+            } else {
                 log.info(career.toString());
                 log.info("수정못햇따");
             }
-            
         }
 
-        
         int result = trainerService.update(trainer);
-    
-        log.debug("Trainer data : {}", trainer);
-        
-        if(result > 0) {
-            return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
-        }
-        return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
-    }
 
+    log.debug("Trainer data : {}", trainer);
+
+    if (result > 0) {
+        return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
+    }
+    return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
+}
     
     // [은아] - 나는 이거 안 씀
     @PostMapping("/delete")
