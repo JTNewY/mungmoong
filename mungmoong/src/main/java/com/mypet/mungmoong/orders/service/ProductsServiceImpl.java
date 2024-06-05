@@ -28,7 +28,6 @@ public class ProductsServiceImpl implements ProductsService {
     public List<Products> list() throws Exception {
         List<Products> products = productsMapper.list();
         
-        
         return products;
     }
 
@@ -82,22 +81,22 @@ public class ProductsServiceImpl implements ProductsService {
     public void updloadThumbnail(Products products) throws Exception {
         // 썸네일 업로드
         // - 부모테이블, 부모ID, 멀티파트파일, 대표 파일, 순서:1
-        MultipartFile thumbnailFile = products.getThumbnail();
-        // 썸네일 파일 업로드한 경우만
-        if( thumbnailFile != null && !thumbnailFile.isEmpty() ) {
-            log.info("썸네일 파일 : " + thumbnailFile.getOriginalFilename());
+        // MultipartFile thumbnailFile = products.getThumbnail();
+        // // 썸네일 파일 업로드한 경우만
+        // if( thumbnailFile != null && !thumbnailFile.isEmpty() ) {
+        //     log.info("썸네일 파일 : " + thumbnailFile.getOriginalFilename());
 
-            // 기존 썸네일 삭제
+        //     // 기존 썸네일 삭제
 
-            // 썸네일 등록
-            // Files thumbnail = new Files();
-            // thumbnail.setFile(thumbnailFile);
-            // thumbnail.setParentTable(Products.TABLE_NAME);
-            // thumbnail.setParentId(products.getId());
-            // thumbnail.setIsMain(true);        // 대표 파일 (isMain=true)
-            // thumbnail.setSeq(1);               // 순서 : 1
-            //filesService.upload(thumbnail);        // 썸네일 파일 업로드
-        }
+        //     // 썸네일 등록
+        //     Files thumbnail = new Files();
+        //     thumbnail.setFile(thumbnailFile);
+        //     thumbnail.setParentTable(Products.TABLE_NAME);
+        //     thumbnail.setParentId(products.getId());
+        //     thumbnail.setIsMain(true);        // 대표 파일 (isMain=true)
+        //     thumbnail.setSeq(1);               // 순서 : 1
+        //     filesService.upload(thumbnail);        // 썸네일 파일 업로드
+        // }
     }
 
     

@@ -85,8 +85,7 @@ public class ReplyServiceImpl implements ReplyService {
         int result = replyMapper.deleteByParentNo(parentNo);
         return result;
     }
-
- }
     
 
 
+}

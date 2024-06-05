@@ -2,7 +2,7 @@ package com.mypet.mungmoong.orders.model;
 
 import java.util.Date;
 
-import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.model.Users;
 
 import lombok.Data;
 

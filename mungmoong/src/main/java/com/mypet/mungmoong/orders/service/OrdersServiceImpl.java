@@ -15,7 +15,7 @@ import com.mypet.mungmoong.orders.model.Products;
 import com.mypet.mungmoong.orders.model.Shipments;
 import com.mypet.mungmoong.orders.model.ShipmentsStatus;
 import com.mypet.mungmoong.users.model.Address;
-import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.model.Users;
 import com.mypet.mungmoong.users.service.AddressService;
 import com.mypet.mungmoong.users.service.UsersService;
 
@@ -160,7 +160,5 @@ public class OrdersServiceImpl implements OrdersService {
         // }
         return orders;
     }
-
-
     
 }

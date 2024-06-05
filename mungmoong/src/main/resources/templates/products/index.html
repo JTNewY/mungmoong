@@ -27,10 +27,8 @@
 </head>
 <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
-  <a href="/trainermain/list">훈련사 게시판가기</a>
- 
+
   <!-- 상품 목록  -->
-  <div class="container" style="padding: 70px;">
   <section>
     <div class="album py-5 bg-body-tertiary">
       <div class="container">
@@ -46,11 +44,18 @@
               <div class="card shadow-sm">
                 <a th:href="|/products/${product.id}|">
                   <!-- <img src="/img/about.png" class="w-100" alt="about"> -->
-                  <img th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about">
+                  <img src="/img/about.png" th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about">
                 </a>
                 <div class="card-body">
                   <h3 class="card-title fs-5" th:text="${product.name}"></h3>
                   <p class="card-text" th:text="${product.description}"></p>
+                  <!-- <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-body-secondary">9 mins</small>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -60,7 +65,7 @@
     </div>
   </section>
   
-</div>
+
   <!-- masonry lib -->
   <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script></body>
 </body>
