@@ -143,12 +143,13 @@ public class TrainerServiceImpl implements TrainerService {
     public int update(Trainer trainer) throws Exception {
         try {
             String userId = trainer.getUserId();
+
+
     
             Trainer existingTrainer = trainerMapper.select(userId);
             if (existingTrainer == null) {
                 throw new Exception("Trainer not found");
             }
-    
             int trainerNo = existingTrainer.getNo();
             trainer.setNo(trainerNo);
     
@@ -159,6 +160,7 @@ public class TrainerServiceImpl implements TrainerService {
     
             // Career : 수정 / 추가
             List<Career> careers = trainer.getCareerList();
+
 
 
             // log.info(careers.toString());
