@@ -51,6 +51,9 @@ public class TrainerServiceImpl implements TrainerService {
         return trainer;
     }
 
+
+
+
     @Override
     public int insert(Trainer trainer) throws Exception {
         try {
@@ -199,6 +202,8 @@ public class TrainerServiceImpl implements TrainerService {
         return trainerList;
 
     }
+
+
 
     // @Override
     // public List<Trainer> trainerList() throws Exception {
