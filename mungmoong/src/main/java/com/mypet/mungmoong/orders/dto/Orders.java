@@ -14,12 +14,4 @@ public class Orders {
     private Boolean payCheck;
     private Boolean userCheck;
     private Integer trainerCheck;
-
-    public int getDateNo() {
-        return dateNo;
-    }
-
-    public void setDateNo(int dateNo) {
-        this.dateNo = dateNo;
-    }
 }

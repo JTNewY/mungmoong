@@ -2,7 +2,6 @@ package com.mypet.mungmoong.board.service;
 import java.util.List;
 
 import com.mypet.mungmoong.board.dto.Reply;
-import com.mypet.mungmoong.trainer.dto.Option;
 
 
 
@@ -29,5 +28,4 @@ public interface ReplyService {
 
     // ⭐답글 종속 삭제
     public int deleteByParentNo(int parentNo) throws Exception;
-
 }
