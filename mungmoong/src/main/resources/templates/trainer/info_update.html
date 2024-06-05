@@ -15,7 +15,7 @@
                 <div class="collapse navbar-collapse justify-content-start">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="tab-button active" th:href="|/trainer/info_insert?userId=${session.user.userId}|">훈련사 정보</a>
+                            <a class="tab-button active" th:href="|/trainer/info?userId=${session.user.userId}|">훈련사 정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
@@ -83,7 +83,7 @@
                 </table>
                 <div class="bottom-btn text-end">
                     <button type="submit" class="btn btn-lg btn-custom2">저장</button>
-                    <a th:href="|/trainer/info_insert?userId=${session.user.userId}|"><button type="button" class="btn btn-lg btn-custom3">목록</button></a>
+                    <a th:href="|/trainer/info?userId=${session.user.userId}|"><button type="button" class="btn btn-lg btn-custom3">목록</button></a>
                 </div>
             </form>
         </div>

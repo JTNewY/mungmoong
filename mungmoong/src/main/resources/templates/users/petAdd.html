@@ -110,21 +110,21 @@
                 <label for="upload-photo">사진업로드 ▼</label>
                 <input type="file" id="upload-photo" style="display: none;">
             </div>
-            <form>
+            <form id="petForm">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="pet-name">이름</label>
                         <input type="text" class="form-control" id="pet-name">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="password">비밀번호</label>
-                        <input type="password" class="form-control" id="password">
+                        <label for="age">나이</label>
+                        <input type="text" class="form-control" id="age">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="birthday">생일</label>
-                        <input type="date" class="form-control" id="birthday">
+                        <label for="password">비밀번호</label>
+                        <input type="password" class="form-control" id="password">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="confirm-password">비밀번호 확인</label>
@@ -144,17 +144,13 @@
                             <label class="form-check-label" for="female">♀</label>
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="age">나이</label>
-                        <input type="text" class="form-control" id="age">
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="special-notes">특이사항</label>
                     <input type="text" class="form-control" id="special-notes">
                 </div>
                 <div class="btn-container">
-                    <button type="button" class="btn-custom" onclick="location.href='/users/index'">추가</button>
+                    <button type="button" class="btn-custom" onclick="addPet()">추가</button>
                     <button type="button" class="btn-custom" onclick="location.href='/users/index'">취소</button>
                 </div>
             </form>
@@ -164,5 +160,33 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function addPet() {
+            var petData = {
+                name: document.getElementById("pet-name").value,
+                age: document.getElementById("age").value,
+                password: document.getElementById("password").value,
+                gender: document.querySelector('input[name="gender"]:checked').value,
+                specialNotes: document.getElementById("special-notes").value
+            };
+
+            fetch('/pets/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(petData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 추가된 펫 정보 처리 (예: 화면에 추가)
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>

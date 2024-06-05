@@ -1,4 +1,4 @@
-package com.mypet.mungmoong.users.dto;
+package com.mypet.mungmoong.users.service;
 
 import java.util.Map;
 import lombok.Builder;
@@ -29,6 +29,7 @@ public class OAuthAttributes {
         } else if ("naver".equals(registrationId)) {
             return ofNaver(userNameAttributeName, attributes);
         }
+
         return null;
     }
 
@@ -53,8 +54,8 @@ public class OAuthAttributes {
                 .name((String) response.get("name"))
                 .mail((String) response.get("email"))
                 .picture((String) response.get("profile_image"))
-                .attributes(attributes)
-                .nameAttributeKey(userNameAttributeName)
+                .attributes(response)
+                .nameAttributeKey("id") // 수정된 부분
                 .id(String.valueOf(response.get("id")))
                 .build();
     }

@@ -18,4 +18,7 @@ public interface TrainerService {
     // 트레이너 리스트 호출
     public List<Trainer> trainerList() throws Exception;
 
+    // 훈련사 번호 조회
+    public int selectTrainerNo() throws Exception;
+
 }

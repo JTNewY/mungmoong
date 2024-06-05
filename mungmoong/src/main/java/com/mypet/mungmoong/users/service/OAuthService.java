@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.mypet.mungmoong.users.dto.OAuthAttributes;
+import com.mypet.mungmoong.users.dto.SocialUserResponse;
 import com.mypet.mungmoong.users.dto.UserSocial;
 
 /**
@@ -21,4 +22,6 @@ public interface OAuthService extends OAuth2UserService<OAuth2UserRequest, OAuth
 
     // 소셜 회원 수정
     public int update(UserSocial userSocial, OAuthAttributes oAuthAttributes) throws Exception;
+
+    public SocialUserResponse getUserInfo(String accessToken) throws Exception;
 }

@@ -2,8 +2,8 @@ package com.mypet.mungmoong.users.service;
 
 import java.util.Map;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -11,22 +11,31 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mypet.mungmoong.users.dto.CustomUser;
 import com.mypet.mungmoong.users.dto.OAuthAttributes;
+import com.mypet.mungmoong.users.dto.SocialUserResponse;
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.UserSocial;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.mapper.UsersMapper;
-
+import com.mypet.mungmoong.users.dto.NaverUserApi;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class OAuthServiceImpl implements OAuthService {
 
+    private final UsersMapper userMapper;
+    private final NaverUserApi naverUserApi;
+    private final ObjectMapper objectMapper;
+
     @Autowired
-    private UsersMapper userMapper;
+    public OAuthServiceImpl(UsersMapper userMapper, NaverUserApi naverUserApi, ObjectMapper objectMapper) {
+        this.userMapper = userMapper;
+        this.naverUserApi = naverUserApi;
+        this.objectMapper = objectMapper;
+    }
 
     @Transactional
     @Override
@@ -155,5 +164,12 @@ public class OAuthServiceImpl implements OAuthService {
         result = userMapper.updateSocial(userSocial);
 
         return result;
+    }
+
+    @Override
+    public SocialUserResponse getUserInfo(String accessToken) throws Exception {
+        Map<String, String> headers = Map.of("Authorization", "Bearer " + accessToken);
+        ResponseEntity<String> response = naverUserApi.getUserInfo(headers);
+        return objectMapper.readValue(response.getBody(), SocialUserResponse.class);
     }
 }
