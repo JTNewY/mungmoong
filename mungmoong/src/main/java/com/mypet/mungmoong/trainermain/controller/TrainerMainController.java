@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
-import com.mypet.mungmoong.trainer.dto.Career;
-import com.mypet.mungmoong.trainer.dto.Certificate;
+
 import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.trainer.dto.Option;
 import com.mypet.mungmoong.trainer.dto.Page;
@@ -100,12 +99,7 @@ public class TrainerMainController {
 
         return "/trainermain/trainer";
     }
-    @GetMapping("/list")
-    public String list(Model model) throws Exception {
-        List<Trainer> trainerList = trainerService.trainerList();
 
-        return "/trainermain/list";
-    }
     
     /**
      * 게시글 등록 화면
