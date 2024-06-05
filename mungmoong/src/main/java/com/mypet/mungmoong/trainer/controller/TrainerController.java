@@ -161,60 +161,48 @@ public class TrainerController {
      * @param trainer
      * @param session
      * @param model
-     * @return
      * @throws Exception
      */
     @PostMapping("/info_update")
-        public String updatePro(Trainer trainer) throws Exception {
-        // 로그 추가
-        log.info("Received Trainer: {}", trainer);
-        log.info("Career Names: {}", trainer.getCareerNames());
-        log.info("Career Nos: {}", trainer.getCareerNos());
+    public String updatePro(Trainer trainer) throws Exception {
+        List<Career> careerList = trainer.toCareerList();
 
-        // Career 리스트를 직접 구성
-        List<Career> careerList = new ArrayList<>();
-        List<String> careerNames = trainer.getCareerNames();
-        List<Integer> careerNos = trainer.getCareerNos();
 
-        if (careerNames != null && careerNos != null && careerNames.size() == careerNos.size()) {
-            for (int i = 0; i < careerNames.size(); i++) {
-                Career career = new Career();
-                career.setNo(careerNos.get(i));
-                career.setName(careerNames.get(i));
-                career.setUserId(trainer.getUserId());
-                career.setTrainerNo(trainer.getNo());
-                careerList.add(career);
-            }
-        } else {
-            log.error("Career names and numbers are not correctly aligned");
-        }
+        log.info("--------------------------------");
+        log.info(careerList.toString());
 
-        log.info("Generated Career List: {}", careerList);
 
         for (Career career : careerList) {
-            int result = careerService.update(career);
 
-            if (result > 0) {
+            int result = 0;
+            if(career.getNo()>0){
+                result = careerService.update(career);
                 log.info("수정했다!!");
-            } else {
-                log.info(career.toString());
-                log.info("수정못햇따");
+            }else{
+                career.setTrainerNo(39);
+                result = careerService.insert(career);
+                log.info("등록했다");
             }
+
+
+            if(result>0) log.info("성공했다");
+            else{
+                log.info(career.toString());
+                log.info("망했다");
+            }
+            
         }
 
-
-    public String updatePro(Trainer trainer) throws Exception {
         
-
         int result = trainerService.update(trainer);
-
-    log.debug("Trainer data : {}", trainer);
-
-    if (result > 0) {
-        return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
+    
+        log.debug("Trainer data : {}", trainer);
+        
+        if(result > 0) {
+            return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
+        }
+        return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
     }
-    return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
-}
     
     // [은아] - 나는 이거 안 씀
     @PostMapping("/delete")
