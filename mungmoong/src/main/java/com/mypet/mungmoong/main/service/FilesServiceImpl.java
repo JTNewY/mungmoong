@@ -140,13 +140,13 @@ public class FilesServiceImpl implements FilesService {
         // 파일 정보 등록
         file.setName(fileName);
         file.setOriginName(originName);
-        // filePath C:/upload/UID_원본파일명.xxx
+        //filePath C:/upload/UID_원본파일명.xxx
         String filePath = uploadPath + "/" + fileName; 
         file.setPath(filePath);
         file.setSize(fileSize);
         // ⭐ 넘겨받을 때 세팅함.
-        // file.setFileCode(0);
-        insert(file);
+        //file.setFileCode(1);
+        filesMapper.insert(file);
 
         return true;
     }

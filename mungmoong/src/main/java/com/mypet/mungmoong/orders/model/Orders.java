@@ -3,13 +3,14 @@ package com.mypet.mungmoong.orders.model;
 import java.util.Date;
 import java.util.List;
 
-import com.mypet.mungmoong.users.model.Users;
+import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.Data;
 
 @Data
 public class Orders {
     private String id;
+    private int dateNo; // 20240605재희수정
     private String title;
     private String userId;
     private int totalQuantity = 1;
@@ -28,5 +29,8 @@ public class Orders {
     private Users user;
     private Shipments shipments;
 
+    public void setDateNo(int dateNo) {
+        this.dateNo = dateNo;
+    }
 }
 

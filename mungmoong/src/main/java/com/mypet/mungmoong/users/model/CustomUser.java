@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.mypet.mungmoong.users.dto.Users;
+
 import lombok.Getter;
 import lombok.ToString;
 
@@ -41,7 +43,7 @@ public class CustomUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getName();
     }
 
     @Override
