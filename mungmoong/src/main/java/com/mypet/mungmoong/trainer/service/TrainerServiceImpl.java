@@ -1,5 +1,6 @@
 package com.mypet.mungmoong.trainer.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,6 +180,53 @@ public class TrainerServiceImpl implements TrainerService {
                     }
                 }
             }
+
+            List<Certificate> certificates = trainer.getCertificateList();
+            
+            if ( certificates != null ) {
+                for (Certificate certificate : certificates) {
+                    certificate.setTrainerNo(trainerNo);
+                    log.debug("Inserting certificate : {}", certificate);
+                    certificateService.update(certificate);
+                    
+                    //
+                    List<MultipartFile> file = trainer.getFiles();
+                    if ( file != null && file.isEmpty() ) {
+                        Files fileImg = new Files();
+                        fileImg.setParentTable("certificate");
+                        fileImg.setParentNo(certificate.getNo());
+                        fileImg.setFileName(fileImg.getFileName());
+                        fileImg.setFilePath("C:/upload/" + fileImg.getFileName());
+                        fileImg.setFileSize(fileImg.getFileSize());
+                        // fileImg.setFile(trainer.setFiles(imgFile));
+                        fileImg.setFileCode(0);
+                        fileService.update(fileImg);
+                    }
+
+                }
+            }
+            // if (file != null && !file.isEmpty()) {
+            //     Files uploadFile = new Files();
+            //     uploadFile.setParentTable("certificate");
+            //     uploadFile.setParentNo(certificate.getNo());
+            //     uploadFile.setFileName(file.getOriginalFilename());
+            //     uploadFile.setFilePath("C:/upload/" + file.getOriginalFilename());
+            //     uploadFile.setFileSize(file.getSize());
+            //     uploadFile.setFile(file);
+            //     fileService.upload(uploadFile); // 파일 업로드
+
+            // Files imgFile = (Files) trainer.getFiles();
+            // if (imgFile != null && !((MultipartFile) imgFile).isEmpty()) {
+            //     Files files = new Files();
+            //     files.setParentTable("trainer");
+            //     files.setParentNo(trainerNo);
+            //     files.setFileName(imgFile.getFileName());
+            //     files.setFilePath("C:/upload/" + imgFile.getFilePath());
+            //     files.setFileSize(imgFile.getFileSize());
+            //     files.setFile((MultipartFile) files);
+            //     files.setFileCode(0); // 썸네일 파일 코드를 설정
+                
+            // }
     
             return result;
         } catch (Exception e) {
