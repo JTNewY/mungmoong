@@ -2,6 +2,7 @@ package com.mypet.mungmoong.orders.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,73 +72,76 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-public int insert(Orders orders) throws Exception {
-    List<String> productIdList = orders.getProductId();
-    List<Integer> quantityList = orders.getQuantity();
-
-    if (productIdList == null) return 0;
-    if (quantityList == null) return 0;
-    if (productIdList.size() != quantityList.size()) return 0;
-
-    String orderId = UUID.randomUUID().toString();
-    orders.setId(orderId);
-
-    int totalCount = productIdList.size();
-    int totalQuantity = 0;
-    int totalPrice = 0;
-    String title = "";
-
-    List<OrderItems> orderItemList = new ArrayList<>();
-    for (int i = 0; i < productIdList.size(); i++) {
-        String productId = productIdList.get(i);
-        Products product = productsService.select(productId);
-        if (i == 0) title = product.getName();
-        if (product == null) continue;
-        OrderItems orderItem = new OrderItems();
-        orderItem.setId(UUID.randomUUID().toString());
-        orderItem.setOrdersId(orderId);
-        orderItem.setProductsId(productId);
-        int quantity = quantityList.get(i);
-        int price = product.getPrice();
-        int amount = price * quantity;
-        totalPrice += amount;
-        totalQuantity += quantity;
-        orderItem.setQuantity(quantity);
-        orderItem.setPrice(price);
-        orderItem.setAmount(amount);
-        orderItemList.add(orderItem);
-    }
-    title += " 외 " + totalCount + "종";
-
-    orders.setTitle(title);
-    orders.setTotalPrice(totalPrice);
-    orders.setTotalQuantity(totalQuantity);
-    orders.setTotalCount(totalCount);
+    public int insert(Orders orders) throws Exception {
+        List<String> productIdList = orders.getProductId();
+        List<Integer> quantityList = orders.getQuantity();
     
-    // orders 객체에서 resDate 값을 가져와서 orders 객체에 설정
-    orders.setResDate(orders.getResDate());
-
-    // 주문 등록
-    int result = ordersMapper.insert(orders);
-
-    if (result > 0) {
-        // 주문 항목 등록
-        for (OrderItems orderItems : orderItemList) {
-            orderItemsService.insert(orderItems);
+        if (productIdList == null || quantityList == null || productIdList.size() != quantityList.size()) {
+            return 0;
         }
-        // 배송 정보 등록
-        Shipments shipments = new Shipments();
-        List<Address> addressList = addressService.listByUserId(orders.getUserId());
-        Address address = addressList.stream().filter((add) -> {
-            return add.getIsDefault();
-        }).findFirst().get();
-        shipments.setOrderId(orderId);
-        shipments.setAddressId(address.getId());
-        shipments.setStatus(ShipmentsStatus.PENDING);
-        shipmentsService.insert(shipments);
+    
+        String orderId = UUID.randomUUID().toString();
+        orders.setID(orderId);
+    
+        if (orders.getUserId() == null || orders.getUserId().isEmpty()) {
+            throw new IllegalArgumentException("User ID is required");
+        }
+        if (orders.getTitle() == null || orders.getTitle().isEmpty()) {
+            throw new IllegalArgumentException("Title is required");
+        }
+        if (orders.getResDate() == null) {
+            throw new IllegalArgumentException("Reservation Date is required");
+        }
+    
+        int totalCount = productIdList.size();
+        int totalQuantity = 0;
+        int totalPrice = 0;
+        String title = "";
+    
+        List<OrderItems> orderItemList = new ArrayList<>();
+        for (int i = 0; i < productIdList.size(); i++) {
+            String productId = productIdList.get(i);
+            Products product = productsService.select(productId);
+            if (i == 0) title = product.getName();
+            if (product == null) continue;
+            OrderItems orderItem = new OrderItems();
+            orderItem.setId(UUID.randomUUID().toString());
+            orderItem.setOrdersId(orderId);
+            orderItem.setProductsId(productId);
+            int quantity = quantityList.get(i);
+            int price = product.getPrice();
+            int amount = price * quantity;
+            totalPrice += amount;
+            totalQuantity += quantity;
+            orderItem.setQuantity(quantity);
+            orderItem.setPrice(price);
+            orderItem.setAmount(amount);
+            orderItemList.add(orderItem);
+        }
+        title += " 외 " + totalCount + "종";
+    
+        orders.setTitle(title);
+        orders.setTotalPrice(totalPrice);
+        orders.setTotalQuantity(totalQuantity);
+        orders.setTotalCount(totalCount);
+    
+        // 주문 등록
+        int result = ordersMapper.insert(orders);
+    
+        if (result > 0) {
+            // 주문 항목 등록
+            for (OrderItems orderItems : orderItemList) {
+                orderItemsService.insert(orderItems);
+            }
+            // 배송 정보 등록
+            Shipments shipments = new Shipments();
+            shipments.setOrderId(orderId);
+            shipments.setAddressId(orders.getAddressId());
+            shipments.setStatus(ShipmentsStatus.PENDING);
+            shipmentsService.insert(shipments);
+        }
+        return result;
     }
-    return result;
-}
 
 
     @Override

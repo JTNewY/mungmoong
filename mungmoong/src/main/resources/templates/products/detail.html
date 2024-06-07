@@ -52,12 +52,13 @@
                    <div class="col-12 col-md-6">
                         <div class="card shadow-sm">
                             <div class="card-body">
-                             
+                              <input type="hidden" class="form-control" id="title" name="title" th:value="${product.name}" required>
                                 <h3 class="card-title fs-2" th:text="${product.name}"></h3>
+                              
                                 <p class="card-text" th:text="${product.description}"></p>
                                 <div class="d-flex justify-content-end">
                                     <p>
-                                        가격 : \<span class="fw-bold" th:text="${product.price}"></span>
+                                        가격 : <span class="fw-bold" th:text="${product.price}"></span>
                                     </p>
                                 </div>
                                      <div class="col-md-6 mb-3">
@@ -68,13 +69,13 @@
                                         예약날짜를 선택해주세요
                                         <label for="resDate">예약날짜</label>
                                         <div class="input-group input-daterange">
-                                          <input type="text" class="form-control" name="resDate"id="resDate" value="2000-01-01">
+                                          <input type="text" class="form-control" name="resDate"id="resDate" value="">
                                         </div>
                                     </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                       <label for="address">방문주소</label>
-                                      <input type="text" class="form-control" id="address" name="address" th:value="${session.user.address}" readonly>
+                                      <input type="text" class="form-control" id="addressId" name="addressId" th:value="${session.user.address}" readonly>
                                       <div class="invalid-feedback">
                                         주소을 입력해주세요.
                                       </div>

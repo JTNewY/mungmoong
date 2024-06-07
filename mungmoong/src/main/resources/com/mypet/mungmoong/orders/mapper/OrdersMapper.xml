@@ -7,26 +7,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mypet.mungmoong.orders.mapper.OrdersMapper">
 
     <!-- 결제 목록 -->
-    <select id="list" resultType="Orders">
+    <select id="list" resultType="com.mypet.mungmoong.orders.dto.Orders">
         SELECT *
         FROM orders
         ORDER BY reg_date DESC
     </select>
 
     <!-- 결제 조회 -->
-    <select id="select" resultType="Orders">
+   <select id="select" resultType="com.mypet.mungmoong.orders.dto.Orders">
         SELECT *
         FROM orders
-        WHERE order_no = #{orderNo}
+        WHERE date_no = #{dateno}
     </select>
 
     <!-- 결제 등록 -->
-    <insert id="insert">
+   <insert id="insert" parameterType="com.mypet.mungmoong.orders.dto.Orders">
         INSERT INTO orders (ID, user_id, title, memo, resDate, total_quantity, total_count, total_price)
     VALUES (UUID(), #{userId}, #{title}, #{memo}, #{resDate}, #{totalQuantity}, #{totalCount}, #{totalPrice});
     </insert>
     <!-- 결제 수정 -->
-    <update id="update">
+   <update id="update" parameterType="com.mypet.mungmoong.orders.dto.Orders">
           UPDATE orders
            SET title = #{title}
               ,total_quantity = #{totalQuantity}
