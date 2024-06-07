@@ -2,16 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/layouts/main_layout}">
 <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 정보</title>
+    <style>
+        .event-log {
+          font-family: consolas, Monaco, monospace;
+          margin: 10px 5px;
+          line-height: 2;
+          border: 1px solid #4c4c4c;
+          height: auto;
+          width: 90%;
+          padding: 2px 6px;
+          color: #4c4c4c;
+          white-space: pre;
+        }
+      </style>
 </head>
 
 <body layout:fragment="content">
 
     <section>
+      <form action="/orders" method="post">
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
                 <div class="main-title py-5">
@@ -34,61 +49,70 @@
                             &nbsp;
                         </div>
                     </div>
-                    <div class="col-12 col-md-6">
+                   <div class="col-12 col-md-6">
                         <div class="card shadow-sm">
                             <div class="card-body">
+                              <input type="hidden" class="form-control" id="title" name="title" th:value="${product.name}" required>
                                 <h3 class="card-title fs-2" th:text="${product.name}"></h3>
+                              
                                 <p class="card-text" th:text="${product.description}"></p>
                                 <div class="d-flex justify-content-end">
                                     <p>
-                                        가격 : \<span class="fw-bold" th:text="${product.price}"></span>
+                                        가격 : <span class="fw-bold" th:text="${product.price}"></span>
                                     </p>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                      <label for="name">예약자</label>
-                                      <input type="text" class="form-control" id="user_id" name="user_id" th:value="${session.user.name}" 
-                                                  readonly>
-                                      <div class="invalid-feedback">
-                                        이름을 입력해주세요.
+                                     <div class="col-md-6 mb-3">
+                                        <label for="name">예약자</label>
+                                        <input type="text" class="form-control"id="user_id" name="user_id" th:value="${session.user.name}"  readonly>
                                       </div>
+                                      <div class="modal-body">
+                                        예약날짜를 선택해주세요
+                                        <label for="resDate">예약날짜</label>
+                                        <div class="input-group input-daterange">
+                                          <input type="text" class="form-control" name="resDate"id="resDate" value="">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                      <label for="nickname">훈련사명</label>
-                                      <input type="text" class="form-control" id="" name="" placeholder="" readonly>
-                                      <div class="invalid-feedback">
-                                        훈련사를 입력해주세요.
-                                      </div>
-                                    </div>
-                                  </div>
-                                <div class="modal-body">
-                                    예약날짜를 선택해주세요
-                                    <div id="calendar" class="input-group">
-                                        <input type="date" id="selectedDate" class="form-control">
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                       <label for="address">방문주소</label>
-                                      <input type="text" class="form-control" id="" name="" readonly>
+                                      <input type="text" class="form-control" id="addressId" name="addressId" th:value="${session.user.address}" readonly>
                                       <div class="invalid-feedback">
                                         주소을 입력해주세요.
                                       </div>
                                     </div>
+                                    <!--펫정보-->
+                                    <div class="my-pets">
+                                        <h2>나의 강아지</h2>
+                                            <div th:each="pet : ${pets}" class="col-md-6">
+                                                <div class="pet-card d-flex align-items-center p-3 mb-3">
+                                                    <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
+                                                    <div class="pet-info">
+                                                        <input type="text" th:value="${pet.petname}" readonly>
+                                                        <input type="text" th:value="${pet.age + '살'}" readonly>
+                                                        <input type="text" th:value="${pet.character}" readonly>
+                                                    </div>
+                                                    <!-- <button type="button" class="custom-button" 
+                                                            th:onclick="|location.href='/users/petupdate?petNo=${pet.petNo}'|">마이펫수정</button> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    <!--펫정보-->
+
                                     <div class="col-md-12 mb-3">
                                       <label for="memo">요청사항</label>
-                                      <input type="text" class="form-control" id="" name="" placeholder="" readonly>
+                                      <input type="text" class="form-control" id="memo" name="memo" placeholder="">
                                       <div class="invalid-feedback">
                                         요청사항을 입력해주세요.
                                       </div>
                                     </div>
-                                  </div>
-                        
+                                  </div> 
+                         
                                 <div class="row my-5 row-gap-2">
                                     <div class="col-12 col-md-6">
                                         <button type="button" class="btn btn-warning w-100">예약리스트 담기</button>
                                     </div>
-                                    <form action="/orders" method="post" class="col-12 col-md-6">
+                                   
                                         <!-- CSRF TOKEN -->
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <input type="hidden" id="productId" name="productId" th:value="${product.id}">
@@ -114,67 +138,45 @@
 
             </div>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
     <script>
+     
 
-        function setQuantity(value) {
-            let quantity = $('#quantity-value').text()
-            quantity = parseInt(quantity)
-            if (value == -1 && quantity == 1) return
-            quantity += value
-            $('#quantity').val(quantity)
-            $('#quantity-value').text(quantity)
-        }
-
-        let trainerId = ''
-        $(function () {
-
-            $('.btn-reserv').on('click', function () {
-                trainerId = $(this).attr('data')
-
-            })
-        })
-
-        //달력 기본값설정(오늘로)
-        document.addEventListener("DOMContentLoaded", function () {
-            const today = new Date();
-            const year = today.getFullYear();
-            let month = today.getMonth() + 1;
-            if (month < 10) {
-                month = "0" + month;
-            }
-            let day = today.getDate();
-            if (day < 10) {
-                day = "0" + day;
-            }
-            const todayString = `${year}-${month}-${day}`;
-            document.getElementById("selectedDate").value = todayString;
+      $(document).ready(function() {
+    $("div.input-daterange input").datepicker({
+      language: 'ko', // 한국어 설정
+      format: 'yyyy-mm-dd', // 날짜 형식 설정
+      autoclose: true // 날짜 선택 후 자동 닫힘
+    });
+    
+    $("div.input-daterange").each(function() {
+      var $inputs = $(this).find('input');
+      if ($inputs.length >= 2) {
+        var $from = $inputs.eq(0);
+        var $to = $inputs.eq(1);
+        $from.on('changeDate', function(e) {
+          $to.datepicker('setStartDate', new Date(e.date.valueOf()));
         });
-
-        document.getElementById("submitDate").addEventListener("click", function () {
-            const selectedDate = document.getElementById("selectedDate").value;
-            localStorage.setItem("selectedDate", selectedDate); // 선택된 날짜를 로컬 스토리지에 저장
-            showModal(); // 모달 표시 함수 호출
+        $to.on('changeDate', function(e) {
+          $from.datepicker('setEndDate', new Date(e.date.valueOf()));
         });
-        //예약날짜 저장스크립트
-        document.getElementById("submitDate").addEventListener("click", function () {
-            const selectedDate = document.getElementById("selectedDate").value;
-            const date = encodeURIComponent(selectedDate)
-            window.location.href = `/reserve/insert?date=${date}&trainerId=${trainerId}`;
-        });
+      }
+    });
+  });
 
-
-
-        //예약날짜 지정후 저장 모달버튼
-        function moveInsert() {
-            location.href = '/reserve/insert';
-        }
-
-
-
+  document.getElementById("submitDate").addEventListener("click", function () {
+    // 예약 날짜 가져오기
+    const resDate = document.getElementById("resDate").value;
+    
+    // Java 스크립트로 예약 날짜 전달
+    window.location.href = `/reserve/insert?resDate=${resDate}&trainerId=${trainerId}`;
+});
     </script>
+
+
 </body>
 
 </html>

@@ -10,6 +10,7 @@ import lombok.Data;
 public class OrdersDetail {
     private int orderId;
     private String cardNo;
+    private int dateNo;
     private String orderPrice;
     private Boolean priceCheck;
     private Date orderDate;

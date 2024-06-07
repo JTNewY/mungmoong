@@ -2,31 +2,35 @@ package com.mypet.mungmoong.orders.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
-import com.mypet.mungmoong.users.model.Users;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.Data;
 
 @Data
 public class Orders {
-    private String id;
-    private String title;
+     private String ID; // 추가된 필드
+    private int orderNo;
+    private int dateNo;
+    private int orderId;
     private String userId;
-    private int totalQuantity = 1;
-    private int totalCount = 1;
-    private int totalPrice = 0;
-    private OrderStatus status;
-    private Date orderedAt;
-    private Date createdAt;
-    private Date updatedAt;
-    
-    // params
-    private List<String> productId;
-    private List<Integer> quantity;
-    
-    //----------------------------------------
-    private Users user;
-    private Shipments shipments;
+    private String memo;
+    private String title; // 추가된 필드
+    private String addressId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date resDate;
+    private int totalQuantity;
+    private int totalCount;
+    private int totalPrice;
+    private Boolean payCheck;
+    private Boolean userCheck;
+    private Integer trainerCheck;
+
+    private List<String> productId; // 추가
+    private List<Integer> quantity; // 추가
 
 }
 
