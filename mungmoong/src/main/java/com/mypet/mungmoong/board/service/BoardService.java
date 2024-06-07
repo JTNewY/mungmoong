@@ -9,7 +9,7 @@ import com.mypet.mungmoong.trainer.dto.Page;
 public interface BoardService {
 
     // 게시글 목록
-    public List<Board> list(Page page, Option optin) throws Exception; // 예외 전가
+    public List<Board> list(Page page, Option option) throws Exception; // 예외 전가
     // 게시글 조회
 
     public Board select(int no) throws Exception;
