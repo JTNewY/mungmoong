@@ -3,12 +3,13 @@
 
 <mapper namespace="com.mypet.mungmoong.trainer.mapper.ScheduleMapper">
 
+    <!-- 날짜 조회 -->
     <select id="select" resultType="com.mypet.mungmoong.trainer.dto.Schedule">
         SELECT * FROM schedule WHERE trainer_no = #{trainerNo}
     </select>
 
     <!-- 날짜 추가 -->
-    <insert id="insert">
+    <insert id="insert" parameterType="Schedule">
         INSERT INTO schedule (trainer_no, date, reg_date, upd_date)
         VALUES (#{trainerNo}, #{date}, now(), now())
     </insert>

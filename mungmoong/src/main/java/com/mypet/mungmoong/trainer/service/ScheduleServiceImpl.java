@@ -1,16 +1,30 @@
 package com.mypet.mungmoong.trainer.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.trainer.dto.Schedule;
 import com.mypet.mungmoong.trainer.mapper.ScheduleMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
 public class ScheduleServiceImpl implements ScheduleService  {
 
     @Autowired
     private ScheduleMapper scheduleMapper;
+    
+
+
+    @Override
+    public List<Schedule> select(int trainerNo) throws Exception {
+        List<Schedule> scheduleList = scheduleMapper.select(trainerNo);
+        return scheduleList;
+    }
 
     @Override
     public int insert(Schedule schedule) throws Exception {
@@ -25,6 +39,7 @@ public class ScheduleServiceImpl implements ScheduleService  {
 
         return result;
     }
+
 
     
 }
