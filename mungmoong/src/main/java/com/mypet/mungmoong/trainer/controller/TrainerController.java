@@ -1,6 +1,5 @@
 package com.mypet.mungmoong.trainer.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,21 +13,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
+import com.mypet.mungmoong.trainer.dto.Schedule;
 import com.mypet.mungmoong.trainer.dto.Trainer;
+import com.mypet.mungmoong.trainer.mapper.ScheduleMapper;
 import com.mypet.mungmoong.trainer.service.CareerService;
 import com.mypet.mungmoong.trainer.service.CertificateService;
 import com.mypet.mungmoong.trainer.service.FileService;
 // import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
+
 import lombok.extern.slf4j.Slf4j;
+
 
 
 
@@ -97,6 +102,38 @@ public class TrainerController {
         model.addAttribute("certificateList", certificateList);
         return "/trainer/info";
     }
+
+
+    // 스케쥴 조회
+    @GetMapping("/schedule")
+    public String getschedule(HttpSession session, Model model) throws Exception {
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if (trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            // 트레이너 번호가 없을 경우 에러 처리
+            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "/trainer/error"; 
+        }
+        List<Schedule> scheduleList = scheduleService.select(trainerNo);
+        model.addAttribute("scheduleList", scheduleList);
+        return "/trainer/schedule";
+    }
+    
+    // 스케쥴 저장
+    @PostMapping("/schedule")
+    public String saveSchedule(Model model, HttpSession session) throws Exception {
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if (trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "error"; 
+        }
+        List<Schedule> scheduleList = scheduleService.select(trainerNo);
+        for (Schedule date : scheduleList) {
+            
+        }
+        return "redirect:/trainer/schedule";
+    }
+
 
     @PostMapping("/join_data")
     public String insertPro(@ModelAttribute Trainer trainer, HttpSession session, Model model) {
