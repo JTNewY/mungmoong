@@ -97,8 +97,9 @@ public class ProductsServiceImpl implements ProductsService {
             thumbnail.setSeq(1);               // 순서 : 1
             filesService.upload(thumbnail);        // 썸네일 파일 업로드
         }
+
     }
 
-    
+
     
 

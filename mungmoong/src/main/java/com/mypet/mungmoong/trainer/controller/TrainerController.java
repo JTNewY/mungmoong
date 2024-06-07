@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.dto.Certificate;
@@ -27,7 +28,7 @@ import com.mypet.mungmoong.trainer.mapper.ScheduleMapper;
 import com.mypet.mungmoong.trainer.service.CareerService;
 import com.mypet.mungmoong.trainer.service.CertificateService;
 import com.mypet.mungmoong.trainer.service.FileService;
-import com.mypet.mungmoong.trainer.service.ScheduleService;
+// import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
 
@@ -79,8 +80,8 @@ public class TrainerController {
     @Autowired
     private CertificateService certificateService;
 
-    @Autowired
-    private ScheduleService scheduleService;
+    // @Autowired
+    // private ScheduleService scheduleService;
 
 
 
@@ -203,9 +204,13 @@ public class TrainerController {
      */
     @PostMapping("/info_update")
     public String updatePro(Trainer trainer, HttpSession session) throws Exception {
+        log.info(":::::::::::::::::: 훈련사 정보 수정 :::::::::::::::::::");
+        log.info("trainser : " + trainer.toString());
         List<Career> careerList = trainer.toCareerList();
         List<Certificate> certificateList = trainer.toCertificateList();
         List<Files> filesList = fileService.list();
+        List<MultipartFile> files = trainer.getFiles();
+
 
         log.info("--------------------------------");
         log.info(careerList.toString());
@@ -241,9 +246,19 @@ public class TrainerController {
                 }
             }
 
-            for (Certificate certificate : certificateList) {
+            log.info(":::::::::::::::::::::: certificateList ::::::::::::::::::::::::");
+            log.info("certificateList : " + certificateList);
+            log.info(":::::::::::::::::::::: 업로드 파일 목록 - files ::::::::::::::::::::::::");
+            log.info("files : " + files);
+
+            for (int i = 0; i < certificateList.size(); i++) {
+                Certificate certificate = certificateList.get(i);
                 certificate.setTrainerNo(trainerNo);
                 log.info("trainerNo : " + trainerNo);
+
+                // 자격증 객체에 이미지 파일 담음
+                certificate.setInsertFile( files.get(i) );
+                certificate.insertImg();
 
                 int result = 0;
                 if (certificate.getNo() > 0) {

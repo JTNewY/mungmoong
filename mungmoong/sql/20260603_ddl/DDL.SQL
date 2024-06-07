@@ -13,6 +13,7 @@ CREATE TABLE `pet` (
     `petgender` INT NOT NULL,
     `character` VARCHAR(100) NULL,
     `type` VARCHAR(50) NULL,
+     `user_id` VARCHAR(100) NOT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -161,13 +162,14 @@ select * from career;
 DROP TABLE IF EXISTS career;
 
 TRUNCATE TABLE career;
-
 CREATE TABLE `career` (
-    `no` INT PRIMARY KEY AUTO_INCREMENT,
-    `user_id` VARCHAR(100) NOT NULL,
-    `name` VARCHAR(100) NULL,
-    `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+    `no` INT PRIMARY KEY AUTO_INCREMENT, -- 경력 번호
+    `user_id` VARCHAR(100) NOT NULL, -- 회원 아이디
+    `trainer_no` INT NOT NULL, -- 훈련사 번호
+    `name` VARCHAR(100) NULL, -- 경력 이름
+    `reg_date` TIMESTAMP NULL, -- 등록일
+    `upd_date` TIMESTAMP NULL, -- 수정일
+    FOREIGN KEY (`trainer_no`) REFERENCES `trainer`(`no`) -- 외래 키 설정
 );
 
 ALTER TABLE `career`

@@ -2,6 +2,8 @@ package com.mypet.mungmoong.trainer.service;
 
 import java.util.List;
 
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
 public interface TrainerService {
@@ -16,7 +18,7 @@ public interface TrainerService {
     public int update(Trainer trainer) throws Exception;
 
     // 트레이너 리스트 호출
-    public List<Trainer> trainerList() throws Exception;
+    public List<Trainer> trainerList(Page page, Option option) throws Exception;
 
     // 훈련사 번호 조회
     public int selectTrainerNo() throws Exception;
