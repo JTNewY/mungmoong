@@ -168,7 +168,10 @@ public class AdminController {
         List<Trainer> trainerList = trainerService.trainerList(null, null);
         log.info(trainerList.toString());
 
-        model.addAttribute("trainerList", trainerList);
+        // List<Trainer> trainerList = trainerService.trainerList();
+
+
+        model.addAttribute("trainerList", trainerList(model));
 
         return "/admin/admin_trainer";
     }

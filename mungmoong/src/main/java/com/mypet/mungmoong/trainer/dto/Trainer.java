@@ -39,6 +39,7 @@ public class Trainer {
 
     private List<Career> careerList = new ArrayList<>(); // 초기화
     private List<Certificate> certificateList = new ArrayList<>(); // 초기화
+    private List<Schedule> scheduleList = new ArrayList<>();
 
     private Users user;
 

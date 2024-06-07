@@ -1,12 +1,18 @@
 package com.mypet.mungmoong.orders.controller;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +62,14 @@ public class OrdersController {
     private PaymentsService paymentsService;
 
 
+      @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+
     /**
      * 주문하기
      * @param param
@@ -68,38 +82,39 @@ public class OrdersController {
         return "/orders/index";
     }
 
-    /**
-     * 주문 등록
-     * - product - id, quantity
-     * @param entity
-     * @return
-     * @throws Exception 
-     */
     @PostMapping("")
-    public String orderPost(Orders orders
-                           ,HttpSession session
-                           ,@RequestParam List<String> productId
-                           ,@RequestParam List<Integer> quantity) throws Exception {
-        
+    public String orderPost(Orders orders,
+                            HttpSession session,
+                            @RequestParam List<String> productId,
+                            @RequestParam List<Integer> quantity,
+                            @RequestParam String title,
+                            @RequestParam String resDate,
+                            @RequestParam String addressId) throws Exception {
+    
         log.info("::::::::: 주문 등록 - orderPost() ::::::::::");
         log.info("productId : " + productId);
         log.info("quantity : " + quantity);
+    
         Users user = (Users) session.getAttribute("user");
         orders.setUserId(user.getUserId());
         orders.setProductId(productId);
         orders.setQuantity(quantity);
-
+        orders.setTitle(title);
+        orders.setAddressId(addressId); // addressId 설정
+    
+        // String을 Date로 변환
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(resDate);
+        orders.setResDate(date);
+    
         // 주문 등록
         int result = ordersService.insert(orders);
-        // TODO: 배송 등록
-
-        log.info("신규 등록된 주문ID : " + orders.getId() );
-        if( result > 0 ) {
-            return "redirect:/orders/" + orders.getId();
-        }
-        // TODO : 주문 실패시 어디로 가는게 좋을지? - 장바구니? 주문내역? 상품목록?
-        else {
-            return "redirect:/orders";
+        log.info("신규 등록된 주문ID : " + orders.getID());
+    
+        if (result > 0) {
+            return "redirect:/orders/index" + orders.getID();
+        } else {
+            return "redirect:/orders/index";
         }
     }
 

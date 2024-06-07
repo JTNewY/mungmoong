@@ -98,13 +98,8 @@ public class ProductsServiceImpl implements ProductsService {
             filesService.upload(thumbnail);        // 썸네일 파일 업로드
         }
 
-    @Override
-    public Products selectPro(int id) throws Exception {
-        Products products = productsMapper.selectPro(id);
-  
-        return products; }
     }
 
-    
+
     
 
