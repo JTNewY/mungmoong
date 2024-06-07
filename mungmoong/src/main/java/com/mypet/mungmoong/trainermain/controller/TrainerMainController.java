@@ -78,7 +78,7 @@ public class TrainerMainController {
         // List<Board> boardList = boardService.search(keyword);    //[검색]
         // List<Board> boardList = boardService.search(option);     //[검색]
         List<Board> boardList = boardService.list();    //[페이징]+[검색]
-        List<Trainer> trainerList = trainerService.trainerList();
+        List<Trainer> trainerList = trainerService.trainerList(page, option);
         // List<Career> careers = careerService.select(userId);
         // List<Certificate> certificates = certificateService.listByUserId(userId);
 

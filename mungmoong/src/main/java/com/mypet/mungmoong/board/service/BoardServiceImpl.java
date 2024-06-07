@@ -1,12 +1,14 @@
 package com.mypet.mungmoong.board.service;
 
-import com.mypet.mungmoong.board.dto.Board;
-import com.mypet.mungmoong.board.mapper.BoardMapper;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.mypet.mungmoong.board.dto.Board;
+import com.mypet.mungmoong.board.mapper.BoardMapper;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -15,8 +17,8 @@ public class BoardServiceImpl implements BoardService {
    BoardMapper boardMapper;
 
    @Override
-    public List<Board> list() throws Exception {
-        List<Board> boardList = boardMapper.list();
+    public List<Board> list(Page page, Option option) throws Exception {
+        List<Board> boardList = boardMapper.list(page, option);
         return boardList;
     }
 

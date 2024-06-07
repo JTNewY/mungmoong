@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
@@ -42,9 +44,9 @@ public class BoardController {
      * @throws Exception
      */
     @GetMapping("/list")
-    public String list(Model model) throws Exception {
+    public String list(Model model, Page page, Option option) throws Exception {
         // 데이터 요청
-        List<Board> boardList = boardService.list();
+        List<Board> boardList = boardService.list(page, option);
         // 모델 등록
         model.addAttribute("boardList", boardList);
         // 뷰 페이지 지정

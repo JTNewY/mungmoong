@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.mapper.PetMapper;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.users.dto.LoginResponse;
 import com.mypet.mungmoong.users.dto.SocialLoginRequest;
 import com.mypet.mungmoong.users.dto.SocialUserResponse;
@@ -104,8 +106,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public List<Users> list() throws Exception {
-        List<Users> usersList = userMapper.list();
+    public List<Users> list(Page page, Option option) throws Exception {
+        List<Users> usersList = userMapper.list(page, option);
         return usersList;
     }
 

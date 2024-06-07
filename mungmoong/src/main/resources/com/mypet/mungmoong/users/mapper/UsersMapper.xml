@@ -40,6 +40,7 @@
         SELECT *
         FROM users
         ORDER BY reg_date DESC
+        <!-- LIMIT #{index}, #{rows} -->
     </select>
 
     <!-- 로그인 - username -->

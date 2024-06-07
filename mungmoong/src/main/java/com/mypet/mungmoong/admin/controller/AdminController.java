@@ -18,6 +18,8 @@ import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
 import com.mypet.mungmoong.reserve.dto.Reserve;
 import com.mypet.mungmoong.reserve.service.ReserveService;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
@@ -53,9 +55,11 @@ public class AdminController {
      * @throws Exception
      */
     @GetMapping("/admin_info")
-    public String list(Model model) throws Exception {
+    public String list(Model model, Page page, Option option) throws Exception {
 
-        List<Users> usersList = userService.list();
+        List<Users> usersList = userService.list( page, option );
+
+        log.info("Users page 로그 : " + page);
         // log.info(usersList.toString());
         model.addAttribute("usersList", usersList);
 
@@ -163,9 +167,9 @@ public class AdminController {
      * @throws Exception
      */
     @GetMapping("/admin_trainer")
-    public String trainerList(Model model) throws Exception {
+    public String trainerList(Model model, Page page, Option option) throws Exception {
 
-        List<Trainer> trainerList = trainerService.trainerList();
+        List<Trainer> trainerList = trainerService.trainerList(page, option);
         log.info(trainerList.toString());
 
         model.addAttribute("trainerList", trainerList);
@@ -228,9 +232,11 @@ public class AdminController {
      * @throws Exception
      */
     @GetMapping("/admin_board")
-    public String getMethodName(Model model) throws Exception {
+    public String getMethodName(Model model, Page page, Option option) throws Exception {
 
-        List<Board> boardList = boardService.list();
+        List<Board> boardList = boardService.list(page, option);
+
+        log.info("Board page 로그 : " + page);
         model.addAttribute("boardList", boardList);
         return "/admin/admin_board";
     }

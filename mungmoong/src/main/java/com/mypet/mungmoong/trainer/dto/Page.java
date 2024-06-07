@@ -82,7 +82,7 @@ public class Page {
         this.start = ( (page-1) / count ) * count + 1;
         // 끝 번호
         this.end = ( (page-1) / count + 1 ) * count;
-        if( this.end > this.last ) this.end = this.last;
+        // if( this.end > this.last ) this.end = this.last;
 
         // 이전 번호
         this.prev = this.page - 1;

@@ -1,15 +1,18 @@
 package com.mypet.mungmoong.board.mapper;
 
-import com.mypet.mungmoong.board.dto.Board;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.mypet.mungmoong.board.dto.Board;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 
 @Mapper
 public interface BoardMapper {
     // 게시글 목록
-    public List<Board> list() throws Exception;
+    public List<Board> list(@Param("page")Page page, Option option) throws Exception;
     // 게시글 조회
     public Board select(int no) throws Exception;
     // 게시글 등록

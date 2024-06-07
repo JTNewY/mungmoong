@@ -134,8 +134,8 @@ public class FilesController {
         
         // 이미지 컨텐츠 타입 지정
         HttpHeaders headers = new HttpHeaders();
-        MediaType mediaType = MediaUtil.getMediaType(ext);
-        headers.setContentType(mediaType);        
+        // MediaType mediaType = MediaUtil.getMediaType(ext);
+        // headers.setContentType(mediaType);        
 
         // new ResponseEntity<>( 데이터, 헤더, 상태코드 )
         return new ResponseEntity<>( fileData, headers, HttpStatus.OK );
