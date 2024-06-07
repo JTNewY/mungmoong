@@ -19,6 +19,7 @@
             upd_date = #{updDate}
         WHERE pet_no = #{petNo}
     </update>
+
     
     <!-- 반려동물 정보 삭제 -->
     <delete id="deletePet" parameterType="int">

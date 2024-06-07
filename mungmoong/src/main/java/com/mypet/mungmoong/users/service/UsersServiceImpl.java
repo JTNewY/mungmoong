@@ -3,7 +3,6 @@ package com.mypet.mungmoong.users.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -170,19 +169,16 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public SocialUserResponse getUserInfo(String accessToken) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getUserInfo'");
     }
 
     @Override
     public void joinUser(UserJoinRequest request) throws Exception {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'joinUser'");
     }
 
     @Override
     public LoginResponse doSocialLogin(SocialLoginRequest request) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'doSocialLogin'");
     }
 }
