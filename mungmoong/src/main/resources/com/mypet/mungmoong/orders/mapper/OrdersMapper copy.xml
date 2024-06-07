@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.orders.mapper.OrdersMapper">
+
+    <!-- 목록 -->
+    <select id="list" resultType="Orders">
+        SELECT *
+        FROM orders
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="Orders">
+        SELECT *
+        FROM orders
+        WHERE id = #{id}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insert">
+        INSERT INTO orders (id, user_id, title, total_quantity, total_count, total_price ) 
+        VALUES(#{id}, #{userId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice} );
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        UPDATE orders
+           SET title = #{title}
+              ,total_quantity = #{totalQuantity}
+              ,total_price = #{totalPrice}
+              ,total_count = #{totalCount}
+              ,status = #{status}
+              ,updated_at = now()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM orders
+        WHERE id = #{id}
+    </delete>
+
+
+    <!-- 목록 - userId -->
+    <select id="listByUserId" resultType="Orders">
+        SELECT *
+        FROM orders
+        WHERE user_id = #{userId}
+    </select>
+
+</mapper>

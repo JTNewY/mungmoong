@@ -123,7 +123,7 @@ public class FilesController {
         // 파일 정보 중에서 파일 경로 가져오기
         String filePath = file.getPath();
         String fileName = file.getName();
-       String ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+        String ext = fileName.substring(fileName.lastIndexOf('.') + 1);
 
         // 파일 객체 생성
         File f = new File(filePath);
@@ -134,8 +134,8 @@ public class FilesController {
         
         // 이미지 컨텐츠 타입 지정
         HttpHeaders headers = new HttpHeaders();
-        // MediaType mediaType = MediaUtil.getMediaType(ext);
-        headers.setContentType(MediaType.IMAGE_JPEG);        
+        MediaType mediaType = MediaUtil.getMediaType(ext);
+        headers.setContentType(mediaType);        
 
         // new ResponseEntity<>( 데이터, 헤더, 상태코드 )
         return new ResponseEntity<>( fileData, headers, HttpStatus.OK );

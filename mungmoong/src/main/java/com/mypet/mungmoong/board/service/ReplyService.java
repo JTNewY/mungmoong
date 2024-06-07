@@ -26,5 +26,4 @@ public interface ReplyService {
 
     // ⭐답글 종속 삭제
     public int deleteByParentNo(int parentNo) throws Exception;
-
 }
