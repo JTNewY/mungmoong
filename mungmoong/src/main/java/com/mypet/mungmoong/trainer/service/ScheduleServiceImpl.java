@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 import com.mypet.mungmoong.trainer.dto.Schedule;
 import com.mypet.mungmoong.trainer.mapper.ScheduleMapper;
 
-
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,11 +32,6 @@ public class ScheduleServiceImpl implements ScheduleService  {
         List<Schedule> scheduleList = scheduleMapper.select(trainerNo);
         return scheduleList;
     }
-
-public class ScheduleServiceImpl implements ScheduleService  {
-
-     @Autowired     
-     private ScheduleMapper scheduleMapper;
 
 
      @Override
