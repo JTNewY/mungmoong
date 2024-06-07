@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mypet.mungmoong.orders.model.Orders;
 import com.mypet.mungmoong.orders.service.OrdersService;
-import com.mypet.mungmoong.users.model.Users;
+import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +34,7 @@ public class OrdersController {
                            ,HttpSession session) throws Exception {
         log.info("::::::::::::::::::::: 주문 내역 - user :::::::::::::::::::::}");
         Users user = (Users) session.getAttribute("user");
-        String userId = user.getId();
+        String userId = user.getUserId();
         List<Orders> orders = ordersService.listByUserId(userId);
         model.addAttribute("orders", orders);
         
