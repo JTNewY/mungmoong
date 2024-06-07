@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.users.dto.UserAuth;
 import com.mypet.mungmoong.users.dto.UserSocial;
 import com.mypet.mungmoong.users.dto.Users;
@@ -32,7 +34,7 @@ public interface UsersMapper {
     public int insertAuth(UserAuth userAuth) throws Exception;
 
     // 어드민 회원 조회
-    public List<Users> list() throws Exception;
+    public List<Users> list(Page page, Option option) throws Exception;
 
     // 게시글 삭제
     public int delete(String userId) throws Exception;

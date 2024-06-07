@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.users.dto.LoginResponse;
 import com.mypet.mungmoong.users.dto.SocialLoginRequest;
 import com.mypet.mungmoong.users.dto.SocialUserResponse;
@@ -31,7 +33,7 @@ public interface UsersService {
     public int insertAuth(UserAuth userAuth) throws Exception;
 
     // 어드민 회원 조회
-    public List<Users> list() throws Exception;
+    public List<Users> list(Page page, Option option) throws Exception;
 
     // 게시글 삭제
     public int delete(String userId) throws Exception;

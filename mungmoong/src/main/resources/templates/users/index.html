@@ -1,3 +1,4 @@
+<!-- 마이페이지 예시 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -181,8 +182,11 @@
                                 <p>성격: <span th:text="${pet.character}"></span></p>
                                 <p>특이사항: <span th:text="${pet.specialNotes}"></span></p>
                             </div>
-                            <button type="button" class="custom-button" 
-                                    th:onclick="|location.href='/users/petupdate?petNo=${pet.petNo}'|">마이펫수정</button>
+                                <!-- 히든 필드와 함께 폼 제출을 통해 petname을 전송 -->
+                                <form action="/users/petUpdate" method="get" style="display:inline;">
+                                    <input type="hidden" name="petname" th:value="${pet.petname}" />
+                                    <button type="submit" class="custom-button">마이펫 수정</button>
+                                </form>
                         </div>
                     </div>
                 </div>
