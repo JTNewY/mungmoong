@@ -4,9 +4,11 @@ package com.mypet.mungmoong.trainer.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 
 @Mapper     
@@ -32,7 +34,7 @@ public interface TrainerMapper {
 
 
     // 트레이너 리스트 호출
-    public List<Trainer> trainerList() throws Exception;
+    public List<Trainer> trainerList(@Param("page") Page page, Option option) throws Exception;
 
     
 }

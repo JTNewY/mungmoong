@@ -1,6 +1,5 @@
 package com.mypet.mungmoong.trainer.service;
 
-import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.mapper.TrainerMapper;
 import com.mypet.mungmoong.users.dto.Users;
@@ -240,9 +241,12 @@ public class TrainerServiceImpl implements TrainerService {
     
 
     @Override
-    public List<Trainer> trainerList() throws Exception {
+    public List<Trainer> trainerList(Page page, Option option) throws Exception {
 
-        List<Trainer> trainerList = trainerMapper.trainerList();
+        int total = trainerMapper.count(option);
+        page.setTotal(total);
+
+        List<Trainer> trainerList = trainerMapper.trainerList(page, option);
 
         for (Trainer trainer : trainerList) {               /* foreach문으로 트레이너에 트레이너 리스트를 하나하나 가져옴 */
             String userId = trainer.getUserId();            /* trainer의 userId를 가져와서 userId변수에 담음 */
