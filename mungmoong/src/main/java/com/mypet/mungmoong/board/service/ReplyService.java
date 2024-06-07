@@ -3,8 +3,6 @@ import java.util.List;
 
 import com.mypet.mungmoong.board.dto.Reply;
 
-
-
 public interface ReplyService {
 
     // 댓글 목록

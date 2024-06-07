@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.orders.mapper.OrdersMapper;
 import com.mypet.mungmoong.orders.model.OrderItems;
@@ -21,7 +20,6 @@ import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class OrdersServiceImpl implements OrdersService {
 

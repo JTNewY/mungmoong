@@ -64,6 +64,9 @@
             <div class="div_msg">
                 <p class="msg">휴무일을 선택해주세요.</p>
             </div>
+            <div class="text-end">
+                <button type="button" class="btn-custom2" id="save-dates">저장</button>
+            </div>
         </div>
     </div>
     <script>
@@ -138,20 +141,19 @@
                             cell.classList.add('holiday');
                         }
                         cell.addEventListener('click', () => {
-                            let clickedDay = cell.textContent;
-                            let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`;
+                            // let clickedDay = cell.textContent;
+                            // let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`;
 
-                            if (cell.classList.contains('clicked')) {
-                                cell.classList.remove('clicked');
-                                const index = clickedDateList.indexOf(clickedDate);
-                                if (index !== -1) {
-                                    clickedDateList.splice(index, 1);
-                                }
-                            } else {
-                                cell.classList.add('clicked');
-                                clickedDateList.push(clickedDate);
-                            }
-                            saveDates(); // 날짜 배열을 서버에 저장
+                            // if (cell.classList.contains('clicked')) {
+                            //     cell.classList.remove('clicked');
+                            //     const index = clickedDateList.indexOf(clickedDate);
+                            //     if (index !== -1) {
+                            //         clickedDateList.splice(index, 1);
+                            //     }
+                            // } else {
+                            //     cell.classList.add('clicked');
+                            //     clickedDateList.push(clickedDate);
+                            // }
                         });
                         date++;
                     }
@@ -161,34 +163,71 @@
             }
         }
 
-        // 날짜 배열을 서버에 저장하는 함수
-        function saveDates() {
+        document.getElementById('save-dates').addEventListener('click', () => {
             let csrfToken = "[[${_csrf.token}]]";
-            let url = "/trainer/schedule";
-
+            let url = "/trainer/schedule";         // 요청 경로      //   /replys
+            
             $.ajax({
-                type: 'POST', // 요청 메소드 설정 (POST)
-                url: url, // 요청 URL 설정
-                data: JSON.stringify({ dates: clickedDateList }), // 선택한 날짜 배열을 JSON 형식으로 변환하여 전송
-                contentType: 'application/json', // 요청 데이터 타입 설정
-                dataType: 'html', // 응답 데이터 타입 설정
+                type: 'POST',                                       // 요청 메소드 - GET, POST, PUT, DELETE
+                url: url,                                           // 요청 URL
+                data: JSON.stringify({ dates: clickedDateList }),   // 요청 데이터
+                contentType: 'application/json',                    // 요청 데이터 타입
+                dataType: 'html',                                   // 응답 데이터 타입
                 beforeSend: function(xhr) {
-                    // 요청을 보내기 전에 CSRF 토큰을 헤더에 추가
+                    // 💍 CSRF 토큰을 요청 헤더에 추가
                     xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
                 },
+                // 요청 성공 
                 success: function(response, status) {
-                    // 요청이 성공했을 때 실행되는 함수
-                    alert('날짜가 저장되었습니다.'); // 성공 메시지 출력
+                    // response : 응답 데이터
+                    // status   : 응답 상태
+                    let result = JSON.parse(response);
+                    // 추가 작업...
+                    alert('날짜가 저장되었습니다.');
                 },
+                // 에러
                 error: function(xhr, status) {
-                    // 요청이 실패했을 때 실행되는 함수
-                    alert('에러 발생'); // 에러 메시지 출력
+                    // xhr      : XMLHttpRequest 객체
+                    // status   : 응답 상태
+                    alert('에러 발생');
                 }
             });
-        }
+        });
+
+        updateCalendar();
 
         document.addEventListener("DOMContentLoaded", function() {
-            updateCalendar();
+            let $dateButtons = document.getElementsByClassName('clickable');
+
+            for (let i = 0; i < $dateButtons.length; i++) {
+                const btn = $dateButtons[i];
+                // 날짜 클릭 이벤트
+                btn.addEventListener('click', () => {
+                    let clickedDay = btn.textContent;
+                    let month = currentMonth + 1;
+                    let day = parseInt(clickedDay);
+
+                    // 월과 일을 두 자리 숫자로 변환
+                    let formattedMonth = month < 10 ? '0' + month : month;
+                    let formattedDay = day < 10 ? '0' + day : day;
+
+                    let clickedDate = `${currentYear}-${formattedMonth}-${formattedDay}`;
+
+                    if( btn.classList.contains('clicked') ) {
+                        btn.classList.remove('clicked');
+                        // 선택한 날짜 배열에서 제거
+                        const index = clickedDateList.indexOf(clickedDate);
+                        if (index !== -1) {
+                            clickedDateList.splice(index, 1);
+                        }
+                    } else {
+                        btn.classList.add('clicked');
+                        // 선택한 날짜 배열에 추가
+                        clickedDateList.push(clickedDate);
+                    }
+                    alert(clickedDateList);
+                });
+            }
         });
     </script>
 </body>

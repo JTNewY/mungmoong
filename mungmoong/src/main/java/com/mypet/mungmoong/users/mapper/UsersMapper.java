@@ -6,9 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import com.mypet.mungmoong.users.dto.SocialUserResponse;
 import com.mypet.mungmoong.users.dto.UserAuth;
-import com.mypet.mungmoong.users.dto.UserJoinRequest;
 import com.mypet.mungmoong.users.dto.UserSocial;
 import com.mypet.mungmoong.users.dto.Users;
 

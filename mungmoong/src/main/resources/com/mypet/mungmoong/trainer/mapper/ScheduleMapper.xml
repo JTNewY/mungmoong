@@ -4,22 +4,26 @@
 <mapper namespace="com.mypet.mungmoong.trainer.mapper.ScheduleMapper">
 
     <select id="select" resultType="com.mypet.mungmoong.trainer.dto.Schedule">
-        SELECT * FROM career WHERE user_id = #{userId}
+        SELECT * FROM schedule WHERE trainer_no = #{trainerNo}
     </select>
 
+    <!-- 날짜 추가 -->
     <insert id="insert">
-        INSERT INTO career (user_id, trainer_no, name, reg_date, upd_date)
-        VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
+        INSERT INTO schedule (trainer_no, date, reg_date, upd_date)
+        VALUES (#{trainerNo}, #{date}, now(), now())
     </insert>
 
-    <update id="update">
-        UPDATE career
-           SET name = #{name}, upd_date = now()
+    <!-- <update id="update">
+        UPDATE schedule
+           SET date = #{date}, upd_date = now()
         WHERE no = #{no}
-    </update>
+    </update> -->
 
+    <!-- 날짜 제거 -->
     <delete id="delete">
-        DELETE FROM career WHERE no = #{no}
+        <!-- DELETE FROM schedule WHERE no = #{no} -->
+        DELETE FROM schedule 
+        WHERE trainer_no = #{trainerNo} AND date = #{date}
     </delete>
     
 </mapper>
