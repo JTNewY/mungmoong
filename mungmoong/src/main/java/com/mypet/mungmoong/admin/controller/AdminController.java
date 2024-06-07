@@ -174,7 +174,7 @@ public class AdminController {
         log.info(trainerList.toString());
 
 
-        model.addAttribute("trainerList", trainerList(model));
+        model.addAttribute("trainerList", trainerList(model, page, option));
 
         return "/admin/admin_trainer";
     }

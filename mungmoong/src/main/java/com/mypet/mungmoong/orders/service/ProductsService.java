@@ -10,7 +10,7 @@ public interface ProductsService {
 
     public Products select(String id) throws Exception;
 
-    public int insert(Products prodcuts) throws Exception;
+    public int insert(Products products) throws Exception;
 
     public int update(Products prodcuts) throws Exception;
 

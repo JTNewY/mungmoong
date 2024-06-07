@@ -28,6 +28,7 @@ import com.mypet.mungmoong.trainer.mapper.ScheduleMapper;
 import com.mypet.mungmoong.trainer.service.CareerService;
 import com.mypet.mungmoong.trainer.service.CertificateService;
 import com.mypet.mungmoong.trainer.service.FileService;
+import com.mypet.mungmoong.trainer.service.ScheduleService;
 // import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
@@ -80,8 +81,8 @@ public class TrainerController {
     @Autowired
     private CertificateService certificateService;
 
-    // @Autowired
-    // private ScheduleService scheduleService;
+    @Autowired
+    private ScheduleService scheduleService;
 
 
 

@@ -12,8 +12,8 @@ public interface ScheduleService {
 
     // 날짜 등록
     public int insert(Schedule schedule) throws Exception;
-    // 날짜 등록
-    public int insert(Schedule schedule) throws Exception;
+    // 날짜 수정
+    public int update(Schedule schedule) throws Exception;
 
     // 날짜 삭제
     public int delete(int trainerNo, Date date) throws Exception;

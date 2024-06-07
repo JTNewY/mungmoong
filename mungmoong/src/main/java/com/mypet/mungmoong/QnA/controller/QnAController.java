@@ -35,7 +35,7 @@ public class QnAController {
     @GetMapping("/list")
     public String list(Model model) throws Exception {
         // 데이터 요청
-        List<Board> boardList = boardService.list();
+        List<Board> boardList = boardService.list(null, null);
         // 모델 등록
         model.addAttribute("boardList", boardList);
         // 뷰 페이지 지정
