@@ -23,8 +23,8 @@ import com.mypet.mungmoong.orders.service.OrdersService;
 
 import com.mypet.mungmoong.orders.service.PaymentsService;
 import com.mypet.mungmoong.orders.service.ShipmentsService;
+import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.model.Address;
-import com.mypet.mungmoong.users.model.Users;
 import com.mypet.mungmoong.users.service.AddressService;
 
 
@@ -85,7 +85,7 @@ public class OrdersController {
         log.info("productId : " + productId);
         log.info("quantity : " + quantity);
         Users user = (Users) session.getAttribute("user");
-        orders.setUserId(user.getId());
+        orders.setUserId(user.getUserId());
         orders.setProductId(productId);
         orders.setQuantity(quantity);
 
@@ -102,7 +102,6 @@ public class OrdersController {
             return "redirect:/orders";
         }
     }
-
 
     /**
      * 주문 완료
@@ -207,7 +206,7 @@ public class OrdersController {
         // 주문 항목 정보
         List<OrderItems> orderItems = orderItemsService.listByOrderId(orderId);
         // 기본 배송지
-        List<Address> addressList = addressService.listByUserId(user.getId());
+        List<Address> addressList = addressService.listByUserId(user.getUserId());
         if( addressList == null || addressList.size() == 0) {
             return "redirect:/orders/checkout?noAddress";
         }

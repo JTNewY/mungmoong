@@ -10,6 +10,7 @@ public class Orders {
     private int dateNo;
     private int orderId;
     private String userId;
+    private String memo;
     private Date regDate;
     private Boolean payCheck;
     private Boolean userCheck;

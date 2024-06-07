@@ -72,8 +72,8 @@ public class CategoriesController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/{id}")
-    public String adminCategories(Model model, @PathVariable("id") String id) throws Exception {
+    @GetMapping("/{userId}")
+    public String adminCategories(Model model, @PathVariable("userId") String id) throws Exception {
         Categories category = categoriesService.select(id); 
         log.info("category: " + category);
         model.addAttribute("category", category);

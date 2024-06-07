@@ -13,6 +13,7 @@ CREATE TABLE `pet` (
     `petgender` INT NOT NULL,
     `character` VARCHAR(100) NULL,
     `type` VARCHAR(50) NULL,
+     `user_id` VARCHAR(100) NOT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );

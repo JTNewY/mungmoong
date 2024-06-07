@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.orders.mapper.OrdersMapper;
 import com.mypet.mungmoong.orders.model.OrderItems;
@@ -15,7 +14,6 @@ import com.mypet.mungmoong.orders.model.Products;
 import com.mypet.mungmoong.orders.model.Shipments;
 import com.mypet.mungmoong.orders.model.ShipmentsStatus;
 import com.mypet.mungmoong.users.model.Address;
-import com.mypet.mungmoong.users.model.Users;
 import com.mypet.mungmoong.users.service.AddressService;
 import com.mypet.mungmoong.users.service.UsersService;
 
@@ -74,68 +72,74 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public int insert(Orders orders) throws Exception {
-        List<String> productIdList = orders.getProductId();
-        List<Integer> quantityList = orders.getQuantity();
+public int insert(Orders orders) throws Exception {
+    List<String> productIdList = orders.getProductId();
+    List<Integer> quantityList = orders.getQuantity();
 
-        if( productIdList == null ) return 0;
-        if( quantityList == null ) return 0;
-        if( productIdList.size() != quantityList.size()) return 0;
+    if (productIdList == null) return 0;
+    if (quantityList == null) return 0;
+    if (productIdList.size() != quantityList.size()) return 0;
 
-        String orderId = UUID.randomUUID().toString();
-        orders.setId(orderId);
+    String orderId = UUID.randomUUID().toString();
+    orders.setId(orderId);
 
-        int totalCount = productIdList.size();
-        int totalQuantity = 0;
-        int totalPrice = 0;
-        String title = "";
+    int totalCount = productIdList.size();
+    int totalQuantity = 0;
+    int totalPrice = 0;
+    String title = "";
 
-        List<OrderItems> orderItemList = new ArrayList<>();
-        for (int i = 0; i < productIdList.size(); i++) {
-            String productId = productIdList.get(i);
-            Products product = productsService.select(productId);
-            if( i == 0 ) title = product.getName();
-            if( product == null ) continue;
-            OrderItems orderItem = new OrderItems();
-            orderItem.setId(UUID.randomUUID().toString());
-            orderItem.setOrdersId(orderId);
-            orderItem.setProductsId(productId);
-            int quantity = quantityList.get(i);
-            int price = product.getPrice();
-            int amount = price*quantity;
-            totalPrice += amount;
-            totalQuantity += quantity;
-            orderItem.setQuantity(quantity);
-            orderItem.setPrice(price);
-            orderItem.setAmount(amount);
-            orderItemList.add(orderItem);
-        }
-        title += " 외 " + totalCount + "종";
-        
-        orders.setTitle(title);
-        orders.setTotalPrice(totalPrice);
-        orders.setTotalQuantity(totalQuantity);
-        orders.setTotalCount(totalCount);
-
-        // 주문 등록
-        int result = ordersMapper.insert(orders);
-
-        if( result > 0 ) {
-            // 주문 항목 등록
-            for (OrderItems orderItems : orderItemList) {
-                orderItemsService.insert(orderItems);
-            }
-            // 배송 정보 등록
-            Shipments shipments = new Shipments();
-            List<Address> addressList = addressService.listByUserId(orders.getUserId());
-            Address address = addressList.stream().filter((add) -> {return add.getIsDefault();}).findFirst().get();
-            shipments.setOrderId(orderId);
-            shipments.setAddressId(address.getId());
-            shipments.setStatus(ShipmentsStatus.PENDING);
-            shipmentsService.insert(shipments);
-        }
-        return result;
+    List<OrderItems> orderItemList = new ArrayList<>();
+    for (int i = 0; i < productIdList.size(); i++) {
+        String productId = productIdList.get(i);
+        Products product = productsService.select(productId);
+        if (i == 0) title = product.getName();
+        if (product == null) continue;
+        OrderItems orderItem = new OrderItems();
+        orderItem.setId(UUID.randomUUID().toString());
+        orderItem.setOrdersId(orderId);
+        orderItem.setProductsId(productId);
+        int quantity = quantityList.get(i);
+        int price = product.getPrice();
+        int amount = price * quantity;
+        totalPrice += amount;
+        totalQuantity += quantity;
+        orderItem.setQuantity(quantity);
+        orderItem.setPrice(price);
+        orderItem.setAmount(amount);
+        orderItemList.add(orderItem);
     }
+    title += " 외 " + totalCount + "종";
+
+    orders.setTitle(title);
+    orders.setTotalPrice(totalPrice);
+    orders.setTotalQuantity(totalQuantity);
+    orders.setTotalCount(totalCount);
+    
+    // orders 객체에서 resDate 값을 가져와서 orders 객체에 설정
+    orders.setResDate(orders.getResDate());
+
+    // 주문 등록
+    int result = ordersMapper.insert(orders);
+
+    if (result > 0) {
+        // 주문 항목 등록
+        for (OrderItems orderItems : orderItemList) {
+            orderItemsService.insert(orderItems);
+        }
+        // 배송 정보 등록
+        Shipments shipments = new Shipments();
+        List<Address> addressList = addressService.listByUserId(orders.getUserId());
+        Address address = addressList.stream().filter((add) -> {
+            return add.getIsDefault();
+        }).findFirst().get();
+        shipments.setOrderId(orderId);
+        shipments.setAddressId(address.getId());
+        shipments.setStatus(ShipmentsStatus.PENDING);
+        shipmentsService.insert(shipments);
+    }
+    return result;
+}
+
 
     @Override
     public int update(Orders orders) throws Exception {
