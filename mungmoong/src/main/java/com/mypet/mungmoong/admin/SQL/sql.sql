@@ -1,5 +1,5 @@
 
--- Active: 1713353106333@@127.0.0.1@3306@mypet
+-- Active: 1716856468698@@127.0.0.1@3306@mypet
 
 TRUNCATE TABLE users;
 TRUNCATE TABLE pet;
@@ -37,3 +37,7 @@ DROP TABLE pet;
 DROP TABLE users;
 
 
+
+
+TRUNCATE img_file;
+TRUNCATE certificate;

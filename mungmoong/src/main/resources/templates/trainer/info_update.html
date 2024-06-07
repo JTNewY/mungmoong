@@ -57,9 +57,15 @@
                         <tr>
                             <td>소개</td>
                             <td class="text-start">
-                                <img th:src="|/file/img/${trainer.imgFile.no}|" alt="Trainer Image"><br>
+                                <th:block th:if="${trainer.imgFile == null}">
+                                    <img th:src="|/file/img/0|" alt="Certificate Image">
+                                </th:block>
+                                <th:block th:if="${trainer.imgFile != null && trainer.imgFile.no != 0}">
+                                    <img th:src="|/file/img/${trainer.imgFile.no}|" alt="Trainer Image"><br>
+                                </th:block>
                                 <!-- <button type="file" name="files" class="btn btn-custom1 mb-2" style="margin-top: 0.3rem;" onclick="uploadImage()">이미지 업로드</button> -->
-                                <input class="form-control mb-2" type="file" name="files">
+                                <!-- 프로필 업로드는 별도로 -->
+                                <input class="form-control mb-2" type="file" name="thumbnail">
                                 <textarea class="form-control" rows="3" th:text="${trainer.content}" name="content"></textarea>
                             </td>
                         </tr>
@@ -69,7 +75,12 @@
                                 <div class="d-flex justify-content-start mt-3 gap-5 mx-4">
                                     <th:block th:each="certificate : ${certificateList}">
                                         <div id="certificateImg" class="d-flex flex-column align-items-center mx-2">
-                                            <img th:if="${certificate.imgFile != null}" th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
+                                            <th:block th:if="${certificate.imgFile == null}">
+                                                <img th:src="|/file/img/0|" alt="Certificate Image"> 
+                                            </th:block>
+                                            <th:block th:if="${certificate.imgFile != null}">
+                                                <img th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
+                                            </th:block>
                                             <p th:text="${certificate.name}"></p>
                                         </div>
                                     </th:block>

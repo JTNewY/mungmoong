@@ -19,6 +19,9 @@
     <insert id="insert" parameterType="com.mypet.mungmoong.trainer.dto.Certificate" useGeneratedKeys="true" keyProperty="no">
         INSERT INTO certificate (user_id, trainer_no, name, reg_date, upd_date)
         VALUES (#{userId}, #{trainerNo}, #{name}, now(), now())
+        <selectKey keyProperty="no" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID() no
+        </selectKey>
     </insert>
 
     <update id="update">
