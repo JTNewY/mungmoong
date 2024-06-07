@@ -22,10 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 결제 등록 -->
     <insert id="insert">
-        INSERT INTO orders ( uuid, user_id, title, memo, resDate, total_quantity, total_count, total_price )
-        VALUES(UUID(), #{userId}, #{title}, #{memo}, #{resDate}, #{totalQuantity}, #{totalCount}, #{totalPrice} );
+        INSERT INTO orders (ID, user_id, title, memo, resDate, total_quantity, total_count, total_price)
+    VALUES (UUID(), #{userId}, #{title}, #{memo}, #{resDate}, #{totalQuantity}, #{totalCount}, #{totalPrice});
     </insert>
-
     <!-- 결제 수정 -->
     <update id="update">
           UPDATE orders
