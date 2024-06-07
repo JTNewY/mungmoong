@@ -17,6 +17,20 @@ public class Certificate {
 
     private Files imgFile;          // 이미지 파일 조회 시 씀
 
+    private MultipartFile thumbnail;        // 훈련사 프로필 이미지 업로드용
     private List<Files> files;      //
     private List<MultipartFile> multipartFilefiles;      //
+
+    private MultipartFile InsertFile;
+
+    public void insertImg() {
+        Files fileInsert = new Files();
+        fileInsert.setParentTable("certificate");
+        // fileInsert.setParentNo(getNo());
+        // fileInsert.setFileName(getName());
+        // fileInsert.setFilePath("C:/upload/" + getName());
+        fileInsert.setFileCode(0);
+        fileInsert.setFile(InsertFile);
+        setImgFile(fileInsert);
+    }
 }

@@ -47,14 +47,19 @@ public class CertificateServiceImpl implements CertificateService {
             Files file = new Files();
             file.setParentTable("certificate");
             file.setParentNo(no);
+            file.setFileCode(0);
+
+            int fileNo = file.getParentNo();
+            log.info("진지 : " + fileNo);
     
             List<Files> files = fileService.listByParent(file);
-    
+            
             if (files.isEmpty()) {
                 log.warn("No files found for certificate no: " + no);
                 certificate.setImgFile(null); // 파일이 없으면 null로 설정
                 continue; // 빈 파일 리스트인 경우 다음 루프로 넘어감
-            }
+                }
+            log.info("---- 파일즈 투스트링 : " + files + "----");
     
             Files imgFile = files.get(0);
             log.info("자격증 이미지 : " + imgFile);
@@ -66,14 +71,24 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public int insert(Certificate certificate) throws Exception {
         int result = certificateMapper.insert(certificate);
+        log.info("새로 생성된 certificate : " + certificate);
 
+        if( result > 0 ) {
+            Files uploadFile = certificate.getImgFile();
+            uploadFile.setParentNo(certificate.getNo());
+            log.info("::::::::::::::::: 업로드할 자격증 이미지 :::::::::::::::::::::");
+            log.info(uploadFile.toString());
+            boolean uploadResult = fileService.upload(uploadFile); 
+            log.info("업로드 결과 : " + uploadResult);
+        }
         return result;
 
     }
 
     @Override
     public int update(Certificate certificate) throws Exception {
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        int result = certificateMapper.update(certificate);
+        return result;
     }
 
     @Override

@@ -181,30 +181,33 @@ public class TrainerServiceImpl implements TrainerService {
                 }
             }
 
-            List<Certificate> certificates = trainer.getCertificateList();
-            
-            if ( certificates != null ) {
-                for (Certificate certificate : certificates) {
-                    certificate.setTrainerNo(trainerNo);
-                    log.debug("Inserting certificate : {}", certificate);
-                    certificateService.update(certificate);
-                    
-                    //
-                    List<MultipartFile> file = trainer.getFiles();
-                    if ( file != null && file.isEmpty() ) {
-                        Files fileImg = new Files();
-                        fileImg.setParentTable("certificate");
-                        fileImg.setParentNo(certificate.getNo());
-                        fileImg.setFileName(fileImg.getFileName());
-                        fileImg.setFilePath("C:/upload/" + fileImg.getFileName());
-                        fileImg.setFileSize(fileImg.getFileSize());
-                        // fileImg.setFile(trainer.setFiles(imgFile));
-                        fileImg.setFileCode(0);
-                        fileService.update(fileImg);
-                    }
 
-                }
-            }
+
+
+            // List<Certificate> certificates = trainer.getCertificateList();
+            
+            // if ( certificates != null ) {
+            //     for (Certificate certificate : certificates) {
+            //         certificate.setTrainerNo(trainerNo);
+            //         log.debug("Inserting certificate : {}", certificate);
+            //         certificateService.update(certificate);
+                    
+            //         //
+            //         List<MultipartFile> file = trainer.getFiles();
+            //         if ( file != null && file.isEmpty() ) {
+            //             Files fileImg = new Files();
+            //             fileImg.setParentTable("certificate");
+            //             fileImg.setParentNo(certificate.getNo());
+            //             fileImg.setFileName(fileImg.getFileName());
+            //             fileImg.setFilePath("C:/upload/" + fileImg.getFileName());
+            //             fileImg.setFileSize(fileImg.getFileSize());
+            //             // fileImg.setFile(trainer.setFiles(imgFile));
+            //             fileImg.setFileCode(0);
+            //             fileService.update(fileImg);
+            //         }
+
+            //     }
+            // }
             // if (file != null && !file.isEmpty()) {
             //     Files uploadFile = new Files();
             //     uploadFile.setParentTable("certificate");
