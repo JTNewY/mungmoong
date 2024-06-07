@@ -66,7 +66,7 @@
                                         예약날짜를 선택해주세요
                                         <label for="resDate">예약날짜</label>
                                         <div class="input-group input-daterange">
-                                          <input type="text" class="form-control" name="resDate"id="resDate" value="2000-01-01">
+                                          <input type="date" class="form-control" name="resDate" id="resDate" value="2000-01-01">
                                         </div>
                                     </div>
                                 <div class="row">
@@ -114,7 +114,7 @@
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <input type="hidden" id="productId" name="productId" th:value="${product.id}">
                                         <input type="hidden" id="quantity" name="quantity" value="1">
-                                        <button type="submit" class="btn btn-success w-100">예약하기</button>
+                                        <button type="submit" class="btn btn-success w-100" data="trainer123">예약하기</button>
                                     </form>
                                 </div>
                             </div>
@@ -139,38 +139,47 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-     
 
-      $(document).ready(function() {
-    $("div.input-daterange input").datepicker({
-      language: 'ko', // 한국어 설정
-      format: 'yyyy-mm-dd', // 날짜 형식 설정
-      autoclose: true // 날짜 선택 후 자동 닫힘
-    });
-    
-    $("div.input-daterange").each(function() {
-      var $inputs = $(this).find('input');
-      if ($inputs.length >= 2) {
-        var $from = $inputs.eq(0);
-        var $to = $inputs.eq(1);
-        $from.on('changeDate', function(e) {
-          $to.datepicker('setStartDate', new Date(e.date.valueOf()));
-        });
-        $to.on('changeDate', function(e) {
-          $from.datepicker('setEndDate', new Date(e.date.valueOf()));
-        });
+     <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+  <script>
+
+    let trainerId = ''
+    $(function () {
+
+      $('.btn-reserv').on('click', function () {
+        trainerId = $(this).attr('data')
+
+      })
+    })
+
+    //달력 기본값설정(오늘로)
+    document.addEventListener("DOMContentLoaded", function () {
+      const today = new Date();
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month;
       }
+      let day = today.getDate();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      const todayString = `${year}-${month}-${day}`;
+      document.getElementById("selectedDate").value = todayString;
     });
-  });
 
-  document.getElementById("submitDate").addEventListener("click", function () {
-    // 예약 날짜 가져오기
-    const resDate = document.getElementById("resDate").value;
-    
-    // Java 스크립트로 예약 날짜 전달
-    window.location.href = `/reserve/insert?resDate=${resDate}&trainerId=${trainerId}`;
-});
+    document.getElementById("submitDate").addEventListener("click", function () {
+      const selectedDate = document.getElementById("selectedDate").value;
+      localStorage.setItem("selectedDate", selectedDate); // 선택된 날짜를 로컬 스토리지에 저장
+      showModal(); // 모달 표시 함수 호출
+    });
+    //예약날짜 저장스크립트
+    document.getElementById("submitDate").addEventListener("click", function () {
+      const selectedDate = document.getElementById("selectedDate").value;
+      const date = encodeURIComponent(selectedDate)
+      window.location.href = `/reserve/insert?date=${date}&trainerId=${trainerId}`;
+    });
     </script>
 
 

@@ -165,7 +165,7 @@ public class AdminController {
     @GetMapping("/admin_trainer")
     public String trainerList(Model model) throws Exception {
 
-        List<Trainer> trainerList = trainerService.trainerList();
+        List<Trainer> trainerList = trainerService.trainerList(null, null);
         log.info(trainerList.toString());
 
         model.addAttribute("trainerList", trainerList);

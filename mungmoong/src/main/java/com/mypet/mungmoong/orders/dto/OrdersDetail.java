@@ -1,14 +1,13 @@
 package com.mypet.mungmoong.orders.dto;
 
 import java.util.Date;
-
-
+import java.util.UUID;
 
 import lombok.Data;
 
 @Data
 public class OrdersDetail {
-    private int orderId;
+    private UUID orderId;
     private String cardNo;
     private int dateNo;
     private String orderPrice;
