@@ -1,5 +1,5 @@
 
--- Active: 1716856468698@@127.0.0.1@3306@mypet
+-- Active: 1715069578448@@127.0.0.1@3306@mypet
 
 DROP TABLE pet;
 -- 반려견 테이블
@@ -26,6 +26,7 @@ ALTER TABLE certificate DROP FOREIGN KEY fk_certificate_trainer_no;
 DROP TABLE trainer;
 DROP TABLE career;
 DROP TABLE certificate;
+
 
 SELECT * FROM trainer;
 SELECT * FROM career;
@@ -72,6 +73,9 @@ CREATE TABLE `certificate` (
     `upd_date` TIMESTAMP NULL, -- 수정일
     FOREIGN KEY (`trainer_no`) REFERENCES `trainer`(`no`) -- 외래 키 설정
 );
+
+
+
 ALTER TABLE career
 ADD CONSTRAINT fk_career_trainer_no FOREIGN KEY (trainer_no) REFERENCES trainer(no);
 

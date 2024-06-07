@@ -204,12 +204,18 @@
                 // 날짜 클릭 이벤트
                 btn.addEventListener('click', () => {
                     let clickedDay = btn.textContent;
-                    let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`;
+                    let month = currentMonth + 1;
+                    let day = parseInt(clickedDay);
+
+                    // 월과 일을 두 자리 숫자로 변환
+                    let formattedMonth = month < 10 ? '0' + month : month;
+                    let formattedDay = day < 10 ? '0' + day : day;
+
+                    let clickedDate = `${currentYear}-${formattedMonth}-${formattedDay}`;
 
                     if( btn.classList.contains('clicked') ) {
                         btn.classList.remove('clicked');
                         // 선택한 날짜 배열에서 제거
-                        // clickedDateList.remove(clickedDate)
                         const index = clickedDateList.indexOf(clickedDate);
                         if (index !== -1) {
                             clickedDateList.splice(index, 1);
@@ -219,7 +225,7 @@
                         // 선택한 날짜 배열에 추가
                         clickedDateList.push(clickedDate);
                     }
-                    alert(clickedDateList)
+                    alert(clickedDateList);
                 });
             }
         });
