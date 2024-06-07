@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class UserSocial {
+    private String id;
     private String userId;           // 사용자 ID
     private String socialId;         // 소셜 ID
     private String socialPlatform;   // 소셜 플랫폼
