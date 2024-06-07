@@ -205,6 +205,15 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 
+
+    @Override
+    public int selectTrainerNo() throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'selectTrainerNo'");
+    }
+
+
+
     // @Override
     // public List<Trainer> trainerList() throws Exception {
     //     List<Trainer> trainerList = trainerMapper.trainerList();

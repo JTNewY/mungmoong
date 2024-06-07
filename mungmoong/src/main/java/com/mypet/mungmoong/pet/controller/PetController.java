@@ -9,31 +9,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Controller
 public class PetController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PetController.class);
+
 
     @Autowired
     private PetService petService;
 
     // ####################################################펫 수정#######################################################
 
+
+    
     @GetMapping("/users/petupdate")
     public String showPetUpdateForm(@RequestParam("petNo") int petNo, HttpSession session, Model model) {
         String userId = (String) session.getAttribute("userId");
         if (userId == null) {
             return "redirect:/login"; // 로그인 페이지로 리디렉션
         }
-    
+
         Pet pet = petService.findPetById(petNo);
         if (pet == null || !userId.equals(pet.getUserId())) {
             return "redirect:/users/index"; // 펫이 없거나 사용자가 다르면 리디렉션
         }
-    
+
         model.addAttribute("pet", pet);
+        session.setAttribute("petNo", petNo); // 세션에 petNo 저장
         return "users/petupdate"; // petupdate.html 템플릿을 렌더링
     }
 
@@ -75,29 +85,47 @@ public class PetController {
 
     // ####################################################펫 추가#######################################################
 
-    @PostMapping("/users/petadd")
-        public String addPet(@RequestParam("petname") String petname,
-                        @RequestParam("age") int age,
-                        @RequestParam("gender") int gender,
-                        @RequestParam("character") String character,
-                        HttpSession session) {
-
+    @GetMapping("/users/petAdd")
+    public String showAddPetForm(HttpSession session) {
         String userId = (String) session.getAttribute("userId");
         if (userId == null) {
-            return "redirect:/login"; // 로그인 페이지로 리디렉션
+            return "redirect:/users/login"; // 로그인 페이지로 리디렉션
+        }
+        return "redirect:/users/petAdd"; // 애완동물 추가 페이지로 이동
+    }
+
+    @PostMapping("/users/petAdd")
+    public String addPet(@RequestParam("petname") String petname,
+                         @RequestParam("age") int age,
+                         @RequestParam("gender") int gender,
+                         @RequestParam("character") String character,
+                         @RequestParam("pettype") String pettype,
+                         @RequestParam("specialNotes") String specialNotes,
+                         @RequestParam("userId") String userId,
+                         HttpSession session) {
+
+    
+        if (userId == null) {
+            return "redirect:/users/login"; // 로그인 페이지로 리디렉션
         }
 
         Pet pet = new Pet();
+        pet.setUserId(userId); // 현재 사용자 ID 설정
         pet.setPetname(petname);
         pet.setAge(age);
         pet.setPetgender(gender);
         pet.setCharacter(character);
-        pet.setUserId(userId); // 현재 사용자 ID 설정
+        pet.setPettype(pettype);
+        pet.setSpecialNotes(specialNotes);  // 특이사항 추가함
+
+        // 현재 시간을 설정
+        pet.setRegDate(new Date());
+        pet.setUpdDate(new Date());
 
         petService.addPet(pet);
 
         return "redirect:/users/index";
-}
+    }
     // ####################################################펫 삭제#######################################################
 
 
@@ -113,7 +141,6 @@ public class PetController {
     //     if (userId == null) {
     //         return "redirect:/login"; // 로그인 페이지로 리디렉션
     //     }
-    
     //     // 사용자의 펫시터 이용내역을 가져옵니다. (예시: 사용자 ID를 기반으로 가져온다고 가정)
     //     List<Reservation> reservations = reservationService.findReservationsByUserId(userId);
     //     model.addAttribute("reservations", reservations);
@@ -121,5 +148,4 @@ public class PetController {
     //     return "users/details"; // details.html 템플릿을 렌더링
     // }
 
-
-}
+    }
