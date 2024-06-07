@@ -14,4 +14,6 @@ public interface PetService {
     Pet findPetById(int petNo); // 펫 번호로 펫 정보를 찾는 메서드 선언
 
     List<Pet> findPetByUserId(String userId); // 사용자 ID로 펫 목록을 찾는 메서드 선언
+
 }
+

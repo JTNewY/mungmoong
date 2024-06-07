@@ -17,7 +17,7 @@
         UPDATE pet
         SET petname = #{petname}, age = #{age}, petgender = #{petgender}, `character` = #{character}, special_notes = #{specialNotes}, 
             upd_date = #{updDate}
-        WHERE pet_no = #{petNo}
+        WHERE pet_no = #{petNo} AND user_id = #{userId}
     </update>
 
     
@@ -35,10 +35,10 @@
     </select>
     
      <!-- 반려동물 userId로 검색 -->
-<select id="findPetsByUserId" resultType="com.mypet.mungmoong.pet.dto.Pet">
-    SELECT *
-    FROM pet
-    WHERE user_id = #{userId}
-</select>
+    <select id="findPetsByUserId" resultType="com.mypet.mungmoong.pet.dto.Pet">
+        SELECT *
+        FROM pet
+        WHERE user_id = #{userId}
+    </select>
 
 </mapper>

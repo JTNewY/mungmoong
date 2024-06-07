@@ -25,65 +25,77 @@ public class PetController {
 
     @Autowired
     private PetService petService;
+    
 
     // ####################################################펫 수정#######################################################
-
-
     
-    @GetMapping("/users/petupdate")
-    public String showPetUpdateForm(@RequestParam("petNo") int petNo, HttpSession session, Model model) {
+
+    @GetMapping("/users/petUpdate")
+    public String showUpdatePetForm(@RequestParam(name = "petNo", required = true) Integer petNo, Model model, HttpSession session) {
         String userId = (String) session.getAttribute("userId");
+        logger.info("Received request for petNo: {}", petNo);  // 로그 추가
+        logger.info("userId from session: {}", userId);
+        session.getAttributeNames().asIterator().forEachRemaining(name -> logger.info("Session attribute: {} = {}", name, session.getAttribute(name)));
+    
         if (userId == null) {
-            return "redirect:/login"; // 로그인 페이지로 리디렉션
+            return "redirect:/users/login";
         }
-
-        Pet pet = petService.findPetById(petNo);
-        if (pet == null || !userId.equals(pet.getUserId())) {
-            return "redirect:/users/index"; // 펫이 없거나 사용자가 다르면 리디렉션
-        }
-
-        model.addAttribute("pet", pet);
-        session.setAttribute("petNo", petNo); // 세션에 petNo 저장
-        return "users/petupdate"; // petupdate.html 템플릿을 렌더링
-    }
-
-    @PostMapping("/users/petupdate")
-    public String updatePet(@RequestParam("petname") String petname,
-                            @RequestParam("age") int age,
-                            @RequestParam("gender") int gender,
-                            @RequestParam("character") String character,
-                            HttpSession session) {
-                                
-        // 세션에서 petNo 가져오기
-        Integer petNo = (Integer) session.getAttribute("petNo");
+    
         if (petNo == null) {
-            return "redirect:/users/index"; // petNo가 세션에 없으면 리디렉션
+            logger.error("Missing petNo parameter");
+            return "redirect:/users/index?error=MissingPetNo";
         }
-
-        String userId = (String) session.getAttribute("userId");
-        if (userId == null) {
-            return "redirect:/login"; // 로그인 페이지로 리디렉션
-        }
-
+    
         Pet pet = petService.findPetById(petNo);
-        if (pet == null || !userId.equals(pet.getUserId())) {
-            return "redirect:/users/index"; // 펫이 없거나 사용자가 다르면 리디렉션
+        if (pet == null || !pet.getUserId().equals(userId)) {
+            return "redirect:/users/index?error=PetNotFound";
         }
-
-        pet.setPetname(petname);
-        pet.setAge(age);
-        pet.setPetgender(gender);
-        pet.setCharacter(character);
-        petService.updatePet(pet);
-
-        // 세션에서 petNo 제거
-        session.removeAttribute("petNo");
-
-        return "redirect:/users/index";
+        model.addAttribute("pet", pet);
+        return "users/petUpdate";
     }
+    
+
+@PostMapping("/users/petUpdate")
+public String updatePet(@RequestParam("petNo") int petNo,
+                        @RequestParam("petname") String petname,
+                        @RequestParam("age") int age,
+                        @RequestParam("petgender") int petgender,  // 필드 이름 일관성 유지
+                        @RequestParam("character") String character,
+                        @RequestParam("pettype") String pettype,
+                        @RequestParam("specialNotes") String specialNotes,
+                        HttpSession session) {
+
+    String userId = (String) session.getAttribute("userId");
+    logger.info("Updating pet: userId={}, petNo={}", userId, petNo);
+    session.getAttributeNames().asIterator().forEachRemaining(name -> logger.info("Session attribute: {} = {}", name, session.getAttribute(name)));
+
+    if (userId == null) {
+        logger.warn("User not logged in, redirecting to login page");
+        return "redirect:/users/login";
+    }
+
+    Pet pet = petService.findPetById(petNo);
+    if (pet == null || !pet.getUserId().equals(userId)) {
+        logger.warn("Pet not found or user not authorized, redirecting to index page");
+        return "redirect:/users/index?error=PetNotFound";
+    }
+
+    pet.setPetname(petname);
+    pet.setAge(age);
+    pet.setPetgender(petgender);
+    pet.setCharacter(character);
+    pet.setPettype(pettype);
+    pet.setSpecialNotes(specialNotes);
+    pet.setUpdDate(new Date());
+
+    petService.updatePet(pet);
+
+    return "redirect:/users/index?success=PetUpdated";
+}
 
 
     // ####################################################펫 추가#######################################################
+
 
     @GetMapping("/users/petAdd")
     public String showAddPetForm(HttpSession session) {
@@ -126,6 +138,8 @@ public class PetController {
 
         return "redirect:/users/index";
     }
+
+
     // ####################################################펫 삭제#######################################################
 
 
@@ -134,6 +148,7 @@ public class PetController {
 
 
     // ####################################################펫시터 이용내역#######################################################
+
 
     // @GetMapping("/users/details")
     // public String showUserDetails(HttpSession session, Model model) {

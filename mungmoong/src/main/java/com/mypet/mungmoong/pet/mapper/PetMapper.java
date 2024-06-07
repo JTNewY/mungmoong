@@ -24,4 +24,8 @@ public interface PetMapper {
 
      // 사용자 ID로 반려동물 목록 조회
     List<Pet> findPetsByUserId(String userId);
+
+    Pet findPetByPetnameAndUserId(String petname, String userId); // 펫 이름과 사용자 ID로 펫 정보를 찾는 메서드 선언
+
+    
 }
