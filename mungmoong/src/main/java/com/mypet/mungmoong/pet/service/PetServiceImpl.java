@@ -1,6 +1,8 @@
 package com.mypet.mungmoong.pet.service;
 
-import java.util.List; 
+import java.util.List;
+
+import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Service; 
 import com.mypet.mungmoong.pet.dto.Pet; 
@@ -40,4 +42,5 @@ public class PetServiceImpl implements PetService {
     public List<Pet> findPetByUserId(String userId) {
         return petMapper.findPetsByUserId(userId); // 사용자 ID로 펫 목록을 찾기 위해 PetMapper의 findPetsByUserId 메서드 호출
     }
+
 }
