@@ -1,8 +1,8 @@
--- Active: 1716798076500@@127.0.0.1@3306@mypet
+-- Active: 1713528331467@@127.0.0.1@3306@mypet
 
 DROP TABLE IF EXISTS ADDRESS;
 CREATE TABLE `ADDRESS` (
-	`no`	INT      NOT NULL   AUTO_INCREMENT PRIMARY KEY,
+	`ID`	CHAR(36)	NOT NULL PRIMARY KEY,
 	`USER_ID`	VARCHAR(100) NOT NULL,
 	`TITLE`	VARCHAR(100)	NULL	COMMENT '훈련,돌봄',
 	`RECIPIENT`	VARCHAR(100)	NULL,
@@ -18,12 +18,12 @@ CREATE TABLE `ADDRESS` (
 
 
 
-INSERT INTO `ADDRESS` (`USER_ID`, `TITLE`, `RECIPIENT`, `ADDRESS`, `ADDRESS_DETAIL`, `PHONE`, `REQUEST`, `IS_DEFAULT`, `CREATED_AT`, `UPDATED_AT`) VALUES
-('user', '훈련', '홍길동', '서울특별시 강남구 테헤란로 123', '테헤란로 123-45', '010-1234-5678', '없음', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('t', '돌봄', '김철수', '서울특별시 서초구 서초대로 456', '서초대로 456-78', '010-2345-6789', '문 앞에 놔주세요', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('user_003', '훈련', '이영희', '부산광역시 해운대구 해운대로 789', '해운대로 789-101', '010-3456-7890', '빠른 배송 부탁드립니다', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('user_004', '돌봄', '박영수', '대구광역시 중구 중앙대로 101', '중앙대로 101-202', '010-4567-8901', '저녁 7시 이후 배송', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('user_005', '훈련', '최지혜', '인천광역시 남동구 남동대로 303', '남동대로 303-404', '010-5678-9012', '차량 통행에 주의', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `ADDRESS` (`ID`,`USER_ID`, `TITLE`, `RECIPIENT`, `ADDRESS`, `ADDRESS_DETAIL`, `PHONE`, `REQUEST`, `IS_DEFAULT`, `CREATED_AT`, `UPDATED_AT`) VALUES
+(1,'user', '훈련', '홍길동', '서울특별시 강남구 테헤란로 123', '테헤란로 123-45', '010-1234-5678', '없음', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2,'t', '돌봄', '김철수', '서울특별시 서초구 서초대로 456', '서초대로 456-78', '010-2345-6789', '문 앞에 놔주세요', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3,'user_003', '훈련', '이영희', '부산광역시 해운대구 해운대로 789', '해운대로 789-101', '010-3456-7890', '빠른 배송 부탁드립니다', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4,'user_004', '돌봄', '박영수', '대구광역시 중구 중앙대로 101', '중앙대로 101-202', '010-4567-8901', '저녁 7시 이후 배송', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5,'user_005', '훈련', '최지혜', '인천광역시 남동구 남동대로 303', '남동대로 303-404', '010-5678-9012', '차량 통행에 주의', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
 SELECT * FROM address;
