@@ -204,49 +204,79 @@ public class TrainerController {
     @PostMapping("/info_update")
     public String updatePro(Trainer trainer, HttpSession session) throws Exception {
         List<Career> careerList = trainer.toCareerList();
+        List<Certificate> certificateList = trainer.toCertificateList();
+        List<Files> filesList = fileService.list();
 
         log.info("--------------------------------");
         log.info(careerList.toString());
         log.info("트레이너 번호가 뭘까요 : " + trainer.getNo());
 
         Integer trainerNo = (Integer) session.getAttribute("trainerNo");
-        if(trainerNo == null) {
+        if (trainerNo == null) {
             log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
             return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error=session";
         }
         log.info("세션에서 가져온 트레이너 번호 : " + trainerNo);
 
-        for (Career career : careerList) {
-            career.setTrainerNo(trainerNo);
-            log.info("trainerNo : " + trainerNo);
 
-            int result = 0;
-            if(career.getNo() > 0) {
-                result = careerService.update(career);
-                log.info("수정했다!!");
-            } else {
+            for (Career career : careerList) {
                 career.setTrainerNo(trainerNo);
-                result = careerService.insert(career);
-                log.info("등록했다");
+                log.info("trainerNo : " + trainerNo);
+
+                int result = 0;
+                if (career.getNo() > 0) {
+                    result = careerService.update(career);
+                    log.info("수정했다!!");
+                } else {
+                    career.setTrainerNo(trainerNo);
+                    result = careerService.insert(career);
+                    log.info("등록했다");
+                }
+
+                if (result > 0) {
+                    log.info("성공했다");
+                } else {
+                    log.info(career.toString());
+                    log.info("망했다");
+                }
             }
 
-            if(result > 0) {
-                log.info("성공했다");
-            } else {
-                log.info(career.toString());
-                log.info("망했다");
+            for (Certificate certificate : certificateList) {
+                certificate.setTrainerNo(trainerNo);
+                log.info("trainerNo : " + trainerNo);
+
+                int result = 0;
+                if (certificate.getNo() > 0) {
+                    result = certificateService.update(certificate);
+                    log.info(";;;;;;;;자격증 이미지update;;;;;;;;; : " + filesList.toString());
+                    log.info("자격증 수정했다!!");
+                } else {
+                    certificate.setTrainerNo(trainerNo);
+                    result = certificateService.insert(certificate);
+                    log.info(";;;;;;;;자격증 이미지insert;;;;;;;;; : " + filesList.toString());
+                    log.info("자격증 등록했다");
+                }
+
+                if (result > 0) {
+                    log.info("자격증 성공했다;;;;;;;;11111111111111");
+                } else {
+                    log.info(certificate.toString());
+                    log.info("자격증 망했다;;;;;;;;;;11111111111");
+                }
             }
-        }
+
+
 
         int result = trainerService.update(trainer);
 
         log.debug("Trainer data : {}", trainer);
 
-        if(result > 0) {
+        if (result > 0) {
             return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
         }
         return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
     }
+
 
     
     // [은아] - 나는 이거 안 씀

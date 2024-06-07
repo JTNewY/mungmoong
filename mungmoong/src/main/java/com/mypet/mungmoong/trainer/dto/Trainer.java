@@ -32,7 +32,7 @@ public class Trainer {
     private List<String> certificateNames;
 
     private MultipartFile thumbnail;
-    private List<MultipartFile> files;
+    public List<MultipartFile> files;
 
     private int fileNo;
     private Files imgFile; // 이미지 파일 조회 시 씀

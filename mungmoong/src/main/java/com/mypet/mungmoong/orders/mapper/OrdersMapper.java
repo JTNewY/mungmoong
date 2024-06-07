@@ -20,8 +20,6 @@ public interface OrdersMapper {
     
     public int delete(String id) throws Exception;
 
-    public int selectOrderById() throws Exception;
-
     // ---------------------------------------------------------
     public List<Orders> listByUserId(String userId) throws Exception;
 }
