@@ -22,5 +22,6 @@ public interface PetMapper {
     // 반려동물 정보 검색
     Pet findPetById(int petNo);
 
+     // 사용자 ID로 반려동물 목록 조회
     List<Pet> findPetsByUserId(String userId);
 }

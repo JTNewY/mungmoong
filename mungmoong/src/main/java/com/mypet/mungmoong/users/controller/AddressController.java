@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mypet.mungmoong.users.model.Address;
-import com.mypet.mungmoong.users.model.Users;
+import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.AddressService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +65,7 @@ public class AddressController {
     public String addressInsert(Address address
                                ,HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
-        address.setUserId(user.getId());
+        address.setUserId(user.getUserId());
 
         int result = addressService.insert(address);
         if( result > 0 ) {
@@ -102,7 +102,7 @@ public class AddressController {
     public String addressUpdate(Address address, String isDefault
                                ,HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
-        address.setUserId(user.getId());
+        address.setUserId(user.getUserId());
         String addrssId = address.getId();
         log.info("::::::::::::::::::::: 배송지 관리 - 수정 처리 :::::::::::::::::::::}");
         log.info("::::::::::::::::::::: address :::::::::::::::::::::");

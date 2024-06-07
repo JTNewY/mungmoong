@@ -1,14 +1,76 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인 화면</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메인 화면</title>
 </head>
+
 <body layout:fragment="content">
   <h1>주문화면</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <td width="50">no</td>
+        <td width="50">제목</td>
+        <td width="50">훈련사</td>
+        <td width="50">내용</td>
+        <td width="50">등록날짜</td>
+        <td width="50">수정날짜</td>
+      </tr>
+    </thead>
+    <th:block th:if="${orderList.isEmpty()}">
+      <tr>
+        <td colspan="6" align="center">
+          조회된 게시글 정보가 없습니다.
+        </td>
+      </tr>
+    </th:block>
+    <th:block th:each="board : ${boardList}">
+      <tr>
+        <td align="center" th:text="${board.boardNo}"></td>
+        <td>
+          <a th:href="|/QnA/read?no=${board.boardNo}|" th:text="${board.title}"></a>
+        </td>
+        <td align="center" th:text="${board.content}"
+          style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
+        <td align="center" th:text="${board.userId}"></td>
+        <td align="center">
+          <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+        </td>
+        <td align="center">
+          <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+        </td>
+        <td align="center" th:text="${board.boardType}"></td> 
+      </tr>
+    </th:block>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between mb-3">
+    <div class="d-flex">
+      <select class="form-select me-2" style="width: auto;">
+        <option>----</option>
+      </select>
+      <button class="btn btn-secondary">검색</button>
+    </div>
+  </div>
+
+  <nav class="text-center">
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">5</a></li>
+      <li class="page-item"><a class="page-link" href="#">다음</a></li>
+    </ul>
+  </nav>
+  </div>
+  <script>
+    document.getElementById('content')
+  </script>
 </body>
+
 </html>

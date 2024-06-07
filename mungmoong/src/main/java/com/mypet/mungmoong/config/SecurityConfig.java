@@ -5,7 +5,10 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,6 +37,19 @@ public class SecurityConfig {
 
     @Autowired
     private OAuthService oAuthService;
+
+    @Autowired
+    private Environment env;
+
+    // 애플리케이션 속성에서 환경설정 값을 가져오는 메서드
+    public String getConfigValue(String key) {
+        return env.getProperty(key);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
     // 스프링 시큐리티 설정 메소드
     @Bean

@@ -208,6 +208,10 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public int selectTrainerNo() throws Exception {
+<<<<<<< HEAD
+=======
+        // TODO Auto-generated method stub
+>>>>>>> 7bb94a0f536237828d7448ceb9e6c058894b9295
         throw new UnsupportedOperationException("Unimplemented method 'selectTrainerNo'");
     }
 

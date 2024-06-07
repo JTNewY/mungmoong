@@ -59,6 +59,7 @@
                             <td class="text-start">
                                 <img th:src="|/file/img/${trainer.imgFile.no}|" alt="Trainer Image"><br>
                                 <!-- <button type="file" name="files" class="btn btn-custom1 mb-2" style="margin-top: 0.3rem;" onclick="uploadImage()">이미지 업로드</button> -->
+                                <input class="form-control mb-2" type="file" name="files">
                                 <textarea class="form-control" rows="3" th:text="${trainer.content}" name="content"></textarea>
                             </td>
                         </tr>
@@ -69,13 +70,13 @@
                                     <th:block th:each="certificate : ${certificateList}">
                                         <div id="certificateImg" class="d-flex flex-column align-items-center mx-2">
                                             <img th:if="${certificate.imgFile != null}" th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
-                                            <button type="button" class="delete-icon" th:if="${certificate.imgFile != null}" th:onclick="|deleteFile(this, ${certificate.no}, ${certificate.imgFile.no} )|">
-                                                <i class="fa-solid fa-circle-xmark"></i>
-                                            </button>
                                             <p th:text="${certificate.name}"></p>
                                         </div>
                                     </th:block>
                                 </div>
+                                <button style="text-align: center;" type="button" class="btn btn-custom5" onclick="addCertificateInput()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
