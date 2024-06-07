@@ -1,12 +1,17 @@
 package com.mypet.mungmoong.orders.controller;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +61,14 @@ public class OrdersController {
     private PaymentsService paymentsService;
 
 
+      @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+
     /**
      * 주문하기
      * @param param
@@ -95,11 +108,11 @@ public class OrdersController {
 
         log.info("신규 등록된 주문ID : " + orders.getId() );
         if( result > 0 ) {
-            return "redirect:/orders/" + orders.getId();
+            return "redirect:/orders/index" + orders.getId();
         }
         // TODO : 주문 실패시 어디로 가는게 좋을지? - 장바구니? 주문내역? 상품목록?
         else {
-            return "redirect:/orders";
+            return "redirect:/orders/index";
         }
     }
 
