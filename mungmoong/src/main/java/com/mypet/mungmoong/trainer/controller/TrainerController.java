@@ -24,10 +24,9 @@ import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.CareerService;
 import com.mypet.mungmoong.trainer.service.CertificateService;
 import com.mypet.mungmoong.trainer.service.FileService;
+import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
-import com.mypet.mungmoong.users.service.UsersService;
-
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -67,9 +66,6 @@ public class TrainerController {
     private TrainerService trainerService;      // @Service를 --Impl에 등록
 
     @Autowired
-    private UsersService usersService;
-
-    @Autowired
     private FileService fileService;
 
     @Autowired
@@ -77,6 +73,9 @@ public class TrainerController {
 
     @Autowired
     private CertificateService certificateService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
 
 
@@ -87,7 +86,6 @@ public class TrainerController {
      * @return
      * @throws Exception
      */
-    // 현재 info_insert 페이지 ❌ -> info (조회만 하는 페이지로 변경)
     @GetMapping("/info")
     public String select(@RequestParam("userId") String userId, Model model) throws Exception {
         Trainer trainer = trainerService.select(userId);
@@ -110,10 +108,6 @@ public class TrainerController {
             
             trainer.setUserId(user.getUserId());
 
-            // Users dbUser = usersService.select(user.getUserId());
-            // if (dbUser == null) {
-            //     throw new Exception("User not found");
-            // }
 
             trainer.setCareerList(trainer.toCareerList());
             trainer.setCertificateList(trainer.toCertificateList());

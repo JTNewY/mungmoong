@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.mapper.CareerMapper;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service        // 서비스 역할의 스프링 빈 등록
 public class CareerServiceImpl implements CareerService {
     

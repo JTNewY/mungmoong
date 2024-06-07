@@ -2,9 +2,6 @@ package com.mypet.mungmoong.board.service;
 import java.util.List;
 
 import com.mypet.mungmoong.board.dto.Reply;
-import com.mypet.mungmoong.trainer.dto.Option;
-
-
 
 public interface ReplyService {
 
