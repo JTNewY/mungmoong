@@ -55,7 +55,12 @@
                             <tr class="text-left-content">
                                 <td>소개</td>
                                 <td class="text-start">
-                                    <img th:src="|/file/img/${trainer.imgFile.no}|" alt="Trainer Image"><br>
+                                    <th:block th:if="${trainer != null and trainer.imgFile != null}">
+                                        <img th:src="|/file/img/${trainer.imgFile.no}|" alt="Trainer Image"><br>
+                                    </th:block>
+                                    <th:block th:unless="${trainer != null and trainer.imgFile != null}">
+                                        <img src="/img/프로필.png" alt="Default Image"><br>
+                                    </th:block>
                                     <p th:text="${trainer.content}"></p>
                                 </td>
                             </tr>
