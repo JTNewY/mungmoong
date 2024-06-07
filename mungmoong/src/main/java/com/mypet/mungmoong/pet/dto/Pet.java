@@ -16,4 +16,5 @@ public class Pet {
     private Date updDate;
     private int orderNo;
     private String userId;
+    private String specialNotes;
 }
