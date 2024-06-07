@@ -1,8 +1,6 @@
 <<<<<<< HEAD
--- Active: 1716798076500@@127.0.0.1@3306@mypet
-=======
--- Active: 1705301251861@@127.0.0.1@3306@mypet
->>>>>>> 8d968fdc048ba9b43e6d3104dc3e1d808789fd30
+-- Active: 1713528331467@@127.0.0.1@3306@mypet
+
 ------------------------------------------------------------------------------
 -- 이미지파일 C:\upload\no-image.png 로 이미지 임시파일만들어주세요
 DROP TABLE IF EXISTS products;
@@ -53,7 +51,7 @@ CREATE TABLE `orders` (
 	`ID` CHAR(36) NOT NULL,
 	`USER_ID` VARCHAR(100) NOT NULL,
 	`MEMO` VARCHAR(255) NULL,
-	`RES_DATE` TIMESTAMP NOT NULL,
+	`resDate` TIMESTAMP NOT NULL,
 	`TITLE` VARCHAR(255) NULL,
 	`TOTAL_QUANTITY` INT NOT NULL DEFAULT 1,
 	`TOTAL_COUNT` INT NOT NULL DEFAULT 1,
@@ -260,7 +258,7 @@ VALUES
 TRUNCATE orders;
 TRUNCATE order_items;
 INSERT INTO `ORDERS` (`ID`, `USER_ID`, `DATE_NO`, `TITLE`, `TOTAL_QUANTITY`, `TOTAL_COUNT`, `TOTAL_PRICE`, `STATUS`, `ORDERED_AT`, `CREATED_AT`, `UPDATED_AT`) VALUES
-(\'1a2b3c4d-5678-90ab-cdef-1234567890ab', 'user123', 20240606, 'Sample Order 1', 2, 1, 15000, 'delivered', '2024-06-06 10:00:00', '2024-06-06 10:00:00', '2024-06-06 10:00:00'),
+('1a2b3c4d-5678-90ab-cdef-1234567890ab', 'user123', 20240606, 'Sample Order 1', 2, 1, 15000, 'delivered', '2024-06-06 10:00:00', '2024-06-06 10:00:00', '2024-06-06 10:00:00'),
 ('2b3c4d5e-6789-01ab-cdef-2345678901bc', 'user456', 20240605, 'Sample Order 2', 3, 1, 25000, 'paid', '2024-06-05 15:30:00', '2024-06-05 15:30:00', '2024-06-05 15:30:00'),
 ('3c4d5e6f-7890-12ab-cdef-3456789012cd', 'user789', 20240604, 'Sample Order 3', 1, 1, 5000, 'shipping', '2024-06-04 09:45:00', '2024-06-04 09:45:00', '2024-06-04 09:45:00'),
 ('4d5e6f7g-8901-23ab-cdef-4567890123de', 'user123', 20240603, 'Sample Order 4', 2, 1, 20000, 'cancelled', '2024-06-03 14:20:00', '2024-06-03 14:20:00', '2024-06-03 14:20:00'),
