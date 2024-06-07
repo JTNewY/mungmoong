@@ -2,6 +2,7 @@ package com.mypet.mungmoong.orders.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -81,37 +82,38 @@ public class OrdersController {
         return "/orders/index";
     }
 
-    /**
-     * 주문 등록
-     * - product - id, quantity
-     * @param entity
-     * @return
-     * @throws Exception 
-     */
     @PostMapping("")
-    public String orderPost(Orders orders
-                           ,HttpSession session
-                           ,@RequestParam List<String> productId
-                           ,@RequestParam List<Integer> quantity) throws Exception {
-        
+    public String orderPost(Orders orders,
+                            HttpSession session,
+                            @RequestParam List<String> productId,
+                            @RequestParam List<Integer> quantity,
+                            @RequestParam String title,
+                            @RequestParam String resDate,
+                            @RequestParam String addressId) throws Exception {
+    
         log.info("::::::::: 주문 등록 - orderPost() ::::::::::");
         log.info("productId : " + productId);
         log.info("quantity : " + quantity);
+    
         Users user = (Users) session.getAttribute("user");
         orders.setUserId(user.getUserId());
         orders.setProductId(productId);
         orders.setQuantity(quantity);
-
+        orders.setTitle(title);
+        orders.setAddressId(addressId); // addressId 설정
+    
+        // String을 Date로 변환
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(resDate);
+        orders.setResDate(date);
+    
         // 주문 등록
         int result = ordersService.insert(orders);
-        // TODO: 배송 등록
-
-        log.info("신규 등록된 주문ID : " + orders.getId() );
-        if( result > 0 ) {
-            return "redirect:/orders/index" + orders.getId();
-        }
-        // TODO : 주문 실패시 어디로 가는게 좋을지? - 장바구니? 주문내역? 상품목록?
-        else {
+        log.info("신규 등록된 주문ID : " + orders.getID());
+    
+        if (result > 0) {
+            return "redirect:/orders/index" + orders.getID();
+        } else {
             return "redirect:/orders/index";
         }
     }
