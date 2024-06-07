@@ -1,4 +1,4 @@
--- Active: 1716856468698@@127.0.0.1@3306@mypet
+-- Active: 1717746144890@@127.0.0.1@3306@mypet
 -- 샘플 데이터 삽입
 -- pet 테이블
 INSERT INTO `pet` (`no`, `file_no`, `name`, `age`, `petgender`, `character`, `type`)
@@ -66,6 +66,10 @@ VALUES
 ('공지사항 제목 3', '공지사항 내용 3', 'file3.pdf', '2024-06-03 12:00:00', '2024-06-03 12:00:00', 'user3', 3),
 ('공지사항 제목 4', '공지사항 내용 4', 'file4.pdf', '2024-06-03 13:00:00', '2024-06-03 13:00:00', 'user4', 1),
 ('공지사항 제목 5', '공지사항 내용 5', 'file5.pdf', '2024-06-03 14:00:00', '2024-06-03 14:00:00', 'user5', 2);
+
+INSERT INTO `board` (`title`, `content`, `file_name`, `reg_date`, `upd_date`, `user_id`, `board_type`)
+SELECT `title`, `content`, `file_name`, `reg_date`, `upd_date`, `user_id`, `board_type`
+FROM board;
 
 -- board 테이블
 INSERT INTO `board` (`board_no`, `user_id`, `title`, `content`)

@@ -3,11 +3,13 @@ package com.mypet.mungmoong.board.service;
 import java.util.List;
 
 import com.mypet.mungmoong.board.dto.Board;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 
 public interface BoardService {
 
     // 게시글 목록
-    public List<Board> list() throws Exception; // 예외 전가
+    public List<Board> list(Page page, Option optin) throws Exception; // 예외 전가
     // 게시글 조회
 
     public Board select(int no) throws Exception;
