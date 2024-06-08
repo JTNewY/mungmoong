@@ -34,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         UPDATE orders
         SET TITLE = #{title},
             price = #{price},
+            pet_no = #{petNo},
             STATUS = #{status},
             upd_date = now()
         WHERE no = #{no}
