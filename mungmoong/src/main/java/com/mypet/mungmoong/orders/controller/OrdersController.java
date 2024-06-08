@@ -223,7 +223,7 @@ public class OrdersController {
         // 기본 배송지
         List<Address> addressList = addressService.listByUserId(user.getUserId());
         if( addressList == null || addressList.size() == 0) {
-            return "redirect:/orders/checkout?noAddress";
+            return "redirect:/orders/checkout?orderId";
         }
         Address address = addressList.stream().filter((add) -> {return add.getIsDefault();}).findFirst().get();
         log.info("기본 배송지 : " + address.getAddress());
