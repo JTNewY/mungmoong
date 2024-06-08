@@ -1,5 +1,7 @@
 package com.mypet.mungmoong.trainer.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,18 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mypet.mungmoong.main.model.Event;
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
 import com.mypet.mungmoong.trainer.dto.Schedule;
 import com.mypet.mungmoong.trainer.dto.Trainer;
-import com.mypet.mungmoong.trainer.mapper.ScheduleMapper;
 import com.mypet.mungmoong.trainer.service.CareerService;
 import com.mypet.mungmoong.trainer.service.CertificateService;
 import com.mypet.mungmoong.trainer.service.FileService;
@@ -313,5 +314,51 @@ public class TrainerController {
         }
         return "redirect:/trainer/board/update?no=" + no + "&error";
     }
+
+
+    // 스케쥴 👩‍🏫(full calendar 샘플)
+    @GetMapping("/sample_calendar")
+    public String sampleCalendar(HttpSession session, Model model) throws Exception {
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if (trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            // 트레이너 번호가 없을 경우 에러 처리
+            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "/trainer/error"; 
+        }
+        List<Schedule> scheduleList = scheduleService.select(trainerNo);
+        model.addAttribute("trainerNo", trainerNo);
+        model.addAttribute("scheduleList", scheduleList);
+        return "/trainer/sample_calendar";
+    }
+
+
+    
+    /**
+     * 캘린더 데이터
+     * - 훈련사 번호를 받아오면 해당 훈련사의 일정을 
+     *   JSON 데이터로 응답함
+     * @param trainerNo
+     * @return
+     * @throws Exception 
+     */
+    @ResponseBody
+    @GetMapping("/schedule/event")
+    public List<Event> trainerScheduleEvent(@RequestParam("trainerNo") int trainerNo, Event event) throws Exception {
+        List<Schedule> scheduleList = scheduleService.select(trainerNo);
+        log.info("스케쥴 확인할 훈련사 번호 : " + trainerNo);
+        log.info("::::::::::::::: 스케쥴 ::::::::::::::::::");
+        log.info(scheduleList.toString());
+        List<Event> eventList = new ArrayList<>();
+        // 풀캘린더에 맞는 변수로 변환
+        for (Schedule schedule : scheduleList) {
+            String title = schedule.getTitle();
+            Date date = schedule.getScheduleDate();
+            String description = schedule.getContent();
+            eventList.add(new Event(title, description, date));
+        }
+        return eventList;
+    }
+    
     
 }

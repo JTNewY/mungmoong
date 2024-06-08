@@ -1,4 +1,8 @@
--- Active: 1717835597775@@127.0.0.1@3306@mypet
+-- Active: 1717847171591@@127.0.0.1@3306@mypet
 SELECT *
 FROM order
 ;
+
+
+SELECT * FROM schedule;
+SELECT * FROM schedule WHERE trainer_no = 2;
