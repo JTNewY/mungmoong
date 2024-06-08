@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.orders.model.Products;
 import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.orders.service.ProductsService;
@@ -81,21 +79,7 @@ public class ProductsController {
         model.addAttribute("product", product);
         return "/products/detail";
     }
-     @PostMapping("/{id}")
-    public String productPro(Model model
-                            ,Products products
-                            ,HttpServletRequest request 
-                            ,@PathVariable("id") String id) throws Exception {
-        // 데이터 요청
-        int result = productsService.insert(products);
-        // 리다이렉트
-        // ⭕ 데이터 처리 성공
-        if( result > 0 ) {
-            return "redirect:/orders/index";
-        }
-        // ❌ 데이터 처리 실패
-        return "redirect:/orders/index?error";  
-    }
+
     // @GetMapping("/{id}")
     // public String productPro(Model model
     //                      ,@PathVariable("id") int id) throws Exception {
