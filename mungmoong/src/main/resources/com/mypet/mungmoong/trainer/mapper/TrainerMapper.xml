@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 훈련사 조회 -->
     <!-- LEFT OUTER JOIN user_auth auth ON t.user_id = auth.user_id -->
-    <select id="select" resultType="com.mypet.mungmoong.trainer.dto.Trainer">
+    <select id="select" resultType="Trainer">
         SELECT *
         FROM trainer
         WHERE user_id = #{userId}
@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM trainer t
         JOIN users u ON t.user_id = u.user_id
         WHERE u.role IN (1, 2)
-        ORDER BY t.reg_date DESC
+        ORDER BY u.reg_date DESC
     </select>
 
 

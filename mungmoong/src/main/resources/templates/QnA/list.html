@@ -135,7 +135,6 @@
             background-color: #bd2130;
         }
     </style>
-    <script type="text/javascript" src="/js/board.js"></script>
 </head>
 <body layout:fragment="content">
     <div class="container mt-5">
@@ -151,14 +150,14 @@
                 <tr>
                     <th>번호</th>
                     <th>제목</th>
-                    <th>내용</th>
                     <th>작성자</th>
+                    <th>내용</th>
                     <th>등록일자</th>
                     <th>수정일자</th>
                 </tr>
             </thead>
             <tbody>
-                <th:block th:if="${boardList.isEmpty()}">
+                <th:block th:if="${qnaList.isEmpty()}">
                     <tr>
                         <td colspan="6" align="center">
                             조회된 게시글 정보가 없습니다.
@@ -166,22 +165,21 @@
                     </tr>
                 </th:block>
 
-                <th:block th:each="board : ${boardList}">
+                <th:block th:each="qna : ${qnaList}">
                     <tr>
-                        <td align="center" th:text="${board.boardNo}"></td>
+                        <td align="center" th:text="${qna.qnaNo}"></td>
                         <td>
-                            <a th:href="|/QnA/read?no=${board.boardNo}|" 
-                            th:text="${board.title}"></a>
+                            <a th:href="|/QnA/read?qnaNo=${qna.qnaNo}|" 
+                            th:text="${qna.qnaTitle}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></a>
                         </td>
-                        <td align="center" th:text="${board.content}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
-                        <td align="center" th:text="${board.userId}"></td>
+                        <td align="center" th:text="${qna.qnaWriter}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
+                        <td align="center" th:text="${qna.qnaContent}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
                         <td align="center">
-                            <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                            <span th:text="${ #dates.format( qna.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
                         </td>
                         <td align="center">
-                            <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                            <span th:text="${ #dates.format( qna.updDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
                         </td>
-                       <!-- <td align="center" th:text="${board.boardType}"></td>  -->
                     </tr>
                 </th:block>
             </tbody>
@@ -206,9 +204,6 @@
             </ul>
         </nav>
     </div>
-    <script>
-        document.getElementById('content')
-    </script>
 </body>
 </html>
     

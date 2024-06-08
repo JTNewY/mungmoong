@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<mapper namespace="com.mypet.mungmoong.QnA.mapper.QnAMapper">
+
+    <!-- 게시글 목록 -->
+    <select id="list" resultType="Qna">
+        SELECT *
+        FROM qna
+        ORDER BY reg_date DESC
+        <!-- LIMIT #{page.index}, #{page.rows} -->
+    </select>
+
+    <!-- 게시글 조회 -->
+    <select id="select" resultType="Qna">
+    
+        SELECT *
+        FROM qna
+        WHERE qna_no = #{qnaNo}
+    </select>
+
+    <!-- 게시글 등록 -->
+    <insert id="insert">
+        INSERT INTO qna( qna_title, qna_writer , qna_content , board_type , reg_date , upd_date)
+        VALUES ( #{qnaTitle}, #{qnaWriter}, #{qnaContent}, 1 , now(), now())
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="update">
+        UPDATE qna
+           SET qna_title = #{qnaTitle}
+              ,qna_writer = #{qnaWriter}
+              ,qna_content = #{qnaContent}
+              ,upd_date = now()     
+        WHERE qna_no = #{qnaNo}
+    </update>
+
+
+    <!-- 게시글 삭제 -->
+    <delete id="delete">
+        DELETE FROM qna
+        WHERE qna_no = #{qnaNo}
+    </delete>
+
+
+
+
+</mapper>

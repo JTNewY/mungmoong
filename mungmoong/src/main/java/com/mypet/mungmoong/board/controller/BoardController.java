@@ -53,6 +53,8 @@ public class BoardController {
         return "/board/list"; // resources/templates/board/list.html
     }
 
+
+
     /**
      * 게시글 조회 화면
      * - /board/read?no=💎
@@ -156,5 +158,10 @@ public class BoardController {
         }
         return "redirect:/board/update?no=" + no + "&error";
     }
+
+
+
+
+    
 
 }

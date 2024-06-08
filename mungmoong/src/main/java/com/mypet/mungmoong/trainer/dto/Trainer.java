@@ -27,6 +27,8 @@ public class Trainer {
     private Date regDate;
     private Date updDate;
 
+    private Users user;
+    
     private List<String> careerNames;
     private List<Integer> careerNos; // 추가된 필드
     private List<String> certificateNames;
@@ -41,7 +43,7 @@ public class Trainer {
     private List<Certificate> certificateList = new ArrayList<>(); // 초기화
     private List<Schedule> scheduleList = new ArrayList<>();
 
-    private Users user;
+
 
     // 트레이너에게 리스트로 담기 위해 사용.
     // 조회할 때가 아니라 데이터를 insert할 때 사용!
