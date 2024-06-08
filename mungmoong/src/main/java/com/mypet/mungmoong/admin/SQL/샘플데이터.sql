@@ -1,4 +1,4 @@
--- Active: 1717746144890@@127.0.0.1@3306@mypet
+-- Active: 1713353106333@@127.0.0.1@3306@mypet
 -- 샘플 데이터 삽입
 -- pet 테이블
 INSERT INTO `pet` (`no`, `file_no`, `name`, `age`, `petgender`, `character`, `type`)
