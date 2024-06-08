@@ -15,14 +15,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mypet.mungmoong.orders.model.Products;
 import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.orders.service.ProductsService;
-import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
+import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -67,15 +66,20 @@ public class ProductsController {
         return "/products/index";
     }
 
+    /**
+     * 상품 상세
+     * @param model
+     * @param request
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/{id}")
     public String product(Model model
                          ,HttpServletRequest request 
                          ,@PathVariable("id") String id) throws Exception {
         log.info(":::::::::: 내상품 ::::::::::");
         Products product = productsService.select(id);
-        HttpSession session = request.getSession();
-        List<Pet> pets = (List<Pet>) session.getAttribute("pets");
-        model.addAttribute("pets", pets);
         model.addAttribute("product", product);
         return "/products/detail";
     }
