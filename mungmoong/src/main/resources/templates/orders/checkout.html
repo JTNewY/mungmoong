@@ -42,7 +42,6 @@
                     <th class="table-secondary">마이펫</th>
                     <td>
                       <select name="petNo" id="petNo" class="form-control">
-                        <option value="0">펫 선택</option>
                         <th:block th:each="pet : ${petList}">
                           <option th:value="${pet.petNo}" th:text="${pet.name}"></option>
                         </th:block>
