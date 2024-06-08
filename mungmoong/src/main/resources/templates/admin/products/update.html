@@ -64,17 +64,6 @@
             <input type="text" class="form-control" id="name" th:field="*{name}"  />
           </div>
           <div class="mb-3">
-            <label for="name" class="form-label">카테고리</label>
-            <select class="form-select" aria-label="category" name="category">
-              <th:block th:each="category : ${categories}">
-                <option th:value="${category.code}"
-                        th:text="${category.name}"
-                        th:selected="${category.code} == ${product.category}">
-                </option>
-            </th:block>
-            </select>
-          </div>
-          <div class="mb-3">
             <label for="content" class="form-label">설명</label>
             <textarea class="form-control" id="content" rows="3" th:field="*{content}"></textarea>
           </div>
@@ -82,10 +71,10 @@
             <label for="price" class="form-label">가격</label>
             <input type="number" class="form-control" id="price" th:field="*{price}" />
           </div>
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="stock " class="form-label">재고수</label>
             <input type="number" class="form-control" id="stock" th:field="*{stock}" /> 
-          </div>
+          </div> -->
         </div>
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-primary" >수정하기</button>
