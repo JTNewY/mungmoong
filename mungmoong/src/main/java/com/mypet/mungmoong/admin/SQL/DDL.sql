@@ -54,7 +54,7 @@ INSERT INTO `trainer` (
     (4, 'aaaa', 'Diana', 'female', '1988-12-11', 'diana@example.com', '456-789-0123', '101 Birch Blvd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Diana specializes in yoga and mindfulness training.'),
     (5, 'ssss', 'Eve', 'female', '1995-04-05', 'eve@example.com', '567-890-1234', '202 Pine Lane', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Eve is a fitness enthusiast with a passion for HIIT and cardio workouts.');
 
-
+DROP TABLE QnA;
 CREATE TABLE `QnA` (
 	`qna_no`	INT	NOT NULL,
 	`qna_title`	VARCHAR(100)	NOT NULL,

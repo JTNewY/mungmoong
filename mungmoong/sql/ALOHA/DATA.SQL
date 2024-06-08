@@ -1,4 +1,4 @@
--- Active: 1717847171591@@127.0.0.1@3306@mypet
+-- Active: 1717838232505@@127.0.0.1@3306@mypet
 -- users
 TRUNCATE users;
 
