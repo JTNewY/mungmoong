@@ -1,3 +1,4 @@
+-- Active: 1717838232505@@127.0.0.1@3306@mypet
 -- 펫테이블-------------------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS pet;
@@ -351,6 +352,19 @@ CREATE TABLE `SHIPMENTS` (
     ) NULL COMMENT '배송준비중, 배송시작, 배송중, 배송완료, 주문취소',
     `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- QnA 테이블 --------------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `SHIPMENTS`;
+CREATE TABLE `QnA` (
+	`qna_no`	INT	NOT NULL,
+	`qna_title`	VARCHAR(100)	NOT NULL,
+	`qna_writer`	VARCHAR(100)	NOT NULL,
+	`qna_content`	VARCHAR(100)	NULL,
+	`board_type`	VARCHAR(100)	NOT NULL,
+	`reg_date`	TIMESTAMP	NOT NULL,
+	`upd_date`	TIMESTAMP	NOT NULL
 );
 
 -- END

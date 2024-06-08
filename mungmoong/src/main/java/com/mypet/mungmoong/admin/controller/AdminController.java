@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
+import com.mypet.mungmoong.orders.dto.Products;
+import com.mypet.mungmoong.orders.service.ProductsService;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
 import com.mypet.mungmoong.reserve.dto.Reserve;
@@ -47,6 +49,9 @@ public class AdminController {
 
     @Autowired
     private ReserveService reserveService;
+
+    @Autowired
+    private ProductsService productsService;
 
     /**
      * 관리자 회원정보 조회
@@ -351,9 +356,11 @@ public class AdminController {
     
 
     @GetMapping("/admin_product")
-    public String AdminProduct(@RequestParam String param) {
+    public String AdminProduct(Model model) throws Exception {
 
-        
+        List<Products> productsList = productsService.list();
+
+        model.addAttribute("productsList", productsList);
         
         return "/admin/admin_product";
     }
