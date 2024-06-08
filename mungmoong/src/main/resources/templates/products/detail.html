@@ -27,13 +27,14 @@
 <body layout:fragment="content">
 
   <section>
-    <form action="/orders" method="post">
+
+    <form action="/orders" method="get">
       <div class="album py-5 bg-body-tertiary">
         <div class="container">
           <div class="main-title py-5">
             <h3 class="display-4 fw-bold text-body-emphasis text-center">예약 정보</h3>
           </div>
-
+    
           <!-- 상품 정보 -->
           <div class="row">
             <div class="col-12 col-md-6">
@@ -41,7 +42,6 @@
               <div class="card shadow-sm">
                 &nbsp;
                 <a th:href="|/products/${product.id}|">
-                  <!-- <img src="/img/about.png" class="w-100" alt="about"> -->
                   <div class="card-box">
                     <img src="/img/about.png" th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about"
                       style="max-height: 460px; object-fit: contain;">
@@ -53,19 +53,14 @@
             <div class="col-12 col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body">
-                  <input type="hidden" class="form-control" id="title" name="title" th:value="${product.name}" required>
+                  <!-- <input type="hidden" class="form-control" id="title" name="title" th:value="${product.name}" required> -->
                   <h3 class="card-title fs-2" th:text="${product.name}"></h3>
-
+    
                   <p class="card-text" th:text="${product.description}"></p>
                   <div class="d-flex justify-content-end">
                     <p>
                       가격 : <span class="fw-bold" th:text="${product.price}"></span>
                     </p>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="name">예약자</label>
-                    <input type="text" class="form-control" id="user_id" name="user_id" th:value="${session.user.name}"
-                      readonly>
                   </div>
                   <div class="modal-body">
                     예약날짜를 선택해주세요
@@ -73,36 +68,17 @@
                     <div id="calendar" class="input-group">
                       <input type="date" class="form-control" name="resDate" id="resDate" value="">
                     </div>
-
                   </div>
                   <div class="row">
                     <div class="col-md-12 mb-3">
                       <label for="address">방문주소</label>
-                      <input type="text" class="form-control" id="addressId" name="addressId"
+                      <input type="text" class="form-control" id="address" name="address"
                         th:value="${session.user.address}" readonly>
                       <div class="invalid-feedback">
                         주소을 입력해주세요.
                       </div>
                     </div>
-                    <!--펫정보-->
-                    <div class="my-pets">
-                      <h2>나의 강아지</h2>
-                      <div th:each="pet : ${pets}" class="col-md-6">
-                        <div class="pet-card d-flex align-items-center p-3 mb-3">
-                          <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
-                          <div class="pet-info">
-                            <input type="text" th:value="${pet.petname}" readonly>
-                            <input type="text" th:value="${pet.age + '살'}" readonly>
-                            <input type="text" th:value="${pet.character}" readonly>
-                          </div>
-                          <!-- <button type="button" class="custom-button" 
-                                                            th:onclick="|location.href='/users/petupdate?petNo=${pet.petNo}'|">마이펫수정</button> -->
-                        </div>
-                      </div>
-                    </div>
-
-                    <!--펫정보-->
-
+    
                     <div class="col-md-12 mb-3">
                       <label for="memo">요청사항</label>
                       <input type="text" class="form-control" id="memo" name="memo" placeholder="">
@@ -111,23 +87,22 @@
                       </div>
                     </div>
                   </div>
-
-                  <div class="row my-5 row-gap-2">
-                    <div class="col-12 col-md-6">
-                      <button type="button" class="btn btn-warning w-100">예약리스트 담기</button>
-                    </div>
-                    <!-- CSRF TOKEN -->
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                    <input type="hidden" id="productId" name="productId" th:value="${product.id}">
-                    <input type="hidden" id="quantity" name="quantity" value="1">
-                    <button type="submit" class="btn btn-success w-100" data="trainer123">예약하기</button>
+    
+                  <!-- CSRF TOKEN -->
+                  <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> -->
+                  <input type="hidden" id="productId" name="productId" th:value="${product.id}">
+                  <!-- <input type="hidden" id="quantity" name="quantity" value="1"> -->
+                  <button type="submit" class="btn btn-success w-100" data="trainer123">예약하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-
+    
+    
+  
     <!-- 상품 내용 -->
     <div class="row my-5">
       <div class="col-12">
@@ -141,17 +116,17 @@
 
     </div>
   </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
+  </script>
   <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"></script>
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js">
+  </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
+  </script>
   <script>
-
     let trainerId = ''
     $(function () {
 

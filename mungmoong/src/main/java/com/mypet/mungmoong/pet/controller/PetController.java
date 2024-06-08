@@ -80,7 +80,7 @@ public String updatePet(@RequestParam("petNo") int petNo,
         return "redirect:/users/index?error=PetNotFound";
     }
 
-    pet.setPetname(petname);
+    pet.setName(petname);
     pet.setAge(age);
     pet.setPetgender(petgender);
     pet.setCharacter(character);
@@ -123,7 +123,7 @@ public String updatePet(@RequestParam("petNo") int petNo,
 
         Pet pet = new Pet();
         pet.setUserId(userId); // 현재 사용자 ID 설정
-        pet.setPetname(petname);
+        pet.setName(petname);
         pet.setAge(age);
         pet.setPetgender(gender);
         pet.setCharacter(character);

@@ -59,7 +59,8 @@ public class OrdersController {
     private PaymentsService paymentsService;
 
 
-      @InitBinder
+    // ALOHA : 무엇?
+    @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
@@ -68,14 +69,23 @@ public class OrdersController {
 
 
     /**
-     * 주문하기
-     * @param param
+     * 결제 화면 (주문)
+     * @param resDate
+     * @param address
+     * @param memo
+     * @param productId
      * @return
      */
     @GetMapping("")
-    public String orders() {
-
-
+    public String orders(@RequestParam(name = "resDate", required = false) String resDate,
+                         @RequestParam(name = "address", required = false) String address,
+                         @RequestParam(name = "memo", required = false) String memo,
+                         @RequestParam(name = "productId", required = false) String productId) {
+        log.info("resDate - 예약일자 : " + resDate);
+        log.info("address - 주소 : " + address);
+        log.info("memo - 요청사항 : " + memo);
+        log.info("productId - 상품ID : " + productId);
+        
         return "/orders/index";
     }
 

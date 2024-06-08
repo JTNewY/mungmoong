@@ -235,12 +235,13 @@ CREATE TABLE `CARTS` (
 DROP TABLE IF EXISTS ORDERS;
 
 CREATE TABLE `orders` (
-	`NO` INT PRIMARY KEY AUTO_INCREMENT,                -- 예약 번호
+	`NO` INT PRIMARY KEY AUTO_INCREMENT,                 -- 예약 번호
 	`ID` CHAR(36) NOT NULL,                              -- 예약 id
-	`PRODUCT_ID` VARCHAR(100) NOT NULL,                     -- 회원 id
+	`PRODUCT_ID` VARCHAR(100) NOT NULL,                  -- 회원 id
 	`USER_ID` VARCHAR(100) NOT NULL,                     -- 회원 id
-	`pet_no` INT NOT NULL,                           -- 펫 번호
+	`pet_no` INT NOT NULL,                               -- 펫 번호
 	`trainer_no` INT NOT NULL,                           -- 훈련사 번호
+    `address` TEXT NOT NULL,                             -- 방문자 주소
 	`resDate` TIMESTAMP NOT NULL,                        -- 예약날짜
 	`MEMO` VARCHAR(255) NULL,                            -- 요청사항
 	`TITLE` VARCHAR(255) NULL,                           -- 예약제목 - 상품명을 넣고
