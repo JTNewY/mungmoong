@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT *
         FROM board
         ORDER BY reg_date DESC
-        LIMIT #{page.index}, #{page.rows}
+        <!-- LIMIT #{page.index}, #{page.rows} -->
     </select>
 
     <!-- 게시글 조회 -->

@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mypet.mungmoong.QnA.dto.QnA;
+import com.mypet.mungmoong.QnA.service.QnAService;
 import com.mypet.mungmoong.board.dto.Board;
-import com.mypet.mungmoong.board.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,8 +26,8 @@ public class QnAController {
     // Controller <-- Service (데이터 전달)
     // Controller --> Model   (모델 등록)
     // View <-- Model         (데이터 출력)
-    @Autowired                              // 의존성 자동 주입
-    private BoardService boardService;      // @Service를 --Impl 에 등록
+    @Autowired
+    private QnAService qnaService;      // @Service를 --Impl 에 등록
     /**
      * 게시글 목록 조회 화면
      * @return
@@ -35,9 +36,10 @@ public class QnAController {
     @GetMapping("/list")
     public String list(Model model) throws Exception {
         // 데이터 요청
-        List<Board> boardList = boardService.list(null, null);
+        List<QnA> qnaList = qnaService.list();
+        log.info("문의 리스트 : " + qnaList);
         // 모델 등록
-        model.addAttribute("boardList", boardList);
+        model.addAttribute("qnaList", qnaList);
         // 뷰 페이지 지정
         return "/QnA/list";       // resources/templates/board/list.html
     }
@@ -53,11 +55,11 @@ public class QnAController {
     // - 스프링 부트 3.2버전 이하, 생략해도 자동 매핑된다.
     // - 스프링 부트 3.2버전 이상, 필수로 명시해야 매핑된다.
     @GetMapping("/read")
-    public String read(@RequestParam("no") int no, Model model) throws Exception {
+    public String read(@RequestParam("qnaNo") int no, Model model) throws Exception {
         // 데이터 요청
-        Board board = boardService.select(no);
+        QnA qna = qnaService.select(no);
         // 모델 등록
-        model.addAttribute("board", board);
+        model.addAttribute("qna", qna);
         // 뷰페이지 지정
         return "/QnA/read";
     }
@@ -79,9 +81,9 @@ public class QnAController {
      * @throws Exception 
      */
     @PostMapping("/insert")
-    public String insertPro(Board board) throws Exception {
+    public String insertPro(QnA qna) throws Exception {
         // 데이터 요청
-        int result = boardService.insert(board);
+        int result = qnaService.insert(qna);
         // 리다이렉트
         // ⭕ 데이터 처리 성공
         if( result > 0 ) {
@@ -99,9 +101,9 @@ public class QnAController {
      * @throws Exception 
      */
     @GetMapping("/update")
-    public String update(@RequestParam("no") int no, Model model) throws Exception {
-        Board board = boardService.select(no);
-        model.addAttribute("board", board);
+    public String update(@RequestParam("qnaNo") int no, Model model) throws Exception {
+        QnA qna = qnaService.select(no);
+        model.addAttribute("qna", qna);
         return "/QnA/update";
     }
 
@@ -112,14 +114,14 @@ public class QnAController {
      * @throws Exception
      */
     @PostMapping("/update")
-    public String updatePro(Board board) throws Exception {
-        int result = boardService.update(board);
+    public String updatePro(QnA qna) throws Exception {
+        int result = qnaService.update(qna);
 
         if( result > 0 ) {
             return "redirect:/QnA/list";
         }
-        int no = board.getBoardNo();
-        return "redirect:/QnA/update?no="+ no + "&error";
+        int qnaNo = qna.getQnaNo();
+        return "redirect:/QnA/update?qnaNo="+ qnaNo + "&error";
     }
     
     /**
@@ -129,8 +131,8 @@ public class QnAController {
      * @throws Exception
      */
     @PostMapping("/delete")
-    public String delete(@RequestParam("boardNo") int no) throws Exception {
-        int result = boardService.delete(no);
+    public String delete(@RequestParam("qnaNo") int no) throws Exception {
+        int result = qnaService.delete(no);
         if( result > 0 ) {
             return "redirect:/QnA/list";
         }

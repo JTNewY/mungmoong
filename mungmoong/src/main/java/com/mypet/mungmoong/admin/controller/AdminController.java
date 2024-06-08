@@ -171,7 +171,7 @@ public class AdminController {
 
 
         List<Trainer> trainerList = trainerService.adminTrainerList(page, option);
-        log.info(trainerList.toString());
+        log.info("트레이너 " + trainerList.toString());
 
 
         model.addAttribute("trainerList", trainerList);
