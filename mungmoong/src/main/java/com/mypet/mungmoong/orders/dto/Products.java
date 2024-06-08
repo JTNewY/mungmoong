@@ -13,12 +13,9 @@ public class Products {
     private String id;
     private int trainerNo;
     private String name;
-    private String category;
-    private String categoryName;
     private String description;
     private String content;
     private int price;
-    private int stock = 0;
     private Date createdAt;
     private Date updatedAt;
 

@@ -47,10 +47,8 @@
             <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">훈련명</th>
-              <th scope="col">카테고리</th>
               <th scope="col">가격</th>
               <th scope="col">예약일자</th>
-              <th scope="col">등록일자</th>
               <th scope="col"><i class="bi bi-gear"></i></th>
             </tr>
           </thead>
@@ -61,14 +59,11 @@
                   <input type="checkbox" name="deleteIdList" class="form-check-input" th:value="${product.id}">
                 </th>
                 <td ><span th:text="${product.name}"></span></td>
-                <td class="text-center"><span th:text="${product.categoryName}"></span></td>
                 <td class="text-center"><span th:text="${product.price}"></span></td>
-                <td class="text-center"><span th:text="${product.stock}"></span></td>
                 <td class="text-center"><span th:text="${#dates.format(product.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
                 <td class="text-center">
                   <a th:href="|/admin/products/${product.id}|" class="btn btn-primary">수정</a>
-                </td>
-                
+                </td>    
               </tr>
             </th:block>
           </tbody>

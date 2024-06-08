@@ -47,14 +47,14 @@
             <label for="name" class="form-label">상품명</label>
             <input type="text" class="form-control" id="name" name="name">
           </div>
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="name" class="form-label">카테고리</label>
             <select class="form-select" aria-label="category" name="category">
               <th:block th:each="category : ${categories}">
                 <option th:value="${category.code}" th:text="${category.name}"></option>
               </th:block>
             </select>
-          </div>
+          </div> -->
           <div class="mb-3">
             <label for="description" class="form-label">간단 설명 (description)</label>
             <textarea class="form-control" id="description" rows="3" name="description"></textarea>

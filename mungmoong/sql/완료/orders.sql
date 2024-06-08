@@ -1,16 +1,15 @@
--- Active: 1717835597775@@127.0.0.1@3306@mypet
+-- Active: 1713528331467@@127.0.0.1@3306@mypet
 
 ------------------------------------------------------------------------------
 -- 이미지파일 C:\upload\no-image.png 로 이미지 임시파일만들어주세요
 DROP TABLE IF EXISTS products;
 CREATE TABLE `PRODUCTS` (
 	`ID`	CHAR(255)	NOT NULL PRIMARY KEY,
-	`NAME`	VARCHAR(100)	NOT NULL,
-	`CATEGORY`	VARCHAR(100)	NULL,
-	`DESCRIPTION`	VARCHAR(200)	NULL,
-	`CONTENT`	TEXT	NULL,
-	`PRICE`	INT	NOT NULL,
-	`STOCK`	INT	NULL	DEFAULT 0,
+    `TRAINER_NO` INT NOT NULL,                          -- 훈련사 번호
+	`NAME`	VARCHAR(100)	NOT NULL,                   -- 훈련 교육 제목
+	`DESCRIPTION`	VARCHAR(200)	NULL,               -- 훈련 간단 설명
+	`CONTENT`	TEXT	NULL,                           -- 훈련 내용
+	`PRICE`	INT	NOT NULL,                               -- 가격
 	`CREATED_AT`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
 	`UPDATED_AT`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP
 );
@@ -171,11 +170,10 @@ INSERT INTO `CATEGORIES` (`ID`, `CODE`, `NAME`, `SEQ`, `CREATED_AT`, `UPDATED_AT
 TRUNCATE products;
 -- Inserting sample data
 
-INSERT INTO `PRODUCTS` (`ID`, `NAME`, `CATEGORY`, `DESCRIPTION`, `CONTENT`, `PRICE`, `STOCK`, `CREATED_AT`, `UPDATED_AT`) 
-VALUES
-('5e6f7g8h-9012-34ab-cdef-5678901234ef', '상의 상품 1', 'TOP', '상의 상품 1 설명', '상의 상품 1의 내용', 10000, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('6f7g8h9i-0123-45ab-cdef-6789012345fg', '상의 상품 2', 'TOP', '상의 상품 2 설명', '상의 상품 2의 내용', 15000, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
+INSERT INTO PRODUCTS (ID, TRAINER_NO, NAME, DESCRIPTION, CONTENT, PRICE, CREATED_AT, UPDATED_AT) VALUES
+('001', 1, '이태원', '서울시 강남구 테헤란로 123', '트레이너 경력 10년', 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('002', 2, '강형욱', '서울시 강남구 테헤란로 123', '트레이너 경력 20년', 75, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+commit;
 --------------------------------------------------------------------------------------------------
 
 TRUNCATE orders;
