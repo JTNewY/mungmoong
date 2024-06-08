@@ -19,6 +19,9 @@ public interface TrainerService {
 
     // 트레이너 리스트 호출
     public List<Trainer> trainerList(Page page, Option option) throws Exception;
+    
+    // 관리자 트레이너 리스트
+    public List<Trainer> adminTrainerList(Page page, Option option) throws Exception;
 
     // 훈련사 번호 조회
     public int selectTrainerNo() throws Exception;

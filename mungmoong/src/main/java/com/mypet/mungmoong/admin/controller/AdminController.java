@@ -170,11 +170,11 @@ public class AdminController {
     public String trainerList(Model model, Page page, Option option) throws Exception {
 
 
-        List<Trainer> trainerList = trainerService.trainerList(page, option);
+        List<Trainer> trainerList = trainerService.adminTrainerList(page, option);
         log.info(trainerList.toString());
 
 
-        model.addAttribute("trainerList", trainerList(model, page, option));
+        model.addAttribute("trainerList", trainerList);
 
         return "/admin/admin_trainer";
     }
@@ -301,17 +301,17 @@ public class AdminController {
     }
 
 
-    // @PostMapping("/BoardDelete")
-    // public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
-    //     log.info("no : " + no);
-    //     int result = boardService.BoardDelete(no);
+    @PostMapping("/BoardDelete")
+    public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
+        log.info("no : " + no);
+        int result = boardService.BoardDelete(no);
 
-    //     if (result > 0) {
-    //         return "redirect:/admin/admin_board";
-    //     }
+        if (result > 0) {
+            return "redirect:/admin/admin_board";
+        }
 
-    //     return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
-    // }
+        return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
+    }
     
     
 

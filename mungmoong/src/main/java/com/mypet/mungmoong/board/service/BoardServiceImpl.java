@@ -65,6 +65,12 @@ public class BoardServiceImpl implements BoardService {
         return result;
     }
 
+    @Override
+    public int BoardDelete(int no) throws Exception {
+        int result = boardMapper.BoardDelete(no);
+        return result;
+    }
+
     // @Override
     // public int delete(int no) throws Exception {
     //     int result = boardMapper.BoardDelete(no);

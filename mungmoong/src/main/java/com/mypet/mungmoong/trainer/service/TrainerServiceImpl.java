@@ -258,6 +258,8 @@ public class TrainerServiceImpl implements TrainerService {
 
     }
 
+    
+
 
 
 
@@ -265,6 +267,18 @@ public class TrainerServiceImpl implements TrainerService {
     public int selectTrainerNo() throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectTrainerNo'");
+    }
+
+
+
+
+    @Override
+    public List<Trainer> adminTrainerList(Page page, Option option) throws Exception {
+
+        List<Trainer> trainerList = trainerMapper.trainerList(page, option);
+
+        return trainerList;
+
     }
 
 
