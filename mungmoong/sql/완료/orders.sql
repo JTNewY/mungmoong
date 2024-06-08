@@ -63,17 +63,7 @@ CREATE TABLE `orders` (
 	`UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- ORDERS 테이블의 USER_ID 열에 외래 키 제약 조건 추가
-ALTER TABLE `ORDERS`
-ADD CONSTRAINT `FK_ORDERS_USERS`
-FOREIGN KEY (`USER_ID`)
-REFERENCES `users`(`USER_ID`);
 
-ALTER TABLE `users` 
-ADD PRIMARY KEY (`user_id`);
-
-ALTER TABLE `orders`
-ADD CONSTRAINT `PK_users` FOREIGN key('user_id') PRIMARY KEY (`user_id`);
 ------------------------------------------------------------------------------
 
 
@@ -153,9 +143,7 @@ CREATE TABLE `PAYMENTS` (
 	`date_no`	CHAR(36)	NOT NULL,                       -- 예약번호
 	`PAYMENT_METHOD`	VARCHAR(255)	NULL,               -- 결제방식
 	`STATUS`	VARCHAR(255)	NULL,                       -- 결제상태
-	`pay_check`     BOOLEAN        null,                    -- 승인상태
-	`price`         int          null,                      -- 결제금액
-	`pay_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,  --결제일자
+	`pay_date`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,  -- 결제일자
 	`CREATED_AT`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
 	`UPDATED_AT`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP
 );
@@ -174,12 +162,11 @@ CREATE TABLE `CATEGORIES` (
     `CREATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생성일
     `UPDATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 수정일
 );
+
 -- Active: 1713528331467@@127.0.0.1@3306@mypet
 INSERT INTO `CATEGORIES` (`ID`, `CODE`, `NAME`, `SEQ`, `CREATED_AT`, `UPDATED_AT`) VALUES
 ('1a2b3c4d-5678-90ab-cdef-1234567890ab', '1', '훈련', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('2b3c4d5e-6789-01ab-cdef-2345678901bc', '2', '돌봄', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('3c4d5e6f-7890-12ab-cdef-3456789012cd', '3', '산책', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('4d5e6f7g-8901-23ab-cdef-4567890123de', '4', '기타', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('2b3c4d5e-6789-01ab-cdef-2345678901bc', '2', '돌봄', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 --------------------------------------------------------------------------------------------------
 TRUNCATE products;
@@ -188,44 +175,22 @@ TRUNCATE products;
 INSERT INTO `PRODUCTS` (`ID`, `NAME`, `CATEGORY`, `DESCRIPTION`, `CONTENT`, `PRICE`, `STOCK`, `CREATED_AT`, `UPDATED_AT`) 
 VALUES
 ('5e6f7g8h-9012-34ab-cdef-5678901234ef', '상의 상품 1', 'TOP', '상의 상품 1 설명', '상의 상품 1의 내용', 10000, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('6f7g8h9i-0123-45ab-cdef-6789012345fg', '상의 상품 2', 'TOP', '상의 상품 2 설명', '상의 상품 2의 내용', 15000, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('7g8h9i0j-1234-56ab-cdef-7890123456gh', '상의 상품 3', 'TOP', '상의 상품 3 설명', '상의 상품 3의 내용', 20000, 30, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('8h9i0j1k-2345-67ab-cdef-8901234567hi', '하의 상품 1', 'BOTTOM', '하의 상품 1 설명', '하의 상품 1의 내용', 30000, 15, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('9i0j1k2l-3456-78ab-cdef-9012345678ij', '하의 상품 2', 'BOTTOM', '하의 상품 2 설명', '하의 상품 2의 내용', 35000, 25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('0j1k2l3m-4567-89ab-cdef-0123456789jk', '하의 상품 3', 'BOTTOM', '하의 상품 3 설명', '하의 상품 3의 내용', 40000, 35, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('1k2l3m4n-5678-90ab-cdef-1234567890lm', '아우터 상품 1', 'OUTER', '아우터 상품 1 설명', '아우터 상품 1의 내용', 50000, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('2l3m4n5o-6789-01ab-cdef-2345678901mn', '아우터 상품 2', 'OUTER', '아우터 상품 2 설명', '아우터 상품 2의 내용', 55000, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('3m4n5o6p-7890-12ab-cdef-3456789012no', '아우터 상품 3', 'OUTER', '아우터 상품 3 설명', '아우터 상품 3의 내용', 60000, 15, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('4n5o6p7q-8901-23ab-cdef-4567890123op', '악세사리 상품 1', 'ACCESSORY', '악세사리 상품 1 설명', '악세사리 상품 1의 내용', 7000, 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('5o6p7q8r-9012-34ab-cdef-5678901234pq', '악세사리 상품 2', 'ACCESSORY', '악세사리 상품 2 설명', '악세사리 상품 2의 내용', 7500, 60, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('6p7q8r9s-0123-45ab-cdef-6789012345qr', '악세사리 상품 3', 'ACCESSORY', '악세사리 상품 3 설명', '악세사리 상품 3의 내용', 8000, 70, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('6f7g8h9i-0123-45ab-cdef-6789012345fg', '상의 상품 2', 'TOP', '상의 상품 2 설명', '상의 상품 2의 내용', 15000, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 --------------------------------------------------------------------------------------------------
 
 TRUNCATE orders;
 TRUNCATE order_items;
-INSERT INTO `ORDERS` (`ID`, `USER_ID`, `DATE_NO`, `TITLE`, `TOTAL_QUANTITY`, `TOTAL_COUNT`, `TOTAL_PRICE`, `STATUS`, `ORDERED_AT`, `CREATED_AT`, `UPDATED_AT`) VALUES
-('1a2b3c4d-5678-90ab-cdef-1234567890ab', 'user123', 20240606, 'Sample Order 1', 2, 1, 15000, 'delivered', '2024-06-06 10:00:00', '2024-06-06 10:00:00', '2024-06-06 10:00:00'),
-('2b3c4d5e-6789-01ab-cdef-2345678901bc', 'user456', 20240605, 'Sample Order 2', 3, 1, 25000, 'paid', '2024-06-05 15:30:00', '2024-06-05 15:30:00', '2024-06-05 15:30:00'),
-('3c4d5e6f-7890-12ab-cdef-3456789012cd', 'user789', 20240604, 'Sample Order 3', 1, 1, 5000, 'shipping', '2024-06-04 09:45:00', '2024-06-04 09:45:00', '2024-06-04 09:45:00'),
-('4d5e6f7g-8901-23ab-cdef-4567890123de', 'user123', 20240603, 'Sample Order 4', 2, 1, 20000, 'cancelled', '2024-06-03 14:20:00', '2024-06-03 14:20:00', '2024-06-03 14:20:00'),
-('5e6f7g8h-9012-34ab-cdef-5678901234ef', 'user456', 20240602, 'Sample Order 5', 1, 1, 7000, 'pending', '2024-06-02 11:10:00', '2024-06-02 11:10:00', '2024-06-02 11:10:00');
+INSERT INTO orders (ID, USER_ID, trainer_no, MEMO, resDate, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE, STATUS, ORDERED_AT)
+VALUES 
+( 1,'user123', 1, '요청사항입니다.', '2024-06-10 10:00:00', '예약 제목 1', 3, 1, 50000, 'pending', '2024-06-08 10:00:00'),
+( 2,'user456', 2, NULL, '2024-06-11 15:00:00', '예약 제목 2', 2, 1, 40000, 'pending', '2024-06-08 11:00:00');
 
 
 TRUNCATE files;
 INSERT INTO `FILES` (`ID`, `PARENT_TABLE`, `PARENT_ID`, `NAME`, `ORIGIN_NAME`, `PATH`, `SIZE`, `IS_MAIN`, `SEQ`, `CREATED_AT`, `UPDATED_AT`) VALUES
 ('a1b2c3d4-5678-90ab-cdef-111111111111', 'products', '5e6f7g8h-9012-34ab-cdef-5678901234ef', 'TOP1', 'TOP1', 'C:\\upload\\TOP1.jpg', 1000, TRUE, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('b2c3d4e5-6789-01ab-cdef-222222222222', 'products', '6f7g8h9i-0123-45ab-cdef-6789012345fg', 'TOP2', 'TOP2', 'C:\\upload\\TOP2.jpg', 2000, TRUE, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('c3d4e5f6-7890-12ab-cdef-333333333333', 'products', '7g8h9i0j-1234-56ab-cdef-7890123456gh', 'TOP3', 'TOP3', 'C:\\upload\\TOP3.jpg', 3000, TRUE, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('d4e5f6g7-8901-23ab-cdef-444444444444', 'products', '8h9i0j1k-2345-67ab-cdef-8901234567hi', 'BOTTOM1', 'BOTTOM1', 'C:\\upload\\BOTTOM1.jpg', 4000, TRUE, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('e5f6g7h8-9012-34ab-cdef-555555555555', 'products', '9i0j1k2l-3456-78ab-cdef-9012345678ij', 'BOTTOM2', 'BOTTOM2', 'C:\\upload\\BOTTOM2.jpg', 5000, TRUE, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('f6g7h8i9-0123-45ab-cdef-666666666666', 'products', '0j1k2l3m-4567-89ab-cdef-0123456789jk', 'BOTTOM3', 'BOTTOM3', 'C:\\upload\\BOTTOM3.jpg', 6000, TRUE, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('g7h8i9j0-1234-56ab-cdef-777777777777', 'products', '1k2l3m4n-5678-90ab-cdef-1234567890lm', 'OUTER1', 'OUTER1', 'C:\\upload\\OUTER1.jpg', 7000, TRUE, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('h8i9j0k1-2345-67ab-cdef-888888888888', 'products', '2l3m4n5o-6789-01ab-cdef-2345678901mn', 'OUTER2', 'OUTER2', 'C:\\upload\\OUTER2.jpg', 8000, TRUE, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('i9j0k1l2-3456-78ab-cdef-999999999999', 'products', '3m4n5o6p-7890-12ab-cdef-3456789012no', 'OUTER3', 'OUTER3', 'C:\\upload\\OUTER3.jpg', 9000, TRUE, 9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('j0k1l2m3-4567-89ab-cdef-aaaaaaaaaaaa', 'products', '4n5o6p7q-8901-23ab-cdef-4567890123op', 'ACC1', 'ACC1', 'C:\\upload\\ACC1.jpg', 10000, TRUE, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('k1l2m3n4-5678-90ab-cdef-bbbbbbbbbbbb', 'products', '5o6p7q8r-9012-34ab-cdef-5678901234pq', 'ACC2', 'ACC2', 'C:\\upload\\ACC2.jpg', 11000, TRUE, 11, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('l2m3n4o5-6789-01ab-cdef-cccccccccccc', 'products', '6p7q8r9s-0123-45ab-cdef-6789012345qr', 'ACC3', 'ACC3', 'C:\\upload\\ACC3.jpg', 12000, TRUE, 12, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('b2c3d4e5-6789-01ab-cdef-222222222222', 'products', '6f7g8h9i-0123-45ab-cdef-6789012345fg', 'TOP2', 'TOP2', 'C:\\upload\\TOP2.jpg', 2000, TRUE, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
 
