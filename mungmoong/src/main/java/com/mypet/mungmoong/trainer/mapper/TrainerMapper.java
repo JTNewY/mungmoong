@@ -36,5 +36,8 @@ public interface TrainerMapper {
     // 트레이너 리스트 호출
     public List<Trainer> trainerList(@Param("page") Page page, Option option) throws Exception;
 
+    // 훈련사 번호로 조회
+    public Trainer selectByNo(int trainerNo);
+
     
 }

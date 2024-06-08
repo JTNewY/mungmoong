@@ -104,4 +104,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY t.reg_date DESC
     </select>
 
+
+    <!-- 훈련사 번호로 조회 -->
+    <select id="selectByNo" resultType="com.mypet.mungmoong.trainer.dto.Trainer">
+        SELECT *
+        FROM trainer
+        WHERE no = #{no}
+    </select>
+
 </mapper>

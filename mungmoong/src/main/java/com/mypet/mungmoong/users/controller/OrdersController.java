@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mypet.mungmoong.orders.model.Orders;
+import com.mypet.mungmoong.orders.dto.Orders;
 import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.users.dto.Users;
 

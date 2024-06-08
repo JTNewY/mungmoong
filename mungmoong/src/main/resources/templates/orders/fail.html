@@ -17,96 +17,9 @@
           <h3 class="display-4 fw-bold text-body-emphasis text-center">주문 실패</h3>
           <p class="text-center">주문이 실패되었습니다. 재주문 요청 바랍니다.</p>
         </div>
-
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <div class="card-title">
-              <h3>주문 실패 사유</h3>
-            </div>
-            <div class="card-body">
-              <h5 class="text-center text-danger fw-bold" th:text="|${param.errorMsg}|"></h5>
-            </div>
-          </div>
-        </div>
-
-        <div class="row py-5">
-          <!-- 받는 사람 정보 -->
-          <div class="col-12 col-md-6">
-            <div class="card shadow-sm">
-              <div class="card-body">
-                <div class="card-title">
-                  <h3>받는사람 정보</h3>
-                </div>
-                <table class="table">
-                  <tr>
-                    <th class="table-secondary">이름</th>
-                    <td>
-                      <p class="m-0" th:text="${shipments.address.recipient}"></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="table-secondary">주소</th>
-                    <td>
-                      <p class="m-0" th:text="${shipments.address.address}">데이터 확인</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="table-secondary">연락처</th>
-                    <td>
-                      <p class="m-0" th:text="${shipments.address.phone}">데이터 확인</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="table-secondary">요청사항</th>
-                    <td>
-                      <p class="m-0" th:text="${shipments.address.request}">데이터 확인</p>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- 결제 정보 -->
-          <div class="col-12 col-md-6">
-            <div class="card shadow-sm">
-              <div class="card-body">
-                <div class="card-title">
-                  <h3>결제 정보</h3>
-                </div>
-                <table class="table">
-                  <tr>
-                    <th class="table-secondary">주문금액</th>
-                    <td>
-                      <p class="m-0" th:text="|&#8361; ${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')} 원|"></p>
-                    </td>
-                  </tr>
-                  <!-- TODO : 나중에 할인 고려 -->
-                  <!-- <tr>
-                    <th class="table-secondary">할인금액</th>
-                    <td>
-                      <p class="m-0">0</p>
-                    </td>
-                  </tr> -->
-                  <tr>
-                    <th class="table-secondary">결제방식</th>
-                    <td>
-                      <p class="m-0" th:text="${payments.paymentMethod}">결제 방식</p>
-                    </td>
-                  </tr>
-                </table>
-                <hr>
-                <div class="d-flex justify-content-between align-items-center">
-                  <h5>총 결제금액</h5>
-                  <h5 class="text-danger fw-bold" th:text="|&#8361; ${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')} 원|"></h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="d-flex justify-content-center gap-2">
           <div class="item">
-            <a th:href="|/orders/${order.id}|" class="btn btn-lg btn-primary">다시 주문하기</a>
+            <a th:href="|/orders/${no}|" class="btn btn-lg btn-primary">다시 주문하기</a>
           </div>
         </div>
     </div>

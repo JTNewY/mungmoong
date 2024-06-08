@@ -21,22 +21,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 결제 등록 -->
-    <insert id="insert" parameterType="com.mypet.mungmoong.orders.dto.Orders">
-        <selectKey keyProperty="NO" resultType="java.lang.Integer" order="AFTER" >
-            SELECT LAST_INSERT_ID() AS NO
+    <insert id="insert">
+        <selectKey keyProperty="no" resultType="java.lang.Integer" order="AFTER" >
+            SELECT LAST_INSERT_ID() AS no
         </selectKey>
-        INSERT INTO orders (ID, PRODUCT_ID, USER_ID, pet_no, trainer_no, address, resDate, MEMO, TITLE, TOTAL_PRICE, STATUS)
-        VALUES (UUID(), #{productId}, #{userId}, #{petNo}, #{trainerNo}, #{address}, #{resDate}, #{memo}, #{title}, #{totalPrice}, 'pending');
+        INSERT INTO orders (ID, PRODUCT_ID, USER_ID, pet_no, trainer_no, address, resDate, MEMO, TITLE, price, STATUS)
+        VALUES (UUID(), #{productId}, #{userId}, #{petNo}, #{trainerNo}, #{address}, #{resDate}, #{memo}, #{title}, #{price}, 'pending');
     </insert>
 
     <!-- 결제 수정 -->
    <update id="update" parameterType="com.mypet.mungmoong.orders.dto.Orders">
         UPDATE orders
         SET TITLE = #{title},
-            TOTAL_PRICE = #{totalPrice},
+            price = #{price},
             STATUS = #{status},
             upd_date = now()
-        WHERE ID = #{ID}
+        WHERE no = #{no}
     </update>
 
     <!-- 결제 삭제 -->

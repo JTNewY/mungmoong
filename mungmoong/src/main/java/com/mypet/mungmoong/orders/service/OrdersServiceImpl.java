@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mypet.mungmoong.orders.dto.Orders;
 import com.mypet.mungmoong.orders.mapper.OrdersMapper;
-import com.mypet.mungmoong.orders.model.Orders;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,17 +25,16 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Orders select(String id) throws Exception {
-        Orders order = ordersMapper.select(id);
+    public Orders select(int no) throws Exception {
+        Orders order = ordersMapper.select(no);
         return order;
     }
 
     @Override
     public int insert(Orders orders) throws Exception {
-        int orderNo = ordersMapper.insert(orders);
-        log.info("orderNo : " + orderNo);
+        int result = ordersMapper.insert(orders);
 
-        return orderNo;
+        return result;
     }
 
     @Override
@@ -45,8 +44,8 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public int delete(String id) throws Exception {
-        int result = ordersMapper.delete(id);
+    public int delete(int no) throws Exception {
+        int result = ordersMapper.delete(no);
         return result;
     }
 

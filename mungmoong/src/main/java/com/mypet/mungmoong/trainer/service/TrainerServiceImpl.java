@@ -283,6 +283,15 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 
+
+    @Override
+    public Trainer selectByNo(int trainerNo) {
+        Trainer trainer = trainerMapper.selectByNo(trainerNo);
+        return trainer;
+    }
+
+
+
     // @Override
     // public List<Trainer> trainerList() throws Exception {
     //     List<Trainer> trainerList = trainerMapper.trainerList();

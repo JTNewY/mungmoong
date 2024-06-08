@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mypet.mungmoong.orders.model.Categories;
-import com.mypet.mungmoong.orders.model.Products;
-import com.mypet.mungmoong.orders.service.CategoriesService;
+import com.mypet.mungmoong.orders.dto.Products;
 import com.mypet.mungmoong.orders.service.ProductsService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +25,6 @@ public class ProductsController {
     @Autowired
     private ProductsService productsService;
 
-    @Autowired
-    private CategoriesService categoriesService;
     
     /**
      * 상품 관리
@@ -52,8 +48,6 @@ public class ProductsController {
      */
     @GetMapping("/insert")
     public String adminProductsInsert(Model model) throws Exception {
-        List<Categories> categories = categoriesService.list();
-        model.addAttribute("categories", categories);
         return "/admin/products/insert";
     }
 
@@ -88,8 +82,6 @@ public class ProductsController {
     public String adminProducts(Model model, @PathVariable("id") String id) throws Exception {
         Products product = productsService.select(id); 
         log.info("product: " + product);
-        List<Categories> categories = categoriesService.list();
-        model.addAttribute("categories", categories);
         model.addAttribute("product", product);
         return "/admin/products/update";
     }

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mypet.mungmoong.main.model.Files;
-import com.mypet.mungmoong.orders.mapper.ProductsMapper;
-import com.mypet.mungmoong.orders.model.Products;
 import com.mypet.mungmoong.main.service.FilesService;
+import com.mypet.mungmoong.orders.dto.Products;
+import com.mypet.mungmoong.orders.mapper.ProductsMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
