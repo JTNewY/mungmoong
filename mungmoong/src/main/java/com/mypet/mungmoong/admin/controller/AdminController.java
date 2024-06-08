@@ -349,6 +349,15 @@ public class AdminController {
     //     return entity;
     // }
     
+
+    @GetMapping("/admin_product")
+    public String AdminProduct(@RequestParam String param) {
+
+        
+        
+        return "/admin/admin_product";
+    }
+    
     
     
     
