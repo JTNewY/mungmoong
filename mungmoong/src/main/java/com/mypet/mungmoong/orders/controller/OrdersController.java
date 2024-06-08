@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -85,46 +84,13 @@ public class OrdersController {
         log.info("address - 주소 : " + address);
         log.info("memo - 요청사항 : " + memo);
         log.info("productId - 상품ID : " + productId);
+
+
         
         return "/orders/index";
     }
 
-    // checkout
-    @PostMapping("")
-    public String orderPost(Orders orders,
-                            HttpSession session,
-                            @RequestParam List<String> productId,
-                            @RequestParam List<Integer> quantity,
-                            @RequestParam String title,
-                            @RequestParam String resDate,
-                            @RequestParam String addressId) throws Exception {
     
-        log.info("::::::::: 주문 등록 - orderPost() ::::::::::");
-        log.info("productId : " + productId);
-        log.info("quantity : " + quantity);
-    
-        Users user = (Users) session.getAttribute("user");
-        orders.setUserId(user.getUserId());
-        orders.setProductId(productId);
-        orders.setQuantity(quantity);
-        orders.setTitle(title);
-        orders.setAddressId(addressId); // addressId 설정
-    
-        // String을 Date로 변환
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse(resDate);
-        orders.setResDate(date);
-    
-        // 주문 등록
-        int result = ordersService.insert(orders);
-        log.info("신규 등록된 주문ID : " + orders.getID());
-    
-        if (result > 0) {
-            return "redirect:/orders/index" + orders.getID();
-        } else {
-            return "redirect:/orders/index";
-        }
-    }
 
     /**
      * 주문 완료

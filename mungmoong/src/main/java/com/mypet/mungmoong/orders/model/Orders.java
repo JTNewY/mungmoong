@@ -1,36 +1,25 @@
 package com.mypet.mungmoong.orders.model;
 
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.Data;
 
 @Data
 public class Orders {
-     private String ID; // 추가된 필드
-    private int orderNo;
-    private int dateNo;
-    private int orderId;
+    private String ID;
+    private String productId;
     private String userId;
-    private String memo;
-    private String title; // 추가된 필드
-    private String addressId;
+    private int petNo;
+    private int trainerNo;
+    private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date resDate;
-    private int totalQuantity;
-    private int totalCount;
+    private String memo;
+    private String title;
     private int totalPrice;
-    private Boolean payCheck;
-    private Boolean userCheck;
-    private Integer trainerCheck;
-
-    private List<String> productId; // 추가
-    private List<Integer> quantity; // 추가
-
+    private String status;
+    private Date regDate;
+    private Date updDate;
 }
-

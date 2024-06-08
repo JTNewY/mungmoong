@@ -17,36 +17,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="select" resultType="com.mypet.mungmoong.orders.dto.Orders">
         SELECT *
         FROM orders
-        WHERE date_no = #{dateno}
+        WHERE no = #{dateno}
     </select>
 
     <!-- 결제 등록 -->
-   <insert id="insert" parameterType="com.mypet.mungmoong.orders.dto.Orders">
-    INSERT INTO orders (ID, user_id, title, memo, resDate, total_quantity, total_count, total_price)
-    VALUES (UUID(), #{userId}, #{title}, #{memo}, #{resDate}, #{totalQuantity}, #{totalCount}, #{totalPrice});
-
+    <insert id="insert" parameterType="com.mypet.mungmoong.orders.dto.Orders">
+        <selectKey keyProperty="NO" resultType="java.lang.Integer" order="AFTER" >
+            SELECT LAST_INSERT_ID() AS NO
+        </selectKey>
+        INSERT INTO orders (ID, PRODUCT_ID, USER_ID, pet_no, trainer_no, address, resDate, MEMO, TITLE, TOTAL_PRICE, STATUS)
+        VALUES (UUID(), #{productId}, #{userId}, #{petNo}, #{trainerNo}, #{address}, #{resDate}, #{memo}, #{title}, #{totalPrice}, 'pending');
     </insert>
+
     <!-- 결제 수정 -->
    <update id="update" parameterType="com.mypet.mungmoong.orders.dto.Orders">
-          UPDATE orders
-           SET title = #{title}
-              ,total_quantity = #{totalQuantity}
-              ,total_price = #{totalPrice}
-              ,total_count = #{totalCount}
-              ,status = #{status}
-              ,updated_at = now()
-        WHERE id = #{id}
+        UPDATE orders
+        SET TITLE = #{title},
+            TOTAL_PRICE = #{totalPrice},
+            STATUS = #{status},
+            upd_date = now()
+        WHERE ID = #{ID}
     </update>
 
     <!-- 결제 삭제 -->
     <delete id="delete">
         DELETE FROM orders
-        WHERE date_no = #{no}
+        WHERE no = #{no}
     </delete>
 
-    <!-- 결제 번호 최댓값 -->
-    <select id="maxPk" resultType="int">
-        SELECT MAX(no)
-        FROM orders
-    </select>
 </mapper>
