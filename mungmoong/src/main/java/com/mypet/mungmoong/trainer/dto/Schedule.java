@@ -11,7 +11,7 @@ public class Schedule {
     private int trainerNo;
     private String title;
     private String content;
-    private Date date;
+    private Date scheduleDate;
     private Date regDate;
     private Date updDate;
 
