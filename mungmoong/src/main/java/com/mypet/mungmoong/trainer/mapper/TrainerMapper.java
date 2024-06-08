@@ -40,4 +40,6 @@ public interface TrainerMapper {
     public Trainer selectByNo(int trainerNo);
 
     
+
+    
 }

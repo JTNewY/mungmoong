@@ -1,4 +1,4 @@
--- Active: 1713528331467@@127.0.0.1@3306@mypet
+-- Active: 1717838232505@@127.0.0.1@3306@mypet
 DROP TABLE IF EXISTS `pet`;
 
 CREATE TABLE `pet` (
@@ -44,6 +44,36 @@ CREATE TABLE `reservlist` (
 );
 
 DROP TABLE IF EXISTS `orders`;
+
+INSERT INTO `trainer` (
+    `no`, `user_id`, `name`, `gender`, `birth`, `mail`, `phone`, `address`, `reg_date`, `upd_date`, `content`
+) VALUES
+    (1, 'user', 'Alice', 'female', '1990-01-01', 'alice@example.com', '123-456-7890', '123 Wonderland Ave', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Alice is an experienced trainer specializing in various fitness programs.'),
+    (2, 'admin', 'Bob', 'male', '1985-05-12', 'bob@example.com', '234-567-8901', '456 Elm Street', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Bob is a certified personal trainer with a focus on strength training.'),
+    (3, 'dddd', 'Charlie', 'male', '1992-09-23', 'charlie@example.com', '345-678-9012', '789 Maple Road', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Charlie has extensive experience in endurance training and nutrition.'),
+    (4, 'aaaa', 'Diana', 'female', '1988-12-11', 'diana@example.com', '456-789-0123', '101 Birch Blvd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Diana specializes in yoga and mindfulness training.'),
+    (5, 'ssss', 'Eve', 'female', '1995-04-05', 'eve@example.com', '567-890-1234', '202 Pine Lane', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Eve is a fitness enthusiast with a passion for HIIT and cardio workouts.');
+
+
+CREATE TABLE `QnA` (
+	`qna_no`	INT	NOT NULL,
+	`qna_title`	VARCHAR(100)	NOT NULL,
+	`qna_writer`	VARCHAR(100)	NOT NULL,
+	`qna_content`	VARCHAR(100)	NULL,
+	`board_type`	VARCHAR(100)	NOT NULL,
+	`reg_date`	TIMESTAMP	NOT NULL,
+	`upd_date`	TIMESTAMP	NOT NULL
+);
+
+DROP TABLE QnA;
+
+INSERT INTO `qna` (`qna_title`, `qna_writer`, `qna_content`, `board_type`, `reg_date`, `upd_date`) VALUES
+('Question about membership', 'user1', 'How do I upgrade my membership?', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Technical issue with login', 'user2', 'I cannot log in to my account.', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Feedback on the new feature', 'user3', 'The new feature is very helpful.', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Payment process question', 'user4', 'How can I change my payment method?', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('General inquiry about services', 'user5', 'What services do you offer?', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
 
 CREATE TABLE `orders` (
 	`order_no`	INT	NOT NULL,
