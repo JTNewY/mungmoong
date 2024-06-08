@@ -4,20 +4,22 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.mypet.mungmoong.orders.model.Products;
-
+import com.mypet.mungmoong.orders.dto.Products;
 
 @Mapper
 public interface ProductsMapper {
+
     public List<Products> list() throws Exception;
 
     public Products select(String id) throws Exception;
-    
-    public Products selectPro(int id) throws Exception;
 
-    public int insert(Products prodcuts) throws Exception;
+    public int insert(Products products) throws Exception;
 
     public int update(Products prodcuts) throws Exception;
 
     public int delete(String deleteIdList) throws Exception;
+
+    // 썸네일 업로드
+    public void updloadThumbnail(Products products) throws Exception;
+    
 }

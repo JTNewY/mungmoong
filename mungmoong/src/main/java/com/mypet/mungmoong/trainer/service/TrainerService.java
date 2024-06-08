@@ -26,4 +26,7 @@ public interface TrainerService {
     // 훈련사 번호 조회
     public int selectTrainerNo() throws Exception;
 
+    // 훈련사 번호로 조회
+    public Trainer selectByNo(int trainerNo);
+
 }

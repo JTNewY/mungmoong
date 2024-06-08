@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS pet;
 
 
 CREATE TABLE `pet` (
-    `no` INT PRIMARY KEY AUTO_INCREMENT,
+    `pet_no` INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
     `age` INT NOT NULL,
     `petgender` INT NOT NULL,
@@ -197,6 +197,7 @@ DROP TABLE IF EXISTS products;
 
 CREATE TABLE `PRODUCTS` (
 	`ID`	CHAR(255)	NOT NULL PRIMARY KEY,
+    `TRAINER_NO` INT NOT NULL,
 	`NAME`	VARCHAR(100)	NOT NULL,
 	`CATEGORY`	VARCHAR(100)	NULL,
 	`DESCRIPTION`	VARCHAR(200)	NULL,
@@ -244,7 +245,7 @@ CREATE TABLE `orders` (
 	`resDate` TIMESTAMP NOT NULL,                        -- 예약날짜
 	`MEMO` VARCHAR(255) NULL,                            -- 요청사항
 	`TITLE` VARCHAR(255) NULL,                           -- 예약제목 - 상품명을 넣고
-	`TOTAL_PRICE` INT NOT NULL DEFAULT 0,                -- 예약금액
+	`PRICE` INT NOT NULL DEFAULT 0,                     -- 예약금액
 	`STATUS` VARCHAR(20) NOT NULL DEFAULT 'pending' COMMENT '결제대기, 결제완료, 승인중,훈련완료,예약취소',
 	`reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP

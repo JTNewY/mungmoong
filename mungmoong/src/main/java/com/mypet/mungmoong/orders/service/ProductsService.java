@@ -2,7 +2,7 @@ package com.mypet.mungmoong.orders.service;
 
 import java.util.List;
 
-import com.mypet.mungmoong.orders.model.Products;
+import com.mypet.mungmoong.orders.dto.Products;
 
 
 public interface ProductsService {

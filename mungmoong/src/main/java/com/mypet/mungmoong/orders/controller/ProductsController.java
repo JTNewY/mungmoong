@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mypet.mungmoong.orders.model.Products;
+import com.mypet.mungmoong.orders.dto.Products;
 import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.orders.service.ProductsService;
+import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
 import com.mypet.mungmoong.users.dto.Users;
 
@@ -76,11 +76,12 @@ public class ProductsController {
      */
     @GetMapping("/{id}")
     public String product(Model model
-                         ,HttpServletRequest request 
+                         ,HttpSession session
                          ,@PathVariable("id") String id) throws Exception {
-        log.info(":::::::::: 내상품 ::::::::::");
+        log.info(":::::::::: /product/detail ::::::::::");
         Products product = productsService.select(id);
         model.addAttribute("product", product);
+        
         return "/products/detail";
     }
 

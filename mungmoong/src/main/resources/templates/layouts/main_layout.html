@@ -6,6 +6,8 @@
     <meta name="_csrf" th:content="${_csrf.token}" />
     <!-- link -->
     <th:block th:replace="~{fragments/common/link::link}"></th:block>
+    <!-- script -->
+    <th:block th:replace="~{fragments/common/script::script}"></th:block>
 </head>
 <body>
      <!-- header -->
@@ -18,7 +20,5 @@
     <!-- footer -->
     <th:block th:replace="~{fragments/common/footer::footer}"></th:block>
 
-    <!-- script -->
-    <th:block th:replace="~{fragments/common/script::script}"></th:block>
 </body>
 </html>
