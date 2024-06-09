@@ -174,7 +174,7 @@ public class TrainerMainController {
         if( result > 0 ) {
             return "redirect:/board/list";
         }
-        int no = board.getBoardNo();
+        int no = board.getNo();
         return "redirect:/trainermain/update?no="+ no + "&error";
     }
     

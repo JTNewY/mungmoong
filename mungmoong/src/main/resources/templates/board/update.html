@@ -14,7 +14,7 @@
             <h1>게시글 수정</h1>
             <form id="form" action="/board/update" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+                <input type="hidden" name="no" th:value="${board.no}">
                 <table>
                     <tr>
                         <td>제목</td>
@@ -47,11 +47,11 @@
         let form = document.getElementById('form')
 
         // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-        let no = "[[${board.boardNo}]]"
+        let no = "[[${board.no}]]"
 
         // 수정 화면 이동
         function moveUpdate() {
-            location.href = '/board/update?boardNo=' + no
+            location.href = '/board/update?no=' + no
         }
 
         // 삭제 요청
