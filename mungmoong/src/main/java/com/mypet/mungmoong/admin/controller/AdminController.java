@@ -377,7 +377,7 @@ public class AdminController {
     @PostMapping("/admin_product_insert")
     public String AdminProductInsertPro(Products products) throws Exception {
 
-        int result = productsService.insert(products);
+        int result = productsService.adminInsert(products);
 
         if ( result > 0 ) {
             return "redirect:/admin/admin_product";
