@@ -1,5 +1,5 @@
 -- Active: 1713967376592@@127.0.0.1@3306@mypet
--- users
+
 TRUNCATE users;
 
 INSERT INTO `users` (`user_id`, `name`, `password`, `birth`, `address`, `mail`, `phone`, `gender`, `enabled`, `role`, `reg_date`, `upd_date`)
@@ -107,6 +107,11 @@ VALUES
     (1, '3', '명령어 훈련 패키지', '기본 명령어 훈련 패키지', '앉아, 기다려 등 기본 명령어 훈련을 위한 패키지입니다.', 180000, CURRENT_DZDTIMESTAMP, CURRENT_TIMESTAMP),
     (2, '4', '장애물 극복 훈련 패키지', '장애물 극복 훈련 패키지', '강아지가 다양한 장애물을 극복할 수 있도록 돕는 훈련 패키지입니다.', 220000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (2, '5', '특수 목적 훈련 패키지', '특수 목적을 위한 훈련 패키지', '강아지가 특정한 목적을 위해 훈련될 수 있도록 돕는 패키지입니다.', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+    (1, '3', '명령어 훈련 패키지', '기본 명령어 훈련 패키지', '앉아, 기다려 등 기본 명령어 훈련을 위한 패키지입니다.', 180000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (2, '4', '장애물 극복 훈련 패키지', '장애물 극복 훈련 패키지', '강아지가 다양한 장애물을 극복할 수 있도록 돕는 훈련 패키지입니다.', 220000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (2, '5', '특수 목적 훈련 패키지', '특수 목적을 위한 훈련 패키지', '강아지가 특정한 목적을 위해 훈련될 수 있도록 돕는 패키지입니다.', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
 
 -- schedule
 TRUNCATE schedule;

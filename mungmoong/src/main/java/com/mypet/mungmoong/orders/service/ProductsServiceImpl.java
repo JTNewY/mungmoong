@@ -98,6 +98,17 @@ public class ProductsServiceImpl implements ProductsService {
             filesService.upload(thumbnail);        // 썸네일 파일 업로드
         }
 
+    @Override
+    public List<Products> adminList() throws Exception {
+
+        List<Products> productsList = productsMapper.adminList();
+
+        return productsList;
+
+    }
+
+        
+
     }
 
 
