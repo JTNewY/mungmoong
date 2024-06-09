@@ -364,6 +364,16 @@ public class AdminController {
         
         return "/admin/admin_product";
     }
+
+    @GetMapping("/admin_product_insert")
+    public String AdminProductInsert(Products products, Model model) throws Exception {
+
+        int result = productsService.insert(products);
+
+        model.addAttribute("products", products);
+        
+        return "/admin/admin_product";
+    }
     
     
     
