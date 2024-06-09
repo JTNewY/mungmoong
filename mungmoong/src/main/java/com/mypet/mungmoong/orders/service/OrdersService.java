@@ -10,6 +10,8 @@ public interface OrdersService {
 
     public List<Orders> list() throws Exception;
 
+    public List<Orders> listByTrainer(int trainerNo) throws Exception;
+
     public Orders select(int no) throws Exception;
 
     public int insert(Orders orders) throws Exception;

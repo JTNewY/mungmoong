@@ -25,6 +25,12 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public List<Orders> listByTrainer(int trainerNo) throws Exception {
+        List<Orders> orderList = ordersMapper.listByTrainer(trainerNo);
+        return orderList;
+    }
+    
+    @Override
     public Orders select(int no) throws Exception {
         Orders order = ordersMapper.select(no);
         return order;
@@ -54,6 +60,7 @@ public class OrdersServiceImpl implements OrdersService {
         List<Orders> orderList = ordersMapper.listByUserId(userId);
         return orderList;
     }
+
 
     
 
