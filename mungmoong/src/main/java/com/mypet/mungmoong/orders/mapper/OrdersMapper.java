@@ -11,6 +11,8 @@ import com.mypet.mungmoong.orders.dto.Orders;
 public interface OrdersMapper {
 
     public List<Orders> list() throws Exception;
+
+    public List<Orders> listByTrainer(int trainerNo) throws Exception;
     
     public Orders select(int no) throws Exception;
     

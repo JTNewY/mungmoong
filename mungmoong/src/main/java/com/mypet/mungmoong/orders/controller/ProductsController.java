@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mypet.mungmoong.orders.dto.Products;
 import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.orders.service.ProductsService;
-import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
-import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
 

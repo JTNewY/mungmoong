@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.bouncycastle.jcajce.provider.asymmetric.GM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mypet.mungmoong.main.model.Event;
+import com.mypet.mungmoong.orders.dto.Orders;
+import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
@@ -30,7 +33,6 @@ import com.mypet.mungmoong.trainer.service.CareerService;
 import com.mypet.mungmoong.trainer.service.CertificateService;
 import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.ScheduleService;
-// import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
 
@@ -40,7 +42,6 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- *  /board 경로로 요청 왔을 때 처리
  * [GET]  - /trainer/list   : 훈련사 목록 화면
  * [GET]  - /trainer/read   : 훈련사 조회 화면
  * [GET]  - /trainer/insert : 훈련사 등록 화면
@@ -49,10 +50,9 @@ import lombok.extern.slf4j.Slf4j;
  * [POST] - /trainer/update : 훈련사 수정 처리 
  * [POST] - /trainer/delete : 훈련사 삭제 처리
  */
-@Slf4j                                  // 로그 어노테이션
-@Controller                             // 컨트롤러 스프링 빈으로 등록 -> 여러가지 매핑 사용 가능
-@RequestMapping("/trainer")       // 상위 경로를 먼저 지정해주고 싶을 때
-                                        // 클래스 레벨 요청 경로 매핑 - /board~ 경로의 요청을 처리
+@Slf4j                                  
+@Controller                             
+@RequestMapping("/trainer")                            
 public class TrainerController {
 
 
@@ -68,10 +68,8 @@ public class TrainerController {
     // Controller <-- Service (데이터 전달)
     // Controller --> Model   (모델 등록)
     // View <-- Model         (데이터 출력)
-    @Autowired  // 의존성 자동 주입
-                // BoardServiceImpl을 @Service로 빈 등록해놨기 때문에, 
-                // 의존성 자동 주입을 해서 가져올 수 있다.
-    private TrainerService trainerService;      // @Service를 --Impl에 등록
+    @Autowired  
+    private TrainerService trainerService;      
 
     @Autowired
     private FileService fileService;
@@ -84,6 +82,45 @@ public class TrainerController {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    @Autowired
+    private OrdersService ordersService;
+
+
+    /**
+     * Orders 목록
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/orders")
+    public String ordersList(Model model
+                            ,HttpSession session) throws Exception {
+        log.info("[GET] - /trainer/orders");
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if (trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            // 트레이너 번호가 없을 경우 에러 처리
+            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "/trainer/error"; 
+        }                        
+        // 데이터 요청
+        List<Orders> ordersList = ordersService.listByTrainer(trainerNo);
+
+        // 모델 등록
+        model.addAttribute("ordersList", ordersList);
+
+        // 뷰 페이지 지정
+        return "/trainer/orders";
+    }
+
+    @GetMapping(value = "/select")
+    public String ordersSelect(Model model, int no) {
+        return new String();
+    }
+    
+    
 
 
 
