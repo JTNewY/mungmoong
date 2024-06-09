@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/layouts/admin_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 상품 등록</title>
 </head>
+
 <body layout:fragment="content">
     <div class="container">
         <div class="inner">
@@ -33,33 +35,34 @@
             </nav>
 
             <div>
-                <a href="">훈련상품 등록</a>
+                <a href="/admin/admin_product_insert">훈련상품 등록</a>
             </div>
 
             <table class="table">
                 <thead>
                     <tr>
-                        <th>번호</th>
-                        <th>상품명</th>
-                        <th>훈련사 정보</th>
-                        <th>훈련비</th>
+                        <th>Id</th>
+                        <th>이름</th>
+                        <th>트레이너번호</th>
+                        <th>소개</th>
+                        <th>훈련 내용</th>
+                        <th>가격</th>
                     </tr>
                 </thead>
-                <tbody>
+                <th:block th:each="products : ${productsList}">
                     <tr>
-                        <td>1</td>
-                        <td>
-                            <a href="/admin/admin_product_read">
-                                강아지 기본기 훈련
-                            </a>
-                        </td>
-                        <td>김조은 훈련사</td>
-                        <td>150,000원</td>
+                        <td th:text="${products.id}"></td>
+                        <td th:text="${products.name}"></td>
+                        <td th:text="${products.trainerNo}"></td>
+                        <td th:text="${products.description}">강아지 기본기 훈련</td>
+                        <td th:text="${products.content}"></td>
+                        <td th:text="${products.price}"></td>
                     </tr>
-                </tbody>
+                </th:block>
             </table>
         </div>
     </div>
-    
+
 </body>
+
 </html>

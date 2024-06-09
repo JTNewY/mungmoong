@@ -33,7 +33,7 @@
             <h3>공지사항 수정</h3>
             <form class="form-group" id="form" action="/admin/admin_board_read_update" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+                <input type="hidden" name="no" th:value="${board.no}">
                 <div class="col-md-8 fmCont">
                     <ul>
                         <li>
@@ -64,7 +64,7 @@
 
     let form = document.getElementById('form')
 
-    let no = '[[${board.boardNo}]]'
+    let no = '[[${board.no}]]'
 
         function moveToList() {
             location.href = '/admin/admin_board'

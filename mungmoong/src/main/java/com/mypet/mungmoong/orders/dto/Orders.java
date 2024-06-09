@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.Data;
@@ -28,4 +29,7 @@ public class Orders {
 
     // 주문자 정보
     private Users user;
+
+    // 펫 정보
+    private Pet pet;
 }

@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,7 +22,6 @@ import com.mypet.mungmoong.pet.service.PetService;
 import com.mypet.mungmoong.trainer.dto.Trainer;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
-import com.mypet.mungmoong.users.service.AddressService;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;

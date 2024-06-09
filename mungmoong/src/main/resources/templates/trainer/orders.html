@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/trainer_layout}">
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<head>
+    <title>예약요청 반려동물</title>
+    <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+</head>
+
+<body class="body" layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+            <h1 class="title">예약요청 반려동물</h1>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" th:href="|/trainer/info?userId=${session.user.userId}|">훈련사 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/status">내 작업현황</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/deposit">입금 내역서</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button active" href="/trainer/orders">예약</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="user_info">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr class="first_tr">
+                            <th>예약자 id</th>
+                            <th>일정</th>
+                            <th>상태</th>
+                            <th>가격</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <th:block th:each="orders : ${ordersList}">
+                            <tr>
+                                <td th:text="${orders.userId}"></td>
+                                <td th:text="${#dates.format(orders.resDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td class="status" th:text="${orders.status}"></td>
+                                <td th:text="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
+
+
+                            </tr>
+                        </th:block>
+                    </tbody>
+                </table>
+                <!-- 페이징 버튼 영역 -->
+                <div class="paging">
+                    <ul>
+                        <li><a href="#">&lt&lt;</a></li>
+                        <li><a href="#">&lt;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">&gt;</a></li>
+                        <li><a href="#">&gt&gt;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

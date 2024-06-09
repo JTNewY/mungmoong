@@ -13,12 +13,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY reg_date DESC
     </select>
 
+    <!-- 트레이너에 따른 결제 목록 -->
+    <select id="listByTrainer" resultType="com.mypet.mungmoong.orders.dto.Orders">
+        SELECT *
+        FROM orders
+        WHERE trainer_no = #{trainerNo}
+        ORDER BY reg_date DESC
+    </select>
+
     <!-- 결제 조회 -->
    <select id="select" resultType="com.mypet.mungmoong.orders.dto.Orders">
         SELECT *
         FROM orders
         WHERE no = #{dateno}
     </select>
+
 
     <!-- 결제 등록 -->
     <insert id="insert">

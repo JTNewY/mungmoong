@@ -82,7 +82,7 @@
                         <tr>
                             <td class="text-truncate"><input type="checkbox"></td>
                             <td class="text-truncate" th:text="${board.userId}"></td>
-                            <td class="text-truncate"><a th:href="|/admin/admin_board_read?boardNo=${board.boardNo}|"
+                            <td class="text-truncate"><a th:href="|/admin/admin_board_read?no=${board.no}|"
                                     th:text="${board.title}"></a></td>
                             <td class="text-truncate" th:text="${board.content}"></td>
                             <td class="text-truncate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>

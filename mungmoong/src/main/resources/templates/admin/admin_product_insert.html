@@ -29,35 +29,43 @@
                             <a class="tab-button active" href="/admin/admin_product">상품정보 등록</a>
                         </li>
                     </ul>
-                </div>
             </nav>
 
+            <form action="/admin/admin_product_insert" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div>
+                    <ul>
+                        <label for="id">ID</label>
+                        <input type="text" name="id" id="id" >
+                        <label for="name">이름</label>
+                        <input type="text" name="name" id="name">
+                        <label for="trainerNo">훈련사 번호</label>
+                        <input type="text" name="trainerNo" id="trainerNo">
+                        <label for="description">소개</label>
+                        <input type="text" name="description" id="description">
+                        <label for="content">내용</label>
+                        <input type="text" name="content" id="content">
+                        <label for="price">가격</label>
+                        <input type="text" name="price" id="price">
+                    </ul>
+                </div>
+                <div>
+                    <button type="button" onclick="moveToList()">목록</button>
+                    <button type="submit">등록</button>
+                </div>
+            </form>
 
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>상품명</th>
-                        <th>훈련사 정보</th>
-                        <th>훈련비</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <a href="/admin/admin_product_read">
-                                강아지 기본기 훈련
-                            </a>
-                        </td>
-                        <td>김조은 훈련사</td>
-                        <td>150,000원</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
+
+    <script>
+
+
+        function moveToList() {
+            location.href = "/admin/admin_product"
+        }
+
+    </script>
     
 </body>
 </html>

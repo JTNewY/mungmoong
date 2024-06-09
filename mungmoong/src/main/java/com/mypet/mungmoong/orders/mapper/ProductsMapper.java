@@ -21,5 +21,7 @@ public interface ProductsMapper {
 
     // 썸네일 업로드
     public void updloadThumbnail(Products products) throws Exception;
+
+    public List<Products> adminList() throws Exception;
     
 }
