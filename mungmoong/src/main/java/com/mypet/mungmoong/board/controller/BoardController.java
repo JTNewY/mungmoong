@@ -139,7 +139,7 @@ public class BoardController {
         if (result > 0) {
             return "redirect:/board/list";
         }
-        int no = board.getBoardNo();
+        int no = board.getNo();
         return "redirect:/board/update?no=" + no + "&error";
     }
 
@@ -151,7 +151,7 @@ public class BoardController {
      * @throws Exception
      */
     @PostMapping("/delete")
-    public String delete(@RequestParam("boardNo") int no) throws Exception {
+    public String delete(@RequestParam("no") int no) throws Exception {
         int result = boardService.delete(no);
         if (result > 0) {
             return "redirect:/board/list";

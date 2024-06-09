@@ -18,13 +18,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="select" resultType="Board">
         SELECT *
         FROM board
-        WHERE board_no = #{boardNo}
+        WHERE no = #{no}
     </select>
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO board( board_no,title, user_id, content, reg_date)
-        VALUES ( #{boardNo}, #{title}, #{userId}, #{content}, now())
+        INSERT INTO board( no,title, user_id, content, reg_date)
+        VALUES ( #{no}, #{title}, #{userId}, #{content}, now())
     </insert>
 
     <!-- 게시글 수정 -->
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               ,user_id = #{userId}
               ,content = #{content}
               ,upd_date = now()     
-        WHERE board_no = #{boardNo}
+        WHERE no = #{no}
     </update>
 
     <update id="boardUpdate">
@@ -43,19 +43,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               <!-- ,user_id = #{userId} -->
               ,content = #{content}
               ,upd_date = now()     
-        WHERE board_no = #{boardNo}
+        WHERE no = #{no}
     </update>
 
     <!-- 게시글 삭제 -->
     <delete id="delete">
         DELETE FROM board
-        WHERE board_no = #{boardNo}
+        WHERE no = #{no}
     </delete>
 
         <!-- 관리자 삭제 -->
     <delete id="BoardDelete">
         DELETE FROM board
-        WHERE board_no = #{boardNo}
+        WHERE no = #{no}
     </delete>
 
     <!-- 게시글 번호 최댓값 -->

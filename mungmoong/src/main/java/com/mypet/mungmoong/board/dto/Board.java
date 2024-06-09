@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class Board {
-    private int boardNo;
+    private int no;
     private String title;
     private String content;
     private String fileName;

@@ -256,7 +256,7 @@ public class AdminController {
      * @throws Exception 
      */
     @GetMapping("/admin_board_read")
-    public String read(@RequestParam("boardNo") int no, Model model) throws Exception {
+    public String read(@RequestParam("no") int no, Model model) throws Exception {
         Board board = boardService.select(no);
         log.info("보드 : " + board.toString());
         model.addAttribute("board", board);
@@ -272,7 +272,7 @@ public class AdminController {
      * @throws Exception
      */
     @GetMapping("/admin_board_read_update")
-    public String update(@RequestParam("boardNo") int no, Model model) throws Exception {
+    public String update(@RequestParam("no") int no, Model model) throws Exception {
         Board board = boardService.select(no);
 
         log.info("업데이트 보드 : " + board);
@@ -301,13 +301,13 @@ public class AdminController {
         if(result > 0) {
             return "redirect:/admin/admin_board";
         }
-        int no = board.getBoardNo();
-        return "redirect:/admin/admin_board_read_update?" + no + "error";
+        int no = board.getNo();
+        return "redirect:/admin/admin_board_read_update?no=" + no + "&error";
     }
 
 
     @PostMapping("/BoardDelete")
-    public String BoardDelete(@RequestParam("boardNo") int no) throws Exception {
+    public String BoardDelete(@RequestParam("no") int no) throws Exception {
         log.info("no : " + no);
         int result = boardService.BoardDelete(no);
 
@@ -315,7 +315,7 @@ public class AdminController {
             return "redirect:/admin/admin_board";
         }
 
-        return "redirect:/admin/admin_board_read_update?boardNo=" + no + "&error";
+        return "redirect:/admin/admin_board_read_update?no=" + no + "&error";
     }
     
     
