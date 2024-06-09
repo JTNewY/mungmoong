@@ -28,6 +28,8 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -366,14 +368,24 @@ public class AdminController {
     }
 
     @GetMapping("/admin_product_insert")
-    public String AdminProductInsert(Products products, Model model) throws Exception {
+    public String AdminProductInsert() throws Exception {
+
+        return "/admin/admin_product_insert";
+
+    }
+
+    @PostMapping("/admin_product_insert")
+    public String AdminProductInsertPro(Products products) throws Exception {
 
         int result = productsService.insert(products);
 
-        model.addAttribute("products", products);
+        if ( result > 0 ) {
+            return "redirect:/admin/admin_product";
+        }
         
-        return "/admin/admin_product";
+        return "redirect:/admin/admin_product_insert?&error";
     }
+    
     
     
     

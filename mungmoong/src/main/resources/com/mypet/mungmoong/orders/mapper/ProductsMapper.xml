@@ -44,7 +44,7 @@
     <!-- 등록 -->
     <insert id="insert">
         INSERT INTO products ( id, name, trainer_no, description, content, price)
-        VALUES ( #{id}, #{name}, #{trinerNo}, #{description}, #{content}, #{price} )
+        VALUES ( #{id}, #{name}, #{trainerNo}, #{description}, #{content}, #{price} )
     </insert>
 
     <!-- 수정 -->
@@ -63,5 +63,11 @@
         DELETE FROM products
         WHERE id IN ( ${id} )
     </delete>
+
+    <select id="adminList">
+        SELECT *
+        FROM products
+        ORDER BY created_at DESC
+    </select>
 
 </mapper>

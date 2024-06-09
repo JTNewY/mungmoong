@@ -14,7 +14,7 @@
             <h1>게시글 수정</h1>
             <form id="form" action="/board/update" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <input type="hidden" name="boardNo" th:value="${board.no}">
+                <input type="hidden" name="no" th:value="${board.no}">
                 <table>
                     <tr>
                         <td>제목</td>
