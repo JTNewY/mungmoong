@@ -21,6 +21,9 @@
       color: #4c4c4c;
       white-space: pre;
     }
+    .tit{
+      text-decoration: none;
+    }
   </style>
 </head>
 
@@ -32,9 +35,9 @@
 
       <input type="hidden" name="trainerNo" id="trainerNo" th:value="${product.trainerNo}">
 
-      <div class="album py-5 bg-body-tertiary">
+      <div class="album bg-body-tertiary">
         <div class="container">
-          <div class="main-title py-5">
+          <div class="main-title" style="padding-bottom: 2em;">
             <h3 class="display-4 fw-bold text-body-emphasis text-center">예약 정보</h3>
           </div>
     
@@ -120,33 +123,171 @@
         </div>
       </div>
     </form>
-    
-    
-  
-    <!-- 상품 내용 -->
-    <div class="row my-5">
-      <div class="col-12">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <p th:text="${product.content}"></p>
-          </div>
-        </div>
+        <!--훈련사 홍보상세-->
+        <div>
+          <div id="page-top">
+            <!-- Services-->
+            <section class="content-section bg-primary text-white text-center" id="services">
+                <div class="container px-4 px-lg-5">
+                    <div class="content-section-heading">
+                        <h3 class="text mb-0" style="color: aliceblue;">김조은 훈련사</h3>
+                        <h2 class="mb-5"  th:text="${product.content}"></h2>
+                    </div>
+                    <div class="row gx-4 gx-lg-5">
+                        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
+                            <h4><strong>검색순</strong></h4>
+                            <p class="text-faded mb-0">찾아주셔서 감동</p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-pencil"></i></span>
+                            <h4><strong>댓글수</strong></h4>
+                            <p class="text-faded mb-0">와우 흥미로워요</p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-like"></i></span>
+                            <h4><strong>좋아요</strong></h4>
+                            <p class="text-faded mb-0">
+                               감동
+                                <i class="fas fa-heart"></i>
+                               인기 만점 훈련사
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-mustache"></i></span>
+                            <h4><strong>질문</strong></h4>
+                            <p class="text-faded mb-0">빠른 답변</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Portfolio-->
+            <section class="content-section" id="portfolio">
+                <div class="container px-4 px-lg-5">
+                    <div class="content-section-heading text-center">
+                        <h3 class="text-secondary mb-0">Trainer</h3>
+                        <h2 class="mb-5">Certificate</h2>
+                    </div>
+                    <div class="row gx-0">
+                        <div class="col-lg-3">
+                            <a class="portfolio-item" href="#!">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <div class="tit">수료증1</div>
+                                        <p class="mb-0">한국펫교육훈련수료증</p>
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="/img/product/product01.jpg" alt="..." />
+                            </a>
+                        </div>
+                        <div class="col-lg-3">
+                            <a class="portfolio-item" href="#!">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                      <div class="tit">수료증1</div>
+                                      <p class="mb-0">한국펫교육훈련수료증</p>
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="/img/product/product02.jpg" alt="..." />
+                            </a>
+                        </div>
+                        <div class="col-lg-3">
+                            <a class="portfolio-item" href="#!">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                      <div class="tit">수료증1</div>
+                                      <p class="mb-0">한국펫교육훈련수료증</p>
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="/img/product/product03.jpg" alt="..." />
+                            </a>
+                        </div>
+                        <div class="col-lg-3">
+                            <a class="portfolio-item" href="#!">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                      <div class="tit">수료증1</div>
+                                      <p class="mb-0">한국펫교육훈련수료증</p>
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="/img/product/product04.jpg" alt="..." />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+            </div>
+            </div>
+            <!--훈련사 홍보상세-->
+            <!--훈련사 이력-->
+            <div th:each="trainer : ${trainerList}">
+              <h1 th:text="${trainer.no}">김조은 훈련사프로필</h1> 
+                <div>
+                  <h3>대표경력</h3>
+                  <p th:text="${trainer.mail}">한국애견협회우수승</p>
+                </div>
+              </div>
+            </div>
+        <div>
+          <div class="text-left-content">
+              <h1>경력</h1>
+              <div>
+                  <th:block th:each="career : ${careerList}">
+                      <p class="text-start" th:text="${career.name}"></p>
+                  </th:block>
+                </div>
+              </div>
+          <div class="text-left-content">
+              <h1>자격증</h1>
+              <div>
+                  <div class="d-flex justify-content-start mt-3 gap-5 mx-4">
+                      <th:block th:each="certificate : ${certificateList}">
+                          <div class="d-flex flex-column align-items-center mx-2">
+                              <img th:if="${certificate.imgFile != null}" th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
+                              <p th:text="${certificate.name}"></p>
+                          </div>
+                      </th:block>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+            <!--훈련사 이력end-->
+            <!--댓글start-->
+            <div class="row">
+              <div id="reply-input col-12 col-md-6">
+                <h3>댓글</h3>
+                <div class="reply-input card shadow-sm" style="padding: 3%; width: 100%;">
+                    <input type="text" name="writer" id="reply-writer" class="reply-writer"
+                            placeholder="작성자">
+                    <br>
+                    <textarea name="content" id="reply-content" cols="60" rows="5"
+                            placeholder="댓글을 작성해주세요."></textarea>
+                    <div class="btn-box">
+                        <button type="button" id="btn-reply-insert" class="btn-reply"
+                                onclick="insertReply()">등록</button>
+                    </div>
+                </div>
+            </div>
       </div>
-    </div>
+            <!-- 댓글 목록 -->
+            <div id="reply-list">
 
-    </div>
-  </section>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
-  </script>
+            </div>
+            <!--댓글end-->
+</section>
+
+
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js">
   </script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
   </script>
-  <script>
+<script>
+     let no = "[[${board.no}]]"      // 글번호
+
     let trainerId = ''
     $(function () {
 
