@@ -1,4 +1,4 @@
--- Active: 1717838232505@@127.0.0.1@3306@mypet
+-- Active: 1713353106333@@127.0.0.1@3306@mypet
 -- users
 TRUNCATE users;
 
@@ -100,13 +100,15 @@ VALUES
 
 -- products
 TRUNCATE products;
-INSERT INTO `PRODUCTS` (`TRAINER_NO`, `ID`, `NAME`, `CATEGORY`, `DESCRIPTION`, `CONTENT`, `PRICE`, `STOCK`, `CREATED_AT`, `UPDATED_AT`)
+INSERT INTO `PRODUCTS` (`TRAINER_NO`, `ID`, `NAME`, `DESCRIPTION`, `CONTENT`, `PRICE`, `CREATED_AT`, `UPDATED_AT`)
 VALUES 
-    (1, '1', '기본 복종 훈련 패키지', '강아지 훈련', '기본적인 복종 훈련 패키지', '강아지의 기본적인 복종 훈련을 위한 패키지입니다.', 150000, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (1, '2', '사회화 훈련 패키지', '강아지 훈련', '강아지 사회화 훈련 패키지', '강아지가 다른 강아지와 사람들과 잘 어울릴 수 있도록 돕는 사회화 훈련 패키지입니다.', 200000, 15, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (1, '3', '명령어 훈련 패키지', '강아지 훈련', '기본 명령어 훈련 패키지', '앉아, 기다려 등 기본 명령어 훈련을 위한 패키지입니다.', 180000, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (2, '4', '장애물 극복 훈련 패키지', '강아지 훈련', '장애물 극복 훈련 패키지', '강아지가 다양한 장애물을 극복할 수 있도록 돕는 훈련 패키지입니다.', 220000, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (2, '5', '특수 목적 훈련 패키지', '강아지 훈련', '특수 목적을 위한 훈련 패키지', '강아지가 특정한 목적을 위해 훈련될 수 있도록 돕는 패키지입니다.', 250000, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+    (1, '1', '기본 복종 훈련 패키지', '기본적인 복종 훈련 패키지', '강아지의 기본적인 복종 훈련을 위한 패키지입니다.', 150000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (1, '2', '사회화 훈련 패키지', '강아지 사회화 훈련 패키지', '강아지가 다른 강아지와 사람들과 잘 어울릴 수 있도록 돕는 사회화 훈련 패키지입니다.', 200000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (1, '3', '명령어 훈련 패키지', '기본 명령어 훈련 패키지', '앉아, 기다려 등 기본 명령어 훈련을 위한 패키지입니다.', 180000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (2, '4', '장애물 극복 훈련 패키지', '장애물 극복 훈련 패키지', '강아지가 다양한 장애물을 극복할 수 있도록 돕는 훈련 패키지입니다.', 220000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (2, '5', '특수 목적 훈련 패키지', '특수 목적을 위한 훈련 패키지', '강아지가 특정한 목적을 위해 훈련될 수 있도록 돕는 패키지입니다.', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
 
 
 -- schedule
