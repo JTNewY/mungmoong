@@ -1,4 +1,4 @@
--- Active: 1713967376592@@127.0.0.1@3306@mypet
+-- Active: 1715069578448@@127.0.0.1@3306@mypet
 
 TRUNCATE users;
 
@@ -46,6 +46,9 @@ VALUES
 INSERT INTO `trainer` (`user_id`, `name`, `gender`, `birth`, `address`, `content`, `phone`, `mail`)
 VALUES 
     ('partner3', '강형욱', '남성', '1985-05-05', '서울시 강남구 테헤란로 123', '트레이너 경력 20년', 1012345678, 'partner@example.com');
+INSERT INTO `trainer` (`user_id`, `name`, `gender`, `birth`, `address`, `content`, `phone`, `mail`)
+VALUES 
+    ('partner', '오은아', '여성', '1985-05-05', '서울시 강남구 테헤란로 123', '트레이너 경력 20년', 1012345678, 'partner@example.com');
 
 
 -- career
@@ -62,8 +65,8 @@ VALUES
 -- partner3 의 경력
 INSERT INTO `career` (`user_id`, `trainer_no`, `name`, `reg_date`, `upd_date`)
 VALUES 
-    ('partner3', 2, '기본 복종 훈련', '2020-01-01 10:00:00', '2020-01-01 10:00:00'),
-    ('partner3', 2, '사회화 훈련', '2020-06-01 10:00:00', '2020-06-01 10:00:00'),
+    ('partner', 2, '기본 복종 훈련', '2020-01-01 10:00:00', '2020-01-01 10:00:00'),
+    ('partner', 2, '사회화 훈련', '2020-06-01 10:00:00', '2020-06-01 10:00:00'),
     ('partner3', 2, '명령어 훈련', '2021-01-01 10:00:00', '2021-01-01 10:00:00'),
     ('partner3', 2, '장애물 극복 훈련', '2021-06-01 10:00:00', '2021-06-01 10:00:00'),
     ('partner3', 2, '특수 목적 훈련', '2022-01-01 10:00:00', '2022-01-01 10:00:00');
@@ -104,9 +107,6 @@ INSERT INTO `PRODUCTS` (`TRAINER_NO`, `ID`, `NAME`, `DESCRIPTION`, `CONTENT`, `P
 VALUES 
     (1, '1', '기본 복종 훈련 패키지', '기본적인 복종 훈련 패키지', '강아지의 기본적인 복종 훈련을 위한 패키지입니다.', 150000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (1, '2', '사회화 훈련 패키지', '강아지 사회화 훈련 패키지', '강아지가 다른 강아지와 사람들과 잘 어울릴 수 있도록 돕는 사회화 훈련 패키지입니다.', 200000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (1, '3', '명령어 훈련 패키지', '기본 명령어 훈련 패키지', '앉아, 기다려 등 기본 명령어 훈련을 위한 패키지입니다.', 180000, CURRENT_DZDTIMESTAMP, CURRENT_TIMESTAMP),
-    (2, '4', '장애물 극복 훈련 패키지', '장애물 극복 훈련 패키지', '강아지가 다양한 장애물을 극복할 수 있도록 돕는 훈련 패키지입니다.', 220000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (2, '5', '특수 목적 훈련 패키지', '특수 목적을 위한 훈련 패키지', '강아지가 특정한 목적을 위해 훈련될 수 있도록 돕는 패키지입니다.', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
     (1, '3', '명령어 훈련 패키지', '기본 명령어 훈련 패키지', '앉아, 기다려 등 기본 명령어 훈련을 위한 패키지입니다.', 180000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (2, '4', '장애물 극복 훈련 패키지', '장애물 극복 훈련 패키지', '강아지가 다양한 장애물을 극복할 수 있도록 돕는 훈련 패키지입니다.', 220000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (2, '5', '특수 목적 훈련 패키지', '특수 목적을 위한 훈련 패키지', '강아지가 특정한 목적을 위해 훈련될 수 있도록 돕는 패키지입니다.', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
