@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mypet.mungmoong.main.model.Files;
 import com.mypet.mungmoong.main.service.FilesService;
-import com.mypet.mungmoong.utils.MediaUtil;
 
 import lombok.extern.slf4j.Slf4j;
 

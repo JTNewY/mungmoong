@@ -1,4 +1,6 @@
--- Active: 1716798076500@@127.0.0.1@3306@mypet
+
+-- Active: 1715069578448@@127.0.0.1@3306@mypet
+
 
 TRUNCATE users;
 
@@ -46,6 +48,9 @@ VALUES
 INSERT INTO `trainer` (`user_id`, `name`, `gender`, `birth`, `address`, `content`, `phone`, `mail`)
 VALUES 
     ('partner3', '강형욱', '남성', '1985-05-05', '서울시 강남구 테헤란로 123', '트레이너 경력 20년', 1012345678, 'partner@example.com');
+INSERT INTO `trainer` (`user_id`, `name`, `gender`, `birth`, `address`, `content`, `phone`, `mail`)
+VALUES 
+    ('partner', '오은아', '여성', '1985-05-05', '서울시 강남구 테헤란로 123', '트레이너 경력 20년', 1012345678, 'partner@example.com');
 
 
 -- career
@@ -62,8 +67,8 @@ VALUES
 -- partner3 의 경력
 INSERT INTO `career` (`user_id`, `trainer_no`, `name`, `reg_date`, `upd_date`)
 VALUES 
-    ('partner3', 2, '기본 복종 훈련', '2020-01-01 10:00:00', '2020-01-01 10:00:00'),
-    ('partner3', 2, '사회화 훈련', '2020-06-01 10:00:00', '2020-06-01 10:00:00'),
+    ('partner', 2, '기본 복종 훈련', '2020-01-01 10:00:00', '2020-01-01 10:00:00'),
+    ('partner', 2, '사회화 훈련', '2020-06-01 10:00:00', '2020-06-01 10:00:00'),
     ('partner3', 2, '명령어 훈련', '2021-01-01 10:00:00', '2021-01-01 10:00:00'),
     ('partner3', 2, '장애물 극복 훈련', '2021-06-01 10:00:00', '2021-06-01 10:00:00'),
     ('partner3', 2, '특수 목적 훈련', '2022-01-01 10:00:00', '2022-01-01 10:00:00');
