@@ -17,21 +17,21 @@
         UPDATE pet
         SET petname = #{petname}, age = #{age}, petgender = #{petgender}, `character` = #{character}, special_notes = #{specialNotes}, 
             upd_date = #{updDate}
-        WHERE pet_no = #{pet_no} AND user_id = #{userId}
+        WHERE pet_no = #{petNo} AND user_id = #{userId}
     </update>
 
     
     <!-- 반려동물 정보 삭제 -->
     <delete id="deletePet" parameterType="int">
         DELETE FROM pet
-        WHERE pet_no = #{pet_no}
+        WHERE pet_no = #{petNo}
     </delete>
     
     <!-- 반려동물 정보 검색 -->
     <select id="findPetById" parameterType="int" >
         SELECT *
         FROM pet
-        WHERE pet_no = #{pet_no}
+        WHERE pet_no = #{petNo}
     </select>
     
      <!-- 반려동물 userId로 검색 -->
