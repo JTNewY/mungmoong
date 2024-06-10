@@ -33,27 +33,28 @@
                     </ul>
             </nav>
 
-            <form action="/admin/admin_product_insert" method="post">
+            <form id="form" action="/admin/admin_product_update" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <div>
                         <ul>
                             <label for="id">ID</label>
-                            <input type="text" name="id" id="id">
+                            <input type="text" name="id" id="id" th:value="${products.id}" disabled>
                             <label for="name">이름</label>
-                            <input type="text" name="name" id="name">
+                            <input type="text" name="name" id="name" th:value="${products.name}">
                             <label for="trainerNo">훈련사 번호</label>
-                            <input type="text" name="trainerNo" id="trainerNo">
+                            <input type="text" name="trainerNo" id="trainerNo" th:value="${products.trainerNo}" disabled>
                             <label for="description">소개</label>
-                            <input type="text" name="description" id="description">
+                            <input type="text" name="description" id="description" th:value="${products.description}">
                             <label for="content">내용</label>
-                            <input type="text" name="content" id="content">
+                            <input type="text" name="content" id="content" th:value="${products.content}">
                             <label for="price">가격</label>
-                            <input type="text" name="price" id="price">
+                            <input type="text" name="price" id="price" th:value="${products.price}" disabled>
                         </ul>
                     </div>
                 <div>
                     <button type="button" onclick="moveToList()">목록</button>
-                    <button type="submit">등록</button>
+                    <button type="button" onclick="actionDelete()">삭제</button>
+                    <button type="submit">수정</button>
                 </div>
             </form>
 
@@ -61,8 +62,25 @@
     </div>
 
     <script>
+
+        let form = document.getElementById("form")
+
+        let id = "[[${products.id}]]"
+
         function moveToList() {
             location.href = "/admin/admin_product"
+        }
+
+        function actionDelete() {
+
+            let alert = confirm('정말로 삭제하시겠습니까?')
+            form.action = '/admin/admin_product_delete'
+            form.sumit()
+            
+        }
+
+        function moveToUpdate() {
+            location.href = "/admin/admin_product_update?id=" + id
         }
     </script>
 
