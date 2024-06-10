@@ -36,6 +36,7 @@ import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -90,6 +91,9 @@ public class TrainerController {
     @Autowired
     private PetService petService;
 
+    @Autowired
+    private UsersService usersService;
+
 
     /**
      * Orders 목록
@@ -110,6 +114,7 @@ public class TrainerController {
             return "/trainer/error"; 
         }                        
         // 데이터 요청
+        log.info("trainerNo : " + trainerNo);
         List<Orders> ordersList = ordersService.listByTrainer(trainerNo);
 
         // 모델 등록
@@ -117,6 +122,19 @@ public class TrainerController {
 
         // 뷰 페이지 지정
         return "/trainer/orders";
+    }
+
+    /**
+     * Meaning 수정 작업
+     * @param orderId
+     * @param meaning
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/orders")
+    public String updateOrderMeaning(@RequestParam("orderNo") int orderNo, @RequestParam("meaning") int meaning) throws Exception {
+        ordersService.updateMeaning(orderNo, meaning);
+        return "redirect:/trainer/orders";
     }
 
     /**
@@ -136,6 +154,7 @@ public class TrainerController {
         log.info("petNo :  " + petNo);
         Pet pet = petService.findPetById(petNo);
         log.info(":::::  pet  ::::::" + pet.toString());
+        log.info(":::: orders :::::" + orders.toString());
 
         // 파일 요청
         

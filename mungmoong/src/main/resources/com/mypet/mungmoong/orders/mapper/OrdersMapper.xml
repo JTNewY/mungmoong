@@ -21,6 +21,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY reg_date DESC
     </select>
 
+    <!-- [은아] - 상태 수정 -->
+    <update id="updateMeaning" parameterType="map">
+        UPDATE orders
+        SET meaning = #{meaning}
+        WHERE no = #{no}
+    </update>
+
+
     <!-- 결제 조회 -->
    <select id="select" resultType="com.mypet.mungmoong.orders.dto.Orders">
         SELECT *

@@ -197,10 +197,18 @@
 /* ------------------------------- */
 
 .user_info ul li input {
-    border: none;
+    border: 1px solid;
+    border-color: #FFF7E5;
     background-color: #FFF7E5;
     border-radius: 10px;
     margin-top: 40px;
+    padding-left: 8px;
+}
+
+.user_info ul li input:focus {
+    border-color: #F6C542;
+    outline: none;
+    border-width :1.8px; 
 }
 
 .bottom-btn {
