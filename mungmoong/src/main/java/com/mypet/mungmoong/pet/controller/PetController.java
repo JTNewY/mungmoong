@@ -56,18 +56,18 @@ public class PetController {
     
 
 @PostMapping("/users/petUpdate")
-public String updatePet(@RequestParam("petNo") int petNo,
+public String updatePet(@RequestParam("pet_no") int petNo,
                         @RequestParam("petname") String petname,
                         @RequestParam("age") int age,
                         @RequestParam("petgender") int petgender,  // 필드 이름 일관성 유지
                         @RequestParam("character") String character,
-                        @RequestParam("pettype") String pettype,
+                        @RequestParam("type") String type,
                         @RequestParam("specialNotes") String specialNotes,
                         HttpSession session) {
 
     String userId = (String) session.getAttribute("userId");
     logger.info("Updating pet: userId={}, petNo={}", userId, petNo);
-    session.getAttributeNames().asIterator().forEachRemaining(name -> logger.info("Session attribute: {} = {}", name, session.getAttribute(name)));
+    session.getAttributeNames().asIterator().forEachRemaining(Name -> logger.info("Session attribute: {} = {}", petname, session.getAttribute(petname)));
 
     if (userId == null) {
         logger.warn("User not logged in, redirecting to login page");
@@ -80,11 +80,11 @@ public String updatePet(@RequestParam("petNo") int petNo,
         return "redirect:/users/index?error=PetNotFound";
     }
 
-    pet.setName(petname);
+    pet.setPetname(petname);
     pet.setAge(age);
     pet.setPetgender(petgender);
     pet.setCharacter(character);
-    pet.setPettype(pettype);
+    pet.setType(type);
     pet.setSpecialNotes(specialNotes);
     pet.setUpdDate(new Date());
 
@@ -111,7 +111,7 @@ public String updatePet(@RequestParam("petNo") int petNo,
                          @RequestParam("age") int age,
                          @RequestParam("gender") int gender,
                          @RequestParam("character") String character,
-                         @RequestParam("pettype") String pettype,
+                         @RequestParam("type") String type,
                          @RequestParam("specialNotes") String specialNotes,
                          @RequestParam("userId") String userId,
                          HttpSession session) {
@@ -123,11 +123,11 @@ public String updatePet(@RequestParam("petNo") int petNo,
 
         Pet pet = new Pet();
         pet.setUserId(userId); // 현재 사용자 ID 설정
-        pet.setName(petname);
+        pet.setPetname(petname);
         pet.setAge(age);
         pet.setPetgender(gender);
         pet.setCharacter(character);
-        pet.setPettype(pettype);
+        pet.setType(type);
         pet.setSpecialNotes(specialNotes);  // 특이사항 추가함
 
         // 현재 시간을 설정
