@@ -107,6 +107,12 @@ public class ProductsServiceImpl implements ProductsService {
 
     }
 
+    @Override
+    public int adminInsert(Products products) throws Exception {
+        int result = productsMapper.adminInsert(products);
+        return result;
+    }
+
         
 
     }
