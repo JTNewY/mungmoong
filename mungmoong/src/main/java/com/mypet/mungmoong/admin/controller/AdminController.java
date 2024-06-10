@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
+import com.mypet.mungmoong.orders.dto.Orders;
 import com.mypet.mungmoong.orders.dto.Products;
+import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.orders.service.ProductsService;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
-import com.mypet.mungmoong.reserve.dto.Reserve;
-import com.mypet.mungmoong.reserve.service.ReserveService;
 import com.mypet.mungmoong.trainer.dto.Option;
 import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
@@ -28,6 +28,7 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 
 @Slf4j
@@ -48,7 +49,7 @@ public class AdminController {
     private BoardService boardService;
 
     @Autowired
-    private ReserveService reserveService;
+    private OrdersService ordersService;
 
     @Autowired
     private ProductsService productsService;
@@ -334,9 +335,9 @@ public class AdminController {
     @GetMapping("/admin_reserve")
     public String ReserveList(Model model) throws Exception {
 
-        List<Reserve> reserveList = reserveService.listByUser();
+        List<Orders> ordersList = ordersService.list();
 
-        model.addAttribute("reserveList", reserveList);
+        model.addAttribute("ordersList", ordersList);
         
         return "/admin/admin_reserve";
     }
@@ -458,7 +459,7 @@ public class AdminController {
     @PostMapping("/admin_product_update")
     public String AdminProductUpdatePro(@RequestParam("id") String id , Products products) throws Exception {
 
-        int result = productsService.update(products);
+        int result = productsService.adminUpdate(products);
 
         if ( result > 0 ) {
             return "redirect:/admin/admin_product";
@@ -468,8 +469,23 @@ public class AdminController {
     }
     
     
-    
-    
+    @PostMapping("/admin_product_delete")
+    public String ProductsDelete(@RequestParam("id") String id) throws Exception {
+
+        int result = productsService.adminDelete(id);
+
+        if( result > 0 ) {
+            return "redirect:/admin/admin_product";
+        }
+
+        
+        return "redirect:/admin/admin_product_update?=id" + id + "&error";
+
+
+        
+    }
+        
+
     
     
 
