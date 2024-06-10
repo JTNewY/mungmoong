@@ -184,6 +184,7 @@
                             </div>
                                 <!-- 히든 필드와 함께 폼 제출을 통해 petname을 전송 -->
                                 <form action="/users/petUpdate" method="get" style="display:inline;">
+                                    <input type="hidden" name="petNo" th:value="${pet.petNo}" />
                                     <input type="hidden" name="petname" th:value="${pet.petname}" />
                                     <button type="submit" class="custom-button">마이펫 수정</button>
                                 </form>
@@ -192,7 +193,7 @@
                 </div>
             </div>
             <div class="bottom-btn">
-                <button type="button" class="custom-button" onclick="location.href='/users/petadd'">펫 추가</button>
+                <button type="button" class="custom-button" onclick="location.href='/users/petAdd'">펫 추가</button>
                 <button type="button" class="custom-button" onclick="location.href='/users/delete'">펫 삭제</button>
             </div>
         </main>
