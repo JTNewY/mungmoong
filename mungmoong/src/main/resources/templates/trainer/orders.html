@@ -46,7 +46,7 @@
                     <tbody>
                         <th:block th:each="orders : ${ordersList}">
                             <tr>
-                                <td th:text="${orders.userId}"></td>
+                                <td><a th:href="|/trainer/orders_details?no=${orders.no}|" th:text="${orders.userId}"></a></td>
                                 <td th:text="${#dates.format(orders.resDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                 <td class="status" th:text="${orders.status}"></td>
                                 <td th:text="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
@@ -68,6 +68,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>

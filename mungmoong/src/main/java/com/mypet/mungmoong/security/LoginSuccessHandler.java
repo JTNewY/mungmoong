@@ -94,7 +94,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                 for (Pet pet : pets) {
                     log.info("Pet Information:");
                     log.info("Pet ID: " + pet.getUserId());
-                    log.info("Pet Name: " + pet.getName());
+                    log.info("Pet Name: " + pet.getPetname());
                     log.info("Pet Type: " + pet.getPettype());
                 }
             } else {

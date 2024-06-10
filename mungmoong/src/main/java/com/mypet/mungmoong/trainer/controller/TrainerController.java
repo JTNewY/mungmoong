@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.bouncycastle.jcajce.provider.asymmetric.GM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mypet.mungmoong.main.model.Event;
 import com.mypet.mungmoong.orders.dto.Orders;
 import com.mypet.mungmoong.orders.service.OrdersService;
+import com.mypet.mungmoong.pet.dto.Pet;
+import com.mypet.mungmoong.pet.service.PetService;
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
@@ -86,6 +87,9 @@ public class TrainerController {
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private PetService petService;
+
 
     /**
      * Orders 목록
@@ -115,9 +119,33 @@ public class TrainerController {
         return "/trainer/orders";
     }
 
-    @GetMapping(value = "/select")
-    public String ordersSelect(Model model, int no) {
-        return new String();
+    /**
+     * Orders 조회
+     * @param no
+     * @param model
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/orders_details")
+    public String ordersDetails(@RequestParam("no") int no,
+                                Model model,
+                                Files file) throws Exception {
+        Orders orders = ordersService.select(no);
+        int petNo =  orders.getPetNo();
+        log.info("petNo :  " + petNo);
+        Pet pet = petService.findPetById(petNo);
+        log.info(":::::  pet  ::::::" + pet.toString());
+
+        // 파일 요청
+        
+
+        // 모델 등록
+        model.addAttribute("orders", orders);
+        model.addAttribute("pet", pet);
+
+        // 뷰페이지 지정
+        return "/trainer/orders_details";
     }
     
     

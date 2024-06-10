@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -80,7 +79,7 @@ public String updatePet(@RequestParam("petNo") int petNo,
         return "redirect:/users/index?error=PetNotFound";
     }
 
-    pet.setName(petname);
+    pet.setPetname(petname);
     pet.setAge(age);
     pet.setPetgender(petgender);
     pet.setCharacter(character);
@@ -123,7 +122,7 @@ public String updatePet(@RequestParam("petNo") int petNo,
 
         Pet pet = new Pet();
         pet.setUserId(userId); // 현재 사용자 ID 설정
-        pet.setName(petname);
+        pet.setPetname(petname);
         pet.setAge(age);
         pet.setPetgender(gender);
         pet.setCharacter(character);

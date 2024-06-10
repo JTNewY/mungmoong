@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Pet {
     private int petNo;
-    private String name;
+    private String petname;
     private String pettype;
     private int age;
     private int petgender;
