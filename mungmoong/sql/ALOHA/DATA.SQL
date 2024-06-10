@@ -1,5 +1,5 @@
 
--- Active: 1715069578448@@127.0.0.1@3306@mypet
+-- Active: 1717746144890@@127.0.0.1@3306@mypet
 
 
 TRUNCATE users;
@@ -142,3 +142,29 @@ VALUE
 ('partner2', 1, '일정 18', '일정 18의 내용입니다.', '2024-06-27 15:00:00'),
 ('partner2', 1, '일정 19', '일정 19의 내용입니다.', '2024-06-28 08:30:00'),
 ('partner2', 1, '일정 20', '일정 20의 내용입니다.', '2024-06-29 12:00:00');
+
+
+
+
+
+INSERT INTO `board` (`user_id`, `title`, `writer`, `content`, `file_no`, `board_type`, `reg_date`, `upd_date`) VALUES
+('user', 'Sample Title 1', 'Writer 1', 'Sample content 1', 'file1', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('user', 'Sample Title 2', 'Writer 2', 'Sample content 2', 'file2', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('user', 'Sample Title 3', 'Writer 3', 'Sample content 3', 'file3', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('user', 'Sample Title 4', 'Writer 4', 'Sample content 4', 'file4', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('user', 'Sample Title 5', 'Writer 5', 'Sample content 5', 'file5', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner1', 'Sample Title 6', 'Writer 6', 'Sample content 6', 'file6', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner1', 'Sample Title 7', 'Writer 7', 'Sample content 7', 'file7', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner1', 'Sample Title 8', 'Writer 8', 'Sample content 8', 'file8', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner1', 'Sample Title 9', 'Writer 9', 'Sample content 9', 'file9', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner1', 'Sample Title 10', 'Writer 10', 'Sample content 10', 'file10', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner1', 'Sample Title 11', 'Writer 11', 'Sample content 11', 'file11', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner2', 'Sample Title 12', 'Writer 12', 'Sample content 12', 'file12', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner2', 'Sample Title 13', 'Writer 13', 'Sample content 13', 'file13', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner2', 'Sample Title 14', 'Writer 14', 'Sample content 14', 'file14', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner2', 'Sample Title 15', 'Writer 15', 'Sample content 15', 'file15', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner2', 'Sample Title 16', 'Writer 16', 'Sample content 16', 'file16', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner2', 'Sample Title 17', 'Writer 17', 'Sample content 17', 'file17', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner', 'Sample Title 18', 'Writer 18', 'Sample content 18', 'file18', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner', 'Sample Title 19', 'Writer 19', 'Sample content 19', 'file19', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('partner', 'Sample Title 20', 'Writer 20', 'Sample content 20', 'file20', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

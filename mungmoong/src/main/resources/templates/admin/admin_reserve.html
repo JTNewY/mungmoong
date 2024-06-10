@@ -42,30 +42,30 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">회원ID</th>
-                        <th scope="col">요청사항</th>
-                        <th scope="col">훈련사 승인 상태</th>
-                        <th scope="col">예약제목</th>
-                        <th scope="col">총예약일</th>
-                        <th scope="col">총항목수</th>
-                        <th scope="col">총가격</th>
-                        <th scope="col">승인상태</th>
-                        <th scope="col">등록일자</th>
-                        <th scope="col">수정일자</th>
+                        <th scope="col">번호</th>
+                        <th scope="col">아이디</th>
+                        <th scope="col">상품 아이디</th>
+                        <th scope="col">회원 아이디</th>
+                        <th scope="col">펫번호</th>
+                        <th scope="col">트레이너 번호</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">예약일</th>
+                        <th scope="col">상태</th>
+                        <th scope="col">등록일</th>
                     </tr>
                 </thead>
-                <th:block th:each="reserve : ${reserveList}">
+                <th:block th:each="orders : ${ordersList}">
                     <tr class="first_tr">
-                        <td class="text-truncate" th:text="${reserve.userId}"></td>
-                        <td class="text-truncate" th:text="${reserve.requst}"></td>
-                        <td class="text-truncate" th:text="${reserve.condition}"></td>
-                        <td class="text-truncate" th:text="${reserve.title}"></td>
-                        <td class="text-truncate" th:text="${reserve.totalQuantity}"></td>
-                        <td class="text-truncate" th:text="${reserve.totalCount}"></td>
-                        <td class="text-truncate" th:text="${reserve.totalPrice}"></td>
-                        <td class="text-truncate" th:text="${reserve.status}"></td>
-                        <td class="text-truncate" th:text="${reserve.regDate}"></td>
-                        <td class="text-truncate" th:text="${reserve.updDate}"></td>
+                        <td class="text-truncate" th:text="${orders.no}"></td>
+                        <td class="text-truncate" th:text="${orders.id}"></td>
+                        <td class="text-truncate" th:text="${orders.productId}"></td>
+                        <td class="text-truncate" th:text="${orders.userId}"></td>
+                        <td class="text-truncate" th:text="${orders.petNo}"></td>
+                        <td class="text-truncate" th:text="${orders.trainerNo}"></td>
+                        <td class="text-truncate" th:text="${orders.address}"></td>
+                        <td class="text-truncate" th:text="${orders.resDate}"></td>
+                        <td class="text-truncate" th:text="${orders.status}"></td>
+                        <td class="text-truncate" th:text="${orders.regDate}"></td>
                     </tr>
                 </th:block>
             </table>
