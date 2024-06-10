@@ -26,6 +26,7 @@ public class Orders {
     private String status;
     private Date regDate;
     private Date updDate;
+    private int meaning;
 
     // 주문자 정보
     private Users user;

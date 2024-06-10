@@ -188,7 +188,7 @@ CREATE TABLE `users` (
     `enabled` INT NULL,
     `role` INT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
 
@@ -244,10 +244,11 @@ CREATE TABLE `orders` (
 	`resDate` TIMESTAMP NOT NULL,                        -- 예약날짜
 	`MEMO` VARCHAR(255) NULL,                            -- 요청사항
 	`TITLE` VARCHAR(255) NULL,                           -- 예약제목 - 상품명을 넣고
-	`PRICE` INT NOT NULL DEFAULT 0,                     -- 예약금액
+	`PRICE` INT NOT NULL DEFAULT 0,                      -- 예약금액
 	`STATUS` VARCHAR(20) NOT NULL DEFAULT 'pending' COMMENT '결제대기, 결제완료, 승인중,훈련완료,예약취소',
 	`reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    `meaning` INT NOT NULL DEFAULT 0                      -- 훈련 진행 상황 
 );
 
 -- 주문상세테이블-------------------------------------------------------------------------------
