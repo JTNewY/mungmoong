@@ -115,7 +115,7 @@
                 <input type="hidden" name="petNo" th:value="${pet.petNo}" /> <!-- hidden input for petNo -->
                 <div class="form-group">
                     <label for="pet-no">펫 번호</label>
-                    <input type="text" class="form-control" id="pet-no" name="petNo" th:value="${pet.petNo}" readonly>
+                    <input type="text" class="form-control" id="pet-no" name="pet_no" th:value="${pet.pet_no}" readonly>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -130,7 +130,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="pettype">견종</label>
-                        <input type="text" class="form-control" id="pettype" name="pettype" th:value="${pet.pettype}">
+                        <input type="text" class="form-control" id="type" name="type" th:value="${pet.pettype}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="character">성격</label>

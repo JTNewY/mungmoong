@@ -6,16 +6,16 @@ DROP TABLE IF EXISTS pet;
 
 CREATE TABLE `pet` (
     `pet_no` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+    `petname` VARCHAR(50) NOT NULL,
     `age` INT NOT NULL,
     `petgender` INT NOT NULL,
     `character` VARCHAR(100) NULL,
     `type` VARCHAR(50) NULL,
-     `user_id` VARCHAR(100) NOT NULL,
+   `special_notes` VARCHAR(255) NULL,
+   `user_id` VARCHAR(100) NOT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );
-
 
 -- 이미지파일테이블-------------------------------------------------------------------------------------
 

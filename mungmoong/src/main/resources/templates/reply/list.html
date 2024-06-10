@@ -1,0 +1,26 @@
+
+<th:block th:each="reply : ${replyList}">
+
+<!-- 댓글 -->
+<!-- 댓글 인 경우-->
+<th:block th:if="${reply.no == reply.parentNo}">
+    <div class="reply-box">
+</th:block>
+<!-- 답글 인 경우-->
+<th:block th:if="${reply.no != reply.parentNo}">
+    <div class="reply-box answer">
+</th:block>
+        <div class="inner">
+            <div class="top">
+                <span class="reply-writer" th:text="${reply.writer}"></span>
+                <span class="reply-date" th:text="${reply.regDate}"></span>
+                <div class="item">
+                    <button class="btn-reply-update" th:data="${reply.no}">수정</button>
+                    <button class="btn-reply-delete" th:onclick="|deleteReply(${reply.no})|">삭제</button>
+                </div>
+            </div>
+            <p class="reply-content" th:text="${reply.content}"></p>
+            <button class="btn-reply-content" th:onclick="|insertAnswer(this, ${reply.no})|">답글</button>
+        </div>
+    </div>
+</th:block>
