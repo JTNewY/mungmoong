@@ -1,4 +1,4 @@
--- Active: 1713353106333@@127.0.0.1@3306@mypet
+-- Active: 1716798076500@@127.0.0.1@3306@mypet
 -- 펫테이블-------------------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS pet;
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS reply;
 
 CREATE TABLE `reply` (
     `no` INT PRIMARY KEY AUTO_INCREMENT,
-    `board_no2` INT NOT NULL,
+    `board_no` INT NOT NULL,
     `user_id` VARCHAR(100) NOT NULL,
     `parent_no` VARCHAR(100) NULL,
     `writer` VARCHAR(100) NULL,
@@ -354,7 +354,7 @@ CREATE TABLE `SHIPMENTS` (
 
 -- QnA 테이블 --------------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `SHIPMENTS`;
+DROP TABLE IF EXISTS `QnA`;
 CREATE TABLE `QnA` (
 	`qna_no`	INT	NOT NULL,
 	`qna_title`	VARCHAR(100)	NOT NULL,
