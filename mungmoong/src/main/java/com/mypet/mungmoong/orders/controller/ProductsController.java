@@ -3,11 +3,13 @@ package com.mypet.mungmoong.orders.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,12 +18,19 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mypet.mungmoong.board.controller.ReplyController;
+import com.mypet.mungmoong.board.dto.Reply;
+import com.mypet.mungmoong.board.service.ReplyService;
 import com.mypet.mungmoong.orders.dto.Products;
 import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.orders.service.ProductsService;
 import com.mypet.mungmoong.pet.service.PetService;
+import com.mypet.mungmoong.users.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -39,6 +48,8 @@ public class ProductsController {
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private ReplyService replyService;
     
       @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -76,12 +87,30 @@ public class ProductsController {
     public String product(Model model
                          ,HttpSession session
                          ,@PathVariable("id") String id) throws Exception {
-        log.info(":::::::::: /product/detail ::::::::::");
         Products product = productsService.select(id);
+        
+
+        log.info(product.toString());
         model.addAttribute("product", product);
         
         return "/products/detail";
     }
+
+
+    @PostMapping("/reply")
+    public ResponseEntity<Integer> replyInsert(Reply reply, HttpSession session,@PathVariable("id") String id) throws Exception {
+       int result = replyService.insert(reply);
+
+       if(result>0){
+        log.info("덧글 등록 성공");
+       }
+        log.info(reply.toString());
+        // int starNo = payload.get("starNo");
+
+
+        return null;       
+    }
+    
 
     // @GetMapping("/{id}")
     // public String productPro(Model model
