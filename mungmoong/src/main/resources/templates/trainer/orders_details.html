@@ -6,23 +6,6 @@
 <head>
     <title>예약요청 반려동물</title>
     <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
-    <style>
-        .대기 {
-            background-color: blue;
-        }
-
-        .예약완료 {
-            background-color: orange;
-        }
-
-        .취소 {
-            background-color: red;
-        }
-
-        .완료 {
-            background-color: green;
-        }
-    </style>
 </head>
 
 <body class="body" layout:fragment="content">
@@ -50,65 +33,67 @@
                     </ul>
                 </div>
             </nav>
-            <div class="tab_tr_btn">
-                <ul>
-                    <li><a class="menu-button" style="margin-left: -1rem;" href="/trainer/orders">예약 요청</a></li>
-                    <li><a class="menu-button active" href="/trainer/reserve_details">예약 현황</a></li>
-                </ul>
-            </div>
-            <div class="user_info">
-                <table class="table table-bordered">
-                    <thead class="thead-light">
-                        <tr class="first_tr">
-                            <th>예약자</th>
-                            <th>일정</th>
-                            <th>상태</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>홍길동</td>
-                            <td>20240505~10(5일간)</td>
-                            <td class="status">대기</td>
-                            <td>20240505</td>
-                        </tr>
-                        <tr>
-                            <td>김**</td>
-                            <td>20240505~10(5일간)</td>
-                            <td class="status">대기</td>
-                            <td>20240505</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- 페이징 버튼 영역 -->
-                <div class="paging">
-                    <ul>
-                        <li><a href="#">&lt&lt;</a></li>
-                        <li><a href="#">&lt;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">&gt;</a></li>
-                        <li><a href="#">&gt&gt;</a></li>
-                    </ul>
+            <form class="form-group" action="/trainer/orders_details" method="get">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div class="user_info">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="/img/pet/강아지3.jpg" class="img-fluid" alt="반려견 이미지">
+                        </div>
+                        <div class="col-md-8">
+                            <ul>
+                                <li>
+                                    <label for="name" name="name">이름</label>
+                                    <input type="text" name="name" id="name" th:value="${pet.petname}">
+                                </li>
+                                <li>
+                                    <label for="birth" name="birth">나이</label>
+                                    <input type="text" name="birth" id="birth" th:value="${pet.age}">
+                                </li>
+                                <li>
+                                    <label for="birth" name="birth">성별</label>
+                                    <input type="text" name="birth" id="birth" th:value="${pet.petgender}">
+                                </li>
+
+                                <li>
+                                    <label for="gender" name="gender">주소</label>
+                                    <input type="text" name="gender" id="gender" th:value="${orders.adress}">
+                                </li>
+                                <li>
+                                    <label for="email" name="email">견종</label>
+                                    <input type="text" name="email" id="pettype" th:value="${pet.type}">
+                                </li>
+                                <li>
+                                    <label for="email" name="email">예약 날짜</label>
+                                    <input type="text" name="email" id="order_date" th:value="${#dates.format(orders.resDate, 'yyyy-MM-dd HH:mm:ss')}">
+                                </li>
+                                <li>
+                                    <label for="email" name="email">요청사항</label>
+                                    <textarea name="email" id="memo"></textarea>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 페이징 버튼 영역 -->
+                    <div class="paging">
+                        <ul>
+                            <li><a href="#">&lt&lt;</a></li>
+                            <li><a href="#">&lt;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">&gt;</a></li>
+                            <li><a href="#">&gt&gt;</a></li>
+                        </ul>
+                    </div>
+                    <div class="bottom-btn">
+                        <button type="button" class="btn btn-primary btn-lg listBtn">수락</button>
+                        <button type="button" class="btn btn-secondary btn-lg updateBtn">거절</button>
+                    </div>
                 </div>
-            </div>
+            </form>
+            
         </div>
     </div>
 
-    <script>
-        function updateStatusColors() {
-            const statusElements = document.querySelectorAll('.status');
-            statusElements.forEach(element => {
-                // Remove existing status classes
-                element.classList.remove('대기', '예약완료', '취소', '완료');
-                // Add new status class based on text content
-                const statusText = element.textContent.trim();
-                element.classList.add(statusText);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', updateStatusColors);
-    </script>
 </body>
 
 </html>

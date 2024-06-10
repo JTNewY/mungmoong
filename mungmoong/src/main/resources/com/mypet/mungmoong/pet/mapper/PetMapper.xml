@@ -7,8 +7,8 @@
     
     <!-- 새로운 반려동물 추가 -->
     <insert id="insertPet">
-    INSERT INTO pet (petname, age, petgender, pettype, `character`, special_notes, reg_date, upd_date, order_no, user_id)
-    VALUES (#{petname}, #{age}, #{petgender}, #{pettype}, #{character}, #{specialNotes}, now(), now(), #{orderNo}, #{userId})
+    INSERT INTO pet (petname, age, petgender, type, `character`, special_notes, reg_date, upd_date, user_id)
+    VALUES (#{petname}, #{age}, #{petgender}, #{type}, #{character}, #{specialNotes}, now(), now(), #{userId})
     </insert>
 
     

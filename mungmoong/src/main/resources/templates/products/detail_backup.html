@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_layout}">
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 정보</title>
+  <style>
+    .event-log {
+      font-family: consolas, Monaco, monospace;
+      margin: 10px 5px;
+      line-height: 2;
+      border: 1px solid #4c4c4c;
+      height: auto;
+      width: 90%;
+      padding: 2px 6px;
+      color: #4c4c4c;
+      white-space: pre;
+    }
+  </style>
+</head>
+
+<body layout:fragment="content">
+  <section>
+    <form action="/orders" method="get">
+      <input type="hidden" name="trainerNo" id="trainerNo" th:value="${product.trainerNo}">
+
+      <div class="album bg-body-tertiary">
+        <div class="container">
+          <div class="main-title">
+            <h3 class="display-4 fw-bold text-body-emphasis text-center" style="padding-bottom: 0.5em;">예약 정보</h3>
+          </div>
+    
+          <!-- 상품 정보 -->
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <!-- 상품 아이템 -->
+              <div class="card shadow-sm">
+                &nbsp;
+                <a th:href="|/products/${product.id}|">
+                  <div class="card-box">
+                    <img src="/img/about.png" th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about"
+                      style="max-height: 460px; object-fit: contain;">
+                  </div>
+                </a>
+                &nbsp;
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <th:block th:if="${session.user != null}">
+                <div class="card shadow-sm">
+                  <div class="card-body">
+                    <h3 class="card-title fs-2" th:text="${product.name}"></h3>
+                    <input type="hidden" name="title" th:value="${product.name}">
+      
+                    <p class="card-text" th:text="${product.description}"></p>
+                    <div class="d-flex justify-content-end">
+                      <p>
+                        <input type="hidden" name="price" th:value="${product.price}">
+                        가격 : <span class="fw-bold" th:text="${product.price}"></span>
+                      </p>
+                    </div>
+                    <div class="modal-body">
+                      예약날짜를 선택해주세요
+                      <label for="resDate">예약날짜</label>
+                      <div id="calendar" class="input-group">
+                        <input type="date" class="form-control" name="resDate" id="resDate" value="">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 mb-3">
+                        <label for="address">방문주소</label>
+                        <input type="text" class="form-control" id="address" name="address"
+                          th:value="${session.user.address}" >
+                        <div class="invalid-feedback">
+                          주소을 입력해주세요.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 mb-3">
+                        <label for="memo">요청사항</label>
+                        <input type="text" class="form-control" id="memo" name="memo" placeholder="">
+                        <div class="invalid-feedback">
+                          요청사항을 입력해주세요.
+                        </div>
+                      </div>
+                    </div>
+      
+                    <input type="hidden" id="productId" name="productId" th:value="${product.id}">
+                    <button type="submit" class="btn btn-success w-100" data="trainer123">예약하기</button>
+                  </div>
+                </div>
+              </th:block>
+              <th:block th:if="${session.user == null}">
+                <div class="card shadow-sm">
+                  <div class="card-body">
+                    <!-- <input type="hidden" class="form-control" id="title" name="title" th:value="${product.name}" required> -->
+                    <h3 class="card-title fs-2" th:text="${product.name}"></h3>
+      
+                    <p class="card-text" th:text="${product.description}"></p>
+                    <div class="d-flex justify-content-end">
+                      <p>
+                        가격 : <span class="fw-bold" th:text="${product.price}"></span>
+                      </p>
+                    </div>
+      
+                  </div>
+                </div>
+              </th:block>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+      <div class="container">
+          <!-- 상품 내용 -->
+          <div class="row my-5">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <p th:text="${product.content}"></p>
+                  </div>
+                  </div>
+                  </div>  
+                  </div>
+                      <div>
+                        <div th:each="trainer : ${trainerList}">
+                          <h1 th:text="${trainer.no}">김조은 훈련사프로필</h1> 
+                            <div>
+                              <h3>대표경력</h3>
+                              <p th:text="${trainer.mail}">한국애견협회우수승</p>
+                            </div>
+                          </div>
+                        </div>
+                    <div>
+                      <div class="text-left-content">
+                          <h1>경력</h1>
+                          <div>
+                              <th:block th:each="career : ${careerList}">
+                                  <p class="text-start" th:text="${career.name}"></p>
+                              </th:block>
+                            </div>
+                          </div>
+                      <div class="text-left-content">
+                          <h1>자격증</h1>
+                          <div>
+                              <div class="d-flex justify-content-start mt-3 gap-5 mx-4">
+                                  <th:block th:each="certificate : ${certificateList}">
+                                      <div class="d-flex flex-column align-items-center mx-2">
+                                          <img th:if="${certificate.imgFile != null}" th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
+                                          <p th:text="${certificate.name}"></p>
+                                      </div>
+                                  </th:block>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
+  </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
+  </script>
+  <script>
+    let trainerId = ''
+    $(function () {
+
+      $('.btn-reserv').on('click', function () {
+        trainerId = $(this).attr('data')
+
+      })
+    })
+
+    //달력 기본값설정(오늘로)
+    document.addEventListener("DOMContentLoaded", function () {
+      const today = new Date();
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month;
+      }
+      let day = today.getDate();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      const todayString = `${year}-${month}-${day}`;
+      document.getElementById("resDate").value = todayString;
+    });
+
+    document.getElementById("submitDate").addEventListener("click", function () {
+      const selectedDate = document.getElementById("resDate").value;
+      localStorage.setItem("resDate", resDate); // 선택된 날짜를 로컬 스토리지에 저장
+      showModal(); // 모달 표시 함수 호출
+    });
+    //예약날짜 저장스크립트
+    document.getElementById("submitDate").addEventListener("click", function () {
+      const selectedDate = document.getElementById("resDate").value;
+      const date = encodeURIComponent(resDate)
+      window.location.href = `/reserve/insert?date=${date}&trainerId=${trainerId}`;
+    });
+  </script>
+
+
+</body>
+
+</html>

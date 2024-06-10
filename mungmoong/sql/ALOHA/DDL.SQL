@@ -1,4 +1,4 @@
--- Active: 1717746144890@@127.0.0.1@3306@mypet
+
 -- 펫테이블-------------------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS pet;
@@ -6,16 +6,16 @@ DROP TABLE IF EXISTS pet;
 
 CREATE TABLE `pet` (
     `pet_no` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+    `petname` VARCHAR(50) NOT NULL,
     `age` INT NOT NULL,
     `petgender` INT NOT NULL,
     `character` VARCHAR(100) NULL,
     `type` VARCHAR(50) NULL,
-     `user_id` VARCHAR(100) NOT NULL,
+   `special_notes` VARCHAR(255) NULL,
+   `user_id` VARCHAR(100) NOT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );
-
 
 -- 이미지파일테이블-------------------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS reply;
 
 CREATE TABLE `reply` (
     `no` INT PRIMARY KEY AUTO_INCREMENT,
-    `board_no2` INT NOT NULL,
+    `board_no` INT NOT NULL,
     `user_id` VARCHAR(100) NOT NULL,
     `parent_no` VARCHAR(100) NULL,
     `writer` VARCHAR(100) NULL,
@@ -354,7 +354,7 @@ CREATE TABLE `SHIPMENTS` (
 
 -- QnA 테이블 --------------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `SHIPMENTS`;
+DROP TABLE IF EXISTS `QnA`;
 CREATE TABLE `QnA` (
 	`qna_no`	INT	NOT NULL,
 	`qna_title`	VARCHAR(100)	NOT NULL,
