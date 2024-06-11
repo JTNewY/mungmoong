@@ -28,6 +28,8 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -491,11 +493,23 @@ public class AdminController {
 
         
         return "redirect:/admin/admin_product_update?=id" + id + "&error";
-
-
         
     }
+
+
+    @PostMapping("/admin_orders_status")
+    public String AdminProductStatus(Orders orders) throws Exception {
+
+        int result = ordersService.Status(orders);
+
+        if( result > 0 ) {
+            return "redirect:/admin/admin_reserve_pay";
+        }
         
+        int no = orders.getNo();
+        return "redirect:/admin/admin_orders?no=" + no + "&error";
+    }
+    
 
     
     

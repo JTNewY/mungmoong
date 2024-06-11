@@ -1,8 +1,9 @@
+-- Active: 1718101887843@@127.0.0.1@3306@mypet
 
 -- 펫테이블-------------------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS pet;
-
+ 
 
 CREATE TABLE `pet` (
     `pet_no` INT PRIMARY KEY AUTO_INCREMENT,
@@ -188,7 +189,7 @@ CREATE TABLE `users` (
     `enabled` INT NULL,
     `role` INT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
