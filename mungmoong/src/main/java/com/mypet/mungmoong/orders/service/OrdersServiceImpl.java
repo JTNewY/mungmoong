@@ -67,6 +67,13 @@ public class OrdersServiceImpl implements OrdersService {
         return result;
     }
 
+    // 상태 업데이트
+    @Override
+    public int Status(Orders orders) throws Exception {
+        int result = ordersMapper.Status(orders);
+        return result;
+    }
+
 
     
 

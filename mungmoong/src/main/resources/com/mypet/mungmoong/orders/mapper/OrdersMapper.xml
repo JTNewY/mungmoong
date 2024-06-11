@@ -63,4 +63,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE no = #{no}
     </delete>
 
+
+    <!-- 관리자가 상태 업데이트 -->
+    <update id="Status">
+        UPDATE orders
+        SET status = #{status} 
+        WHERE no = #{no}
+    </update>
+
 </mapper>

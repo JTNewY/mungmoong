@@ -25,5 +25,7 @@ public interface OrdersService {
 
     // ---------------------------------------------------------
     public List<Orders> listByUserId(String userId) throws Exception;
+
+    public int Status(Orders orders) throws Exception;
     
 }
