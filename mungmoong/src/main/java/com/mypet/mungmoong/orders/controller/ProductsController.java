@@ -16,9 +16,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import com.mypet.mungmoong.board.controller.ReplyController;
+
 import com.mypet.mungmoong.board.dto.Reply;
 import com.mypet.mungmoong.board.service.ReplyService;
 import com.mypet.mungmoong.orders.dto.Products;
@@ -50,6 +54,8 @@ public class ProductsController {
 
     @Autowired
     private ReplyService replyService;
+
+
     
       @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -97,32 +103,50 @@ public class ProductsController {
     }
 
 
-    @PostMapping("/reply")
-    public ResponseEntity<Integer> replyInsert(Reply reply, HttpSession session,@PathVariable("id") String id) throws Exception {
-       int result = replyService.insert(reply);
+    @GetMapping("/reply")
+    public ResponseEntity<Integer> replyread(Reply reply
+                                             , HttpSession session
+                                            ,@PathVariable("id") String id) throws Exception {
+      // int result = replyService.insert(reply);
+      log.info(":::::::::: 댓글 ::::::::::");
+      log.info(reply.toString());
+    //    if(result>0){
+    //     log.info("덧글 등록 성공");
+    //    }
+    //     log.info(reply.toString());
 
-       if(result>0){
-        log.info("덧글 등록 성공");
-       }
-        log.info(reply.toString());
-        // int starNo = payload.get("starNo");
 
 
         return null;       
     }
-    
-
-    // @GetMapping("/{id}")
-    // public String productPro(Model model
-    //                      ,@PathVariable("id") int id) throws Exception {
-    //     log.info(":::::::::: 상품 ::::::::::");
-    //     Products product = productsService.selectPro(id);
-    //     model.addAttribute("product", product);
-    //     return "/products/detail";
-    // }
-    
-    
+    @PostMapping("/reply/{id}")
+    public ResponseEntity<String> replyInsert(@RequestBody Reply reply
+                                             , HttpSession session
+                                            ,@PathVariable("id") String id) throws Exception {
+      // int result = replyService.insert(reply);
+      log.info(":::::::::: 댓글 ::::::::::");
+      log.info(reply.toString());
+     // reply.setBoardNo(id); // 댓글 객체의 boardNo 필드에 상품 ID 설정
+     // boardNo은 Int타입이고 productNo은 String타입이다 형변환을 하였다
+            try {
+                int boardNo = Integer.parseInt(id);
+                reply.setBoardNo(boardNo);
+            } catch (NumberFormatException e) {
+                // 형변환 실패 시 기본값으로 설정 또는 예외 처리
+                // 예를 들어, 기본값으로 -1을 설정할 수 있습니다.
+                reply.setBoardNo(-1);
+            }
+      int result = replyService.insert(reply);
+      
+      if (result > 0) {
+          return ResponseEntity.ok("SUCCESS");
+      } else {
+          return ResponseEntity.status(500).body("FAILURE");
+      }
+       // return null;       
+    }
 }
+    
 
 
 
