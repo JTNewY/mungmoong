@@ -3,6 +3,7 @@ package com.mypet.mungmoong.trainer.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -130,16 +131,15 @@ public class TrainerController {
      * @throws Exception
      */
     @GetMapping("/deposit")
-    public String deposit(Model model
-                            ,HttpSession session) throws Exception {
+    public String deposit(Model model, HttpSession session) throws Exception {
         log.info("[GET] - /trainer/orders");
         Integer trainerNo = (Integer) session.getAttribute("trainerNo");
         if (trainerNo == null) {
             log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
             // 트레이너 번호가 없을 경우 에러 처리
             model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
-            return "/trainer/error"; 
-        }                        
+            return "/trainer/error";
+        }
         // 데이터 요청
         log.info("trainerNo : " + trainerNo);
         List<Orders> ordersList = ordersService.listByTrainer(trainerNo);
@@ -147,9 +147,18 @@ public class TrainerController {
         // 총 금액 계산
         int totalAmount = ordersList.stream().mapToInt(Orders::getPrice).sum();
 
+        // 승인된 주문 필터링 및 총 금액 계산
+        List<Orders> approvedOrdersList = ordersList.stream()
+                                                    .filter(order -> "approval".equals(order.getStatus()))
+                                                    .collect(Collectors.toList());
+
+        int totalApprovedAmount = approvedOrdersList.stream().mapToInt(Orders::getPrice).sum();
+
         // 모델 등록
         model.addAttribute("ordersList", ordersList);
         model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("approvedOrdersList", approvedOrdersList);
+        model.addAttribute("totalApprovedAmount", totalApprovedAmount);
 
         // 뷰 페이지 지정
         return "/trainer/deposit";

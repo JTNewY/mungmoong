@@ -192,6 +192,12 @@
     margin-top: 2rem;
 }
 
+.dog_img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 35px;
+}
+
 
 
 /* ------------------------------- */
@@ -258,7 +264,11 @@
 .user_info ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 15px;
+    column-gap: 2px;
+}
+
+.dog_label {
+    width: 70px;
 }
 
 li {

@@ -49,6 +49,7 @@
                         <td class="status">
                             <span th:switch="${orders.status}">
                                 <span th:case="'approval'">승인</span>
+                                <span th:case="'refund'">환불</span>
                                 <span th:case="*">승인 대기</span>
                             </span>
                         </td>
@@ -57,7 +58,7 @@
                     </th:block>
                         <tr>
                             <td colspan="3">총 금액</td>
-                            <td th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
+                            <td th:text="${#numbers.formatDecimal(totalApprovedAmount, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
                         </tr>
                 </tbody>
             </table>
