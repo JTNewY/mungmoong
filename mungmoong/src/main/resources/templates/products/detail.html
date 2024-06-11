@@ -24,6 +24,21 @@
     .tit{
       text-decoration: none;
     }
+   .button{
+    font-size: 1.1rem;
+    width: 110px;
+    font-weight: bold;
+    padding: 0.6em 2em;
+    background-color: #FFE0B2;
+    color: #DAA414;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+  }
+  .button:hover{
+    background-color: #F6C542 !important;
+    color: snow !important;
+}
   </style>
 </head>
 
@@ -133,7 +148,7 @@
                         <h3 class="text mb-0" style="color: aliceblue;">김조은 훈련사</h3>
                         <h2 class="mb-5"  th:text="${product.content}"></h2>
                     </div>
-                    <div class="row gx-4 gx-lg-5">
+                    <!-- <div class="row gx-4 gx-lg-5">
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                             <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
                             <h4><strong>검색순</strong></h4>
@@ -158,105 +173,17 @@
                             <h4><strong>질문</strong></h4>
                             <p class="text-faded mb-0">빠른 답변</p>
                         </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Portfolio-->
-            <section class="content-section" id="portfolio">
-                <div class="container px-4 px-lg-5">
-                    <div class="content-section-heading text-center">
-                        <h3 class="text-secondary mb-0">Trainer</h3>
-                        <h2 class="mb-5">Certificate</h2>
-                    </div>
-                    <div class="row gx-0">
-                        <div class="col-lg-3">
-                            <a class="portfolio-item" href="#!">
-                                <div class="caption">
-                                    <div class="caption-content">
-                                        <div class="tit">수료증1</div>
-                                        <p class="mb-0">한국펫교육훈련수료증</p>
-                                    </div>
-                                </div>
-                                <img class="img-fluid" src="/img/product/product01.jpg" alt="..." />
-                            </a>
-                        </div>
-                        <div class="col-lg-3">
-                            <a class="portfolio-item" href="#!">
-                                <div class="caption">
-                                    <div class="caption-content">
-                                      <div class="tit">수료증1</div>
-                                      <p class="mb-0">한국펫교육훈련수료증</p>
-                                    </div>
-                                </div>
-                                <img class="img-fluid" src="/img/product/product02.jpg" alt="..." />
-                            </a>
-                        </div>
-                        <div class="col-lg-3">
-                            <a class="portfolio-item" href="#!">
-                                <div class="caption">
-                                    <div class="caption-content">
-                                      <div class="tit">수료증1</div>
-                                      <p class="mb-0">한국펫교육훈련수료증</p>
-                                    </div>
-                                </div>
-                                <img class="img-fluid" src="/img/product/product03.jpg" alt="..." />
-                            </a>
-                        </div>
-                        <div class="col-lg-3">
-                            <a class="portfolio-item" href="#!">
-                                <div class="caption">
-                                    <div class="caption-content">
-                                      <div class="tit">수료증1</div>
-                                      <p class="mb-0">한국펫교육훈련수료증</p>
-                                    </div>
-                                </div>
-                                <img class="img-fluid" src="/img/product/product04.jpg" alt="..." />
-                            </a>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </section>
             </div>
             </div>
-            <!--훈련사 홍보상세-->
-            <!--훈련사 이력-->
-            <div th:each="trainer : ${trainerList}">
-              <h1 th:text="${trainer.no}">김조은 훈련사프로필</h1> 
-                <div>
-                  <h3>대표경력</h3>
-                  <p th:text="${trainer.mail}">한국애견협회우수승</p>
-                </div>
-              </div>
-            </div>
-        <div>
-          <div class="text-left-content">
-              <h1>경력</h1>
-              <div>
-                  <th:block th:each="career : ${careerList}">
-                      <p class="text-start" th:text="${career.name}"></p>
-                  </th:block>
-                </div>
-              </div>
-          <div class="text-left-content">
-              <h1>자격증</h1>
-              <div>
-                  <div class="d-flex justify-content-start mt-3 gap-5 mx-4">
-                      <th:block th:each="certificate : ${certificateList}">
-                          <div class="d-flex flex-column align-items-center mx-2">
-                              <img th:if="${certificate.imgFile != null}" th:src="|/file/img/${certificate.imgFile.no}|" alt="Certificate Image">
-                              <p th:text="${certificate.name}"></p>
-                          </div>
-                      </th:block>
-                  </div>
-                </div>
-              </div>
-              </div>
-              
-            <!--훈련사 이력end-->
+
             <!--댓글start-->
+          <div class="container">
             <div class="row">
               <div id="reply-input col-12 col-md-6">
-                <h3>댓글</h3>
+                <h1 class="d-flex justify-content-center">댓글</h1>
                 <div class="reply-input card shadow-sm" style="padding: 3%; width: 100%;">
                   <!-- CSRF 토큰 추가 -->
                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
@@ -265,9 +192,14 @@
                     <br>
                     <textarea name="content" id="reply-content" cols="60" rows="5"
                             placeholder="댓글을 작성해주세요."></textarea>
-                    <div class="btn-box">
-                        <button type="button" id="btn-reply-insert" class="btn-reply"
+                    <div class="btn-box d-flex justify-content-end" style="padding-top: 1em;">
+                        <button type="button " id="btn-reply-insert" class="btn-reply button"
                                 onclick="insertReply()">등록</button>
+                    </div>
+                </div>
+                                 <!-- 댓글 목록 -->
+                                <div id="reply-list">
+                                </div>
                                 <script> 
                                 //  let no = "[[${product.id}]]";
                                   var no1 = 1;
@@ -296,7 +228,7 @@
                                               console.log('댓글 등록 성공!');
                                               console.log(productsNo);
                                               console.log(writer);
-                                              console.log(content);
+                                              console.log($content.value); 
                                               // 응답 메시지 확인
                                               if (response === 'SUCCESS') {
                                                   replyList(); // 댓글 목록 갱신
@@ -304,6 +236,7 @@
                                                   $writer.value = '';
                                                   $content.value = '';
                                               }
+                                             
                                           },
                                           error: function (xhr, status, error) {
                                               console.log(error);
@@ -311,17 +244,12 @@
                                       });
                                   }
                                   </script>
-                    </div>
-                </div>
+             
             </div>
       </div>
-            <!-- 댓글 목록 -->
-            <div id="reply-list">
-
-            </div>
             <!--댓글end-->
+          </div>
 </section>
-
 
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js">
@@ -330,15 +258,14 @@
   </script>
 <script>
      
-      // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-  // 글번호
-
+    // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
+    let no = "[[${board.no}]]"      // 글번호
   // 댓글 목록 요청
   replyList();
 
 // 수정 화면 이동
 function moveUpdate() {
-  location.href = '/board/update?productsNo=' + productsNo;
+  location.href = '/board/update?no=' + no;
 }
 
 // 목록 화면 이동
@@ -348,21 +275,65 @@ function moveList() {
 
 
 // 댓글 목록
-function replyList(productId) {
-  var csrfToken = "[[${_csrf.token}]]";
-  // AJAX 비동기 요청
-  $.ajax({
-        url: '/products/reply/' + productId,
-        method: 'GET',
-        success: function (response) {
-            // 댓글 목록을 받아와서 화면에 출력하는 코드
-            console.log(response); // 받아온 댓글 목록을 콘솔에 출력 (나중에 화면에 출력하는 방법으로 수정)
-        },
-        error: function (xhr, status, error) {
-            console.log(error);
+function replyList() {
+             // AJAX 비동기 요청
+             let request = new XMLHttpRequest()
+
+            // 요청 세팅
+            request.open('GET', '/products/reply/' + no)
+            request.send()
+
+            request.onreadystatechange = function() {
+
+                // 요청 성공 시,
+                if( request.readyState == request.DONE && request.status == 200 ) {
+                    // 댓글 목록
+                    let response = request.responseText
+
+                    // ⭐ 서버에서 렌더링한 HTML로 갱신(SSR)
+                   let data = response     // (html)
+
+                    // ⭐ JSON 데이터를 전달받아 HTML 로 변환 (CSR)
+                    // let replyListData = JSON.parse(response) // JSON -> array
+                    // let data = ``
+                    // for(let i = 0 ; i < replyListData.length ; i++ ) {
+                    //     data += `<div class="reply-box">`
+                    //     data += `<div class="inner">`
+                    //     let writer = replyListData[i].writer        // 작성자
+                    //     let content = replyListData[i].content      // 댓글내용
+                    //     let date = replyListData[i].regDate
+                        
+                    //     data += `<div class="top">`
+                    //     data += `<span class="reply-writer">${writer}</span>`
+                    //     data += `<span class="reply-date">${date}</span>`
+                    //     data += `<div class="item">`
+                    //     data += `<button class="btn-reply-update">수정</button>`
+                    //     data += `<button class="btn-reply-delete">삭제</button>`
+                    //     data += `</div>`
+                    //     data += `</div>`
+
+                    //     data += `<p class="reply-content">${content}</p>`
+                    //     data += `<button class="btn-reply-answer">답글</button>`
+                    //     data += `</div>`
+                    //     data += `</div>`
+                    // }
+
+                    let replyList = document.getElementById('reply-list')
+                    replyList.innerHTML = data
+
+                    // 이벤트 등록    
+                    event()
+                }
+            }
+
         }
-    });
-}
+
+// 페이지 로드 시에 댓글 목록을 가져와서 출력
+$(document).ready(function() {
+    replyList();
+});
+    request.send()
+
 
 // 댓글 삭제 요청
 function deleteReply(no) {
@@ -371,7 +342,7 @@ function deleteReply(no) {
 
   // 삭제 요청
   let request = new XMLHttpRequest();
-  request.open('DELETE', '/reply/' + productsNo);
+  request.open('DELETE', '/products/reply/' + no);
   request.send();
 
   request.onreadystatechange = function () {
