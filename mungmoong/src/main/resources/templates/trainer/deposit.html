@@ -32,48 +32,35 @@
                     </th:block>
                 </div>
             </nav>
-            <!-- 
-                결제 테이블에서 지급 여부가 true이면 승인 상태로 변경
-                신청인 id는, 결제와 예약 (예약번호) 조인해서 가져올 예정
-             -->
             <table class="table table-bordered">
                 <thead class="thead-light">
                     <tr class="first_tr">
-                        <th>신청인Id</th>
-                        <th>예약 번호</th>
+                        <th>예약자 id</th>
+                        <th>훈련</th>
                         <th>승인 현황</th>
                         <th>금액</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <th:block th:each="orders : ${ordersList}">
                     <tr>
-                        <td>김훈련</td>
-                        <td>1</td>
-                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
-                        <td>210,000</td>
+                        <td th:text="${orders.userId}"></td>
+                        <td th:text="${orders.title}"></td>
+                        <td class="status">
+                            <span th:switch="${orders.status}">
+                                <span th:case="'approval'">승인</span>
+                                <span th:case="*">승인 대기</span>
+                            </span>
+                        </td>
+                        <td th:text="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
                     </tr>
-                    <tr>
-                        <td>김훈련</td>
-                        <td>2</td>
-                        <td>승인&nbsp;&nbsp;&nbsp;&nbsp;취소</td>
-                        <td>710,350</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">총금액</td>
-                        <td>67,3000</td>
-                    </tr>
+                    </th:block>
+                        <tr>
+                            <td colspan="3">총 금액</td>
+                            <td th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
+                        </tr>
                 </tbody>
             </table>
-            <!-- 페이징 버튼 영역 -->
-            <div class="paging">
-                <ul>
-                    <li><a href="#">&lt&lt;</a></li>
-                    <li><a href="#">&lt;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">&gt;</a></li>
-                    <li><a href="#">&gt&gt;</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </body>
