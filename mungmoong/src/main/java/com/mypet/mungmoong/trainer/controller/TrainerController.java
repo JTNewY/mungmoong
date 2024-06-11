@@ -91,9 +91,6 @@ public class TrainerController {
     @Autowired
     private PetService petService;
 
-    @Autowired
-    private UsersService usersService;
-
 
     /**
      * Orders 목록
@@ -123,6 +120,42 @@ public class TrainerController {
         // 뷰 페이지 지정
         return "/trainer/orders";
     }
+
+
+    /**
+     * 입금 내역 목록
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/deposit")
+    public String deposit(Model model
+                            ,HttpSession session) throws Exception {
+        log.info("[GET] - /trainer/orders");
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if (trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            // 트레이너 번호가 없을 경우 에러 처리
+            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "/trainer/error"; 
+        }                        
+        // 데이터 요청
+        log.info("trainerNo : " + trainerNo);
+        List<Orders> ordersList = ordersService.listByTrainer(trainerNo);
+
+        // 총 금액 계산
+        int totalAmount = ordersList.stream().mapToInt(Orders::getPrice).sum();
+
+        // 모델 등록
+        model.addAttribute("ordersList", ordersList);
+        model.addAttribute("totalAmount", totalAmount);
+
+        // 뷰 페이지 지정
+        return "/trainer/deposit";
+    }
+
+
 
     /**
      * Meaning 수정 작업
@@ -190,35 +223,6 @@ public class TrainerController {
     }
 
 
-    // 스케쥴 조회
-    @GetMapping("/schedule")
-    public String getschedule(HttpSession session, Model model) throws Exception {
-        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
-        if (trainerNo == null) {
-            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
-            // 트레이너 번호가 없을 경우 에러 처리
-            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
-            return "/trainer/error"; 
-        }
-        List<Schedule> scheduleList = scheduleService.select(trainerNo);
-        model.addAttribute("scheduleList", scheduleList);
-        return "/trainer/schedule";
-    }
-    
-    // 스케쥴 저장
-    @PostMapping("/schedule")
-    public String saveSchedule(Model model, HttpSession session) throws Exception {
-        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
-        if (trainerNo == null) {
-            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
-            return "error"; 
-        }
-        List<Schedule> scheduleList = scheduleService.select(trainerNo);
-        for (Schedule date : scheduleList) {
-            
-        }
-        return "redirect:/trainer/schedule";
-    }
 
 
     @PostMapping("/join_data")

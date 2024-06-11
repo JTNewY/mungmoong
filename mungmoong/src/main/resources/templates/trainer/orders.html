@@ -39,7 +39,7 @@
                             <th>일정</th>
                             <th>진행 상태</th>
                             <th>결제 상태</th>
-                            <th>가격</th>
+                            <!-- <th>가격</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -65,6 +65,14 @@
                                                 <button type="submit" class="btn button_sta">완료</button>
                                             </form>
                                         </th:block>
+                                        <th:block th:if="${orders.meaning == 2}">
+                                            <form action="/trainer/orders" method="post">
+                                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                                <input type="hidden" name="orderNo" th:value="${orders.no}">
+                                                <input type="hidden" name="meaning" value="2">
+                                                <button type="submit" class="btn button_sta" disabled>완료</button>
+                                            </form>
+                                        </th:block>
                                     </div>
                                     
                                 </td>
@@ -77,7 +85,7 @@
                                         <span th:case="*">알 수 없음</span>
                                     </span>
                                 </td>
-                                <td th:text="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
+                                <!-- <td th:text="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'"></td> -->
 
 
                             </tr>
