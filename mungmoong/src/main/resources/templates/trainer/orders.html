@@ -21,9 +21,7 @@
                         <li class="nav-item">
                             <a class="tab-button" href="/trainer/schedule">스케쥴 관리</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="tab-button" href="/trainer/status">내 작업현황</a>
-                        </li>
+                         
                         <li class="nav-item">
                             <a class="tab-button" href="/trainer/deposit">입금 내역서</a>
                         </li>
@@ -39,35 +37,64 @@
                         <tr class="first_tr">
                             <th>예약자 id</th>
                             <th>일정</th>
-                            <th>상태</th>
-                            <th>가격</th>
+                            <th>진행 상태</th>
+                            <th>결제 상태</th>
+                            <!-- <th>가격</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <th:block th:each="orders : ${ordersList}">
                             <tr>
-                                <td th:text="${orders.userId}"></td>
+                                <td><a th:href="|/trainer/orders_details?no=${orders.no}|" th:text="${orders.userId}"></a></td>
                                 <td th:text="${#dates.format(orders.resDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                <td class="status" th:text="${orders.status}"></td>
-                                <td th:text="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
+                                <td>
+                                    <div>
+                                        <th:block th:if="${orders.meaning == 0}">
+                                            <form action="/trainer/orders" method="post">
+                                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                                <input type="hidden" name="orderNo" th:value="${orders.no}">
+                                                <input type="hidden" name="meaning" value="1">
+                                                <button type="submit" class="btn button_sta">진행</button>
+                                            </form>
+                                        </th:block>
+                                        <th:block th:if="${orders.meaning == 1}">
+                                            <form action="/trainer/orders" method="post">
+                                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                                <input type="hidden" name="orderNo" th:value="${orders.no}">
+                                                <input type="hidden" name="meaning" value="2">
+                                                <button type="submit" class="btn button_sta">완료</button>
+                                            </form>
+                                        </th:block>
+                                        <th:block th:if="${orders.meaning == 2}">
+                                            <form action="/trainer/orders" method="post">
+                                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                                <input type="hidden" name="orderNo" th:value="${orders.no}">
+                                                <input type="hidden" name="meaning" value="2">
+                                                <button type="submit" class="btn button_sta" disabled>완료</button>
+                                            </form>
+                                        </th:block>
+                                    </div>
+                                    
+                                </td>
+                                
+                                <td class="status">
+                                    <span th:switch="${orders.status}">
+                                        <span th:case="'pending'">결제 대기</span>
+                                        <span th:case="'paid'">결제 완료</span>
+                                        <span th:case="'refund'">환불</span>
+                                        <span th:case="*">알 수 없음</span>
+                                    </span>
+                                </td>
+                                <!-- <td th:text="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'"></td> -->
 
 
                             </tr>
                         </th:block>
                     </tbody>
                 </table>
-                <!-- 페이징 버튼 영역 -->
-                <div class="paging">
-                    <ul>
-                        <li><a href="#">&lt&lt;</a></li>
-                        <li><a href="#">&lt;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">&gt;</a></li>
-                        <li><a href="#">&gt&gt;</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>

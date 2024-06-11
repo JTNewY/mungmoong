@@ -39,55 +39,56 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 5%;">no</th>
-                        <th scope="col" style="width: 10%;">회원 ID</th>
-                        <th scope="col" style="width: 10%;">닉네임</th>
-                        <th scope="col" style="width: 10%;">이름</th>
-                        <th scope="col" style="width: 10%;">예약날짜</th>
-                        <th scope="col" style="width: 10%;">훈련사</th>
-                        <th scope="col" style="width: 10%;">예약비용</th>
-                        <th scope="col">승인상태</th>
-                        <th scope="col" style="width: 10%;">수정일</th>
+                        <th scope="col">번호</th>
+                        <th scope="col">상품 아이디</th>
+                        <th scope="col">회원 아이디</th>
+                        <th scope="col">펫번호</th>
+                        <th scope="col">트레이너 번호</th>
+                        <th scope="col">승인 상태</th>
+                        <th scope="col">예약일</th>
+                        <th scope="col">상태</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>joeun</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">2024-05-24</td>
-                        <td class="text-truncate">더조은 훈련사</td>
-                        <td class="text-truncate">&#8361;200,000</td>
+                <th:block th:each="orders : ${ordersList}">
+                    <tr class="first_tr">
+                        <td class="text-truncate" th:text="${orders.no}"></td>
+                        <td class="text-truncate" th:text="${orders.productId}"></td>
+                        <td class="text-truncate" th:text="${orders.userId}"></td>
+                        <td class="text-truncate" th:text="${orders.petNo}"></td>
+                        <td class="text-truncate" th:text="${orders.trainerNo}"></td>
                         <td class="text-truncate">
+                            <form action="/admin/orders_status">
+                                <div class="sm-bottom-btn">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
+                                    <button type="submit"
+                                        class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">환불처리</button>
+                                </div>
+                            </form>
                             <div class="sm-bottom-btn">
-                                <button type="button"
-                                    class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
-                                <button type="button"
-                                    class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">취소</button>
+                                <th:block th:if="${trainer.user.role == 1 }">
+                                    <form action="/admin/admin_trainer_role" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                        <input type="hidden" name="userId" th:value="${trainer.userId}">
+                                        <input type="hidden" name="role" value="2">
+                                        <button type="submit" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
+                                    </form>
+                                </th:block>
+                                <th:block th:if="${trainer.user.role == 2}">
+                                    <form action="/admin/admin_trainer_role" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                        <input type="hidden" name="userId" th:value="${trainer.userId}">
+                                        <input type="hidden" name="role" value="1">
+                                        <button type="submit"
+                                        class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
+                                    </form>
+                                </th:block>
                             </div>
                         </td>
-                        <td class="text-truncate">2024-05-24</td>
+                        <td class="text-truncate" th:text="${orders.resDate}"></td>
+                        <td class="text-truncate" th:text="${orders.status}"></td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>joeun</td>
-                        <td class="text-truncate">조은데이</td>
-                        <td class="text-truncate">김조은</td>
-                        <td class="text-truncate">2024-05-24</td>
-                        <td class="text-truncate">더조은 훈련사</td>
-                        <td class="text-truncate">&#8361;200,000</td>
-                        <td class="text-truncate">
-                            <div class="sm-bottom-btn">
-                                <button type="button"
-                                    class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
-                                <button type="button"
-                                    class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">취소</button>
-                            </div>
-                        </td>
-                        <td class="text-truncate">2024-05-24</td>
-                    </tr>
-                </tbody>
+                </th:block>
             </table>
             <!-- 페이징 버튼 영역 -->
             <div class="paging">
@@ -98,11 +99,6 @@
                     <li><a href="#">&gt;</a></li>
                     <li><a href="#">&gt&gt;</a></li>
                 </ul>
-            </div>
-            <!-- 하단 버튼 영역 -->
-            <div class="bottom-btn">
-                <button type="button" class="btn btn-primary btn-lg listBtn">목록</button>
-                <button type="button" class="btn btn-secondary btn-lg updateBtn">수정</button>
             </div>
         </div>
     </div>

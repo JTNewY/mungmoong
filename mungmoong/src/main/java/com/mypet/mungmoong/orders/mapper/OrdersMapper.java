@@ -13,6 +13,9 @@ public interface OrdersMapper {
     public List<Orders> list() throws Exception;
 
     public List<Orders> listByTrainer(int trainerNo) throws Exception;
+
+    // [은아] - 상태 수정
+    public int updateMeaning(int no, int meaning) throws Exception;
     
     public Orders select(int no) throws Exception;
     

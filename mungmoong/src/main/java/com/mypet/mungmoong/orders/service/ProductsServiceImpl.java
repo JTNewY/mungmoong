@@ -107,6 +107,30 @@ public class ProductsServiceImpl implements ProductsService {
 
     }
 
+    @Override
+    public int adminInsert(Products products) throws Exception {
+        int result = productsMapper.adminInsert(products);
+        return result;
+    }
+
+
+    @Override
+    public int adminUpdate(Products products) throws Exception {
+        int result = productsMapper.adminUpdate(products);
+        return result;
+    }
+
+    @Override
+    public int adminDelete(String id) throws Exception {
+
+        int result = productsMapper.adminDelete(id);
+
+        return result;
+
+    }
+
+    
+
         
 
     }

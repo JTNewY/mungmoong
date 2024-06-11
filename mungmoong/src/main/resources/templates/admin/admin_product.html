@@ -52,9 +52,9 @@
                 <th:block th:each="products : ${productsList}">
                     <tr>
                         <td th:text="${products.id}"></td>
-                        <td th:text="${products.name}"></td>
+                        <td><a th:href="| /admin/admin_product_read?id=${products.id} |" th:text="${products.name}"></a></td>
                         <td th:text="${products.trainerNo}"></td>
-                        <td th:text="${products.description}">강아지 기본기 훈련</td>
+                        <td th:text="${products.description}"></td>
                         <td th:text="${products.content}"></td>
                         <td th:text="${products.price}"></td>
                     </tr>

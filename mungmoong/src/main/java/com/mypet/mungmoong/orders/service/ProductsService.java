@@ -12,6 +12,8 @@ public interface ProductsService {
 
     public int insert(Products products) throws Exception;
 
+    public int adminInsert(Products products) throws Exception;
+
     public int update(Products prodcuts) throws Exception;
 
     public int delete(String deleteIdList) throws Exception;
@@ -20,4 +22,8 @@ public interface ProductsService {
     public void updloadThumbnail(Products products) throws Exception;
 
     public List<Products> adminList() throws Exception;
+
+    public int adminUpdate(Products products) throws Exception;
+
+    public int adminDelete(String id) throws Exception;
 }

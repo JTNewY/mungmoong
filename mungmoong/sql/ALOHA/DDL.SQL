@@ -1,4 +1,4 @@
--- Active: 1713353106333@@127.0.0.1@3306@mypet
+
 -- 펫테이블-------------------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS pet;
@@ -6,16 +6,16 @@ DROP TABLE IF EXISTS pet;
 
 CREATE TABLE `pet` (
     `pet_no` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+    `petname` VARCHAR(50) NOT NULL,
     `age` INT NOT NULL,
     `petgender` INT NOT NULL,
     `character` VARCHAR(100) NULL,
     `type` VARCHAR(50) NULL,
-     `user_id` VARCHAR(100) NOT NULL,
+   `special_notes` VARCHAR(255) NULL,
+   `user_id` VARCHAR(100) NOT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );
-
 
 -- 이미지파일테이블-------------------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS reply;
 
 CREATE TABLE `reply` (
     `no` INT PRIMARY KEY AUTO_INCREMENT,
-    `board_no2` INT NOT NULL,
+    `board_no` INT NOT NULL,
     `user_id` VARCHAR(100) NOT NULL,
     `parent_no` VARCHAR(100) NULL,
     `writer` VARCHAR(100) NULL,
@@ -188,7 +188,7 @@ CREATE TABLE `users` (
     `enabled` INT NULL,
     `role` INT NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
 
@@ -244,10 +244,11 @@ CREATE TABLE `orders` (
 	`resDate` TIMESTAMP NOT NULL,                        -- 예약날짜
 	`MEMO` VARCHAR(255) NULL,                            -- 요청사항
 	`TITLE` VARCHAR(255) NULL,                           -- 예약제목 - 상품명을 넣고
-	`PRICE` INT NOT NULL DEFAULT 0,                     -- 예약금액
-	`STATUS` VARCHAR(20) NOT NULL DEFAULT 'pending' COMMENT '결제대기, 결제완료, 승인중,훈련완료,예약취소',
+	`PRICE` INT NOT NULL DEFAULT 0,                      -- 예약금액
+	`STATUS` VARCHAR(20) NOT NULL DEFAULT 'pending' COMMENT '결제대기, 결제완료, 환불, 승인' ,
 	`reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+    `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    `meaning` INT NOT NULL DEFAULT 0                      -- 훈련 진행 상황 
 );
 
 -- 주문상세테이블-------------------------------------------------------------------------------
@@ -354,7 +355,7 @@ CREATE TABLE `SHIPMENTS` (
 
 -- QnA 테이블 --------------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `SHIPMENTS`;
+DROP TABLE IF EXISTS `QnA`;
 CREATE TABLE `QnA` (
 	`qna_no`	INT	NOT NULL,
 	`qna_title`	VARCHAR(100)	NOT NULL,

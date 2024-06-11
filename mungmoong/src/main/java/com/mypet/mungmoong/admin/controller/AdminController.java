@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
+import com.mypet.mungmoong.orders.dto.Orders;
 import com.mypet.mungmoong.orders.dto.Products;
+import com.mypet.mungmoong.orders.service.OrdersService;
 import com.mypet.mungmoong.orders.service.ProductsService;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
-import com.mypet.mungmoong.reserve.dto.Reserve;
-import com.mypet.mungmoong.reserve.service.ReserveService;
 import com.mypet.mungmoong.trainer.dto.Option;
 import com.mypet.mungmoong.trainer.dto.Page;
 import com.mypet.mungmoong.trainer.dto.Trainer;
@@ -28,7 +28,6 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -50,7 +49,7 @@ public class AdminController {
     private BoardService boardService;
 
     @Autowired
-    private ReserveService reserveService;
+    private OrdersService ordersService;
 
     @Autowired
     private ProductsService productsService;
@@ -307,7 +306,12 @@ public class AdminController {
         return "redirect:/admin/admin_board_read_update?no=" + no + "&error";
     }
 
-
+    /**
+     * 관리자 게시판 삭제 처리
+     * @param no
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/BoardDelete")
     public String BoardDelete(@RequestParam("no") int no) throws Exception {
         log.info("no : " + no);
@@ -321,19 +325,41 @@ public class AdminController {
     }
     
     
-
+    /**
+     * 관리자 예약관리 화면
+     * @param model
+     * @return
+     * @throws Exception
+     */
     // 사용자별 총 예약 금액을 보여주는 관리자 예약 목록
     @GetMapping("/admin_reserve")
     public String ReserveList(Model model) throws Exception {
 
-        List<Reserve> reserveList = reserveService.listByUser();
+        List<Orders> ordersList = ordersService.list();
 
-        model.addAttribute("reserveList", reserveList);
+        model.addAttribute("ordersList", ordersList);
         
         return "/admin/admin_reserve";
     }
 
 
+    @GetMapping("/admin_reserve_pay")
+    public String ReservePayList(Model model) throws Exception {
+
+        List<Orders> ordersList = ordersService.list();
+
+        model.addAttribute("ordersList", ordersList);
+        
+        return "/admin/admin_reserve_pay";
+    }
+
+    /**
+     * 관리자 훈련사 권한 승인 처리
+     * @param user
+     * @param trainer
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/admin_trainer_role")
     public String TrainerRole(Users user, Trainer trainer) throws Exception {
 
@@ -356,7 +382,12 @@ public class AdminController {
     //     return entity;
     // }
     
-
+    /**
+     * 훈련사 상품 등록 화면
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/admin_product")
     public String AdminProduct(Model model) throws Exception {
 
@@ -374,10 +405,16 @@ public class AdminController {
 
     }
 
+    /**
+     * 훈련사 상품 등록 처리
+     * @param products
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/admin_product_insert")
     public String AdminProductInsertPro(Products products) throws Exception {
 
-        int result = productsService.insert(products);
+        int result = productsService.adminInsert(products);
 
         if ( result > 0 ) {
             return "redirect:/admin/admin_product";
@@ -385,9 +422,81 @@ public class AdminController {
         
         return "redirect:/admin/admin_product_insert?&error";
     }
+
+    /**
+     * 관리자 상품정보 상세 화면
+     * @param id
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/admin_product_read")
+    public String AdminProductRead(@RequestParam("id") String id, Model model) throws Exception {
+
+        Products products = productsService.select(id);
+
+        model.addAttribute("products", products);
+
+        return "/admin/admin_product_read";
+
+    }
+
+
+    /**
+     * 관리자 상품정보 수정 화면
+     * @param id
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/admin_product_update")
+    public String AdminProductUpdate(@RequestParam("id") String id, Model model) throws Exception {
+
+        Products products = productsService.select(id);
+
+        model.addAttribute("products", products);
+
+        return "/admin/admin_product_update";
+
+    }
+
+
+    /**
+     * 관리사 상품정보 수정 처리 화면
+     * @param entity
+     * @return
+     * @throws Exception 
+     */
+    @PostMapping("/admin_product_update")
+    public String AdminProductUpdatePro(@RequestParam("id") String id , Products products) throws Exception {
+
+        int result = productsService.adminUpdate(products);
+
+        if ( result > 0 ) {
+            return "redirect:/admin/admin_product";
+        }
+        
+        return "redirect:/admin/admin_ product_update?id" + id + "&error";
+    }
     
     
-    
+    @PostMapping("/admin_product_delete")
+    public String ProductsDelete(@RequestParam("id") String id) throws Exception {
+
+        int result = productsService.adminDelete(id);
+
+        if( result > 0 ) {
+            return "redirect:/admin/admin_product";
+        }
+
+        
+        return "redirect:/admin/admin_product_update?=id" + id + "&error";
+
+
+        
+    }
+        
+
     
     
 

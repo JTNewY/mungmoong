@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.bouncycastle.jcajce.provider.asymmetric.GM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mypet.mungmoong.main.model.Event;
 import com.mypet.mungmoong.orders.dto.Orders;
 import com.mypet.mungmoong.orders.service.OrdersService;
+import com.mypet.mungmoong.pet.dto.Pet;
+import com.mypet.mungmoong.pet.service.PetService;
 import com.mypet.mungmoong.trainer.dto.Career;
 import com.mypet.mungmoong.trainer.dto.Certificate;
 import com.mypet.mungmoong.trainer.dto.Files;
@@ -35,6 +36,7 @@ import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -86,6 +88,9 @@ public class TrainerController {
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private PetService petService;
+
 
     /**
      * Orders 목록
@@ -106,6 +111,7 @@ public class TrainerController {
             return "/trainer/error"; 
         }                        
         // 데이터 요청
+        log.info("trainerNo : " + trainerNo);
         List<Orders> ordersList = ordersService.listByTrainer(trainerNo);
 
         // 모델 등록
@@ -115,9 +121,83 @@ public class TrainerController {
         return "/trainer/orders";
     }
 
-    @GetMapping(value = "/select")
-    public String ordersSelect(Model model, int no) {
-        return new String();
+
+    /**
+     * 입금 내역 목록
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/deposit")
+    public String deposit(Model model
+                            ,HttpSession session) throws Exception {
+        log.info("[GET] - /trainer/orders");
+        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+        if (trainerNo == null) {
+            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+            // 트레이너 번호가 없을 경우 에러 처리
+            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
+            return "/trainer/error"; 
+        }                        
+        // 데이터 요청
+        log.info("trainerNo : " + trainerNo);
+        List<Orders> ordersList = ordersService.listByTrainer(trainerNo);
+
+        // 총 금액 계산
+        int totalAmount = ordersList.stream().mapToInt(Orders::getPrice).sum();
+
+        // 모델 등록
+        model.addAttribute("ordersList", ordersList);
+        model.addAttribute("totalAmount", totalAmount);
+
+        // 뷰 페이지 지정
+        return "/trainer/deposit";
+    }
+
+
+
+    /**
+     * Meaning 수정 작업
+     * @param orderId
+     * @param meaning
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/orders")
+    public String updateOrderMeaning(@RequestParam("orderNo") int orderNo, @RequestParam("meaning") int meaning) throws Exception {
+        ordersService.updateMeaning(orderNo, meaning);
+        return "redirect:/trainer/orders";
+    }
+
+    /**
+     * Orders 조회
+     * @param no
+     * @param model
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/orders_details")
+    public String ordersDetails(@RequestParam("no") int no,
+                                Model model,
+                                Files file) throws Exception {
+        Orders orders = ordersService.select(no);
+        int petNo =  orders.getPetNo();
+        log.info("petNo :  " + petNo);
+        Pet pet = petService.findPetById(petNo);
+        log.info(":::::  pet  ::::::" + pet.toString());
+        log.info(":::: orders :::::" + orders.toString());
+
+        // 파일 요청
+        
+
+        // 모델 등록
+        model.addAttribute("orders", orders);
+        model.addAttribute("pet", pet);
+
+        // 뷰페이지 지정
+        return "/trainer/orders_details";
     }
     
     
@@ -143,35 +223,6 @@ public class TrainerController {
     }
 
 
-    // 스케쥴 조회
-    @GetMapping("/schedule")
-    public String getschedule(HttpSession session, Model model) throws Exception {
-        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
-        if (trainerNo == null) {
-            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
-            // 트레이너 번호가 없을 경우 에러 처리
-            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
-            return "/trainer/error"; 
-        }
-        List<Schedule> scheduleList = scheduleService.select(trainerNo);
-        model.addAttribute("scheduleList", scheduleList);
-        return "/trainer/schedule";
-    }
-    
-    // 스케쥴 저장
-    @PostMapping("/schedule")
-    public String saveSchedule(Model model, HttpSession session) throws Exception {
-        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
-        if (trainerNo == null) {
-            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
-            return "error"; 
-        }
-        List<Schedule> scheduleList = scheduleService.select(trainerNo);
-        for (Schedule date : scheduleList) {
-            
-        }
-        return "redirect:/trainer/schedule";
-    }
 
 
     @PostMapping("/join_data")

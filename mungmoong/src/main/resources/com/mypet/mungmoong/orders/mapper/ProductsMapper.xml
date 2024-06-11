@@ -70,4 +70,23 @@
         ORDER BY created_at DESC
     </select>
 
+    <insert id="adminInsert">
+        INSERT INTO products ( id, name, trainer_no, description, content, price)
+        VALUES ( #{id}, #{name}, #{trainerNo}, #{description}, #{content}, #{price} )
+    </insert>
+
+    <update id="adminUpdate">
+        UPDATE products
+           SET name = #{name}
+              ,description = #{description}
+              ,content = #{content}
+              ,updated_at = now()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="adminDelete">
+        DELETE FROM products
+        WHERE id = #{id}
+    </delete>
+
 </mapper>

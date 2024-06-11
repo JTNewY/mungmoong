@@ -43,7 +43,7 @@
                     <td>
                       <select name="petNo" id="petNo" class="form-control">
                         <th:block th:each="pet : ${petList}">
-                          <option th:value="${pet.petNo}" th:text="${pet.name}"></option>
+                          <option th:value="${pet.petNo}" th:text="${pet.petname}"></option>
                         </th:block>
                       </select>
                     </td>

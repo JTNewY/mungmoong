@@ -23,5 +23,13 @@ public interface ProductsMapper {
     public void updloadThumbnail(Products products) throws Exception;
 
     public List<Products> adminList() throws Exception;
+
+    public int adminInsert(Products products) throws Exception;
+    
+    public int adminUpdate(Products products) throws Exception;
+
+    public int adminDelete(String id) throws Exception;
+
+
     
 }

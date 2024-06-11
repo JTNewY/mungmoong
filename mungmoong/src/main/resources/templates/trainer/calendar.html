@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/trainer_layout}">
+    <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스케쥴 관리</title>
+    <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+</head>
+<body class="body" layout:fragment="content">
+    <div class="container">
+        <div class="inner">
+            <div class="title-container">
+                <h1 class="title">스케쥴 관리</h1>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="tab-button" th:href="|/trainer/info?userId=${session.user.userId}|">훈련사 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button active" href="/trainer/schedule">스케쥴 관리</a>
+                        </li>
+                         
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/deposit">입금 내역서</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/trainer/orders">예약</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="calendar-container">
+                <div class="calendar">
+                    <div class="header">
+                        <button id="prev-month">❮</button>
+                        <span id="month-year"></span>
+                        <button id="next-month">❯</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>일</th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                                <th>목</th>
+                                <th>금</th>
+                                <th>토</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendar-body">
+                            <!-- Calendar dates will be dynamically generated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="div_msg">
+                <p class="msg">휴무일을 선택해주세요.</p>
+            </div>
+            <div class="text-end">
+                <button type="button" class="btn-custom2" id="save-dates">저장</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+
+        let currentYear = year;
+        let currentMonth = month; 
+
+        let clickedDateList = new Array();
+
+        const monthNames = [
+            "1월", "2월", "3월", "4월", "5월", "6월",
+            "7월", "8월", "9월", "10월", "11월", "12월"
+        ];
+
+        const holidays = {
+            "1-1": "신정",
+            "3-1": "삼일절",
+            "5-5": "어린이날",
+            "6-6": "현충일",
+            "8-15": "광복절",
+            "10-3": "개천절",
+            "10-9": "한글날",
+            "12-25": "성탄절"
+        };
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            changeMonth(-1);
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            changeMonth(1);
+        });
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateCalendar();
+        }
+
+        function updateCalendar() {
+            const calendarBody = document.getElementById('calendar-body');
+            calendarBody.innerHTML = '';
+            document.getElementById('month-year').innerText = `${currentYear}년 ${monthNames[currentMonth]}`;
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+                    if (i === 0 && j < firstDay) {
+                        cell.innerHTML = '';
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        const dateKey = `${currentMonth + 1}-${date}`;
+                        cell.innerHTML = date;
+                        cell.classList.add('clickable');
+                        if (holidays[dateKey]) {
+                            cell.classList.add('holiday');
+                        }
+                        cell.addEventListener('click', () => {
+                            // let clickedDay = cell.textContent;
+                            // let clickedDate = `${currentYear}-${currentMonth + 1}-${clickedDay}`;
+
+                            // if (cell.classList.contains('clicked')) {
+                            //     cell.classList.remove('clicked');
+                            //     const index = clickedDateList.indexOf(clickedDate);
+                            //     if (index !== -1) {
+                            //         clickedDateList.splice(index, 1);
+                            //     }
+                            // } else {
+                            //     cell.classList.add('clicked');
+                            //     clickedDateList.push(clickedDate);
+                            // }
+                        });
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+                calendarBody.appendChild(row);
+            }
+        }
+
+        document.getElementById('save-dates').addEventListener('click', () => {
+            let csrfToken = "[[${_csrf.token}]]";
+            let url = "/trainer/schedule";         // 요청 경로      //   /replys
+            
+            $.ajax({
+                type: 'POST',                                       // 요청 메소드 - GET, POST, PUT, DELETE
+                url: url,                                           // 요청 URL
+                data: JSON.stringify({ dates: clickedDateList }),   // 요청 데이터
+                contentType: 'application/json',                    // 요청 데이터 타입
+                dataType: 'html',                                   // 응답 데이터 타입
+                beforeSend: function(xhr) {
+                    // 💍 CSRF 토큰을 요청 헤더에 추가
+                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                },
+                // 요청 성공 
+                success: function(response, status) {
+                    // response : 응답 데이터
+                    // status   : 응답 상태
+                    let result = JSON.parse(response);
+                    // 추가 작업...
+                    alert('날짜가 저장되었습니다.');
+                },
+                // 에러
+                error: function(xhr, status) {
+                    // xhr      : XMLHttpRequest 객체
+                    // status   : 응답 상태
+                    alert('에러 발생');
+                }
+            });
+        });
+
+        updateCalendar();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let $dateButtons = document.getElementsByClassName('clickable');
+
+            for (let i = 0; i < $dateButtons.length; i++) {
+                const btn = $dateButtons[i];
+                // 날짜 클릭 이벤트
+                btn.addEventListener('click', () => {
+                    let clickedDay = btn.textContent;
+                    let month = currentMonth + 1;
+                    let day = parseInt(clickedDay);
+
+                    // 월과 일을 두 자리 숫자로 변환
+                    let formattedMonth = month < 10 ? '0' + month : month;
+                    let formattedDay = day < 10 ? '0' + day : day;
+
+                    let clickedDate = `${currentYear}-${formattedMonth}-${formattedDay}`;
+
+                    if( btn.classList.contains('clicked') ) {
+                        btn.classList.remove('clicked');
+                        // 선택한 날짜 배열에서 제거
+                        const index = clickedDateList.indexOf(clickedDate);
+                        if (index !== -1) {
+                            clickedDateList.splice(index, 1);
+                        }
+                    } else {
+                        btn.classList.add('clicked');
+                        // 선택한 날짜 배열에 추가
+                        clickedDateList.push(clickedDate);
+                    }
+                    alert(clickedDateList);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -68,19 +68,28 @@ public class CertificateServiceImpl implements CertificateService {
         return certificateList;
     }
 
+    // @Override
+    // public int insert(Certificate certificate) throws Exception {
+    //     int result = certificateMapper.insert(certificate);
+    //     log.info("새로 생성된 certificate : " + certificate);
+
+    //     if( result > 0 ) {
+    //         Files uploadFile = certificate.getImgFile();
+    //         uploadFile.setParentNo(certificate.getNo());
+    //         log.info("::::::::::::::::: 업로드할 자격증 이미지 :::::::::::::::::::::");
+    //         log.info(uploadFile.toString());
+    //         boolean uploadResult = fileService.upload(uploadFile); 
+    //         log.info("업로드 결과 : " + uploadResult);
+    //     }
+    //     return result;
+
+    // }
+
+
     @Override
     public int insert(Certificate certificate) throws Exception {
         int result = certificateMapper.insert(certificate);
-        log.info("새로 생성된 certificate : " + certificate);
 
-        if( result > 0 ) {
-            Files uploadFile = certificate.getImgFile();
-            uploadFile.setParentNo(certificate.getNo());
-            log.info("::::::::::::::::: 업로드할 자격증 이미지 :::::::::::::::::::::");
-            log.info(uploadFile.toString());
-            boolean uploadResult = fileService.upload(uploadFile); 
-            log.info("업로드 결과 : " + uploadResult);
-        }
         return result;
 
     }

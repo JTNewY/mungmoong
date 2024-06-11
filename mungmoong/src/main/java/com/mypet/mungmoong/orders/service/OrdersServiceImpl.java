@@ -16,7 +16,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     private OrdersMapper ordersMapper;
-
+    
 
     @Override
     public List<Orders> list() throws Exception {
@@ -39,7 +39,6 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public int insert(Orders orders) throws Exception {
         int result = ordersMapper.insert(orders);
-
         return result;
     }
 
@@ -59,6 +58,13 @@ public class OrdersServiceImpl implements OrdersService {
     public List<Orders> listByUserId(String userId) throws Exception {
         List<Orders> orderList = ordersMapper.listByUserId(userId);
         return orderList;
+    }
+
+    // [은아]
+    @Override
+    public int updateMeaning(int no, int meaning) throws Exception {
+        int result = ordersMapper.updateMeaning(no, meaning);
+        return result;
     }
 
 
