@@ -245,7 +245,7 @@ CREATE TABLE `orders` (
 	`MEMO` VARCHAR(255) NULL,                            -- 요청사항
 	`TITLE` VARCHAR(255) NULL,                           -- 예약제목 - 상품명을 넣고
 	`PRICE` INT NOT NULL DEFAULT 0,                      -- 예약금액
-	`STATUS` VARCHAR(20) NOT NULL DEFAULT 'pending' COMMENT '결제대기, 결제완료, 승인중,훈련완료,예약취소',
+	`STATUS` VARCHAR(20) NOT NULL DEFAULT 'pending' COMMENT '결제대기, 결제완료, 환불, 승인' ,
 	`reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `meaning` INT NOT NULL DEFAULT 0                      -- 훈련 진행 상황 
