@@ -76,6 +76,7 @@
                   <label for="password">비밀번호</label>
                   <input type="password" class="form-control" name="password" id="password" placeholder="PW" value="" required>
                   <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+                  <div id="password-invalid-feedback" style="display:none; color:red;">비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자 및 특수문자를 포함해야 합니다.</div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="passwordchk">비밀번호확인</label>
@@ -195,7 +196,24 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     
+    function validatePassword() {
+      const password = document.getElementById('password').value;
+      const passwordInvalidFeedback = document.getElementById('password-invalid-feedback');
+      const passwordSuccessFeedback = document.getElementById('password-invalid-success');
 
+      // 정규식을 사용하여 비밀번호가 최소 8자 이상이고, 대문자, 소문자, 숫자 및 특수문자를 포함하는지 확인합니다.
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+      if (passwordRegex.test(password)) {
+          passwordInvalidFeedback.style.display = 'none';
+          passwordSuccessFeedback.style.display = 'block';
+      } else {
+          passwordInvalidFeedback.style.display = 'block';
+          passwordSuccessFeedback.style.display = 'none';
+      }
+  }
+
+  document.getElementById('password').addEventListener('input', validatePassword);
   
 
   </script>
