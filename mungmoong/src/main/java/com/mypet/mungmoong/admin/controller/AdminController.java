@@ -342,6 +342,17 @@ public class AdminController {
         return "/admin/admin_reserve";
     }
 
+
+    @GetMapping("/admin_reserve_pay")
+    public String ReservePayList(Model model) throws Exception {
+
+        List<Orders> ordersList = ordersService.list();
+
+        model.addAttribute("ordersList", ordersList);
+        
+        return "/admin/admin_reserve_pay";
+    }
+
     /**
      * 관리자 훈련사 권한 승인 처리
      * @param user
