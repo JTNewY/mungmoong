@@ -94,8 +94,6 @@ public class ProductsController {
                          ,HttpSession session
                          ,@PathVariable("id") String id) throws Exception {
         Products product = productsService.select(id);
-        
-
         log.info(product.toString());
         model.addAttribute("product", product);
         
@@ -103,28 +101,22 @@ public class ProductsController {
     }
 
 
-    @GetMapping("/reply")
-    public ResponseEntity<Integer> replyread(Reply reply
-                                             , HttpSession session
-                                            ,@PathVariable("id") String id) throws Exception {
-      // int result = replyService.insert(reply);
-      log.info(":::::::::: 댓글 ::::::::::");
-      log.info(reply.toString());
-    //    if(result>0){
-    //     log.info("덧글 등록 성공");
-    //    }
-    //     log.info(reply.toString());
-
-
-
-        return null;       
-    }
+    // @GetMapping("/reply")
+    // public ResponseEntity<Integer> replyread(Reply reply
+    //                                          , HttpSession session
+    //                                         ,@PathVariable("id") String id) throws Exception {
+    //   // int result = replyService.insert(reply);
+    //   log.info(":::::::::: 댓글55 ::::::::::");
+    //   log.info(reply.toString());
+    //   log.info(":::::::::: 댓글성공11 ::::::::::");
+    //     return null;       
+    // }
     @PostMapping("/reply/{id}")
     public ResponseEntity<String> replyInsert(@RequestBody Reply reply
                                              , HttpSession session
                                             ,@PathVariable("id") String id) throws Exception {
       // int result = replyService.insert(reply);
-      log.info(":::::::::: 댓글 ::::::::::");
+      log.info(":::::::::: 댓글12 ::::::::::");
       log.info(reply.toString());
      // reply.setBoardNo(id); // 댓글 객체의 boardNo 필드에 상품 ID 설정
      // boardNo은 Int타입이고 productNo은 String타입이다 형변환을 하였다
@@ -137,13 +129,12 @@ public class ProductsController {
                 reply.setBoardNo(-1);
             }
       int result = replyService.insert(reply);
-      
       if (result > 0) {
           return ResponseEntity.ok("SUCCESS");
-      } else {
-          return ResponseEntity.status(500).body("FAILURE");
-      }
-       // return null;       
+          } else {
+              return ResponseEntity.status(500).body("FAILURE");
+              }
+              // return null;       
     }
 }
     
