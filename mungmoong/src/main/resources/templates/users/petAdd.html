@@ -52,7 +52,7 @@
 
         .form-group {
             margin-bottom: 1rem;
-            text-align: left; /* 왼쪽 정렬 */
+            text-align: left;
         }
 
         .form-group label {
@@ -61,7 +61,7 @@
         }
 
         .form-control {
-            width: 100%; /* 전체 너비 사용 */
+            width: 100%;
         }
 
         .form-check {
@@ -106,15 +106,12 @@
         <h1 class="text-primary text-left">마이 펫 추가</h1>
         <div class="container-inner">
             <div class="profile-header">
-                <img src="path/to/profile_image.jpg" id="profile-image" alt="Profile Image">
+                <img src="/path/to/default/image.jpg" id="profile-image" alt="Profile Image">
                 <label for="upload-photo">사진업로드 ▼</label>
-                <input type="file" id="upload-photo" style="display: none;" accept="image/*">
+                <input type="file" id="upload-photo" name="image" style="display: none;" accept="image/*">
             </div>
             <form id="petForm" action="/users/petAdd" method="post" enctype="multipart/form-data">
-                
-                <!-- CSRF 토큰 추가 -->
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-                <!-- userId 히든 필드 추가 -->
                 <input type="hidden" name="userId" th:value="${session.user.userId}"/>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -128,7 +125,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="pettype">견종</label>
+                        <label for="type">견종</label>
                         <input type="text" class="form-control" id="type" name="type" required>
                     </div>
                     <div class="form-group col-md-6">

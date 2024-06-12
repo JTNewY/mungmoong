@@ -275,6 +275,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
                                 <p><strong th:text="${pet.petname} + ' '"></strong></p>
                                 <p>나이: <span th:text="${pet.age} + '살'"></span></p>
                                 <p>성격: <span th:text="${pet.character}"></span></p>
+                                <p>특이사항: <span th:text="${pet.specialNotes}"></span></p>
                                 <!-- 특이 사항 부분 추가 -->
                             </div>
                             <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
@@ -294,7 +295,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
         </div>
         <div class="bottom-buttons">
             <button type="button" onclick="location.href='/users/index'">확인</button>
-            <button type="button" onclick="location.href='/board/insertQ&A'">취소</button>
+            <button type="button" onclick="location.href='/QnA/list'">취소</button>
         </div>
     </main>
 

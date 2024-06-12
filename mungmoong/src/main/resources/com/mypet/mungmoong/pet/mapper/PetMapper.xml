@@ -27,13 +27,15 @@
         WHERE pet_no = #{petNo}
     </delete>
     
-    <!-- 반려동물 정보 검색 -->
-    <select id="findPetById" parameterType="int" >
+    
+   <!-- 반려동물 정보 검색 -->
+    <select id="findPetById" parameterType="int" resultType="com.mypet.mungmoong.pet.dto.Pet">
         SELECT *
         FROM pet
         WHERE pet_no = #{petNo}
     </select>
-    
+
+
      <!-- 반려동물 userId로 검색 -->
     <select id="findPetsByUserId" resultType="com.mypet.mungmoong.pet.dto.Pet">
         SELECT *

@@ -1,15 +1,17 @@
 package com.mypet.mungmoong.pet.service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import com.mypet.mungmoong.pet.dto.Pet; 
-import com.mypet.mungmoong.pet.mapper.PetMapper; 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.mypet.mungmoong.pet.dto.Pet;
+import com.mypet.mungmoong.pet.mapper.PetMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class PetServiceImpl implements PetService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PetServiceImpl.class);
     private final PetMapper petMapper; // PetMapper를 주입받기 위한 변수 선언
 
     @Autowired 
@@ -39,7 +41,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<Pet> findPetByUserId(String userId) {
-        return petMapper.findPetsByUserId(userId); // 사용자 ID로 펫 목록을 찾기 위해 PetMapper의 findPetsByUserId 메서드 호출
+        List<Pet> pets = petMapper.findPetsByUserId(userId);
+        logger.info("Number of pets found for user {}: {}", userId, pets.size()); // 반환된 펫의 수를 로깅
+        return pets;
     }
-
 }
