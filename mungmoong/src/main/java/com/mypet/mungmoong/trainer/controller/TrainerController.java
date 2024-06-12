@@ -10,12 +10,15 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,7 +40,6 @@ import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
-import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -414,19 +416,29 @@ public class TrainerController {
 
 
     // 스케쥴 👩‍🏫(full calendar 샘플)
-    @GetMapping("/sample_calendar")
-    public String sampleCalendar(HttpSession session, Model model) throws Exception {
+    @GetMapping("/schedule")
+    public String scheduleCalendar(HttpSession session, Model model) throws Exception {
         Integer trainerNo = (Integer) session.getAttribute("trainerNo");
         if (trainerNo == null) {
             log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
             // 트레이너 번호가 없을 경우 에러 처리
             model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
-            return "/trainer/error"; 
+            return "/trainer/error";
         }
         List<Schedule> scheduleList = scheduleService.select(trainerNo);
         model.addAttribute("trainerNo", trainerNo);
         model.addAttribute("scheduleList", scheduleList);
-        return "/trainer/sample_calendar";
+        return "/trainer/schedule";
+    }
+
+    @PostMapping("/schedule/save")
+    public ResponseEntity<String> saveSchedule(@RequestBody Schedule schedule) {
+        try {
+            scheduleService.insert(schedule);
+            return ResponseEntity.ok("일정이 성공적으로 저장되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("일정 저장에 실패했습니다.");
+        }
     }
 
 
