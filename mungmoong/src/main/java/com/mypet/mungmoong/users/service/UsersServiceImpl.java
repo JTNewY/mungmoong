@@ -29,14 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service("userServiceImplForUsers")
 public class UsersServiceImpl implements UsersService {
 
-    private  UsersMapper userMapper;
+    private UsersMapper userMapper;
     private PetMapper petMapper;
-    private  PasswordEncoder passwordEncoder;
-    
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
 
     @Autowired
     public UsersServiceImpl(UsersMapper userMapper, PetMapper petMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
@@ -71,12 +69,20 @@ public class UsersServiceImpl implements UsersService {
         return user;
     }
 
+
+
     @Override
     public int join(Users user) throws Exception {
         String username = user.getUserId();
         String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password); // 🔒 비밀번호 암호화
         user.setPassword(encodedPassword);
+
+        // ############################## 06-14 수정 ##############################
+        // 계정 활성화 설정
+        user.setEnabled(1); // 수정된 부분
+        // #########################################################################
+
 
         // 회원 등록
         int result = userMapper.join(user);
@@ -97,6 +103,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int update(Users user) throws Exception {
+        // 비밀번호를 해시 형태로 변환
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+
+        // 정보 수정 시 계정을 활성화
+         user.setEnabled(1);
+
         return userMapper.update(user);
     }
 
@@ -127,11 +141,15 @@ public class UsersServiceImpl implements UsersService {
         Users user = userMapper.findPw(userId, mail);
         return user;
     }
-
+    
+// ############################## 06-14 코드 수정 ##############################
     @Override
     public int updatePassword(String userId, String mail, String password) throws Exception {
-        return userMapper.updatePassword(userId, mail, password);
+        String hashedPassword = passwordEncoder.encode(password); // 비밀번호 해싱
+        return userMapper.updatePassword(userId, mail, hashedPassword); // 해시된 비밀번호 저장
     }
+
+// ##############################################################################
 
     @Override
     public int roleUp(Users user) throws Exception {

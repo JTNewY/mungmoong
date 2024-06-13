@@ -139,9 +139,14 @@
                 margin: 0 5px;
             }
         }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
     </style>
 </head>
-
 <body layout:fragment="content">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <section class="my-page">
@@ -152,52 +157,82 @@
             <button class="custom-outline-button" onclick="location.href='/users/details'">펫시터 이용내역</button>
         </div>
     </section>
-    <div class="container">
-        <main>
-            <div class="my-info mb-5">
-                <h2>내 정보</h2>
-                <div class="info-card d-flex align-items-center p-3">
-                    <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3">
-                    <div class="info">
-                        <p th:text="${session.user.name} + ' (' + ${session.user.userId} + ')' " ></strong></p>
-                        <p th:text="${session.user.mail}"></p>
-                        <p th:text="${session.user.phone}"></p>
-                        <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
-                        <p th:text="${session.user.address}"></p>
+    
+    <div class="my-info mb-5">
+        <h2>내 정보</h2>
+        <div class="info-card d-flex align-items-center p-3">
+            <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3">
+            <div class="info">
+                <p th:text="${session.user.name} + ' (' + (${session.user.gender == 0 ? '♂' : '♀'}) + ')'"></p>
+                <p th:text="${session.user.mail}"></p>
+                <p th:text="${session.user.phone}"></p>
+                <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
+                <p th:text="${session.user.address}"></p>
+            </div>
+            <button type="button" class="custom-button" onclick="location.href='/users/update'">정보수정</button>
+        </div>
+    </div>
+    
+    <div class="my-pets">
+        <h2>마이 펫</h2>
+        <div class="row">
+            <div th:each="pet : ${session.pets}" class="col-md-6">
+                <div class="pet-card d-flex align-items-center p-3 mb-3">
+                    <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
+                    <div class="pet-info">
+                        <p th:text="${pet.petname} + ' (' + (${pet.petgender == 0 ? '♂' : '♀'}) + ')'"></p>
+                        <p>나이: <span th:text="${pet.age} + '살'"></span></p>
+                        <p>성격: <span th:text="${pet.character}"></span></p>
+                        <p>특이 사항: <span th:text="${pet.specialNotes}"></span></p>
                     </div>
-                    <button type="button" class="custom-button" onclick="location.href='/users/update'">정보수정</button>
+                    <div class="button-container">
+                        <form action="/users/petUpdate" method="get" style="display:inline;">
+                            <input type="hidden" name="petNo" th:value="${pet.petNo}" />
+                            <button type="submit" class="custom-button">마이펫 수정</button>
+                        </form>
+                        <button type="button" class="custom-button" th:onclick="'confirmDelete(' + ${pet.petNo} + ')'">마이펫 삭제</button>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="my-pets">
-                <h2>마이 펫</h2>
-                <div class="row">
-                    <div th:each="pet : ${pets}" class="col-md-6">
-                        <div class="pet-card d-flex align-items-center p-3 mb-3">
-                            <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
-                            <div class="pet-info">
-                                <p><strong th:text="${pet.petname} + ' '"></strong></p>
-                                <p>나이: <span th:text="${pet.age} + '살'"></span></p>
-                                <p>성격: <span th:text="${pet.character}"></span></p>
-                                <p>특이사항: <span th:text="${pet.specialNotes}"></span></p>
-                            </div>
-                                <!-- 히든 필드와 함께 폼 제출을 통해 petname을 전송 -->
-                                <form action="/users/petUpdate" method="get" style="display:inline;">
-                                    <input type="hidden" name="petNo" th:value="${pet.petNo}" />
-                                    <input type="hidden" name="petname" th:value="${pet.petname}" />
-                                    <button type="submit" class="custom-button">마이펫 수정</button>
-                                </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="bottom-btn">
                 <button type="button" class="custom-button" onclick="location.href='/users/petAdd'">펫 추가</button>
-                <button type="button" class="custom-button" onclick="location.href='/users/delete'">펫 삭제</button>
             </div>
         </main>
     </div>
-    
+
+    <script>
+        function confirmDelete(petNo) {
+            const csrfToken = document.querySelector('input[name="_csrf"]').value;
+            if (confirm("정말로 마이펫을 삭제하시겠습니까?")) {
+                fetch(`/users/index`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({ petNo: petNo })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete pet');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    alert('마이펫이 성공적으로 삭제되었습니다.');
+                    console.log(data);
+                })
+                .catch(error => {
+                    alert('마이펫 삭제 중 오류가 발생했습니다.');
+                    console.error('마이펫 삭제 오류:', error);
+                });
+            }
+        }
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

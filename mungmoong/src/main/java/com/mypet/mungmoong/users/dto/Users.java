@@ -47,5 +47,17 @@ public class Users {
         this.mail = mail;
         this.name = name;
     }
+    // ############################## 06-14 수정 ##############################
 
-}
+    // enabled 필드의 게터 메서드 수정
+    public int getEnabled() {
+        return enabled;
+    }
+
+    // enabled 필드의 세터 메서드
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
+
+    }

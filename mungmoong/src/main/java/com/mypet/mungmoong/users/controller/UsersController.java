@@ -36,12 +36,9 @@ import com.mypet.mungmoong.users.service.EmailService;
 import com.mypet.mungmoong.users.service.LoginService;
 import com.mypet.mungmoong.users.service.UsersService;
 
-
-
 @Controller("usersController")
 @RequestMapping("/users")
 public class UsersController {
-
 
     @Autowired
     private UsersService userService;
@@ -59,16 +56,13 @@ public class UsersController {
     private LoginService loginService;
 
     @Autowired
-    private OAuth2AuthorizedClientService authorizedClientService ;
-
-
-
+    private OAuth2AuthorizedClientService authorizedClientService;
 
     @GetMapping("/{page}")
     public String test(@PathVariable("page") String page) {
         return "/users/" + page;
-    }   
-        
+    }
+
     @GetMapping("/login")
     public String loginPage(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
@@ -80,23 +74,22 @@ public class UsersController {
                 if ("remember-id".equals(cookie.getName())) {
                     rememberedUserId = cookie.getValue();
                     rememberUserId = true;
-                    break; // 쿠키를 찾으면 루프를 종료합니다.
+                    break;
                 }
             }
         }
-        
-        model.addAttribute("userValue", rememberedUserId); // 사용자 ID를 모델에 추가
-        model.addAttribute("rememberId", rememberUserId); // 아이디 저장 여부를 모델에 추가
-        return "users/login"; // 로그인 뷰 이름 반환
-    }
 
+        model.addAttribute("userValue", rememberedUserId);
+        model.addAttribute("rememberId", rememberUserId);
+        return "users/login";
+    }
 
     @GetMapping("/index")
     public String myPets(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         List<Pet> pets = (List<Pet>) session.getAttribute("pets");
         model.addAttribute("pets", pets);
-        return "users/index"; // mypets.html 템플릿을 반환합니다.
+        return "users/index";
     }
 
     @GetMapping("/using")
@@ -104,24 +97,21 @@ public class UsersController {
         HttpSession session = request.getSession();
         List<Pet> pets = (List<Pet>) session.getAttribute("pets");
         model.addAttribute("pets", pets);
-        return "users/using"; // mypets.html 템플릿을 반환합니다.
+        return "users/using";
     }
-
 
     @PostMapping("/register")
     public String registerUser(Users user, Pet pet, String userId) throws Exception {
-       user.setUserId(userId);
-       pet.setUserId(userId);
-
+        user.setUserId(userId);
+        pet.setUserId(userId);
         user.setPet(pet);
-        
+
         int result = userService.join(user);
         if (result > 0) {
             return "redirect:/users/login";
         }
         return "redirect:/register?error";
     }
-   
     /**
      * 아이디 중복 검사
      * @param username
@@ -130,15 +120,10 @@ public class UsersController {
      */
     @GetMapping("/register/check/{userId}")
     public ResponseEntity<Boolean> userCheck(@PathVariable("userId") String username) throws Exception {
-        //log.info("아이디 중복 확인 : " + username);
         Users user = userService.select(username);
-        // 아이디 중복
-        if( user != null ) {
-            //log.info("중복된 아이디 입니다 - " + username);
+        if (user != null) {
             return new ResponseEntity<>(false, HttpStatus.OK);
         }
-        // 사용 가능한 아이디입니다.
-        //log.info("사용 가능한 아이디 입니다." + username);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
@@ -147,65 +132,54 @@ public class UsersController {
         Users user = userService.findId(name, mail);
 
         if (user != null && user.getUserId() != null) {
-            System.out.println("찾은 userId: " + user.getUserId());
             model.addAttribute("foundId", user.getUserId());
-            return "/users/findIdCheck"; // 템플릿으로 직접 이동
+            return "/users/findIdCheck";
         } else {
-            System.out.println("유저 ID를 찾을 수 없음");
             model.addAttribute("errorMessage", "해당 아이디와 이메일을 찾을 수 없습니다.");
-            return "/users/findId"; // 에러 메시지를 포함한 폼으로 다시 이
+            return "/users/findId";
         }
     }
+
     @GetMapping("/users/findIdCheck")
     public String showResult(@RequestParam("foundId") String foundId, Model model) {
-        System.out.println("쿼리 파라미터에서 찾은 foundId: " + foundId);
         if (foundId == null || foundId.isEmpty()) {
-            System.out.println("쿼리 파라미터에서 foundId를 찾을 수 없습니다.");
-            return "redirect:/"; // 아이디를 찾을 수 없을 경우 홈으로 리다이렉트
+            return "redirect:/";
         }
         model.addAttribute("foundId", foundId);
         return "findIdCheck";
     }
 
-
     @PostMapping("/findPw")
     public String findPWPro(@RequestParam("userId") String userId, @RequestParam("mail") String mail, Model model) throws Exception {
         Users user = userService.findPw(userId, mail);
-    
+
         if (user != null && user.getPassword() != null) {
-            System.out.println("찾은 userPw " + user.getPassword());
             model.addAttribute("foundId", user.getPassword());
-            model.addAttribute("userId", userId); // userId 추가
-            model.addAttribute("mail", mail); // mail 추가
-            return "/users/changePw"; // 템플릿으로 직접 이동
+            model.addAttribute("userId", userId);
+            model.addAttribute("mail", mail);
+            return "/users/changePw";
         } else {
-            System.out.println("유저 ID를 찾을 수 없음");
-            model.addAttribute("errorMessage", "해당 유저 정보를 찾을수 없습니다.");
-            return "/users/findId"; // 에러 메시지를 포함한 폼으로 다시 이동
+            model.addAttribute("errorMessage", "해당 유저 정보를 찾을 수 없습니다.");
+            return "/users/findId";
         }
     }
 
-   
     @PostMapping("/resetPw")
     public String resetPassword(@RequestParam("userId") String userId, @RequestParam("mail") String mail,
                                 @RequestParam("password") String password, Model model) throws Exception {
-        // 비밀번호 해싱
         String hashedPassword = passwordEncoder.encode(password);
-
-        // Hashed password를 실제 요청 파라미터인 password에 할당
         int result = userService.updatePassword(userId, mail, hashedPassword);
         if (result > 0) {
             model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
-            return "redirect:../"; // 로그인 페이지로 리디렉션
+            return "redirect:../";
         } else {
             model.addAttribute("errorMessage", "비밀번호 변경에 실패했습니다.");
             return "users/changePw";
         }
     }
-    
-    
-    // #################################### 회원가입 ##############################################
-    
+
+     // #################################### 회원가입 ##############################################
+
     private Map<String, Integer> otpStorage = new HashMap<>();
 
     @PostMapping("/register/sendOtp")
@@ -217,7 +191,7 @@ public class UsersController {
         int otp = new Random().nextInt(999999);
         otpStorage.put(email, otp);
         try {
-            emailService.sendEmail(email, "[멍뭉] 이메일을 인증해주세요. ", "회원가입을 위해 이메일을 인증해주세요.\n" +"이메일 OTP번호: " + otp);
+            emailService.sendEmail(email, "[멍뭉] 이메일을 인증해주세요. ", "회원가입을 위해 이메일을 인증해주세요.\n" + "이메일 OTP번호: " + otp);
             return ResponseEntity.ok("인증번호를 발송하였습니다.");
         } catch (MessagingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in sending OTP: " + e.getMessage());
@@ -231,7 +205,6 @@ public class UsersController {
             int otp = Integer.parseInt(payload.get("otp"));
             if (otpStorage.getOrDefault(email, -1) == otp) {
                 otpStorage.remove(email);
-
                 return ResponseEntity.ok("이메일인증 성공하였습니다.");
             } else {
                 return ResponseEntity.badRequest().body("잘못된 인증번호입니다.");
@@ -242,6 +215,7 @@ public class UsersController {
     }
 
     // ################################# 아이디 찾기 #####################################################
+
     @PostMapping("/find/sendOtp")
     public ResponseEntity<?> sendOtp2(@RequestBody Map<String, String> payload) {
         String email = payload.get("email");
@@ -251,7 +225,7 @@ public class UsersController {
         int otp = new Random().nextInt(999999);
         otpStorage.put(email, otp);
         try {
-            emailService.sendEmail(email, "[멍뭉] 아이디/비밀번호 찾기 이메일을 인증해주세요. ", "이메일을 인증해주세요.\n" +"이메일 OTP번호: " + otp);
+            emailService.sendEmail(email, "[멍뭉] 아이디/비밀번호 찾기 이메일을 인증해주세요. ", "이메일을 인증해주세요.\n" + "이메일 OTP번호: " + otp);
             return ResponseEntity.ok("인증번호를 발송하였습니다.");
         } catch (MessagingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in sending OTP: " + e.getMessage());
@@ -265,7 +239,6 @@ public class UsersController {
             int otp = Integer.parseInt(payload.get("otp"));
             if (otpStorage.getOrDefault(email, -1) == otp) {
                 otpStorage.remove(email);
-
                 return ResponseEntity.ok("이메일인증 성공하였습니다.");
             } else {
                 return ResponseEntity.badRequest().body("잘못된 인증번호입니다.");
@@ -274,32 +247,61 @@ public class UsersController {
             return ResponseEntity.badRequest().body("OTP는 숫자여야 합니다.");
         }
     }
-   // ################################# 네이버 로그인 ##################################################
-  
-   @GetMapping("/naver-login")
-   public String naverLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authentication) throws Exception {
-       if (authentication == null) {
-           throw new IllegalArgumentException("Authentication information is missing");
-       }
 
-       String registrationId = authentication.getAuthorizedClientRegistrationId();
-       OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
-               registrationId, authentication.getName());
+    // ################################# 네이버 로그인 ##################################################
 
-       if (authorizedClient != null) {
-           String accessToken = authorizedClient.getAccessToken().getTokenValue();
+    @GetMapping("/naver-login")
+    public String naverLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authentication) throws Exception {
+        if (authentication == null) {
+            throw new IllegalArgumentException("Authentication information is missing");
+        }
 
-           // Naver API를 통해 사용자 정보 가져오기
-           SocialUserResponse userInfo = userService.getUserInfo(accessToken);
+        String registrationId = authentication.getAuthorizedClientRegistrationId();
+        OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
+                registrationId, authentication.getName());
 
-           // 사용자 정보 로그 출력
-          // log.info("User Info: {}", userInfo);
+        if (authorizedClient != null) {
+            String accessToken = authorizedClient.getAccessToken().getTokenValue();
+            SocialUserResponse userInfo = userService.getUserInfo(accessToken);
+            userService.joinUser(new UserJoinRequest(userInfo.getUserId(), userInfo.getMail(), userInfo.getName()));
+        }
 
-           // 사용자 정보 처리 로직 추가 (예: DB 저장)
-           userService.joinUser(new UserJoinRequest(userInfo.getUserId(), userInfo.getMail(), userInfo.getName()));
-       }
+        return "redirect:/";
+    }
 
-       return "redirect:/";
-   }
+    // ################################# 내 정보 수정 #####################################################
+    @GetMapping("/update")
+    public String showUpdateForm(HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/users/login";
+        }
 
-} // 끝
+        try {
+            Users user = userService.select(userId);
+            model.addAttribute("user", user);
+            return "users/update"; // update.html 템플릿
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/users/login";
+        }
+    }
+
+    @PostMapping("/update")
+    public String updateUser(Users user, HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/users/login";
+        }
+
+        user.setUserId(userId); // 세션의 userId를 설정
+        user.setEnabled(1); // 계정 활성화
+        try {
+            userService.update(user);
+            return "redirect:/users/index";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/users/update?error";
+        }
+    }
+}
