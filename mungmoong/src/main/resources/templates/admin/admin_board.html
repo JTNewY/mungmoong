@@ -67,31 +67,35 @@
                 <!-- 마지막 -->
                 <a th:href="| /admin/admin_board?page=${page.last}&code=${option.code}&keyword=${option.keyword} |">&raquo;</a>           
     </div>
-    <form id="form" action="/admin/delete" method="post">
+    
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 5%;"><input type="checkbox" class="checkbox" id="selectAll" onclick="selectAllCheck(this)"></th>
                         <th scope="col" style="width: 10%;">ID</th>
                         <th scope="col" style="width: 10%;">제목</th>
                         <th scope="col">내용</th>
                         <th scope="col" style="width: 10%;">등록일자</th>
                         <th scope="col" style="width: 10%;">수정일자</th>
+                        <th scope="col" style="width: 10%;">삭제</th>
                     </tr>
                 </thead>
                 <th:block th:each="board : ${boardList}">
-                        <tr>
-                            <td class="text-truncate"><input type="checkbox" class="checkbox" th:value="${board.no}" name="deleteSelete"></td>
-                            <td class="text-truncate" th:text="${board.userId}"></td>
-                            <td class="text-truncate"><a th:href="|/admin/admin_board_read?no=${board.no}|"
-                                    th:text="${board.title}"></a></td>
-                            <td class="text-truncate" th:text="${board.content}"></td>
-                            <td class="text-truncate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <tr>
+                        <td class="text-truncate" th:text="${board.userId}"></td>
+                        <td class="text-truncate"><a th:href="|/admin/admin_board_read?no=${board.no}|" th:text="${board.title}"></a></td>
+                        <td class="text-truncate" th:text="${board.content}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td class="text-truncate" th:text="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="text-truncate">
+                            <form th:action="@{/admin/ListBoardDelete}" method="post">
+                                <input type="hidden" name="no" th:value="${board.no}" />
+                                <button type="submit">삭제</button>
+                            </form>
+                        </td>
                     </tr>
             </th:block>
             </table>
-        </form>
+
             <!-- 페이징 버튼 영역 -->
             <div class="paging">
                 <ul>
@@ -102,35 +106,8 @@
                     <li><a href="#">&gt&gt;</a></li>
                 </ul>
             </div>
-            <!-- 하단 버튼 영역 -->
-            <div class="bottom-btn">
-                <input type="button" class="btn btn-secondary btn-lg deleteBtn" value="삭제" onclick="deleteSelectedUser()">
-            </div>
         </div>
     </div>
-
-    <script>
-        let form = document.getElementById("form");
-
-function deleteSelectedUser() {
-    // 선택된 체크박스의 개수 확인
-    let checkedCount = document.querySelectorAll('.checkbox:checked').length;
-    if (checkedCount === 0) {
-        // 경고창 표시
-        sweetAlert("경고", '선택된 항목이 없습니다.', 'warning');
-    } else {
-        // 선택된 항목이 있으면 삭제 진행
-        form.submit();
-    }
-}
-
-        function selectAllCheck(source) {
-            checkboxes = document.querySelectorAll('.checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = source.checked;
-            });
-        }
-    </script>
 </body>
 
 </html>
