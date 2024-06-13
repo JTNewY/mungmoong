@@ -71,6 +71,14 @@ public class BoardServiceImpl implements BoardService {
         return result;
     }
 
+    
+    @Override
+    public int SelectDelete(String[] SelectNoList) throws Exception {
+        String DeleteNos = String.join(",", SelectNoList);
+        int result = boardMapper.SelectDelete(DeleteNos);
+        return result;
+    }
+
     // @Override
     // public int delete(int no) throws Exception {
     //     int result = boardMapper.BoardDelete(no);

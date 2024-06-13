@@ -8,6 +8,7 @@ import lombok.Data;
 public class Schedule {
 
     private int no;
+    private String userId;
     private int trainerNo;
     private String title;
     private String content;

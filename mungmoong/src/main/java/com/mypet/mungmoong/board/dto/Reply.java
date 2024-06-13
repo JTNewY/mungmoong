@@ -7,8 +7,8 @@ import lombok.Data;
 public class Reply {
 
     private int no;
-    private int boardNo;  
     private int parentNo;
+    private String parentTable;
     private String writer;
     private String userId;
     private String content;
