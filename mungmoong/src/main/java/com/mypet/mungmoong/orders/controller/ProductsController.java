@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import com.mypet.mungmoong.board.controller.ReplyController;
-
+import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.dto.Reply;
 import com.mypet.mungmoong.board.service.ReplyService;
 import com.mypet.mungmoong.orders.dto.Products;
@@ -101,40 +102,43 @@ public class ProductsController {
     }
 
 
-    // @GetMapping("/reply")
-    // public ResponseEntity<Integer> replyread(Reply reply
-    //                                          , HttpSession session
-    //                                         ,@PathVariable("id") String id) throws Exception {
-    //   // int result = replyService.insert(reply);
-    //   log.info(":::::::::: 댓글55 ::::::::::");
-    //   log.info(reply.toString());
-    //   log.info(":::::::::: 댓글성공11 ::::::::::");
-    //     return null;       
-    // }
-    @PostMapping("/reply/{id}")
+    /**
+     * 훈련사 댓글 목록
+     * @param reply
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/reply")
+    public String replylist(Reply reply
+                                             ,Model model
+                                             ,HttpSession session
+                                            ) throws Exception {
+        log.info(":::::::::: 댓글목록 ::::::::::");
+        List<Reply> replyList = replyService.listByParent(reply); 
+        log.info(": " + replyList);
+        
+        model.addAttribute("replyList", replyList);
+        return "/reply/list";       
+    }
+
+
+    @PostMapping("/reply")
     public ResponseEntity<String> replyInsert(@RequestBody Reply reply
                                              , HttpSession session
-                                            ,@PathVariable("id") String id) throws Exception {
-      // int result = replyService.insert(reply);
-      log.info(":::::::::: 댓글12 ::::::::::");
-      log.info(reply.toString());
-     // reply.setBoardNo(id); // 댓글 객체의 boardNo 필드에 상품 ID 설정
-     // boardNo은 Int타입이고 productNo은 String타입이다 형변환을 하였다
-            try {
-                int boardNo = Integer.parseInt(id);
-                reply.setBoardNo(boardNo);
-            } catch (NumberFormatException e) {
-                // 형변환 실패 시 기본값으로 설정 또는 예외 처리
-                // 예를 들어, 기본값으로 -1을 설정할 수 있습니다.
-                reply.setBoardNo(-1);
-            }
-      int result = replyService.insert(reply);
-      if (result > 0) {
-          return ResponseEntity.ok("SUCCESS");
-          } else {
-              return ResponseEntity.status(500).body("FAILURE");
-              }
-              // return null;       
+                                            ) throws Exception {
+        // int result = replyService.insert(reply);
+        log.info(":::::::::: 댓글입력 ::::::::::");
+        log.info(reply.toString());
+        reply.setParentTable("products");
+        int result = replyService.insert(reply);
+        if (result > 0) {
+            return ResponseEntity.ok("SUCCESS");
+        } else {
+            return ResponseEntity.status(500).body("FAILURE");
+        }
+        // return null;       
     }
 }
     
