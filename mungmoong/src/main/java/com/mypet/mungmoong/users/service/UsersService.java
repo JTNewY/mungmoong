@@ -49,22 +49,21 @@ public interface UsersService {
     // 관리자 회원 권한 업데이트
     public int roleUp(Users user) throws Exception;         /* role 권한을 업데이트 하기 위한 userMapper */
 
-        // 소셜 회원 가입
-        public int insertSocial(UserSocial userSocial) throws Exception;
+    // 소셜 회원 가입
+    public int insertSocial(UserSocial userSocial) throws Exception;
     
-        // 소셜 회원 조회
-        public UserSocial selectSocial(UserSocial userSocial) throws Exception;
+    // 소셜 회원 조회
+    public UserSocial selectSocial(UserSocial userSocial) throws Exception;
     
-        // 소셜 회원 수정
-        public int updateSocial(UserSocial userSocial) throws Exception;
+    // 소셜 회원 수정
+    public int updateSocial(UserSocial userSocial) throws Exception;
     
-        // 소셜 정보로 회원 조회
-        public Users selectBySocial(UserSocial userSocial) throws Exception;
-        
+    // 소셜 정보로 회원 조회
+    public Users selectBySocial(UserSocial userSocial) throws Exception;
 
-        public SocialUserResponse getUserInfo(String accessToken);
+    public SocialUserResponse getUserInfo(String accessToken);
 
-        public void joinUser(UserJoinRequest request) throws Exception;
+    public void joinUser(UserJoinRequest request) throws Exception;
 
-         public LoginResponse doSocialLogin(SocialLoginRequest request)  ;
+    public LoginResponse doSocialLogin(SocialLoginRequest request);
 }
