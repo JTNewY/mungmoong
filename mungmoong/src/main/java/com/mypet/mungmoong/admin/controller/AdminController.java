@@ -326,6 +326,7 @@ public class AdminController {
         return "redirect:/admin/admin_board_read_update?no=" + no + "&error";
     }
 
+    @PostMapping("/ListBoardDelete")
     public String ListBoardDelete(@RequestParam("no") int no) throws Exception {
         log.info("no : " + no);
         int result = boardService.BoardDelete(no);
@@ -525,15 +526,6 @@ public class AdminController {
     }
     
 
-    @PostMapping("path")
-    public String SelectNoDeletes(String[] SelectNoList) throws Exception {
-        
-        for ( String no : SelectNoList ) {
-
-        }
-        int result = boardService.SelectDelete(SelectNoList);
-        return "redirect:/admin/admin_delete";
-    }
     
     
 
