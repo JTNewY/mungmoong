@@ -10,7 +10,7 @@
     <style>
         body {
             font-family: 'Jua', sans-serif;
-            background-color: #FFFAED; 
+            background-color: #FFFAED;
             margin: 0;
             padding: 0;
         }
@@ -32,7 +32,7 @@
             align-items: left;
             justify-content: left;
         }
-        
+
         main {
             padding: 20px;
             border-radius: 10px;
@@ -44,7 +44,7 @@
             color: #F6C542;
             margin-bottom: 20px;
         }
-        
+
         .buttons {
             display: flex;
             flex-direction: column;
@@ -158,49 +158,51 @@
         </div>
     </section>
     
-    <div class="my-info mb-5">
-        <h2>내 정보</h2>
-        <div class="info-card d-flex align-items-center p-3">
-            <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3">
-            <div class="info">
-                <p th:text="${session.user.name} + ' (' + (${session.user.gender == 0 ? '♂' : '♀'}) + ')'"></p>
-                <p th:text="${session.user.mail}"></p>
-                <p th:text="${session.user.phone}"></p>
-                <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
-                <p th:text="${session.user.address}"></p>
-            </div>
-            <button type="button" class="custom-button" onclick="location.href='/users/update'">정보수정</button>
-        </div>
-    </div>
-    
-    <div class="my-pets">
-        <h2>마이 펫</h2>
-        <div class="row">
-            <div th:each="pet : ${session.pets}" class="col-md-6">
-                <div class="pet-card d-flex align-items-center p-3 mb-3">
-                    <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
-                    <div class="pet-info">
-                        <p th:text="${pet.petname} + ' (' + (${pet.petgender == 0 ? '♂' : '♀'}) + ')'"></p>
-                        <p>나이: <span th:text="${pet.age} + '살'"></span></p>
-                        <p>성격: <span th:text="${pet.character}"></span></p>
-                        <p>특이 사항: <span th:text="${pet.specialNotes}"></span></p>
+    <div class="container">
+        <div class="inner-container">
+            <div class="my-info mb-5">
+                <h2>내 정보</h2>
+                <div class="info-card d-flex align-items-center p-3">
+                    <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3">
+                    <div class="info">
+                        <p th:text="${session.user.name} + ' (' + (${session.user.gender == 0 ? '♂' : '♀'}) + ')'"></p>
+                        <p th:text="${session.user.mail}"></p>
+                        <p th:text="${session.user.phone}"></p>
+                        <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
+                        <p th:text="${session.user.address}"></p>
                     </div>
-                    <div class="button-container">
-                        <form action="/users/petUpdate" method="get" style="display:inline;">
-                            <input type="hidden" name="petNo" th:value="${pet.petNo}" />
-                            <button type="submit" class="custom-button">마이펫 수정</button>
-                        </form>
-                        <button type="button" class="custom-button" th:onclick="'confirmDelete(' + ${pet.petNo} + ')'">마이펫 삭제</button>
+                    <button type="button" class="custom-button" onclick="location.href='/users/update'">정보수정</button>
+                </div>
+            </div>
+    
+            <div class="my-pets">
+                <h2>마이 펫</h2>
+                <div class="row">
+                    <div th:each="pet : ${session.pets}" class="col-md-6">
+                        <div class="pet-card d-flex align-items-center p-3 mb-3">
+                            <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
+                            <div class="pet-info">
+                                <p th:text="${pet.petname} + ' (' + (${pet.petgender == 0 ? '♂' : '♀'}) + ')'"></p>
+                                <p>나이: <span th:text="${pet.age} + '살'"></span></p>
+                                <p>성격: <span th:text="${pet.character}"></span></p>
+                                <p>특이 사항: <span th:text="${pet.specialNotes}"></span></p>
+                            </div>
+                            <div class="button-container">
+                                <form action="/users/petUpdate" method="get" style="display:inline;">
+                                    <input type="hidden" name="petNo" th:value="${pet.petNo}" />
+                                    <button type="submit" class="custom-button">마이펫 수정</button>
+                                </form>
+                                <button type="button" class="custom-button" th:onclick="'confirmDelete(' + ${pet.petNo} + ')'">마이펫 삭제</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
+    
             <div class="bottom-btn">
                 <button type="button" class="custom-button" onclick="location.href='/users/petAdd'">펫 추가</button>
             </div>
-        </main>
+        </div>
     </div>
 
     <script>
