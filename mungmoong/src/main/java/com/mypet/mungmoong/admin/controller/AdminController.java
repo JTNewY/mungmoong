@@ -511,6 +511,15 @@ public class AdminController {
     }
     
 
+    @PostMapping("path")
+    public String SelectNoDeletes(String[] SelectNoList) throws Exception {
+        
+        for ( String no : SelectNoList ) {
+
+        }
+        int result = boardService.SelectDelete(SelectNoList);
+        return "redirect:/admin/admin_delete";
+    }
     
     
 
