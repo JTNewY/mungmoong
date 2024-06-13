@@ -19,8 +19,6 @@ public class ScheduleServiceImpl implements ScheduleService  {
     @Autowired
     private ScheduleMapper scheduleMapper;
     
-
-
     @Override
     public List<Schedule> select(int trainerNo) throws Exception {
         List<Schedule> scheduleList = scheduleMapper.select(trainerNo);
@@ -47,6 +45,12 @@ public class ScheduleServiceImpl implements ScheduleService  {
     public int update(Schedule schedule) throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public int deleteByNo(int no) throws Exception {
+        int result = scheduleMapper.deleteByNo(no);
+        return result;
     }
 
 

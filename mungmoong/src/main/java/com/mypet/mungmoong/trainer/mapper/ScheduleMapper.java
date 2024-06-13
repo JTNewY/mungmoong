@@ -20,5 +20,6 @@ public interface ScheduleMapper {
     // 날짜 삭제
     public int delete(int trainerNo, Date date) throws Exception;
 
-    
+    // 날짜 삭제 번호로 삭제
+    public int deleteByNo(int no) throws Exception;
 }
