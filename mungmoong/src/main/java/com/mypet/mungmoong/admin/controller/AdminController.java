@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
@@ -28,7 +29,6 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -324,6 +324,21 @@ public class AdminController {
         }
 
         return "redirect:/admin/admin_board_read_update?no=" + no + "&error";
+    }
+
+    @PostMapping("/ListBoardDelete")
+    public String ListBoardDelete(@RequestParam("no") int no) throws Exception {
+        log.info("no : " + no);
+        int result = boardService.BoardDelete(no);
+
+        if (result > 0) {
+            log.info(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+            log.info("삭제됨");
+            return "redirect:/admin/admin_board";
+            }
+            
+            log.info("삭제안됨");
+        return "redirect:/admin/admin_board";
     }
     
     

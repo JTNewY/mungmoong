@@ -21,24 +21,27 @@
       color: #4c4c4c;
       white-space: pre;
     }
-    .tit{
+
+    .tit {
       text-decoration: none;
     }
-   .button{
-    font-size: 1.1rem;
-    width: 110px;
-    font-weight: bold;
-    padding: 0.6em 2em;
-    background-color: #FFE0B2;
-    color: #DAA414;
-    border-radius: 25px;
-    text-align: center;
-    text-decoration: none;
-  }
-  .button:hover{
-    background-color: #F6C542 !important;
-    color: snow !important;
-}
+
+    .button {
+      font-size: 1.1rem;
+      width: 110px;
+      font-weight: bold;
+      padding: 0.6em 2em;
+      background-color: #FFE0B2;
+      color: #DAA414;
+      border-radius: 25px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background-color: #F6C542 !important;
+      color: snow !important;
+    }
   </style>
 </head>
 
@@ -55,7 +58,7 @@
           <div class="main-title" style="padding-bottom: 2em;">
             <h3 class="display-4 fw-bold text-body-emphasis text-center">예약 정보</h3>
           </div>
-    
+
           <!-- 상품 정보 -->
           <div class="row">
             <div class="col-12 col-md-6">
@@ -77,7 +80,7 @@
                   <div class="card-body">
                     <h3 class="card-title fs-2" th:text="${product.name}"></h3>
                     <input type="hidden" name="title" th:value="${product.name}">
-      
+
                     <p class="card-text" th:text="${product.description}"></p>
                     <div class="d-flex justify-content-end">
                       <p>
@@ -96,7 +99,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="address">방문주소</label>
                         <input type="text" class="form-control" id="address" name="address"
-                          th:value="${session.user.address}" >
+                          th:value="${session.user.address}">
                         <div class="invalid-feedback">
                           주소을 입력해주세요.
                         </div>
@@ -111,7 +114,7 @@
                         </div>
                       </div>
                     </div>
-      
+
                     <input type="hidden" id="productId" name="productId" th:value="${product.id}">
                     <button type="submit" class="btn btn-success w-100" data="trainer123">예약하기</button>
                   </div>
@@ -122,14 +125,14 @@
                   <div class="card-body">
                     <!-- <input type="hidden" class="form-control" id="title" name="title" th:value="${product.name}" required> -->
                     <h3 class="card-title fs-2" th:text="${product.name}"></h3>
-      
+
                     <p class="card-text" th:text="${product.description}"></p>
                     <div class="d-flex justify-content-end">
                       <p>
                         가격 : <span class="fw-bold" th:text="${product.price}"></span>
                       </p>
                     </div>
-      
+
                   </div>
                 </div>
               </th:block>
@@ -138,17 +141,17 @@
         </div>
       </div>
     </form>
-        <!--훈련사 홍보상세-->
-        <div>
-          <div id="page-top">
-            <!-- Services-->
-            <section class="content-section bg-primary text-white text-center" id="services">
-                <div class="container px-4 px-lg-5">
-                    <div class="content-section-heading">
-                        <h3 class="text mb-0" style="color: aliceblue;">김조은 훈련사</h3>
-                        <h2 class="mb-5"  th:text="${product.content}"></h2>
-                    </div>
-                    <!-- <div class="row gx-4 gx-lg-5">
+    <!--훈련사 홍보상세-->
+    <div>
+      <div id="page-top">
+        <!-- Services-->
+        <section class="content-section bg-primary text-white text-center" id="services">
+          <div class="container px-4 px-lg-5">
+            <div class="content-section-heading">
+              <h3 class="text mb-0" style="color: aliceblue;">김조은 훈련사</h3>
+              <h2 class="mb-5" th:text="${product.content}"></h2>
+            </div>
+            <!-- <div class="row gx-4 gx-lg-5">
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                             <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
                             <h4><strong>검색순</strong></h4>
@@ -174,236 +177,229 @@
                             <p class="text-faded mb-0">빠른 답변</p>
                         </div>
                     </div> -->
-                </div>
-            </section>
-            </div>
-            </div>
-
-            <!--댓글start-->
-          <div class="container">
-            <div class="row">
-              <div id="reply-input col-12 col-md-6">
-                <h1 class="d-flex justify-content-center">댓글</h1>
-                <div class="reply-input card shadow-sm" style="padding: 3%; width: 100%;">
-                  <!-- CSRF 토큰 추가 -->
-                   <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-                    <input type="text" name="writer" id="reply-writer" class="reply-writer"
-                            placeholder="작성자">
-                    <br>
-                    <textarea name="content" id="reply-content" cols="60" rows="5"
-                            placeholder="댓글을 작성해주세요."></textarea>
-                    <div class="btn-box d-flex justify-content-end" style="padding-top: 1em;">
-                        <button type="button " id="btn-reply-insert" class="btn-reply button"
-                                onclick="insertReply()">등록</button>
-                    </div>
-                </div>
-                                 <!-- 댓글 목록 -->
-                                <div id="reply-list">
-                                </div>
-                                <script> 
-                                //  let no = "[[${product.id}]]";
-                                  var no1 = 1;
-                                  let $writer = document.getElementById('reply-writer');
-                                  let $content = document.getElementById('reply-content');
-                                  function insertReply() {
-                                      // CSRF TOKEN
-                                      var productsNo = "[[${product.id}]]";
-                                      var csrfToken = "[[${_csrf.token}]]";
-                                      let writer = $writer.value;
-                                      let content = $content.value;
-                                  
-                                      $.ajax({
-                                          url: '/products/reply/' + productsNo,
-                                          method: 'POST',
-                                          contentType: 'application/json',
-                                          data: JSON.stringify({
-                                            'productsNo': productsNo,
-                                              'writer': writer,
-                                              'content': content
-                                          }),
-                                          beforeSend: function (xhr) {
-                                              xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-                                          },
-                                          success: function (response) {
-                                              console.log('댓글 등록 성공!');
-                                              console.log(productsNo);
-                                              console.log(writer);
-                                              console.log($content.value); 
-                                              // 응답 메시지 확인
-                                              if (response === 'SUCCESS') {
-                                                  replyList(); // 댓글 목록 갱신
-                                                  // 댓글 입력 창 비우기
-                                                  $writer.value = '';
-                                                  $content.value = '';
-                                              }
-                                             
-                                          },
-                                          error: function (xhr, status, error) {
-                                              console.log(error);
-                                          }
-                                      });
-                                  }
-                                  </script>
-             
-            </div>
-      </div>
-            <!--댓글end-->
           </div>
-</section>
+        </section>
+      </div>
+    </div>
 
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
-  </script>
-<script>
-     
-    // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-    let no = "[[${board.no}]]"      // 글번호
-  // 댓글 목록 요청
-  replyList();
+    <!--댓글start-->
+    <div class="container">
+      <!-- 댓글 입력 -->
+      <th:block sec:authorize="isAuthenticated()">
+      <div class="row">
+        <div id="reply-input col-12 col-md-6">
+          <h1 class="d-flex justify-content-center">댓글</h1>
+          <div class="reply-input card shadow-sm" style="padding: 3%; width: 100%;">
+            <!-- CSRF 토큰 추가 -->
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <input type="hidden" name="userId" id="user-id" th:value="${session.user.userId}">
+            <input type="text" name="writer" id="reply-writer" th:value="${session.user.name}" readonly  placeholder="작성자">
+            <br>
+            <textarea name="content" id="reply-content" cols="60" rows="5" placeholder="댓글을 작성해주세요."></textarea>
+            <div class="btn-box d-flex justify-content-end" style="padding-top: 1em;">
+              <button type="button " id="btn-reply-insert" class="btn-reply button" onclick="insertReply()">등록</button>
+              <script>
+                var productsNo = "[[${product.id}]]";
+                var csrfToken = "[[${_csrf.token}]]";
+                // 댓글 목록 요청
+                replyList();
+                 // 댓글 목록
+                function replyList() {
+                  // AJAX 비동기 요청
+                  let request = new XMLHttpRequest()
+                  // 요청 세팅
+                  request.open('GET', '/products/reply?parentTable=products&parentNo='+productsNo)
+                  console.log(productsNo);
+                  request.send()
+                  request.onreadystatechange = function () {
+                    // 요청 성공 시,
+                    if (request.readyState == request.DONE && request.status == 200) {
+                      // 댓글 목록
+                      let response = request.responseText
 
-// 수정 화면 이동
-function moveUpdate() {
-  location.href = '/board/update?no=' + no;
-}
+                      // ⭐ 서버에서 렌더링한 HTML로 갱신(SSR)
+                      let data = response     // (html)
+                      console.log(data);
+                      let replyList = document.getElementById('reply-list')
+                      replyList.innerHTML = data
 
-// 목록 화면 이동
-function moveList() {
-  location.href = '/board/list';
-}
+                      // 이벤트 등록    
+                      // event()
+                    }
+                  }
 
-
-// 댓글 목록
-function replyList() {
-             // AJAX 비동기 요청
-             let request = new XMLHttpRequest()
-
-            // 요청 세팅
-            request.open('GET', '/products/reply/' + no)
-            request.send()
-
-            request.onreadystatechange = function() {
-
-                // 요청 성공 시,
-                if( request.readyState == request.DONE && request.status == 200 ) {
-                    // 댓글 목록
-                    let response = request.responseText
-
-                    // ⭐ 서버에서 렌더링한 HTML로 갱신(SSR)
-                   let data = response     // (html)
-
-                    // ⭐ JSON 데이터를 전달받아 HTML 로 변환 (CSR)
-                    // let replyListData = JSON.parse(response) // JSON -> array
-                    // let data = ``
-                    // for(let i = 0 ; i < replyListData.length ; i++ ) {
-                    //     data += `<div class="reply-box">`
-                    //     data += `<div class="inner">`
-                    //     let writer = replyListData[i].writer        // 작성자
-                    //     let content = replyListData[i].content      // 댓글내용
-                    //     let date = replyListData[i].regDate
-                        
-                    //     data += `<div class="top">`
-                    //     data += `<span class="reply-writer">${writer}</span>`
-                    //     data += `<span class="reply-date">${date}</span>`
-                    //     data += `<div class="item">`
-                    //     data += `<button class="btn-reply-update">수정</button>`
-                    //     data += `<button class="btn-reply-delete">삭제</button>`
-                    //     data += `</div>`
-                    //     data += `</div>`
-
-                    //     data += `<p class="reply-content">${content}</p>`
-                    //     data += `<button class="btn-reply-answer">답글</button>`
-                    //     data += `</div>`
-                    //     data += `</div>`
-                    // }
-
-                    let replyList = document.getElementById('reply-list')
-                    replyList.innerHTML = data
-
-                    // 이벤트 등록    
-                    event()
                 }
-            }
+                // 이벤트 등록
+                  function event() {
+                        // 댓글 수정 버튼
+                        let $btnUpdate = document.getElementsByClassName('btn-reply-update')
+                        // 댓글 수정 클릭 이벤트
+                        for (let i = 0; i < $btnUpdate.length; i++) {
 
+                          $btnUpdate[i].addEventListener('click', function () {
+                            // $btnUpdate[i] : 수정 버튼
+                            let $top = $btnUpdate[i].parentNode.parentNode
+                            let writer = $top.childNodes[1].textContent
+                            let $inner = $top.parentNode
+                            let content = $inner.childNodes[3].textContent
+                            let $replyBox = $inner.parentNode
+
+                            let no = $btnUpdate[i].getAttribute('data')         // 댓글 번호
+
+                            // 댓글 수정 모드
+                            // 1. 기존 댓글 내용창 숨기기
+                            $inner.style.display = 'none'
+                            // 2. 수정 UI 출력
+                            let $editor = document.createElement('div')
+                            $editor.classList.add('inner')
+                            $editor.id = 'editor'
+                            let editor = ``
+                            // editor += `<div class="inner" id="editor">`
+                            editor += `<input type="text" value="${writer}" id="update-writer" />`
+                            editor += `<br>`
+                            editor += `<textarea cols="60" rows="5" id="update-content">${content}</textarea> `
+                            editor += `<br>`
+                            editor += `<button onclick="updateReply(${no})">수정</button>`
+                            editor += `<button onclick="cancelReply()">취소</button>`
+                            // editor += `</div>`
+                            $editor.innerHTML = editor
+                            $replyBox.appendChild($editor)
+                          })
+                        }
+              }
+                // 댓글 삽입 함수입니다.
+                function insertReply() {
+                  // 작성자와 내용 가져오기
+                  let $userId = document.getElementById('user-id');
+                  let $writer = document.getElementById('reply-writer');
+                  let $content = document.getElementById('reply-content');
+                  let userId = $userId.value
+                  let writer = $writer.value;
+                  let content = $content.value;
+                  $.ajax({
+                    url: '/products/reply',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                      'userId': userId,
+                      'parentNo': productsNo,
+                      'writer': writer,
+                      'content': content
+                    }),
+                    beforeSend: function (xhr) {
+                      xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                    },
+                    success: function (response) {
+                      console.log('댓글 등록 성공!');
+                      console.log(productsNo);
+                      console.log(writer);
+                      console.log($content.value);
+                      // 응답 메시지 확인
+                      if (response === 'SUCCESS') {
+                          replyList(); // 댓글 목록 갱신
+                        // 댓글 입력 창 비우기
+                        $writer.value = '';
+                        $content.value = '';
+                      }
+                    },
+                    error: function (xhr, status, error) {
+                      console.log(error);
+                    }
+                  });
+                }
+              </script>
+
+            </div>
+          </div>
+          <!-- 댓글 목록 -->
+          <div id="reply-list">
+          </div>
+        </div>
+      </div>
+      </th:block>
+      <!--댓글end-->
+      <!-- 댓글 목록 -->
+
+    </div>
+  </section>
+  <script>
+
+    // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
+    // 댓글 삭제 요청
+    function deleteReply(no) {
+
+      const check = confirm("정말로 삭제하시겠습니까?")
+      if (!check)
+        return
+
+      // 삭제 요청
+      let request = new XMLHttpRequest()
+      // request.open('DELETE', '/products/reply/' + no)
+      request.open('DELETE', `/reply/${no}`)       // ⭐템플릿 문자열
+      request.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+      request.send()
+
+      request.onreadystatechange = function () {
+        // 요청 성공 시,
+        if (request.readyState == request.DONE && request.status == 200) {
+          console.log('댓글 삭제 성공!');
+          let response = request.responseText
+          // alert(response)
+          if (response == 'SUCCESS') {
+            replyList()     // 댓글 목록 갱신
+          }
         }
-
-// 페이지 로드 시에 댓글 목록을 가져와서 출력
-$(document).ready(function() {
-    replyList();
-});
-    request.send()
-
-
-// 댓글 삭제 요청
-function deleteReply(no) {
-  const check = confirm("정말로 삭제하시겠습니까?");
-  if (!check) return;
-
-  // 삭제 요청
-  let request = new XMLHttpRequest();
-  request.open('DELETE', '/products/reply/' + no);
-  request.send();
-
-  request.onreadystatechange = function () {
-    // 요청 성공 시,
-    if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log('댓글 삭제 성공!');
-      let response = request.responseText;
-      if (response === 'SUCCESS') {
-        replyList(); // 댓글 목록 갱신
       }
     }
-  };
-}
 
-// 댓글 수정 취소
-function cancelReply() {
-  let $editor = document.getElementById('editor');
-  $editor.remove(); // 요소 삭제
+    // 댓글 수정 취소
+    function cancelReply() {
+      let $editor = document.getElementById('editor')
+      $editor.remove()            // 요소 삭제
 
-  let $inner = document.getElementsByClassName('inner');
-  for (let i = 0; i < $inner.length; i++) {
-    $inner[i].style.display = 'block';
-  }
-}
-
-// 댓글 수정 요청
-function updateReply(no) {
-  let writer = document.getElementById('update-writer').value;
-  let content = document.getElementById('update-content').value;
-
-  console.log(`수정한 작성자 : ${writer}`);
-  console.log(`수정한 내용 : ${content}`);
-
-  let data = {
-    'productsNo': productsNo,
-    'writer': writer,
-    'content': content,
-  };
-
-  console.dir(data);
-
-  // 수정 요청
-  let request = new XMLHttpRequest();
-  request.open('PUT', '/reply');
-  request.setRequestHeader("Content-Type", "application/json");
-  request.send(JSON.stringify(data));
-
-  request.onreadystatechange = function () {
-    // 요청 성공 시,
-    if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log('댓글 수정 성공!');
-      let response = request.responseText;
-      if (response === 'SUCCESS') {
-        replyList(); // 댓글 목록 갱신
+      let $inner = document.getElementsByClassName('inner')
+      for (let i = 0; i < $inner.length; i++) {
+        $inner[i].style.display = 'block'
       }
     }
-  };
-}
- 
 
-   </script>
+    // 댓글 수정 요청
+    function updateReply(no) {
+      let writer = document.getElementById('update-writer').value
+      let content = document.getElementById('update-content').value
+
+      console.log(`수정한 작성자 : ${writer}`);
+      console.log(`수정한 내용 : ${content}`);
+
+      let data = {
+        'no': no,
+        'writer': writer,
+        'content': content,
+      }
+
+      console.dir(data)
+
+      // 수정 요청
+      let request = new XMLHttpRequest()
+      request.open('PUT', '/products/reply')
+      request.setRequestHeader("Content-Type", "application/json")
+      request.send(JSON.stringify(data))
+
+      request.onreadystatechange = function () {
+        // 요청 성공 시,
+        if (request.readyState == request.DONE && request.status == 200) {
+          console.log('댓글 수정 성공!');
+          let response = request.responseText
+          // alert(response)
+          if (response == 'SUCCESS') {
+            replyList()     // 댓글 목록 갱신
+          }
+        }
+      }
+    }
+
+
+  </script>
 
 
 </body>
