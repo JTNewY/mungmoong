@@ -52,7 +52,7 @@
 
         .form-group {
             margin-bottom: 1rem;
-            text-align: left; /* 왼쪽 정렬 */
+            text-align: left;
         }
 
         .form-group label {
@@ -61,7 +61,7 @@
         }
 
         .form-control {
-            width: 100%; /* 전체 너비 사용 */
+            width: 100%;
         }
 
         .form-check {
@@ -108,9 +108,10 @@
             <div class="profile-header">
                 <img src="/default/image/path.png" id="profile-image" alt="Profile Image">
                 <label for="upload-photo">사진업로드 ▼</label>
-                <input type="file" id="upload-photo" style="display: none;" accept="image/*">
+                <input type="file" id="upload-photo" name="upload-photo" style="display: none;" accept="image/*">
             </div>
-            <form id="petForm" action="/users/petUpdate" method="post" enctype="multipart/form-data">
+            <!-- <form id="petForm" action="/users/petUpdate" method="post" enctype="multipart/form-data"> -->
+                <form action="/users/petUpdate" method="post" enctype="multipart/form-data"></form>
                 <!-- CSRF 토큰 추가 -->
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                 <!-- petNo 히든 필드 추가 -->
@@ -163,7 +164,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
+    <!-- <script>
         document.getElementById('upload-photo').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -174,6 +175,10 @@
                 reader.readAsDataURL(file);
             }
         });
-    </script>
+
+        document.querySelector('.profile-header label').addEventListener('click', function() {
+            document.getElementById('upload-photo').click();
+        });
+    </script> -->
 </body>
 </html>

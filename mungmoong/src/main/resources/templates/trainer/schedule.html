@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/layouts/trainer_layout}">
-    <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>스케쥴 관리</title>
     <style>
-        a { text-decoration: none; color: black; }
+        a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 <body class="body" layout:fragment="content">
@@ -26,7 +27,6 @@
                         <li class="nav-item">
                             <a class="tab-button active" href="/trainer/schedule">스케쥴 관리</a>
                         </li>
-                         
                         <li class="nav-item">
                             <a class="tab-button" href="/trainer/deposit">입금 내역서</a>
                         </li>
@@ -38,44 +38,150 @@
             </nav>
             <div class="container p-4">
                 <div id="calendar"></div>
-
+            </div>
+        </div>
+    </div>
+    <div id='calendar-container'>
+        <div id='calendar'></div>
+    </div>
+    <!-- 부트스트랩 modal 부분 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">휴무일 추가</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    사유 : <input type="text" id="title" /><br />
+                    휴무일 : <input type="datetime-local" id="scheduleDate" /><br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges">추가</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/locales/ko.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    
-        var trainerNo = "[[${trainerNo}]]"
+        var trainerNo = "[[${trainerNo}]]"; // Thymeleaf를 사용하여 서버에서 변수 주입
 
-        document.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                locale: 'ko',  // 한국어 설정
-                events: `/trainer/schedule/event/?trainerNo=${trainerNo}`,
+                locale: 'ko', // 한국어 설정
+                events: function (info, successCallback, failureCallback) {
+                    $.ajax({
+                        url: `/trainer/schedule/event`,
+                        type: 'GET',
+                        data: { trainerNo: trainerNo },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (!Array.isArray(data)) {
+                                console.error('Expected an array of events');
+                                failureCallback(new Error('Expected an array of events'));
+                                return;
+                            }
+                            var events = data.map(event => ({
+                                title: event.title,
+                                start: event.scheduleDate
+                            }));
+                            successCallback(events);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error fetching events:', textStatus, errorThrown);
+                            failureCallback(errorThrown);
+                        }
+                    });
+                },
                 height: '600px', // calendar 높이 설정
-				expandRows: true, // 화면에 맞게 높이 재설정
-				// 해더에 표시할 툴바
-				headerToolbar: {
-					right: 'prev,next today',
-				},
+                expandRows: true, // 화면에 맞게 높이 재설정
+                customButtons: {
+                    myCustomButton: {
+                        text: "일정 추가",
+                        click: function () {
+                            $("#exampleModal").modal("show");
+                        }
+                    },
+                    mySaveButton: {
+                        text: "저장",
+                        click: function () {
+                            if (confirm("저장하시겠습니까?")) {
+                                var allEvents = calendar.getEvents().map(event => ({
+                                    title: event.title,
+                                    scheduleDate: event.start,
+                                    trainerNo: trainerNo
+                                }));
+
+                                $.ajax({
+                                    url: '/trainer/schedule/save',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(allEvents),
+                                    success: function (response) {
+                                        alert("일정이 저장되었습니다.");
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        console.error('Error saving events:', textStatus, errorThrown);
+                                        alert("일정 저장에 실패했습니다.");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                headerToolbar: {
+                    right: 'prev,next today',
+                    center: 'title',
+                    left: 'myCustomButton,mySaveButton',
+                },
                 selectable: true, // 달력 일자 드래그 설정가능
-				nowIndicator: true, // 현재 시간 마크
-				dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-                eventDidMount: function(info) {
-                    // 이벤트가 렌더링될 때 호출되는 콜백 함수
-                    // 여기서 이벤트의 배경색을 설정할 수 있습니다.
-                    info.el.style.color = info.event.extendedProps.color; // 배경색을 파란색으로 설정 (원하는 색상으로 변경 가능)
-                    info.el.style.backgroundColor = "#FFE0B2";
-                    console.log(info.event.extendedProps.backgroundColor);
+                nowIndicator: true, // 현재 시간 마크
+                dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+                eventDidMount: function (info) {
+                    info.el.style.backgroundColor = info.event.backgroundColor;
                 }
             });
             calendar.render();
-        });
 
+            $("#saveChanges").on("click", function () {
+                var eventData = {
+                    title: $("#title").val(),
+                    scheduleDate: $("#scheduleDate").val(),
+                    trainerNo: trainerNo
+                };
+
+                if (eventData.title === "" || eventData.scheduleDate === "") {
+                    alert("입력하지 않은 값이 있습니다.");
+                } else {
+                    // 이벤트 추가
+                    calendar.addEvent(eventData);
+                    $("#exampleModal").modal("hide");
+                    $("#title").val("");
+                    $("#scheduleDate").val("");
+
+                    // 서버에 이벤트 저장
+                    $.ajax({
+                        url: '/trainer/schedule/save',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(eventData),
+                        success: function (response) {
+                            alert("일정이 성공적으로 저장되었습니다.");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error saving event:', textStatus, errorThrown);
+                            alert("일정 저장에 실패했습니다.");
+                        }
+                    });
+                }
+            });
+        });
     </script>
-    
+
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.mypet.mungmoong.pet.controller;
 
+import com.mypet.mungmoong.imgfile.dto.ImgFileDTO;
+import com.mypet.mungmoong.imgfile.service.ImgFileService;
 import com.mypet.mungmoong.pet.dto.Pet;
 import com.mypet.mungmoong.pet.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -24,6 +31,9 @@ public class PetController {
 
     @Autowired
     private PetService petService;
+
+    @Autowired
+    private ImgFileService imgFileService;
     
 
     // ####################################################펫 수정#######################################################
@@ -34,12 +44,12 @@ public class PetController {
         logger.info("Received request for petNo: {}", petNo);
         logger.info("userId from session: {}", userId);
         session.getAttributeNames().asIterator().forEachRemaining(name -> logger.info("Session attribute: {} = {}", name, session.getAttribute(name)));
-    
+
         if (petNo == null) {
             logger.error("Missing petNo parameter");
             return "redirect:/users/index?error=MissingPetNo";
         }
-    
+
         Pet pet = petService.findPetById(petNo);
         if (pet == null || !pet.getUserId().equals(userId)) {
             return "redirect:/users/index?error=PetNotFound";
@@ -48,22 +58,20 @@ public class PetController {
         model.addAttribute("petNo", petNo);  // Add petNo to model
         return "users/petUpdate";
     }
-    
+
     @PostMapping("/users/petUpdate")
     public String updatePet(@RequestParam("petNo") int petNo,
                             @RequestParam("petname") String petname,
                             @RequestParam("age") int age,
-                            @RequestParam("petgender") int petgender,  // 필드 이름 일관성 유지
+                            @RequestParam("petgender") int petgender,
                             @RequestParam("character") String character,
                             @RequestParam("type") String type,
                             @RequestParam("specialNotes") String specialNotes,
+                            @RequestPart("upload-photo") MultipartFile file,
                             HttpSession session) {
     
         String userId = (String) session.getAttribute("userId");
         logger.info("Updating pet: userId={}, petNo={}", userId, petNo);
-        session.getAttributeNames().asIterator().forEachRemaining(name -> logger.info("Session attribute: {} = {}", name, session.getAttribute(name)));
-    
-   
     
         Pet pet = petService.findPetById(petNo);
         if (pet == null || !pet.getUserId().equals(userId)) {
@@ -79,11 +87,35 @@ public class PetController {
         pet.setSpecialNotes(specialNotes);
         pet.setUpdDate(new Date());
     
+        // 파일 업로드 처리
+        if (!file.isEmpty()) {
+            logger.info("File received: {}", file.getOriginalFilename());
+            try {
+                String fileName = file.getOriginalFilename();
+                String filePath = "/path/to/upload/directory/" + fileName;
+                File dest = new File(filePath);
+                file.transferTo(dest);
+    
+                // DB에 파일 정보 저장
+                ImgFileDTO imgFileDTO = new ImgFileDTO();
+                imgFileDTO.setParentNo(petNo);
+                imgFileDTO.setParentTable("pet");
+                imgFileDTO.setFileName(fileName);
+                imgFileDTO.setFilePath(filePath);
+                imgFileDTO.setFileSize(file.getSize());
+                imgFileDTO.setRegDate(new Timestamp(System.currentTimeMillis()));
+                imgFileDTO.setUpdDate(new Timestamp(System.currentTimeMillis()));
+                imgFileService.saveFile(imgFileDTO);
+            } catch (IOException e) {
+                logger.error("File upload error: ", e);
+            }
+        }
+    
         petService.updatePet(pet);
     
         return "redirect:/users/index?success=PetUpdated";
     }
-    
+        
 
 
     // ####################################################펫 추가#######################################################
@@ -106,7 +138,7 @@ public class PetController {
     @PostMapping("/users/petAdd")
     public String addPet(@RequestParam("petname") String petname,
                          @RequestParam("age") int age,
-                         @RequestParam("gender") int gender,
+                         @RequestParam("petgender") int petgender,
                          @RequestParam("character") String character,
                          @RequestParam("type") String type,
                          @RequestParam("specialNotes") String specialNotes,
@@ -123,7 +155,7 @@ public class PetController {
         pet.setUserId(userId); // 현재 사용자 ID 설정
         pet.setPetname(petname);
         pet.setAge(age);
-        pet.setPetgender(gender);
+        pet.setPetgender(petgender);
         pet.setCharacter(character);
         pet.setType(type);
         pet.setSpecialNotes(specialNotes); // 특이사항 추가함
@@ -136,4 +168,6 @@ public class PetController {
 
         return "redirect:/users/index";
     }
+
+    // ####################################################펫 #######################################################
 }
