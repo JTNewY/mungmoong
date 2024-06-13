@@ -37,7 +37,7 @@ public class PetController {
     
 
     // ####################################################펫 수정#######################################################
-    
+
     @GetMapping("/users/petUpdate")
     public String showUpdatePetForm(@RequestParam(name = "petNo", required = true) Integer petNo, Model model, HttpSession session) {
         String userId = (String) session.getAttribute("userId");
@@ -67,18 +67,18 @@ public class PetController {
                             @RequestParam("character") String character,
                             @RequestParam("type") String type,
                             @RequestParam("specialNotes") String specialNotes,
-                            @RequestPart("upload-photo") MultipartFile file,
+                            @RequestPart(value = "upload-photo", required = false) MultipartFile file,
                             HttpSession session) {
-    
+
         String userId = (String) session.getAttribute("userId");
         logger.info("Updating pet: userId={}, petNo={}", userId, petNo);
-    
+
         Pet pet = petService.findPetById(petNo);
         if (pet == null || !pet.getUserId().equals(userId)) {
             logger.warn("Pet not found or user not authorized, redirecting to index page");
             return "redirect:/users/index?error=PetNotFound";
         }
-    
+
         pet.setPetname(petname);
         pet.setAge(age);
         pet.setPetgender(petgender);
@@ -86,16 +86,16 @@ public class PetController {
         pet.setType(type);
         pet.setSpecialNotes(specialNotes);
         pet.setUpdDate(new Date());
-    
+
         // 파일 업로드 처리
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             logger.info("File received: {}", file.getOriginalFilename());
             try {
                 String fileName = file.getOriginalFilename();
                 String filePath = "/path/to/upload/directory/" + fileName;
                 File dest = new File(filePath);
                 file.transferTo(dest);
-    
+
                 // DB에 파일 정보 저장
                 ImgFileDTO imgFileDTO = new ImgFileDTO();
                 imgFileDTO.setParentNo(petNo);
@@ -110,9 +110,9 @@ public class PetController {
                 logger.error("File upload error: ", e);
             }
         }
-    
+
         petService.updatePet(pet);
-    
+
         return "redirect:/users/index?success=PetUpdated";
     }
         
@@ -169,5 +169,7 @@ public class PetController {
         return "redirect:/users/index";
     }
 
-    // ####################################################펫 #######################################################
+    // ####################################################펫 삭제######################################################
+
+
 }

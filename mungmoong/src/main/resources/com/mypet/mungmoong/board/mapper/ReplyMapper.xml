@@ -29,8 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 댓글 등록 -->
     <insert id="insert">
-        INSERT INTO reply (board_no, parent_no, writer, content)
-        VALUES (#{boardNo}, #{parentNo}, #{writer}, #{content} )
+        INSERT INTO reply (user_id, parent_table, parent_no, writer, content)
+        VALUES (#{userId}, #{parentTable}, #{parentNo}, #{writer}, #{content} )
     </insert>
 
     <!-- 댓글 수정 -->
@@ -71,5 +71,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
 
+    <!-- 부모테이블 기준으로 목록 조회 -->
+    <select id="listByParent" resultType="Reply">
+        SELECT *
+        FROM reply
+        WHERE parent_table = #{parentTable}
+          AND parent_no = #{parentNo}
+    </select>
+
+
+
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

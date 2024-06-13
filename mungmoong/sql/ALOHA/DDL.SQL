@@ -1,4 +1,4 @@
--- Active: 1718101887843@@127.0.0.1@3306@mypet
+-- Active: 1716798076500@@127.0.0.1@3306@mypet
 
 -- 펫테이블-------------------------------------------------------------------------------------
 
@@ -42,14 +42,15 @@ DROP TABLE IF EXISTS reply;
 
 CREATE TABLE `reply` (
     `no` INT PRIMARY KEY AUTO_INCREMENT,
-    `board_no` INT NOT NULL,
-    `user_id` VARCHAR(100) NOT NULL,
-    `parent_no` VARCHAR(100) NULL,
+    `user_id` VARCHAR(100) NULL,
+    `parent_no` INT NOT NULL,
+    `parent_table` VARCHAR(100) NOT NULL,
     `writer` VARCHAR(100) NULL,
     `content` VARCHAR(1000) NULL,
     `upd_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- 공지사항테이블-------------------------------------------------------------------------------------
 

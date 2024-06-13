@@ -184,32 +184,34 @@
 
     <!--댓글start-->
     <div class="container">
+      <!-- 댓글 입력 -->
+      <th:block sec:authorize="isAuthenticated()">
       <div class="row">
         <div id="reply-input col-12 col-md-6">
           <h1 class="d-flex justify-content-center">댓글</h1>
           <div class="reply-input card shadow-sm" style="padding: 3%; width: 100%;">
             <!-- CSRF 토큰 추가 -->
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-            <input type="text" name="writer" id="reply-writer" placeholder="작성자">
+            <input type="hidden" name="userId" id="user-id" th:value="${session.user.userId}">
+            <input type="text" name="writer" id="reply-writer" th:value="${session.user.name}" readonly  placeholder="작성자">
             <br>
             <textarea name="content" id="reply-content" cols="60" rows="5" placeholder="댓글을 작성해주세요."></textarea>
             <div class="btn-box d-flex justify-content-end" style="padding-top: 1em;">
               <button type="button " id="btn-reply-insert" class="btn-reply button" onclick="insertReply()">등록</button>
               <script>
-
                 var productsNo = "[[${product.id}]]";
                 var csrfToken = "[[${_csrf.token}]]";
-                // 댓글 목록
+                // 댓글 목록 요청
+                replyList();
+                 // 댓글 목록
                 function replyList() {
                   // AJAX 비동기 요청
                   let request = new XMLHttpRequest()
-                  var csrfToken = "[[${_csrf.token}]]";
                   // 요청 세팅
-                  request.open('GET', '/products/reply/' + productsNo)
+                  request.open('GET', '/products/reply?parentTable=products&parentNo='+productsNo)
                   console.log(productsNo);
-                 // request.send()
+                  request.send()
                   request.onreadystatechange = function () {
-
                     // 요청 성공 시,
                     if (request.readyState == request.DONE && request.status == 200) {
                       // 댓글 목록
@@ -217,11 +219,12 @@
 
                       // ⭐ 서버에서 렌더링한 HTML로 갱신(SSR)
                       let data = response     // (html)
+                      console.log(data);
                       let replyList = document.getElementById('reply-list')
                       replyList.innerHTML = data
 
                       // 이벤트 등록    
-                      event()
+                      // event()
                     }
                   }
 
@@ -264,21 +267,22 @@
                           })
                         }
               }
-
                 // 댓글 삽입 함수입니다.
                 function insertReply() {
                   // 작성자와 내용 가져오기
+                  let $userId = document.getElementById('user-id');
                   let $writer = document.getElementById('reply-writer');
                   let $content = document.getElementById('reply-content');
+                  let userId = $userId.value
                   let writer = $writer.value;
                   let content = $content.value;
-
                   $.ajax({
-                    url: '/products/reply/' + productsNo,
+                    url: '/products/reply',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                      'productsNo': productsNo,
+                      'userId': userId,
+                      'parentNo': productsNo,
                       'writer': writer,
                       'content': content
                     }),
@@ -303,9 +307,6 @@
                     }
                   });
                 }
-
-                // 댓글 목록 요청
-                replyList();
               </script>
 
             </div>
@@ -315,15 +316,15 @@
           </div>
         </div>
       </div>
+      </th:block>
       <!--댓글end-->
+      <!-- 댓글 목록 -->
+
     </div>
   </section>
   <script>
 
     // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-    //   let no = "[[${board.no}]]"      // 글번호
-
-   
     // 댓글 삭제 요청
     function deleteReply(no) {
 
@@ -333,8 +334,9 @@
 
       // 삭제 요청
       let request = new XMLHttpRequest()
-      request.open('DELETE', '/products/reply/' + no)
-      // request.open('DELETE', `/reply/${no}`)       // ⭐템플릿 문자열
+      // request.open('DELETE', '/products/reply/' + no)
+      request.open('DELETE', `/reply/${no}`)       // ⭐템플릿 문자열
+      request.setRequestHeader("X-CSRF-TOKEN", csrfToken);
       request.send()
 
       request.onreadystatechange = function () {
@@ -395,6 +397,8 @@
         }
       }
     }
+
+
   </script>
 
 
