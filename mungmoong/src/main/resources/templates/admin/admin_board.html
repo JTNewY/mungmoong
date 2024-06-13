@@ -68,16 +68,16 @@
                 <a th:href="| /admin/admin_board?page=${page.last}&code=${option.code}&keyword=${option.keyword} |">&raquo;</a>           
     </div>
     
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col" style="width: 10%;">ID</th>
-                        <th scope="col" style="width: 10%;">제목</th>
-                        <th scope="col">내용</th>
-                        <th scope="col" style="width: 10%;">등록일자</th>
-                        <th scope="col" style="width: 10%;">수정일자</th>
-                        <th scope="col" style="width: 10%;">삭제</th>
-                    </tr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 10%;">ID</th>
+                <th scope="col" style="width: 10%;">제목</th>
+                <th scope="col">내용</th>
+                <th scope="col" style="width: 10%;">등록일자</th>
+                <th scope="col" style="width: 10%;">수정일자</th>
+                <th scope="col" style="width: 10%;">삭제</th>
+                </tr>
                 </thead>
                 <th:block th:each="board : ${boardList}">
                     <tr>
@@ -87,14 +87,15 @@
                         <td class="text-truncate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td class="text-truncate" th:text="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td class="text-truncate">
-                            <form th:action="@{/admin/ListBoardDelete}" method="post">
-                                <input type="hidden" name="no" th:value="${board.no}" />
-                                <button type="submit">삭제</button>
-                            </form>
+                                <form action="/admin/ListBoardDelete" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                    <input type="hidden" name="no" th:value="${board.no}" />
+                                    <button type="submit">삭제</button>
+                                </form>
                         </td>
-                    </tr>
+                </tr>
             </th:block>
-            </table>
+        </table>
 
             <!-- 페이징 버튼 영역 -->
             <div class="paging">
