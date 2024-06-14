@@ -1,4 +1,5 @@
 
+<div class="container-sm" style="padding: 0 3%;">
 <th:block th:each="reply : ${replyList}">
 
 <!-- 댓글 -->
@@ -11,16 +12,29 @@
     <div class="reply-box answer">
 </th:block>
         <div class="inner">
-            <div class="top">
+            <div class="top btn-box d-flex justify-content-between">
+              <div class="col">
+                <img class="myimg" src="/img/myimg01.png"></img>
                 <span class="reply-userId" th:text="${reply.userId}"></span>
                 <span class="reply-date" th:text="${#dates.format(reply.updDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
-                
+            </div>
                 <div class="item">
                     <!-- <button class="btn-reply-update" th:data="${reply.no}">수정</button> -->
-                    <button class="btn-reply-delete" th:onclick="|deleteReply(${reply.no})|">삭제</button>
+                    <button class="btn-reply-delete" th:onclick="|deleteReply(${reply.no})|" style="    font-size: 0.9rem;
+                    width: 120px;
+                    height: 40px;
+                    font-weight: bold;
+                    padding: 0 2em;
+                    background-color: #FFE0B2;
+                    color: #DAA414;
+                    border-radius: 25px;
+                    text-align: center;
+                    text-decoration: none;">삭제</button>
                 </div>
             </div>
-            <p class="reply-content" th:text="${reply.content}"></p>
+            </div>
+            <p class="reply-content" th:text="${reply.content}" style="padding: 2%; border: 1px solid #dbdbdb;"></p>
         </div>
     </div>
 </th:block>
+</div>

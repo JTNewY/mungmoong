@@ -1,52 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layouts/main_layout}">
-<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>상품 정보</title>
-  <style>
-    .event-log {
-      font-family: consolas, Monaco, monospace;
-      margin: 10px 5px;
-      line-height: 2;
-      border: 1px solid #4c4c4c;
-      height: auto;
-      width: 90%;
-      padding: 2px 6px;
-      color: #4c4c4c;
-      white-space: pre;
-    }
-
-    .tit {
-      text-decoration: none;
-    }
-
-    .button {
-      font-size: 1.1rem;
-      width: 110px;
-      font-weight: bold;
-      padding: 0.6em 2em;
-      background-color: #FFE0B2;
-      color: #DAA414;
-      border-radius: 25px;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    .button:hover {
-      background-color: #F6C542 !important;
-      color: snow !important;
-    }
-  </style>
-</head>
+  layout:decorate="~{/layouts/product_layout}">
 
 <body layout:fragment="content">
-
   <section>
 
     <form action="/orders" method="get">
@@ -145,13 +101,10 @@
     <div>
       <div id="page-top">
         <!-- Services-->
-        <section class="content-section bg-primary text-white text-center" id="services">
-          <div class="container px-4 px-lg-5">
-            <div class="content-section-heading">
-              <h3 class="text mb-0" style="color: aliceblue;">김조은 훈련사</h3>
+        <section class="content-section text-center" style="color:#333;background-color: #fff7e1;">
+          <div class="container px-4 px-lg-5" >
               <h2 class="mb-5" th:text="${product.content}"></h2>
-            </div>
-            <!-- <div class="row gx-4 gx-lg-5">
+            <div class="row gx-4 gx-lg-5">
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                             <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
                             <h4><strong>검색순</strong></h4>
@@ -176,8 +129,34 @@
                             <h4><strong>질문</strong></h4>
                             <p class="text-faded mb-0">빠른 답변</p>
                         </div>
-                    </div> -->
+                    </div>
           </div>
+        </section>
+        <section class="content-section">
+          <p class="line"></p>
+          <h3 class="title">경력&#183;자격</h3>
+            <div class="licence_img row px-4 px-lg-5" >
+              <div class="col">
+                <img src="/img/license.png" class="license">
+              </p>반려동물 종합관리사</p>
+              </div> 
+              <div class="col">
+                <img src="/img/license.png" class="license">
+                <p>반려동물 행동교정사</p>
+              </div> 
+              <div class="col">
+                <img src="/img/license.png" class="license">
+                <p>반려동물 아로마관리사</p>
+              </div> 
+              </div>
+          <p class="line"></p>
+          <h3 class="title">자기소개</h3>
+            <div class="licence_img row px-4 px-lg-5" >
+              <span>교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</br>
+             교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</span>
+            </div>
         </section>
       </div>
     </div>
@@ -188,16 +167,19 @@
       <th:block sec:authorize="isAuthenticated()">
       <div class="row">
         <div id="reply-input col-12 col-md-6">
-          <h1 class="d-flex justify-content-center">댓글</h1>
-          <div class="reply-input card shadow-sm" style="padding: 3%; width: 100%;">
-            <!-- CSRF 토큰 추가 -->
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-            <input type="hidden" name="userId" id="user-id" th:value="${session.user.userId}">
-            <input type="text" name="writer" id="reply-writer" th:value="${session.user.name}" readonly  placeholder="작성자">
-            <br>
-            <textarea name="content" id="reply-content" cols="60" rows="5" placeholder="댓글을 작성해주세요."></textarea>
-            <div class="btn-box d-flex justify-content-end" style="padding-top: 1em;">
-              <button type="button " id="btn-reply-insert" class="btn-reply button" onclick="insertReply()">등록</button>
+          <h1 class="d-flex justify-content-start">리뷰3건</h1>
+          <div class="reply-input card">
+            <div class="btn-box d-flex justify-content-between">
+               <div class="d-flex justify-content-center">
+                <!-- CSRF 토큰 추가 -->
+                <img class="myimg" src="/img/myimg01.png"></img>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                <input type="hidden" name="userId" id="user-id" th:value="${session.user.userId}">
+                <input type="text" name="writer" id="reply-writer" th:value="${session.user.name}" readonly  placeholder="작성자">
+              </div>
+                <button type="button " id="btn-reply-insert" class="btn-reply button" onclick="insertReply()">등록</button> 
+            </div>
+              <textarea name="content"class="txt" id="reply-content" cols="60" rows="5" placeholder="댓글을 작성해주세요."></textarea>
               <script>
                 var productsNo = "[[${product.id}]]";
                 var csrfToken = "[[${_csrf.token}]]";
