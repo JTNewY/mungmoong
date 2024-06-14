@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <!-- link -->
+    <th:block th:replace="~{fragments/common/link::link}"></th:block>
+    <th:block th:replace="~{fragments/product/link::link}"></th:block>
+    <!-- script -->
+    <th:block th:replace="~{fragments/common/script::script}"></th:block>
+    <th:block th:replace="~{fragments/product/script::script}"></th:block>
+</head>
+<body>
+     <!-- header -->
+     <th:block th:replace="~{fragments/common/header::header}"></th:block>
+
+    <!-- ⭐ content -->
+    <!-- layout:fragment="레이아웃의 프레그먼트 영역 이름" -->
+    <th:block layout:fragment="content"></th:block>
+    
+    <!-- footer -->
+    <th:block th:replace="~{fragments/common/footer::footer}"></th:block>
+
+</body>
+</html>
