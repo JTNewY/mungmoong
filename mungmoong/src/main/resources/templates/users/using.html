@@ -251,16 +251,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
                 <p>취소</p>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="trainer-info mb-5">
             <h2>훈련사 정보</h2>
-            <div class="info-container">
-                <img src="/img/users/trn1.png" alt="훈련사 사진">
-                <div class="info">
-                    <p><strong>김박사</strong>님</p>
-                    <p>010-1234-5678</p>
-                    <p>trainer@example.com</p>
-                    <p>경력: 5년</p>
-                    <p>특기: 반려견 훈련, 행동 교정</p>
+            <div class="info-card d-flex align-items-center p-3">
+                <img th:src="@{/img/users/trainer.png}" alt="프로필 사진" class="mr-3">
+                <div class="info" th:if="${trainer != null}">
+                    <p th:text="${trainer.name}"></p>
+                    <p th:text="${trainer.phone}"></p>
+                    <p th:text="${trainer.mail}"></p>
+                    <p>경력: <span th:text="${trainer.content}"></span></p>
                 </div>
             </div>
         </div>
@@ -272,13 +271,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
                         <div class="pet-card d-flex align-items-center p-3 mb-3">
                             <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3">
                             <div class="pet-info">
-                                <p><strong th:text="${pet.petname} + ' '"></strong></p>
+                                <p th:text="${session.user.name} + ' (' + ${session.user.gender == 0 ? '♂' : '♀'} + ')'"></p>
                                 <p>나이: <span th:text="${pet.age} + '살'"></span></p>
                                 <p>성격: <span th:text="${pet.character}"></span></p>
                                 <p>특이사항: <span th:text="${pet.specialNotes}"></span></p>
                                 <!-- 특이 사항 부분 추가 -->
                             </div>
-                            <button type="button" class="custom-button" onclick="location.href='/users/petupdate'">마이펫수정</button>
                         </div>
                     </div>
                 </div>
@@ -294,7 +292,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
             취소는 1:1 문의를 신청해주세요.
         </div>
         <div class="bottom-buttons">
-            <button type="button" onclick="location.href='/users/index'">확인</button>
+            <!-- <button type="button" onclick="location.href='/users/index'">확인</button> -->
             <button type="button" onclick="location.href='/QnA/list'">취소</button>
         </div>
     </main>
