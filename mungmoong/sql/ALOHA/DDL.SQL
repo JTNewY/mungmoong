@@ -1,4 +1,4 @@
--- Active: 1716798076500@@127.0.0.1@3306@mypet
+-- Active: 1713528331467@@127.0.0.1@3306@mypet
 
 -- 펫테이블-------------------------------------------------------------------------------------
 
@@ -359,10 +359,10 @@ CREATE TABLE `SHIPMENTS` (
 
 DROP TABLE IF EXISTS `QnA`;
 CREATE TABLE `QnA` (
-	`qna_no`	INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`qna_title`	VARCHAR(100)	NOT NULL,
-	`qna_writer`	VARCHAR(100)	NOT NULL,
-	`qna_content`	VARCHAR(100)	NULL,
+	`no`	INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`title`	VARCHAR(100)	NOT NULL,
+	`writer`	VARCHAR(100)	NOT NULL,
+	`content`	VARCHAR(100)	NULL,
 	`board_type`	VARCHAR(100)	NOT NULL,
 	`reg_date`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`upd_date`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
