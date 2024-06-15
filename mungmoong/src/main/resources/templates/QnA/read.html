@@ -49,28 +49,28 @@
 <body layout:fragment="content">
     <div class="container">
         <div class="inner_qna">
-            <h1>게시글 조회</h1>
+            <h2>문의 게시판</h2>
         <!-- <h2>문의 게시판</h2> -->
     <form action="/QnA/delete" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        <input type="hidden" name="qnaNo" th:value="${qna.qnaNo}">
+        <input type="hidden" name="no" th:value="${qna.no}">
         <table>
             <tr>
                 <td>제목</td>
                 <td>
-                    <input  class="inputArea" type="text" name="qnaTitle" id="qnaTitle" th:value="${qna.qnaTitle}">
+                    <input  class="inputArea" type="text" name="title" id="title" th:value="${qna.title}">
                 </td>
             </tr>
             <tr>
                 <td>작성자</td>
                 <td>
-                    <input  class="inputArea" type="text" name="qnaWriter" id="qnaWriter" th:value="${qna.qnaWriter}">
+                    <input  class="inputArea" type="text" name="writer" id="writer" th:value="${qna.writer}">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <textarea name="qnaContent" id="qnaContent" cols="40" rows="5"
-                              th:text="${qna.qnaContent}"></textarea>
+                    <textarea name="content" id="content" cols="40" rows="5"
+                              th:text="${qna.content}"></textarea>
                 </td>
             </tr>
         </table>
@@ -103,7 +103,7 @@
           </div>
             <textarea name="content"class="txt" id="reply-content" cols="60" rows="5" placeholder="댓글을 작성해주세요."></textarea>
             <script>
-              var no = "[[${qna.qnaNo}]]";
+              var no = "[[${qna.no}]]";
               var csrfToken = "[[${_csrf.token}]]";
               // 댓글 목록 요청
               replyList();
@@ -228,7 +228,7 @@
 
         // 수정 화면 이동
         function moveUpdate() {
-            location.href = '/QnA/update?qnaNo=' + no
+            location.href = '/QnA/update?no=' + no
         }
 
         // 목록 화면 이동
@@ -238,7 +238,7 @@
 
            // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
     // 댓글 삭제 요청
-    function deleteReply(no) {
+function deleteReply(no) {
 
 const check = confirm("정말로 삭제하시겠습니까?")
 if (!check)

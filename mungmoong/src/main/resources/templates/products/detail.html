@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layouts/product_layout}">
+  <head>
+    <style>
+      #js-pagination {
+          list-style: none;
+          display: flex;
+          justify-content: center;
+          padding: 0;
+      }
+
+      #js-pagination li {
+          margin: 0 5px;
+      }
+
+      #js-pagination a {
+          text-decoration: none;
+          padding: 8px 12px;
+          color: #007bff;
+          border: 1px solid #dee2e6;
+          border-radius: 5px;
+      }
+
+      #js-pagination a.active {
+          background-color: #007bff;
+          color: white;
+          border-color: #007bff;
+      }
+  </style>
+  </head>
 
 <body layout:fragment="content">
   <section>
 
-    <form action="/orders" method="get">
+    <form action="/orders" method="get" onsubmit="return checkForm()" id="checkForm">
 
       <input type="hidden" name="trainerNo" id="trainerNo" th:value="${product.trainerNo}">
 
@@ -49,6 +77,7 @@
                       <label for="resDate">예약날짜</label>
                       <div id="calendar" class="input-group">
                         <input type="date" class="form-control" name="resDate" id="resDate" value="">
+                        <input class="message" type="hidden" id="message"></input>
                       </div>
                     </div>
                     <div class="row">
@@ -102,10 +131,10 @@
       <div id="page-top">
         <!-- Services-->
         <section class="content-section text-center" style="color:#333;background-color: #fff7e1;">
-          <div class="container px-4 px-lg-5" >
-              <h2 class="mb-5" th:text="${product.content}"></h2>
+          <div class="container px-4 px-lg-5">
+            <h2 class="mb-5" th:text="${product.content}"></h2>
             <div class="row gx-4 gx-lg-5">
-                        <!-- <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+              <!-- <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                             <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
                             <h4><strong>검색순</strong></h4>
                             <p class="text-faded mb-0">찾아주셔서 감동</p>
@@ -130,33 +159,37 @@
                             <p class="text-faded mb-0">빠른 답변</p>
                         </div>
                     </div> -->
-          </div>
+            </div>
         </section>
         <section class="content-section">
           <p class="line"></p>
           <h3 class="title">경력&#183;자격</h3>
-            <div class="licence_img row px-4 px-lg-5" >
-              <div class="col">
-                <img src="/img/license.png" class="license">
+          <div class="licence_img row px-4 px-lg-5">
+            <div class="col">
+              <img src="/img/license.png" class="license">
               </p>반려동물 종합관리사</p>
-              </div> 
-              <div class="col">
-                <img src="/img/license.png" class="license">
-                <p>반려동물 행동교정사</p>
-              </div> 
-              <div class="col">
-                <img src="/img/license.png" class="license">
-                <p>반려동물 아로마관리사</p>
-              </div> 
-              </div>
+            </div>
+            <div class="col">
+              <img src="/img/license.png" class="license">
+              <p>반려동물 행동교정사</p>
+            </div>
+            <div class="col">
+              <img src="/img/license.png" class="license">
+              <p>반려동물 아로마관리사</p>
+            </div>
+          </div>
           <p class="line"></p>
           <h3 class="title">자기소개</h3>
-            <div class="licence_img row px-4 px-lg-5" >
-              <span>교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</br>
-              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</br>
-              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</br>
-             교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로 행복한 반려생활을 돕겠습니다.</span>
-            </div>
+          <div class="licence_img row px-4 px-lg-5">
+            <span>교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를
+              바탕으로 행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로
+              행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로
+              행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로
+              행복한 반려생활을 돕겠습니다.</span>
+          </div>
         </section>
       </div>
     </div>
@@ -165,32 +198,35 @@
     <div class="container">
       <!-- 댓글 입력 -->
       <th:block sec:authorize="isAuthenticated()">
-      <div class="row">
-        <div id="reply-input col-12 col-md-6">
-          <h1 class="d-flex justify-content-start">리뷰3건</h1>
-          <div class="reply-input card">
-            <div class="btn-box d-flex justify-content-between">
-               <div class="d-flex justify-content-center">
-                <!-- CSRF 토큰 추가 -->
-                <img class="myimg" src="/img/myimg01.png"></img>
-                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-                <input type="hidden" name="userId" id="user-id" th:value="${session.user.userId}">
-                <input type="text" name="writer" id="reply-writer" th:value="${session.user.name}" readonly  placeholder="작성자">
+        <div class="row">
+          <div id="reply-input col-12 col-md-6">
+            <h1 class="d-flex justify-content-start">리뷰3건</h1>
+            <div class="reply-input card">
+              <div class="btn-box d-flex justify-content-between">
+                <div class="d-flex justify-content-center">
+                  <!-- CSRF 토큰 추가 -->
+                  <img class="myimg" src="/img/myimg01.png"></img>
+                  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                  <input type="hidden" name="userId" id="user-id" th:value="${session.user.userId}">
+                  <input type="text" name="writer" id="reply-writer" th:value="${session.user.name}" readonly
+                    placeholder="작성자">
+                </div>
+                <button type="button " id="btn-reply-insert" class="btn-reply button"
+                  onclick="insertReply()">등록</button>
               </div>
-                <button type="button " id="btn-reply-insert" class="btn-reply button" onclick="insertReply()">등록</button> 
-            </div>
-              <textarea name="content"class="txt" id="reply-content" cols="60" rows="5" placeholder="댓글을 작성해주세요."></textarea>
+              <textarea name="content" class="txt" id="reply-content" cols="60" rows="5"
+                placeholder="댓글을 작성해주세요."></textarea>
               <script>
                 var productsNo = "[[${product.id}]]";
                 var csrfToken = "[[${_csrf.token}]]";
                 // 댓글 목록 요청
                 replyList();
-                 // 댓글 목록
+                // 댓글 목록
                 function replyList() {
                   // AJAX 비동기 요청
                   let request = new XMLHttpRequest()
                   // 요청 세팅
-                  request.open('GET', '/products/reply?parentTable=products&parentNo='+productsNo)
+                  request.open('GET', '/products/reply?parentTable=products&parentNo=' + productsNo)
                   console.log(productsNo);
                   request.send()
                   request.onreadystatechange = function () {
@@ -212,43 +248,43 @@
 
                 }
                 // 이벤트 등록
-                  function event() {
-                        // 댓글 수정 버튼
-                        let $btnUpdate = document.getElementsByClassName('btn-reply-update')
-                        // 댓글 수정 클릭 이벤트
-                        for (let i = 0; i < $btnUpdate.length; i++) {
+                function event() {
+                  // 댓글 수정 버튼
+                  let $btnUpdate = document.getElementsByClassName('btn-reply-update')
+                  // 댓글 수정 클릭 이벤트
+                  for (let i = 0; i < $btnUpdate.length; i++) {
 
-                          $btnUpdate[i].addEventListener('click', function () {
-                            // $btnUpdate[i] : 수정 버튼
-                            let $top = $btnUpdate[i].parentNode.parentNode
-                            let writer = $top.childNodes[1].textContent
-                            let $inner = $top.parentNode
-                            let content = $inner.childNodes[3].textContent
-                            let $replyBox = $inner.parentNode
+                    $btnUpdate[i].addEventListener('click', function () {
+                      // $btnUpdate[i] : 수정 버튼
+                      let $top = $btnUpdate[i].parentNode.parentNode
+                      let writer = $top.childNodes[1].textContent
+                      let $inner = $top.parentNode
+                      let content = $inner.childNodes[3].textContent
+                      let $replyBox = $inner.parentNode
 
-                            let no = $btnUpdate[i].getAttribute('data')         // 댓글 번호
+                      let no = $btnUpdate[i].getAttribute('data')         // 댓글 번호
 
-                            // 댓글 수정 모드
-                            // 1. 기존 댓글 내용창 숨기기
-                            $inner.style.display = 'none'
-                            // 2. 수정 UI 출력
-                            let $editor = document.createElement('div')
-                            $editor.classList.add('inner')
-                            $editor.id = 'editor'
-                            let editor = ``
-                            // editor += `<div class="inner" id="editor">`
-                            editor += `<input type="text" value="${writer}" id="update-writer" />`
-                            editor += `<br>`
-                            editor += `<textarea cols="60" rows="5" id="update-content">${content}</textarea> `
-                            editor += `<br>`
-                            editor += `<button onclick="updateReply(${no})">수정</button>`
-                            editor += `<button onclick="cancelReply()">취소</button>`
-                            // editor += `</div>`
-                            $editor.innerHTML = editor
-                            $replyBox.appendChild($editor)
-                          })
-                        }
-              }
+                      // 댓글 수정 모드
+                      // 1. 기존 댓글 내용창 숨기기
+                      $inner.style.display = 'none'
+                      // 2. 수정 UI 출력
+                      let $editor = document.createElement('div')
+                      $editor.classList.add('inner')
+                      $editor.id = 'editor'
+                      let editor = ``
+                      // editor += `<div class="inner" id="editor">`
+                      editor += `<input type="text" value="${writer}" id="update-writer" />`
+                      editor += `<br>`
+                      editor += `<textarea cols="60" rows="5" id="update-content">${content}</textarea> `
+                      editor += `<br>`
+                      editor += `<button onclick="updateReply(${no})">수정</button>`
+                      editor += `<button onclick="cancelReply()">취소</button>`
+                      // editor += `</div>`
+                      $editor.innerHTML = editor
+                      $replyBox.appendChild($editor)
+                    })
+                  }
+                }
                 // 댓글 삽입 함수입니다.
                 function insertReply() {
                   // 작성자와 내용 가져오기
@@ -278,7 +314,7 @@
                       console.log($content.value);
                       // 응답 메시지 확인
                       if (response === 'SUCCESS') {
-                          replyList(); // 댓글 목록 갱신
+                        replyList(); // 댓글 목록 갱신
                         // 댓글 입력 창 비우기
                         $writer.value = '';
                         $content.value = '';
@@ -296,14 +332,20 @@
           <!-- 댓글 목록 -->
           <div id="reply-list">
           </div>
+          <div id="pagination-wrapper clearfix">
+             <ul class="paginatoin float--right" id="pages">
+             </ul>
+        </div>        
         </div>
-      </div>
-      </th:block>
-      <!--댓글end-->
-      <!-- 댓글 목록 -->
-
+    </div>
+    </th:block>
+    <!--댓글end-->
+    <!-- 댓글 목록 -->
     </div>
   </section>
+  <!--페이지네이션start-->
+  <ul id="js-pagination"></ul>
+  <!--페이지네이션end-->
   <script>
 
     // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
@@ -379,10 +421,19 @@
         }
       }
     }
+    //유효성 검사
+    function checkForm() {
+      var resDate = document.getElementById("resDate").value;
+      if (resDate === "") {
+        alert("날짜를 입력해주세요.");
+        return false; // 폼 제출을 막음
+      }
+      return true; // 폼 제출을 허용
+    }
 
-
-  </script>
-
+    //페이지네이션
+  
+    </script>
 
 </body>
 

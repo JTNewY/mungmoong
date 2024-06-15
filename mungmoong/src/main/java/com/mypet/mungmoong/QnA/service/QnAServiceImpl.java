@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.mypet.mungmoong.QnA.dto.QnA;
 import com.mypet.mungmoong.QnA.mapper.QnAMapper;
+import com.mypet.mungmoong.board.dto.Board;
+import com.mypet.mungmoong.trainer.dto.Option;
+import com.mypet.mungmoong.trainer.dto.Page;
 
 @Service
 public class QnAServiceImpl implements QnAService{
@@ -15,8 +18,12 @@ public class QnAServiceImpl implements QnAService{
     private QnAMapper qnaMapper;
 
     @Override
-    public List<QnA> list() throws Exception {
-        List<QnA> qnaList = qnaMapper.list();
+    public List<QnA> list(Page page, Option option) throws Exception {
+        // 게시글 데이터 개수 조회
+        int total = qnaMapper.count(option);
+        page.setTotal(total);
+      
+        List<QnA> qnaList = qnaMapper.list(page, option);
         return qnaList;
     }
 
@@ -44,4 +51,21 @@ public class QnAServiceImpl implements QnAService{
         return result;
     }
     
+    @Override
+    // public List<Board> search(String keyword) throws Exception {
+    public List<QnA> search(Option option) throws Exception {
+        
+        // List<Board> boardList = boardMapper.search(keyword);
+        List<QnA> qnaList = qnaMapper.search(option);
+        return qnaList;
+    }
+
+    @Override
+    public int count(Option option) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'count'");
+    }
+
+
+
 }
