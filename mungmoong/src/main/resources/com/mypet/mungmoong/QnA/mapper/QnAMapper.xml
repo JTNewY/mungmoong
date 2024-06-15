@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="list" resultType="Qna">
         SELECT *
         FROM qna
-        ORDER BY reg_date DESC
+        ORDER BY reg_date asc
         <!-- LIMIT #{page.index}, #{page.rows} -->
     </select>
 
@@ -24,8 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO qna( qna_title, qna_writer , qna_content , board_type , reg_date , upd_date)
-        VALUES ( #{qnaTitle}, #{qnaWriter}, #{qnaContent}, 1 , now(), now())
+        INSERT INTO qna( qna_no, qna_title, qna_writer , qna_content , board_type , reg_date , upd_date)
+        VALUES ( #{qnaNo},#{qnaTitle}, #{qnaWriter}, #{qnaContent}, 1 , now(), now())
     </insert>
 
     <!-- 게시글 수정 -->
