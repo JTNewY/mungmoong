@@ -5,7 +5,7 @@
 <body layout:fragment="content">
   <section>
 
-    <form action="/orders" method="get">
+    <form action="/orders" method="get" onsubmit="return checkForm()" id="checkForm">
 
       <input type="hidden" name="trainerNo" id="trainerNo" th:value="${product.trainerNo}">
 
@@ -49,6 +49,7 @@
                       <label for="resDate">예약날짜</label>
                       <div id="calendar" class="input-group">
                         <input type="date" class="form-control" name="resDate" id="resDate" value="">
+                        <input class="message" type="hidden" id="message"></input>
                       </div>
                     </div>
                     <div class="row">
@@ -379,8 +380,15 @@
         }
       }
     }
-
-
+    //유효성 검사
+    function checkForm() {
+            var resDate = document.getElementById("resDate").value;
+            if (resDate === "") {
+                alert("날짜를 입력해주세요.");
+                return false; // 폼 제출을 막음
+            }
+            return true; // 폼 제출을 허용
+        }
   </script>
 
 
