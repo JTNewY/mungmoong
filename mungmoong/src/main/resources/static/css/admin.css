@@ -266,3 +266,19 @@ textarea {
 }
 
 /* 컨테이너 상세페이지 영역 끝 */
+
+/* 관리자 product 페이지 css 시작 */
+
+.container .inner .insertStyle {}
+.container .inner .insertStyle ul {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+.container .inner .insertStyle ul li {
+}
+.container .inner .insertStyle ul label{
+    display: block;
+}
+.container .inner .insertStyle ul input{}
+
+/* 관리자 product 페이지 css 끝 */

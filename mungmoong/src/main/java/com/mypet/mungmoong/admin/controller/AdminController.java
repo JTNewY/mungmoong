@@ -241,14 +241,14 @@ public class AdminController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/admin_board")
+    @GetMapping("/admin_board_notice")
     public String getMethodName(Model model, Page page, Option option) throws Exception {
 
         List<Board> boardList = boardService.list(page, option);
 
         log.info("Board page 로그 : " + page);
         model.addAttribute("boardList", boardList);
-        return "/admin/admin_board";
+        return "/admin/admin_board_notice";
     }
 
 
