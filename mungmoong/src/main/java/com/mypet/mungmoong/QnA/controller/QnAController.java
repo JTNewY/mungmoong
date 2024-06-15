@@ -2,17 +2,23 @@ package com.mypet.mungmoong.QnA.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mypet.mungmoong.QnA.dto.QnA;
 import com.mypet.mungmoong.QnA.service.QnAService;
 import com.mypet.mungmoong.board.dto.Board;
+import com.mypet.mungmoong.board.dto.Reply;
+import com.mypet.mungmoong.board.service.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +34,11 @@ public class QnAController {
     // View <-- Model         (데이터 출력)
     @Autowired
     private QnAService qnaService;      // @Service를 --Impl 에 등록
+
+    
+    @Autowired
+    private ReplyService replyService;   //댓글
+  
     /**
      * 게시글 목록 조회 화면
      * @return
@@ -139,4 +150,43 @@ public class QnAController {
         return "redirect:/QnA/update?no=" + no + "&error";
     }
     
+
+        /**
+     * 관리자 댓글 목록
+     * @param reply
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/reply")
+    public String replylist(Reply reply
+                                             ,Model model
+                                             ,HttpSession session
+                                            ) throws Exception {
+        log.info(":::::::::: 댓글목록 ::::::::::");
+        List<Reply> replyList = replyService.listByParent(reply); 
+        log.info(": " + replyList);
+        
+        model.addAttribute("replyList", replyList);
+        return "/reply/list";       
+    }
+
+
+    @PostMapping("/reply")
+    public ResponseEntity<String> replyInsert(@RequestBody Reply reply
+                                             , HttpSession session
+                                            ) throws Exception {
+        // int result = replyService.insert(reply);
+        log.info(":::::::::: 댓글입력 ::::::::::");
+        log.info(reply.toString());
+        reply.setParentTable("qna");
+        int result = replyService.insert(reply);
+        if (result > 0) {
+            return ResponseEntity.ok("SUCCESS");
+        } else {
+            return ResponseEntity.status(500).body("FAILURE");
+        }
+        // return null;       
+    }
 }

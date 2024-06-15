@@ -66,17 +66,17 @@
     display: block;
 }
 .licence_img{
-    width: 80%;
+    width: 74%;
     padding-bottom: 4%;
     margin: 0 auto;
 }
 .line{
-    width: 80%;
+    width: 69%;
     border: 1px solid #e7e7e7;
     align-items: center;
     margin: 0 auto;
 }
 .title{
-    padding: 3% 10%;
+    padding: 3% 16%;
     font-weight: bold;
 }

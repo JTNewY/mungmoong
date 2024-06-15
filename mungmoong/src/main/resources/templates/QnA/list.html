@@ -1,143 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/board_layout}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layouts/board_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의 게시판</title>
-    <style>
-        body {
-            background-color: #FFFAED;
-            font-family: 'Jua', sans-serif;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 900px;
-            background-color: #FFFFFF;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin: 50px auto;
-        }
-
-        h2 {
-            font-weight: 600;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .table {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .table-bordered {
-            border: none;
-            background-color: #F1F1F1;
-            border-bottom: 2px solid #DEE2E6;
-            
-        }
-
-        .table tr
-       {
-            background-color: #F1F1F1;
-            border-bottom: 2px solid #DEE2E6;
-        }
-
-
-        .table thead th {
-            background-color: #F1F1F1;
-            border-bottom: 2px solid #DEE2E6;
-        }
-
-        .table th,
-        .table td {
-            border: 2px solid #ffffff00;
-            vertical-align: middle;
-        }
-
-        .form-select {
-            height: 100%;
-            --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e);
-            display: block;
-            width: 30%;
-            padding: .375rem 2.25rem .375rem .75rem;
-            font-size: 1rem;
-            font-weight: 100;
-            line-height: 1.5;
-            color: var(--bs-body-color);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-color: var(--bs-body-bg);
-            background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
-            background-repeat: no-repeat;
-            background-position: right .75rem center;
-            background-size: 16px 12px;
-            border: var(--bs-border-width) solid var(--bs-border-color);
-            border-radius: var(--bs-border-radius);
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-
-        .form-control {
-            border-radius: 10px;
-            border: 1px solid #CCC;
-        }
-
-        .form-control:focus {
-            border-color: #FFC107;
-            box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
-        }
-
-        .btn-primary,
-        .btn-secondary {
-            margin: 0;
-            height: 100%;
-            background-color: #FFC107;
-            border: none;
-            border-radius: 20px;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover,
-        .btn-secondary:hover {
-            background-color: #FFA000;
-        }
-
-        .btn-primary:active,
-        .btn-secondary:active {
-            background-color: #FF8F00;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border: none;
-            border-radius: 20px;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin: 10px;
-        }
-
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-
-        .btn-danger:active {
-            background-color: #bd2130;
-        }
-    </style>
+    <title>게시글 조회</title>
 </head>
+
 <body layout:fragment="content">
-    <div class="container mt-5">
+    <div class="container">
+        <div class="inner">
         <h2>문의 게시판</h2>
         <div class="d-flex justify-content-between mb-3">
             <div class="Q&A">
@@ -145,9 +18,9 @@
                 <!-- <button class="btn btn-primary" onclick="gotoRead()">문의하기</button> -->
             </div>
         </div>
-        <table class="table table-bordered mt-3">
+        <table class="table table-striped">
             <thead>
-                <tr>
+                <tr colspan="6" align="center">
                     <th>번호</th>
                     <th>제목</th>
                     <th>작성자</th>
@@ -167,31 +40,31 @@
 
                 <th:block th:each="qna : ${qnaList}">
                     <tr>
-                        <td align="center" th:text="${qna.qnaNo}"></td>
+                        <td  class="text-truncate" th:text="${qna.qnaNo}"></td>
                         <td>
                             <a th:href="|/QnA/read?qnaNo=${qna.qnaNo}|" 
                             th:text="${qna.qnaTitle}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></a>
                         </td>
-                        <td align="center" th:text="${qna.qnaWriter}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
-                        <td align="center" th:text="${qna.qnaContent}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
-                        <td align="center">
+                        <td  class="text-truncate" th:text="${qna.qnaWriter}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
+                        <td  class="text-truncate" th:text="${qna.qnaContent}"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;table-layout:fixed"></td>
+                        <td class="text-truncate">
                             <span th:text="${ #dates.format( qna.regDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
                         </td>
-                        <td align="center">
+                        <td  class="text-truncate">
                             <span th:text="${ #dates.format( qna.updDate, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
                         </td>
                     </tr>
                 </th:block>
             </tbody>
         </table>
-        <div class="d-flex justify-content-between mb-3">
+        <!-- <div class="d-flex justify-content-between mb-3">
             <div class="d-flex">
                 <select class="form-select me-2" style="width: auto;">
                     <option>----</option>
                 </select>
                 <button class="btn btn-secondary">검색</button>
             </div>
-        </div>
+        </div> -->
       
         <nav class="text-center">
             <ul class="pagination justify-content-center">
@@ -203,6 +76,7 @@
                 <li class="page-item"><a class="page-link" href="#">다음</a></li>
             </ul>
         </nav>
+    </div>
     </div>
 </body>
 </html>
