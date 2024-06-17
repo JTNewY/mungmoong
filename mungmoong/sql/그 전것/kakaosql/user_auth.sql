@@ -11,6 +11,13 @@ CREATE TABLE `user_auth` (
 );
 
 
+CREATE TABLE `user_auth` (
+    `AUTH` VARCHAR(100) NOT NULL,                          -- 권한 (ROLE_USER, ROLE_ADMIN, ...)
+    `user_id` VARCHAR(255) NOT NULL                       -- users 테이블의 user_id
+);
+
+
+
 -- 권한
 -- 사용자 
 -- * 권한 : ROLE_USER
