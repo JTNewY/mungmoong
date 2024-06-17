@@ -368,4 +368,25 @@ CREATE TABLE `QnA` (
 	`upd_date`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+
+--- 소셜 로그인 ---------------------------------------------------------------------------------
+CREATE TABLE `user_auth` (
+    `AUTH` VARCHAR(100) NOT NULL,                          -- 권한 (ROLE_USER, ROLE_ADMIN, ...)
+    `user_id` VARCHAR(255) NOT NULL                       -- users 테이블의 user_id
+);
+
+CREATE TABLE user_social (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    social_platform VARCHAR(255) NOT NULL,
+    social_id VARCHAR(255) NOT NULL,
+    name VARCHAR(255),
+    mail VARCHAR(255),
+    picture VARCHAR(255),
+    linked_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+
 -- END
