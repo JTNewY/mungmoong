@@ -103,13 +103,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int update(Users user) throws Exception {
-        // 비밀번호를 해시 형태로 변환
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
 
-        // 정보 수정 시 계정을 활성화
-         user.setEnabled(1);
 
         return userMapper.update(user);
     }

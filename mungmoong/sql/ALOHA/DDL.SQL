@@ -166,7 +166,7 @@ CREATE TABLE `trainer` (
     `birth` VARCHAR(50) NOT NULL,
     `address` VARCHAR(150) NULL,
     `content` TEXT NULL,
-    `phone` INT NULL,
+    `phone` VARCHAR(50) NULL,
     `mail` VARCHAR(50) NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
