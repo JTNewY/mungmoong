@@ -19,6 +19,19 @@
             border-radius: 25px;
             text-align: center;
         }
+        
+        .tab-buttonn{
+            font-size: 1rem;
+            width: 110px;
+            font-weight: bold;
+            padding: 0.5em 0.75em;
+            border-radius: 25px;
+            text-align: center;
+            border-radius: 30px;
+        }
+       .tab-buttonn:hover{
+          background-color: red;
+        }
     </style>
 </head>
 <body class="body" layout:fragment="content">
@@ -46,25 +59,29 @@
 <div class="box">
     <div class="my-info mb-5">
         <h2>내 정보</h2>
-        <div class="info-card d-flex p-3" style="justify-content: space-between">
+        <div class="col d-flex p-3" style="justify-content: space-between">
             <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3" style="display: block; width: 250px;">
-            <div class="info">
+            <div class="info col-6">
                 <p th:text="${session.user.name} + ' (' + (${session.user.gender == 0 ? '♂' : '♀'}) + ')'"></p>
                 <p th:text="${session.user.mail}"></p>
                 <p th:text="${session.user.phone}"></p>
                 <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
                 <p th:text="${session.user.address}"></p>
             </div>
-            <button type="button" class="tab-button" onclick="location.href='/users/update'" style="padding: 3% 0;">정보수정</button>
+            <button type="button" class="tab-button" onclick="location.href='/users/update'" style="padding: 3% 0;height:45px;line-height: 2px; background: #B9D6DC;color:#fff;">정보수정</button>
         </div>
     </div>  
     <div class="my-pets">
         <h2>마이 펫</h2>
-        <div class="row">
-            <div th:each="pet : ${session.pets}">
-                <div class="pet-card d-flex" style="padding: 3% 0;">
-                    <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3" style="    display: block; width: 250px;">
-                    <div class="pet-info">
+        <div class="row d-flex">
+            <div th:each="pet : ${session.pets}" style=" width: 46%;
+    background-color: #E5EFF7;
+    display: flex;
+    justify-content: space-between;
+    margin: 3% 2%;">
+                <div class="pet-card d-flex" style="padding: 3% 0">
+                    <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3" style="display: block;width: 150px; height: 170px;;">
+                    <div class="pet-info" style="width:48%">
                         <p th:text="${pet.petname} + ' (' + (${pet.petgender == 0 ? '♂' : '♀'}) + ')'"></p>
                         <p>나이: <span th:text="${pet.age} + '살'"></span></p>
                         <p>성격: <span th:text="${pet.character}"></span></p>
@@ -73,14 +90,14 @@
                     <div class="button-container">
                         <form action="/users/petUpdate" method="get" style="display:inline;">
                             <input type="hidden" name="petNo" th:value="${pet.petNo}" />
-                            <button type="submit" class="tab-button">마이펫 수정</button>
+                            <button type="submit" class="tab-buttonn" style="margin: 5% 0; background: #B9D6DC;color:#fff; border-radius: 30px;">마이펫 수정</button>
                         </form>
-                        <button type="button" class="tab-button" th:onclick="'confirmDelete(' + ${pet.petNo} + ')'">마이펫 삭제</button>
+                        <button type="button" class="tab-buttonn"style="margin: 5% 0; background: #B9D6DC;color:#fff;border-radius: 30px;"th:onclick="'confirmDelete(' + ${pet.petNo} + ')'">마이펫 삭제</button>
                     </div>
                 </div>
             </div>
-            <div class="bottom-btn">
-                <button type="button" class="custom-button" onclick="location.href='/users/petAdd'">펫 추가</button>
+            <div class="bottom-btn" style="text-align: center;">
+                <button type="button" class="custom-buttonn" style="text-align: center; background: #B9D6DC;color:#fff;border-radius: 30px;border-radius: 30px;" onclick="location.href='/users/petAdd'">펫 추가</button>
             </div>
 </div>
 </div>
