@@ -108,6 +108,30 @@ public class UsersServiceImpl implements UsersService {
         return userMapper.update(user);
     }
 
+   
+    // 마이페이지 정보수정
+    @Override
+    public int Myupdate(Users user) throws Exception {
+    // 데이터베이스에서 현재 사용자 정보를 가져옴
+    Users currentUser = userMapper.select(user.getUserId());
+
+    if (currentUser == null) {
+        throw new Exception("User not found");
+    }
+
+    // 현재 비밀번호와 입력된 비밀번호가 다른 경우에만 비밀번호를 해시 형태로 변환
+    if (user.getPassword() != null && !user.getPassword().isEmpty() && 
+        !passwordEncoder.matches(user.getPassword(), currentUser.getPassword())) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    } else {
+        // 비밀번호가 변경되지 않았다면 현재 비밀번호를 유지
+        user.setPassword(currentUser.getPassword());
+    }
+
+    return userMapper.update(user);
+}
+    
+
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
         return userMapper.insertAuth(userAuth);

@@ -41,7 +41,8 @@
                         <div class="card-body p-0">
                             <div class="d-flex align-items-center">
                               <a  th:href="|/products/${product.id}|">
-                                 <img class="img-thumbnail img-fluid" th:src="|/files/img/${product.thumbnailId}|" alt="훈련사" />
+                                 <!-- <img class="img-thumbnail img-fluid" th:src="|/files/img/${product.thumbnailId}|" alt="훈련사" /> -->
+                                 <img class="img-thumbnail img-fluid"  th:src="@{/img/trainer01.jpg}" alt="훈련사" style="max-width: 500px;"/>
                               </a>
                                 <div class="p-5">
                                     <h2 class="fw-bolder">
