@@ -55,14 +55,15 @@
                         <td class="text-truncate" th:text="${trainer.gender}"></td>
                         <td class="text-truncate" th:text="${trainer.content}"></td>
                         <td class="text-truncate" style="text-align: center;">
-                            
+
                             <div class="sm-bottom-btn">
                                 <th:block th:if="${trainer.user.role == 1 }">
                                     <form action="/admin/admin_trainer_role" method="post">
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <input type="hidden" name="userId" th:value="${trainer.userId}">
                                         <input type="hidden" name="role" value="2">
-                                        <button type="submit" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
                                     </form>
                                 </th:block>
                                 <th:block th:if="${trainer.user.role == 2}">
@@ -71,7 +72,7 @@
                                         <input type="hidden" name="userId" th:value="${trainer.userId}">
                                         <input type="hidden" name="role" value="1">
                                         <button type="submit"
-                                        class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
+                                            class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">반려</button>
                                     </form>
                                 </th:block>
                             </div>
@@ -92,4 +93,5 @@
         </div>
     </div>
 </body>
+
 </html>

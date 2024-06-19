@@ -39,43 +39,6 @@
                     <li><a href="/admin/admin_board_notice">문의게시판 관리</a></li>
                 </ul>
             </div>
-            <!-- 페이지네이션 -->
-            <div>
-                <!-- [첫] -->
-                <a
-                    th:href="| /admin/admin_board?page=${page.first}&code=${option.code}&keyword=${option.keyword} |">&laquo;</a>
-                <!-- 
-                #numbers.sequence(시작번호, 끝번호)
-                : 시작번호 부터 끝번호까지 번호 리스트를 생성
-            -->
-                <!-- [ 이전 ] -->
-                <!-- <th:block th:if="${page.page > 1}"> -->
-                <th:block th:if="${page.page != page.first}">
-                    <a
-                        th:href="| /admin/admin_board?page=${page.prev}&code=${option.code}&keyword=${option.keyword} |">&lt;</a>
-                </th:block>
-                <th:block th:each="no : ${#numbers.sequence(page.start, page.end)}">
-                    <!-- 현재 페이지 -->
-                    <th:block th:if="${page.page == no}">
-
-                        <b>
-                            <span th:text="${no}"></span>
-                        </b>
-                    </th:block>
-                    <th:block th:if="${page.page != no}">
-                        <a th:href="| /admin/admin_board?page=${no}&code=${option.code}&keyword=${option.keyword} |"
-                            th:text="${no}"></a>
-                    </th:block>
-                </th:block>
-                <!-- [ 다음 ] -->
-                <th:block th:if="${page.page != page.last}">
-                    <a
-                        th:href="| /admin/admin_board?page=${page.next}&code=${option.code}&keyword=${option.keyword} |">&gt;</a>
-                </th:block>
-                <!-- 마지막 -->
-                <a
-                    th:href="| /admin/admin_board?page=${page.last}&code=${option.code}&keyword=${option.keyword} |">&raquo;</a>
-            </div>
 
             <table class="table table-striped">
                 <thead>
@@ -100,7 +63,7 @@
                             <form action="/admin/ListBoardDelete" method="post">
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                 <input type="hidden" name="no" th:value="${qna.no}" />
-                                <button type="submit">삭제</button>
+                                <button type="submit" class="deleteBtn">삭제</button>
                             </form>
                         </td>
                     </tr>

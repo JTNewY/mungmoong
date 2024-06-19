@@ -25,7 +25,7 @@
                             <a class="tab-button active" href="/admin/admin_reserve">예약관리</a>
                         </li>
                         <li class="nav-item">
-                            <a class="tab-button active" href="/admin/admin_board_notice">공지사항 관리</a>
+                            <a class="tab-button" href="/admin/admin_board_notice">공지사항 관리</a>
                         </li>
                         <li class="nav-item">
                             <a class="tab-button" href="/admin/admin_product">상품정보 등록</a>
@@ -66,7 +66,7 @@
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <input type="hidden" name="no" th:value="${orders.no}">
                                         <input type="hidden" name="status" value="approval">
-                                        <button type="submit" class="btn btn-primary btn-lg listBtn smBtn-list smBtn">승인</button>
+                                        <button type="submit" class="btn btn-primary updateBtn smBtn-list smBtn">승인</button>
                                     </form>
                                 </th:block>
                                 <th:block th:if="${orders.status == 'approval'}">
@@ -75,11 +75,11 @@
                                         <input type="hidden" name="no" th:value="${orders.no}">
                                         <input type="hidden" name="status" value="refund">
                                         <button type="submit"
-                                        class="btn btn-secondary btn-lg updateBtn smBtn-update smBtn">환불처리</button>
+                                        class="btn btn-secondary updateBtn smBtn-update smBtn">환불처리</button>
                                     </form>
                                 </th:block>
                                 <th:block th:if="${orders.status == 'refund' or orders.status == 'pending'}">
-                                    <input class="btn-lg smBtn-update updateBtn smBtn" type="text" th:value="${orders.status}" disabled>
+                                    <input class="btn  smBtn-update updateBtn smBtn-update smBtn" type="text" th:value="${orders.status}" disabled>
                                 </th:block>
                             </div>
                         </td>
