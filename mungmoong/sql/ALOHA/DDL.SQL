@@ -1,4 +1,4 @@
--- Active: 1715129092400@@127.0.0.1@3306@joeun
+-- Active: 1717746144890@@127.0.0.1@3306@mypet
 
 -- 펫테이블-------------------------------------------------------------------------------------
 
@@ -166,7 +166,7 @@ CREATE TABLE `trainer` (
     `birth` VARCHAR(50) NOT NULL,
     `address` VARCHAR(150) NULL,
     `content` TEXT NULL,
-    `phone` INT NULL,
+    `phone` VARCHAR(50) NULL,
     `mail` VARCHAR(50) NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
@@ -370,6 +370,7 @@ CREATE TABLE `QnA` (
 
 
 --- 소셜 로그인 ---------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `user_auth`;
 CREATE TABLE `user_auth` (
     `AUTH` VARCHAR(100) NOT NULL,                          -- 권한 (ROLE_USER, ROLE_ADMIN, ...)
     `user_id` VARCHAR(255) NOT NULL                       -- users 테이블의 user_id
