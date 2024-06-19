@@ -47,7 +47,7 @@
                             <label for="updDate" name="updDate">수정일</label>
                             <input type="updDate" name="updDate" id="updDate" th:value="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}">
                         </li>
-                        <li>
+                        <li class="tit">
                             <label for="title" name="title">제목</label>
                             <input type="text" name="title" id="title" th:value="${board.title}">
                         </li>
