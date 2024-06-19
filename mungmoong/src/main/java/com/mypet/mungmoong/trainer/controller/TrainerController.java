@@ -246,14 +246,15 @@ public class TrainerController {
             log.info("trainer 로그조회 : " + trainer);
 
 
-            String userId = (String) session.getAttribute("userId");
-            Users updatedUser = userService.select(userId);
-            session.setAttribute("user", updatedUser);
 
 
             int result = trainerService.insert(trainer);
 
             if (result > 0) {
+                
+            String userId = (String) session.getAttribute("userId");
+            Users updatedUser = userService.select(userId);
+            session.setAttribute("user", updatedUser);
                 return "redirect:/";
             }
         } catch (Exception e) {

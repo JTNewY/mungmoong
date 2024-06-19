@@ -29,16 +29,17 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="collapse navbar-collapse justify-content-start">
                 <ul class="navbar-nav">
+                    <th:block th:if="${session.user.role != 2}">
                     <li class="nav-item">
                         <a class="tab-button active" style="width: 130px;">나의 정보</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="tab-button" onclick="location.href='/users/using'" style="width: 130px;">이용중인 펫시터</a>
-                    </li>
-                     
-                    <li class="nav-item">
-                        <a class="tab-button" onclick="location.href='/users/details'" href="" style="width: 130px;">펫시터 이용내역</a>
-                    </li>
+                        <li class="nav-item" id="petSitterUsage">
+                            <a class="tab-button" onclick="location.href='/users/using'" style="width: 130px;">이용중인 펫시터</a>
+                        </li>
+                        <li class="nav-item" id="petSitterDetails">
+                            <a class="tab-button" onclick="location.href='/users/details'" style="width: 130px;">펫시터 이용내역</a>
+                        </li>
+                    </th:block>
                 </ul>
             </div>
         </nav>
@@ -114,7 +115,13 @@
                 });
             }
         }
+
+
+
     </script>
+    
+  
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
