@@ -42,7 +42,7 @@ public class CustomUser extends DefaultOAuth2User implements UserDetails {
         // 필요한 사용자 속성을 맵으로 변환
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("userId", user.getUserId());
-        attributes.put("password", user.getPassword());
+        // attributes.put("password", user.getPassword());
         attributes.put("name", user.getName());
         attributes.put("birth", user.getBirth());
         attributes.put("address", user.getAddress());
