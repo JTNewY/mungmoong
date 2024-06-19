@@ -6,7 +6,7 @@ TRUNCATE users;
 
 INSERT INTO `users` (`user_id`, `name`, `password`, `birth`, `address`, `mail`, `phone`, `gender`, `enabled`, `role`, `reg_date`, `upd_date`)
 VALUES 
-    ('user', '샘플 사용자', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1990-01-01', '사용자 길 123', 'user@example.com', '010-1234-5678', '남성', 1, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    ('user2', '샘플 사용자', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1990-01-01', '사용자 길 123', 'user@example.com', '010-1234-5678', '남성', 1, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('partner', '샘플 파트너', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1985-05-05', '파트너 길 456', 'partner@example.com', '010-9876-5432', '여성', 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('partner1', '샘플 파트너', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1985-05-05', '파트너 길 456', 'partner@example.com', '010-9876-5432', '여성', 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('partner2', '샘플 파트너', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1985-05-05', '파트너 길 456', 'partner@example.com', '010-9876-5432', '여성', 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

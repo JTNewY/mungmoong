@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mypet.mungmoong.QnA.dto.QnA;
+import com.mypet.mungmoong.QnA.service.QnAService;
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
 import com.mypet.mungmoong.orders.dto.Orders;
@@ -55,6 +56,9 @@ public class AdminController {
 
     @Autowired
     private ProductsService productsService;
+
+    @Autowired
+    private QnAService qnaService;
 
     /**
      * 관리자 회원정보 조회
@@ -249,6 +253,16 @@ public class AdminController {
         log.info("Board page 로그 : " + page);
         model.addAttribute("boardList", boardList);
         return "/admin/admin_board";
+    }
+
+    @GetMapping("/admin_board_notice")
+    public String board_notice(Model model, Page page, Option option) throws Exception {
+
+        List<QnA> qnaList = qnaService.list(page, option);
+
+        log.info("QnA page 로그 : " + page);
+        model.addAttribute("qnaList", qnaList);
+        return "/admin/admin_board_notice";
     }
 
 

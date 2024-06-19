@@ -41,6 +41,7 @@ import com.mypet.mungmoong.trainer.service.FileService;
 import com.mypet.mungmoong.trainer.service.ScheduleService;
 import com.mypet.mungmoong.trainer.service.TrainerService;
 import com.mypet.mungmoong.users.dto.Users;
+import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -90,6 +91,9 @@ public class TrainerController {
 
     @Autowired
     private PetService petService;
+
+    @Autowired
+    private UsersService userService;
 
     /**
      * Orders 목록
@@ -241,6 +245,12 @@ public class TrainerController {
             trainer.setCertificateList(trainer.toCertificateList());
             log.info("trainer 로그조회 : " + trainer);
 
+
+            String userId = (String) session.getAttribute("userId");
+            Users updatedUser = userService.select(userId);
+            session.setAttribute("user", updatedUser);
+
+
             int result = trainerService.insert(trainer);
 
             if (result > 0) {
@@ -370,6 +380,7 @@ public class TrainerController {
 
         int result = trainerService.update(trainer);
 
+     
         log.debug("Trainer data : {}", trainer);
 
         if (result > 0) {

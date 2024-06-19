@@ -115,6 +115,7 @@ VALUES
 (3, 'user3', 'USER'),
 (4, 'user4', 'USER'),
 (5, 'user5', 'USER');
+(5, 'user6', 'USER');
 
 -- schedule 테이블
 INSERT INTO `schedule` (`no`, `user_id`, `trainer_no`, `title`, `content`, `schedule_date`)
@@ -160,10 +161,9 @@ VALUES
 ('user3', 3, 3, 3, 'Bob Brown', 'password3', '1990-03-03', '789 Boulevard', 'bob@example.com', '3456789012', 'Male', 1, 1),
 ('user4', 4, 4, 4, 'Alice Green', 'password4', '1995-04-04', '101 Parkway', 'alice@example.com', '4567890123', 'Female', 1, 2),
 ('user5', 5, 5, 5, 'Charlie Black', 'password5', '2000-05-05', '202 Lane', 'charlie@example.com', '5678901234', 'Male', 1, 1);
-
 -- 바뀌기 전 샘플데이터
 INSERT INTO `users` (`user_id`, `password`, `name`, `birth`, `gender`, `address`, `mail`, `phone`, `reg_date`, `upd_date`, `role`, `enabled`) 
-VALUES ('user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101, 'Male', '인주대로 1000번길','user@mail.com' , '01012341234',now(),now(),1, 1);
+VALUES ('user3', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자', 20000101, 'Male', '인주대로 1000번길','user@mail.com' , '01012341234',now(),now(),1, 1);
 
 -- PRODUCTS 테이블
 INSERT INTO `PRODUCTS` (`no`, `no2`, `NAME`, `CAREGORY`, `DESCRIPTION`, `PRICE`)

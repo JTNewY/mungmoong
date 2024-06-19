@@ -266,3 +266,52 @@ textarea {
 }
 
 /* 컨테이너 상세페이지 영역 끝 */
+
+/* 관리자 product 페이지 css 시작 */
+
+.container .inner .insertStyle {
+    padding: 50px 0;
+}
+.container .inner .insertStyle ul {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+.container .inner .insertStyle ul li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+
+}
+.container .inner .insertStyle ul label{
+    width: 100px;
+    display: block;
+}
+.container .inner .insertStyle ul input{
+    width: 200px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    background-color: #FFE0B2;
+}
+
+.container .inner .insertStyle ul input:valid{
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.PrUpdate button.updateBtn {
+    margin-left: 0px !important;
+}
+
+.insertBtn {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.insertBtn a {
+}
+
+
+
+/* 관리자 product 페이지 css 끝 */

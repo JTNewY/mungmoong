@@ -14,6 +14,10 @@ CREATE TABLE `user` (
   `ENABLED` int DEFAULT 1
 ) COMMENT='회원';
 
+ALTER TABLE user_social
+ADD COLUMN social_platform VARCHAR(255) NOT NULL,
+ADD COLUMN social_id VARCHAR(255) NOT NULL;
+
 
 -- 사용자
 INSERT INTO user ( id, username, password, name, email )

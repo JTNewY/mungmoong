@@ -80,7 +80,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 10%;">ID</th>
+                        <th scope="col" style="width: 10%;">번호</th>
                         <th scope="col" style="width: 10%;">제목</th>
                         <th scope="col">내용</th>
                         <th scope="col" style="width: 10%;">등록일자</th>
@@ -88,18 +88,18 @@
                         <th scope="col" style="width: 10%;">삭제</th>
                     </tr>
                 </thead>
-                <th:block th:each="board : ${boardList}">
+                <th:block th:each="qna : ${qnaList}">
                     <tr>
-                        <td class="text-truncate" th:text="${board.userId}"></td>
-                        <td class="text-truncate"><a th:href="|/admin/admin_board_read?no=${board.no}|"
-                                th:text="${board.title}"></a></td>
-                        <td class="text-truncate" th:text="${board.content}"></td>
-                        <td class="text-truncate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td class="text-truncate" th:text="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="text-truncate" th:text="${qna.no}"></td>
+                        <td class="text-truncate"><a th:href="|/admin/admin_qna?no=${qna.title}|"
+                                th:text="${qna.title}"></a></td>
+                        <td class="text-truncate" th:text="${qna.content}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(qna.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(qna.updDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td class="text-truncate">
                             <form action="/admin/ListBoardDelete" method="post">
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                <input type="hidden" name="no" th:value="${board.no}" />
+                                <input type="hidden" name="no" th:value="${qna.no}" />
                                 <button type="submit">삭제</button>
                             </form>
                         </td>
@@ -107,6 +107,7 @@
                 </th:block>
             </table>
 
+            <!-- 페이징 버튼 영역 -->
             <!-- 페이징 버튼 영역 -->
             <div class="paging">
                 <ul>

@@ -304,4 +304,31 @@ public class UsersController {
             return "redirect:/users/update?error";
         }
     }
+
+
+    @PostMapping("/myupdate")
+    public String myupdateUser(Users user, HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/users/login";
+        }
+    
+        user.setUserId(userId); // 세션의 userId를 설정
+        user.setEnabled(1); // 계정 활성화
+        try {
+            userService.Myupdate(user);
+    
+            // 사용자 정보를 다시 가져와 세션에 업데이트
+            Users updatedUser = userService.select(userId);
+            session.setAttribute("user", updatedUser);
+    
+            return "redirect:/users/index";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/users/update?error";
+        }
+    }
+
+
+
 }

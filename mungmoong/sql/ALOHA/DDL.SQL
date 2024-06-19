@@ -1,4 +1,4 @@
--- Active: 1716798076500@@127.0.0.1@3306@mypet
+-- Active: 1715129092400@@127.0.0.1@3306@joeun
 
 -- 펫테이블-------------------------------------------------------------------------------------
 
@@ -166,7 +166,7 @@ CREATE TABLE `trainer` (
     `birth` VARCHAR(50) NOT NULL,
     `address` VARCHAR(150) NULL,
     `content` TEXT NULL,
-    `phone` INT NULL,
+    `phone` VARCHAR(50) NULL,
     `mail` VARCHAR(50) NULL,
     `reg_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
@@ -359,13 +359,34 @@ CREATE TABLE `SHIPMENTS` (
 
 DROP TABLE IF EXISTS `QnA`;
 CREATE TABLE `QnA` (
-	`qna_no`	INT	NOT NULL,
-	`qna_title`	VARCHAR(100)	NOT NULL,
-	`qna_writer`	VARCHAR(100)	NOT NULL,
-	`qna_content`	VARCHAR(100)	NULL,
+	`no`	INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`title`	VARCHAR(100)	NOT NULL,
+	`writer`	VARCHAR(100)	NOT NULL,
+	`content`	VARCHAR(100)	NULL,
 	`board_type`	VARCHAR(100)	NOT NULL,
-	`reg_date`	TIMESTAMP	NOT NULL,
-	`upd_date`	TIMESTAMP	NOT NULL
+	`reg_date`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`upd_date`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
+--- 소셜 로그인 ---------------------------------------------------------------------------------
+CREATE TABLE `user_auth` (
+    `AUTH` VARCHAR(100) NOT NULL,                          -- 권한 (ROLE_USER, ROLE_ADMIN, ...)
+    `user_id` VARCHAR(255) NOT NULL                       -- users 테이블의 user_id
+);
+
+CREATE TABLE user_social (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    social_platform VARCHAR(255) NOT NULL,
+    social_id VARCHAR(255) NOT NULL,
+    name VARCHAR(255),
+    mail VARCHAR(255),
+    picture VARCHAR(255),
+    linked_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
 
 -- END

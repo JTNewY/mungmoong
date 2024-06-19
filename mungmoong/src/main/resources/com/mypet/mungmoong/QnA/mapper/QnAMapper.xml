@@ -8,10 +8,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 목록 -->
     <select id="list" resultType="Qna">
-        SELECT *
+     SELECT *
         FROM qna
-        ORDER BY reg_date DESC
-        <!-- LIMIT #{page.index}, #{page.rows} -->
+        WHERE 
+            <if test="option.code == 0">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+                OR writer LIKE CONCAT('%', #{option.keyword}, '%')
+                OR content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 1">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 2">
+                    content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 3">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+                OR content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 4">
+                    writer LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+        ORDER BY reg_date asc
+        LIMIT #{page.index}, #{page.rows}
     </select>
 
     <!-- 게시글 조회 -->
@@ -19,33 +38,88 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
         SELECT *
         FROM qna
-        WHERE qna_no = #{qnaNo}
+        WHERE no = #{no}
     </select>
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO qna( qna_title, qna_writer , qna_content , board_type , reg_date , upd_date)
-        VALUES ( #{qnaTitle}, #{qnaWriter}, #{qnaContent}, 1 , now(), now())
+        INSERT INTO qna( no, title, writer , content , board_type )
+        VALUES ( #{no},#{title}, #{writer}, #{content}, 1)
     </insert>
 
     <!-- 게시글 수정 -->
     <update id="update">
         UPDATE qna
-           SET qna_title = #{qnaTitle}
-              ,qna_writer = #{qnaWriter}
-              ,qna_content = #{qnaContent}
+           SET title = #{title}
+              ,writer = #{writer}
+              ,content = #{content}
               ,upd_date = now()     
-        WHERE qna_no = #{qnaNo}
+        WHERE no = #{no}
     </update>
 
 
     <!-- 게시글 삭제 -->
     <delete id="delete">
         DELETE FROM qna
-        WHERE qna_no = #{qnaNo}
+        WHERE no = #{no}
     </delete>
 
+ <!-- 게시글 번호 최댓값 -->
+    <select id="maxPk" resultType="int">
+        SELECT MAX(no)
+        FROM qna
+    </select>
+    <!-- 데이터 개수 조회 - [검색] -->
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM qna
+        WHERE 
+            <if test="option.code == 0">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+                OR writer LIKE CONCAT('%', #{option.keyword}, '%')
+                OR content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 1">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 2">
+                    content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 3">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+                OR content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 4">
+                    writer LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+        ORDER BY reg_date DESC
+    </select>
 
+    <!-- 게시글 목록 - [검색] -->
+    <select id="search" resultType="QnA">
+        SELECT *
+        FROM qna
+        WHERE 
+            <if test="option.code == 0">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+                OR writer LIKE CONCAT('%', #{option.keyword}, '%')
+                OR content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 1">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 2">
+                    content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 3">
+                    title LIKE CONCAT('%', #{option.keyword}, '%')
+                OR content LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+            <if test="option.code == 4">
+                    writer LIKE CONCAT('%', #{option.keyword}, '%')
+            </if>
+        ORDER BY reg_date DESC
+    </select>
 
 
 </mapper>
