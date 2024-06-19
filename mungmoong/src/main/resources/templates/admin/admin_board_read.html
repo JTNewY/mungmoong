@@ -40,20 +40,20 @@
                 <div class="col-md-8 fmCont">
                     <ul>
                         <li>
-                            <label for="title" name="title">제목</label>
-                            <input type="text" name="title" id="title" th:value="${board.title}">
-                        </li>
-                        <li>
                             <label for="userId" name="userId">아이디</label>
                             <input type="text" name="userId" id="userId" th:value="${board.userId}">
                         </li>
                         <li>
-                            <label for="content" name="content">내용</label>
-                            <textarea name="content" id="content" th:text="${board.content}"></textarea>
-                        </li>
-                        <li>
                             <label for="updDate" name="updDate">수정일</label>
                             <input type="updDate" name="updDate" id="updDate" th:value="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}">
+                        </li>
+                        <li>
+                            <label for="title" name="title">제목</label>
+                            <input type="text" name="title" id="title" th:value="${board.title}">
+                        </li>
+                        <li>
+                            <label for="content" name="content">내용</label>
+                            <textarea name="content" id="content" th:text="${board.content}"></textarea>
                         </li>
                     </ul>
                 </div>
