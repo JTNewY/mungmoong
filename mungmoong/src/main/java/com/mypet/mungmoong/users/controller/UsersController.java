@@ -295,7 +295,7 @@ public class UsersController {
         }
 
         user.setUserId(userId); // 세션의 userId를 설정
-        user.setEnabled(1); // 계정 활성화
+     
         try {
             userService.update(user);
             return "redirect:/users/index";
@@ -314,8 +314,17 @@ public class UsersController {
         }
     
         user.setUserId(userId); // 세션의 userId를 설정
-        user.setEnabled(1); // 계정 활성화
+    
         try {
+            // 기존 사용자 정보를 가져와 역할을 설정
+            Users existingUser = userService.select(userId);
+            if (existingUser == null) {
+                return "redirect:/users/update?error=notfound";
+            }
+    
+            // 기존 역할 값을 유지
+            user.setRole(existingUser.getRole());
+    
             userService.Myupdate(user);
     
             // 사용자 정보를 다시 가져와 세션에 업데이트
@@ -328,7 +337,6 @@ public class UsersController {
             return "redirect:/users/update?error";
         }
     }
-
 
 
 }
