@@ -50,7 +50,7 @@ public class CertificateServiceImpl implements CertificateService {
             file.setFileCode(0);
 
             int fileNo = file.getParentNo();
-            log.info("진지 : " + fileNo);
+            log.info("fileNo : " + fileNo);
     
             List<Files> files = fileService.listByParent(file);
             
@@ -59,7 +59,7 @@ public class CertificateServiceImpl implements CertificateService {
                 certificate.setImgFile(null); // 파일이 없으면 null로 설정
                 continue; // 빈 파일 리스트인 경우 다음 루프로 넘어감
                 }
-            log.info("---- 파일즈 투스트링 : " + files + "----");
+            log.info("---- files toString() : " + files + "----");
     
             Files imgFile = files.get(0);
             log.info("자격증 이미지 : " + imgFile);
