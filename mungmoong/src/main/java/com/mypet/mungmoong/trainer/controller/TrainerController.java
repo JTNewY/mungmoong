@@ -339,7 +339,7 @@ public class TrainerController {
                     Files fileEntity = new Files();
                     fileEntity.setFile(file);
                     fileEntity.setParentTable("certificate");
-                    fileEntity.setParentNo(certificate.getNo());  // 이 시점에서 certificate.getNo()는 올바른 값이어야 합니다.
+                    fileEntity.setParentNo(certificate.getNo());  // 이 시점에서 certificate.getNo()는 올바른 값이어야 함
                     fileService.upload(fileEntity);
                     certificate.setImgFile(fileEntity); // Files 객체를 자격증 객체에 설정
                     certificate.insertImg();
