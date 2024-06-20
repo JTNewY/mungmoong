@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.mungmoong.imgfile.mapper.ImgFileMapper">
+
+    <select id="selectFileById" parameterType="int" resultType="com.mypet.mungmoong.imgfile.dto.ImgFileDTO">
+        SELECT * FROM img_file WHERE no = #{no}
+    </select>
+
+    <select id="selectAllFiles" resultType="com.mypet.mungmoong.imgfile.dto.ImgFileDTO">
+        SELECT * FROM img_file
+    </select>
+
+    <insert id="insertFile" parameterType="com.mypet.mungmoong.imgfile.dto.ImgFileDTO">
+        INSERT INTO img_file (parent_no, parent_table, file_name, file_path, file_size, file_code, reg_date, upd_date)
+        VALUES (#{parentNo}, #{parentTable}, #{fileName}, #{filePath}, #{fileSize}, #{fileCode}, #{regDate}, #{updDate})
+    </insert>
+
+    <update id="updateFile" parameterType="com.mypet.mungmoong.imgfile.dto.ImgFileDTO">
+        UPDATE img_file
+        SET parent_no = #{parentNo}, 
+            parent_table = #{parentTable}, 
+            file_name = #{fileName}, 
+            file_path = #{filePath}, 
+            file_size = #{fileSize}, 
+            file_code = #{fileCode}, 
+            reg_date = #{regDate}, 
+            upd_date = #{updDate}
+        WHERE no = #{no}
+    </update>
+
+    <delete id="deleteFile" parameterType="int">
+        DELETE FROM img_file WHERE no = #{no}
+    </delete>
+
+</mapper>

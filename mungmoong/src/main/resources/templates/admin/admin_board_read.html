@@ -16,7 +16,7 @@
                 <div class="collapse navbar-collapse justify-content-start">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="tab-button" href="#">회원관리</a>
+                            <a class="tab-button" href="/admin/admin_info">회원관리</a>
                         </li>
                         <li class="nav-item">
                             <a class="tab-button" href="/admin/admin_trainer">훈련사 관리</a>
@@ -25,7 +25,10 @@
                             <a class="tab-button" href="/admin/admin_reserve">예약관리</a>
                         </li>
                         <li class="nav-item">
-                            <a class="tab-button" href="/admin/admin_board">공지사항 관리</a>
+                            <a class="tab-button active" href="/admin/admin_board_notice">공지사항 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="tab-button" href="/admin/admin_product">상품정보 등록</a>
                         </li>
                     </ul>
                 </div>
@@ -37,29 +40,29 @@
                 <div class="col-md-8 fmCont">
                     <ul>
                         <li>
-                            <label for="title" name="title">제목</label>
-                            <input type="text" name="title" id="title" th:value="${board.title}">
-                        </li>
-                        <li>
                             <label for="userId" name="userId">아이디</label>
                             <input type="text" name="userId" id="userId" th:value="${board.userId}">
-                        </li>
-                        <li>
-                            <label for="content" name="content">내용</label>
-                            <textarea name="content" id="content" th:text="${board.content}"></textarea>
                         </li>
                         <li>
                             <label for="updDate" name="updDate">수정일</label>
                             <input type="updDate" name="updDate" id="updDate" th:value="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}">
                         </li>
+                        <li class="tit">
+                            <label for="title" name="title">제목</label>
+                            <input type="text" name="title" id="title" th:value="${board.title}">
+                        </li>
+                        <li>
+                            <label for="content" name="content">내용</label>
+                            <textarea name="content" id="content" th:text="${board.content}"></textarea>
+                        </li>
                     </ul>
                 </div>
-                <!-- 하단 버튼 영역 -->
-                <div class="bottom-btn">
-                    <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
-                    <button type="button" class="btn btn-secondary btn-lg updateBtn" onclick="moveToUpdate()">수정</button>
-                </div>
             </form>
+            <!-- 하단 버튼 영역 -->
+            <div class="bottom-btn">
+                <button type="button" class="btn btn-primary btn-lg listBtn" onclick="moveToList()">목록</button>
+                <button type="button" class="btn btn-secondary btn-lg updateBtn" onclick="moveToUpdate()">수정</button>
+            </div>
         </div>
     </div>
 

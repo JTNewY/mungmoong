@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layouts/main_layout}">
-<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  layout:decorate="~{/layouts/product_layout}">
+  <head>
+    <style>
+      #js-pagination {
+          list-style: none;
+          display: flex;
+          justify-content: center;
+          padding: 0;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>상품 정보</title>
-  <style>
-    .event-log {
-      font-family: consolas, Monaco, monospace;
-      margin: 10px 5px;
-      line-height: 2;
-      border: 1px solid #4c4c4c;
-      height: auto;
-      width: 90%;
-      padding: 2px 6px;
-      color: #4c4c4c;
-      white-space: pre;
-    }
+      #js-pagination li {
+          margin: 0 5px;
+      }
 
-    .tit {
-      text-decoration: none;
-    }
+      #js-pagination a {
+          text-decoration: none;
+          padding: 8px 12px;
+          color: #007bff;
+          border: 1px solid #dee2e6;
+          border-radius: 5px;
+      }
+
+      #js-pagination a.active {
+          background-color: #007bff;
+          color: white;
+          border-color: #007bff;
+      }
   </style>
-</head>
+  </head>
 
 <body layout:fragment="content">
-
   <section>
 
-    <form action="/orders" method="get">
+    <form action="/orders" method="get" onsubmit="return checkForm()" id="checkForm">
 
       <input type="hidden" name="trainerNo" id="trainerNo" th:value="${product.trainerNo}">
 
@@ -50,7 +51,9 @@
                 &nbsp;
                 <a th:href="|/products/${product.id}|">
                   <div class="card-box">
-                    <img src="/img/about.png" th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about"
+                    <!-- <img src="/img/about.png" th:src="|/files/img/${product.thumbnailId}|" class="w-100" alt="about"
+                      style="max-height: 460px; object-fit: contain;"> -->
+                    <img src="/img/about.png"  th:src="@{/img/trainer01.png}" class="w-100" alt="about"
                       style="max-height: 460px; object-fit: contain;">
                   </div>
                 </a>
@@ -76,6 +79,7 @@
                       <label for="resDate">예약날짜</label>
                       <div id="calendar" class="input-group">
                         <input type="date" class="form-control" name="resDate" id="resDate" value="">
+                        <input class="message" type="hidden" id="message"></input>
                       </div>
                     </div>
                     <div class="row">
@@ -128,169 +132,180 @@
     <div>
       <div id="page-top">
         <!-- Services-->
-        <section class="content-section bg-primary text-white text-center" id="services">
+        <section class="content-section text-center" style="color:#333;background-color: #fff7e1;">
           <div class="container px-4 px-lg-5">
-            <div class="content-section-heading">
-              <h3 class="text mb-0" style="color: aliceblue;">김조은 훈련사</h3>
-              <h2 class="mb-5" th:text="${product.content}"></h2>
-            </div>
+            <h2 class="mb-5" th:text="${product.content}"></h2>
             <div class="row gx-4 gx-lg-5">
-              <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
-                <h4><strong>검색순</strong></h4>
-                <p class="text-faded mb-0">찾아주셔서 감동</p>
-              </div>
-              <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-pencil"></i></span>
-                <h4><strong>댓글수</strong></h4>
-                <p class="text-faded mb-0">와우 흥미로워요</p>
-              </div>
-              <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
-                <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-like"></i></span>
-                <h4><strong>좋아요</strong></h4>
-                <p class="text-faded mb-0">
-                  감동
-                  <i class="fas fa-heart"></i>
-                  인기 만점 훈련사
-                </p>
-              </div>
-              <div class="col-lg-3 col-md-6">
-                <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-mustache"></i></span>
-                <h4><strong>질문</strong></h4>
-                <p class="text-faded mb-0">빠른 답변</p>
-              </div>
+              <!-- <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
+                            <h4><strong>검색순</strong></h4>
+                            <p class="text-faded mb-0">찾아주셔서 감동</p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-pencil"></i></span>
+                            <h4><strong>댓글수</strong></h4>
+                            <p class="text-faded mb-0">와우 흥미로워요</p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-like"></i></span>
+                            <h4><strong>좋아요</strong></h4>
+                            <p class="text-faded mb-0">
+                               감동
+                                <i class="fas fa-heart"></i>
+                               인기 만점 훈련사
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-mustache"></i></span>
+                            <h4><strong>질문</strong></h4>
+                            <p class="text-faded mb-0">빠른 답변</p>
+                        </div>
+                    </div> -->
             </div>
+        </section>
+        <section class="content-section">
+          <p class="line"></p>
+          <h3 class="title">경력&#183;자격</h3>
+          <div class="licence_img row px-4 px-lg-5">
+            <div class="col">
+              <img src="/img/license.png" class="license">
+              </p>반려동물 종합관리사</p>
+            </div>
+            <div class="col">
+              <img src="/img/license.png" class="license">
+              <p>반려동물 행동교정사</p>
+            </div>
+            <div class="col">
+              <img src="/img/license.png" class="license">
+              <p>반려동물 아로마관리사</p>
+            </div>
+          </div>
+          <p class="line"></p>
+          <h3 class="title">자기소개</h3>
+          <div class="licence_img row px-4 px-lg-5">
+            <span>교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를
+              바탕으로 행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로
+              행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로
+              행복한 반려생활을 돕겠습니다.</br>
+              교육의 시작은 우리 아이의 기질, 성격을 아는 것 부터 시작합니다. 모든 문제행동은 아이의 기질을 고려하지 못해 잘못된 교감에 기인한 경우가 많죠. 아이들과의 올바른 교감과 이해를 바탕으로
+              행복한 반려생활을 돕겠습니다.</span>
           </div>
         </section>
-        <!-- Portfolio-->
-        <section class="content-section" id="portfolio">
-          <div class="container px-4 px-lg-5">
-            <div class="content-section-heading text-center">
-              <h3 class="text-secondary mb-0">Trainer</h3>
-              <h2 class="mb-5">Certificate</h2>
-            </div>
-            <div class="row gx-0">
-              <div class="col-lg-3">
-                <a class="portfolio-item" href="#!">
-                  <div class="caption">
-                    <div class="caption-content">
-                      <div class="tit">수료증1</div>
-                      <p class="mb-0">한국펫교육훈련수료증</p>
-                    </div>
-                  </div>
-                  <img class="img-fluid" src="/img/product/product01.jpg" alt="..." />
-                </a>
-              </div>
-              <div class="col-lg-3">
-                <a class="portfolio-item" href="#!">
-                  <div class="caption">
-                    <div class="caption-content">
-                      <div class="tit">수료증1</div>
-                      <p class="mb-0">한국펫교육훈련수료증</p>
-                    </div>
-                  </div>
-                  <img class="img-fluid" src="/img/product/product02.jpg" alt="..." />
-                </a>
-              </div>
-              <div class="col-lg-3">
-                <a class="portfolio-item" href="#!">
-                  <div class="caption">
-                    <div class="caption-content">
-                      <div class="tit">수료증1</div>
-                      <p class="mb-0">한국펫교육훈련수료증</p>
-                    </div>
-                  </div>
-                  <img class="img-fluid" src="/img/product/product03.jpg" alt="..." />
-                </a>
-              </div>
-              <div class="col-lg-3">
-                <a class="portfolio-item" href="#!">
-                  <div class="caption">
-                    <div class="caption-content">
-                      <div class="tit">수료증1</div>
-                      <p class="mb-0">한국펫교육훈련수료증</p>
-                    </div>
-                  </div>
-                  <img class="img-fluid" src="/img/product/product04.jpg" alt="..." />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
-      </div>
-    </div>
-    <!--훈련사 홍보상세-->
-    <!--훈련사 이력-->
-    <div th:each="trainer : ${trainerList}">
-      <h1 th:text="${trainer.no}">김조은 훈련사프로필</h1>
-      <div>
-        <h3>대표경력</h3>
-        <p th:text="${trainer.mail}">한국애견협회우수승</p>
-      </div>
-    </div>
-    </div>
-    <div>
-      <div class="text-left-content">
-        <h1>경력</h1>
-        <div>
-          <th:block th:each="career : ${careerList}">
-            <p class="text-start" th:text="${career.name}"></p>
-          </th:block>
-        </div>
-      </div>
-      <div class="text-left-content">
-        <h1>자격증</h1>
-        <div>
-          <div class="d-flex justify-content-start mt-3 gap-5 mx-4">
-            <th:block th:each="certificate : ${certificateList}">
-              <div class="d-flex flex-column align-items-center mx-2">
-                <img th:if="${certificate.imgFile != null}" th:src="|/file/img/${certificate.imgFile.no}|"
-                  alt="Certificate Image">
-                <p th:text="${certificate.name}"></p>
-              </div>
-            </th:block>
-          </div>
-        </div>
       </div>
     </div>
 
-    <!--훈련사 이력end-->
     <!--댓글start-->
-    <div class="row">
-      <div id="reply-input col-12 col-md-6">
-        <h3>댓글</h3>
-        <div class="reply-input card shadow-sm" style="padding: 3%; width: 100%;">
-          <!-- CSRF 토큰 추가 -->
-          <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-          <input type="text" name="writer" id="reply-writer" class="reply-writer" placeholder="작성자">
-          <br>
-          <textarea name="content" id="reply-content" cols="60" rows="5" placeholder="댓글을 작성해주세요."></textarea>
-          <div class="btn-box">
-            <button type="button" id="btn-reply-insert" class="btn-reply" onclick="insertReply()">등록</button>
-            <script>
-              var no = 1;
-              function insertReply() {
-                // 💍 CRSF TOKEN
+    <div class="container">
+      <!-- 댓글 입력 -->
+      <th:block sec:authorize="isAuthenticated()">
+        <div class="row">
+          <div id="reply-input col-12 col-md-6">
+            <h1 class="d-flex justify-content-start">리뷰3건</h1>
+            <div class="reply-input card">
+              <div class="btn-box d-flex justify-content-between">
+                <div class="d-flex justify-content-center">
+                  <!-- CSRF 토큰 추가 -->
+                  <img class="myimg" src="/img/myimg01.png"></img>
+                  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                  <input type="hidden" name="userId" id="user-id" th:value="${session.user.userId}">
+                  <input type="text" name="writer" id="reply-writer" th:value="${session.user.name}" readonly
+                    placeholder="작성자">
+                </div>
+                <button type="button " id="btn-reply-insert" class="btn-reply button"
+                  onclick="insertReply()">등록</button>
+              </div>
+              <textarea name="content" class="txt" id="reply-content" cols="60" rows="5"
+                placeholder="댓글을 작성해주세요."></textarea>
+              <script>
                 var productsNo = "[[${product.id}]]";
                 var csrfToken = "[[${_csrf.token}]]";
-                let $writer = document.getElementById('reply-writer');
-                let $content = document.getElementById('reply-content');
+                // 댓글 목록 요청
+                replyList();
+                // 댓글 목록
+                function replyList() {
+                  // AJAX 비동기 요청
+                  let request = new XMLHttpRequest()
+                  // 요청 세팅
+                  request.open('GET', '/products/reply?parentTable=products&parentNo=' + productsNo)
+                  console.log(productsNo);
+                  request.send()
+                  request.onreadystatechange = function () {
+                    // 요청 성공 시,
+                    if (request.readyState == request.DONE && request.status == 200) {
+                      // 댓글 목록
+                      let response = request.responseText
 
-                let writer = $writer.value
-                let content = $content.value
+                      // ⭐ 서버에서 렌더링한 HTML로 갱신(SSR)
+                      let data = response     // (html)
+                      console.log(data);
+                      let replyList = document.getElementById('reply-list')
+                      replyList.innerHTML = data
 
-                $.ajax({
+                      // 이벤트 등록    
+                      // event()
+                    }
+                  }
+
+                }
+                // 이벤트 등록
+                function event() {
+                  // 댓글 수정 버튼
+                  let $btnUpdate = document.getElementsByClassName('btn-reply-update')
+                  // 댓글 수정 클릭 이벤트
+                  for (let i = 0; i < $btnUpdate.length; i++) {
+
+                    $btnUpdate[i].addEventListener('click', function () {
+                      // $btnUpdate[i] : 수정 버튼
+                      let $top = $btnUpdate[i].parentNode.parentNode
+                      let writer = $top.childNodes[1].textContent
+                      let $inner = $top.parentNode
+                      let content = $inner.childNodes[3].textContent
+                      let $replyBox = $inner.parentNode
+
+                      let no = $btnUpdate[i].getAttribute('data')         // 댓글 번호
+
+                      // 댓글 수정 모드
+                      // 1. 기존 댓글 내용창 숨기기
+                      $inner.style.display = 'none'
+                      // 2. 수정 UI 출력
+                      let $editor = document.createElement('div')
+                      $editor.classList.add('inner')
+                      $editor.id = 'editor'
+                      let editor = ``
+                      // editor += `<div class="inner" id="editor">`
+                      editor += `<input type="text" value="${writer}" id="update-writer" />`
+                      editor += `<br>`
+                      editor += `<textarea cols="60" rows="5" id="update-content">${content}</textarea> `
+                      editor += `<br>`
+                      editor += `<button onclick="updateReply(${no})">수정</button>`
+                      editor += `<button onclick="cancelReply()">취소</button>`
+                      // editor += `</div>`
+                      $editor.innerHTML = editor
+                      $replyBox.appendChild($editor)
+                    })
+                  }
+                }
+                // 댓글 삽입 함수입니다.
+                function insertReply() {
+                  // 작성자와 내용 가져오기
+                  let $userId = document.getElementById('user-id');
+                  let $writer = document.getElementById('reply-writer');
+                  let $content = document.getElementById('reply-content');
+                  let userId = $userId.value
+                  let writer = $writer.value;
+                  let content = $content.value;
+                  $.ajax({
                     url: '/products/reply',
                     method: 'POST',
-                    contentType: 'application/x-www-form-urlencoded',
-                    data: {
-                      'productsNo': productsNo,
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                      'userId': userId,
+                      'parentNo': productsNo,
                       'writer': writer,
                       'content': content
-                    },
-                   
+                    }),
                     beforeSend: function (xhr) {
                       xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
                     },
@@ -298,214 +313,129 @@
                       console.log('댓글 등록 성공!');
                       console.log(productsNo);
                       console.log(writer);
-                      console.log(content);
+                      console.log($content.value);
                       // 응답 메시지 확인
-                      let responseText = response.responseText;
-                      if (responseText === 'SUCCESS') {
+                      if (response === 'SUCCESS') {
                         replyList(); // 댓글 목록 갱신
                         // 댓글 입력 창 비우기
-                        $('#writer').val('');
-                        $('#content').val('');
+                        $writer.value = '';
+                        $content.value = '';
                       }
                     },
                     error: function (xhr, status, error) {
                       console.log(error);
                     }
                   });
+                }
+              </script>
 
-              }
-            </script>
+            </div>
           </div>
+          <!-- 댓글 목록 -->
+          <div id="reply-list">
+          </div>
+          <div id="pagination-wrapper clearfix">
+             <ul class="paginatoin float--right" id="pages">
+             </ul>
+        </div>        
         </div>
-      </div>
     </div>
-    <!-- 댓글 목록 -->
-    <div id="reply-list">
-
-    </div>
+    </th:block>
     <!--댓글end-->
+    <!-- 댓글 목록 -->
+    </div>
   </section>
-
-
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js">
-    </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
-  </script>
+  <!--페이지네이션start-->
+  <ul id="js-pagination"></ul>
+  <!--페이지네이션end-->
   <script>
 
+    // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
+    // 댓글 삭제 요청
+    function deleteReply(no) {
 
-    let trainerId = ''
-    $(function () {
+      const check = confirm("정말로 삭제하시겠습니까?")
+      if (!check)
+        return
 
-      $('.btn-reserv').on('click', function () {
-        trainerId = $(this).attr('data')
+      // 삭제 요청
+      let request = new XMLHttpRequest()
+      // request.open('DELETE', '/products/reply/' + no)
+      request.open('DELETE', `/reply/${no}`)       // ⭐템플릿 문자열
+      request.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+      request.send()
 
-      })
-    })
-
-    //달력 기본값설정(오늘로)
-    document.addEventListener("DOMContentLoaded", function () {
-      const today = new Date();
-      const year = today.getFullYear();
-      let month = today.getMonth() + 1;
-      if (month < 10) {
-        month = "0" + month;
-      }
-      let day = today.getDate();
-      if (day < 10) {
-        day = "0" + day;
-      }
-      const todayString = `${year}-${month}-${day}`;
-      document.getElementById("resDate").value = todayString;
-    });
-
-    document.getElementById("submitDate").addEventListener("click", function () {
-      const selectedDate = document.getElementById("resDate").value;
-      localStorage.setItem("resDate", resDate); // 선택된 날짜를 로컬 스토리지에 저장
-      showModal(); // 모달 표시 함수 호출
-    });
-    //예약날짜 저장스크립트
-    document.getElementById("submitDate").addEventListener("click", function () {
-      const selectedDate = document.getElementById("resDate").value;
-      const date = encodeURIComponent(resDate)
-      window.location.href = `/reserve/insert?date=${date}&trainerId=${trainerId}`;
-    });
-  
-
-
-  // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-  // 글번호
-
-  // 댓글 목록 요청
-  replyList();
-
-  // 수정 화면 이동
-  function moveUpdate() {
-    location.href = '/board/update?no=' + no;
-  }
-
-  // 목록 화면 이동
-  function moveList() {
-    location.href = '/board/list';
-  }
-
-  // 파일 삭제
-  function deleteFile(element, no) {
-    // AJAX 비동기 요청
-    let request = new XMLHttpRequest();
-
-    // 요청 세팅
-    request.open('DELETE', '/file/' + no);
-    request.send();
-
-    request.onreadystatechange = function () {
-      // 요청 성공 시,
-      if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        console.log('파일 삭제 성공!');
-        // 파일 항목 제거
-        element.parentNode.remove();
-      }
-    };
-  }
-
-  // 댓글 목록
-  function replyList() {
-    // AJAX 비동기 요청
-    let request = new XMLHttpRequest();
-
-    // 요청 세팅
-    request.open('GET', '/reply/' + no);
-    request.send();
-
-    request.onreadystatechange = function () {
-      // 요청 성공 시,
-      if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        // 댓글 목록
-        let response = request.responseText;
-
-        // ⭐ 서버에서 렌더링한 HTML로 갱신(SSR)
-        let data = response; // (html)
-
-        let replyList = document.getElementById('reply-list');
-        replyList.innerHTML = data;
-
-        // 이벤트 등록    
-        event();
-      }
-    };
-  }
-
-  // 댓글 삭제 요청
-  function deleteReply(no) {
-    const check = confirm("정말로 삭제하시겠습니까?");
-    if (!check) return;
-
-    // 삭제 요청
-    let request = new XMLHttpRequest();
-    request.open('DELETE', '/reply/' + no);
-    request.send();
-
-    request.onreadystatechange = function () {
-      // 요청 성공 시,
-      if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        console.log('댓글 삭제 성공!');
-        let response = request.responseText;
-        if (response === 'SUCCESS') {
-          replyList(); // 댓글 목록 갱신
+      request.onreadystatechange = function () {
+        // 요청 성공 시,
+        if (request.readyState == request.DONE && request.status == 200) {
+          console.log('댓글 삭제 성공!');
+          let response = request.responseText
+          // alert(response)
+          if (response == 'SUCCESS') {
+            replyList()     // 댓글 목록 갱신
+          }
         }
       }
-    };
-  }
-
-  // 댓글 수정 취소
-  function cancelReply() {
-    let $editor = document.getElementById('editor');
-    $editor.remove(); // 요소 삭제
-
-    let $inner = document.getElementsByClassName('inner');
-    for (let i = 0; i < $inner.length; i++) {
-      $inner[i].style.display = 'block';
     }
-  }
 
-  // 댓글 수정 요청
-  function updateReply(no) {
-    let writer = document.getElementById('update-writer').value;
-    let content = document.getElementById('update-content').value;
+    // 댓글 수정 취소
+    function cancelReply() {
+      let $editor = document.getElementById('editor')
+      $editor.remove()            // 요소 삭제
 
-    console.log(`수정한 작성자 : ${writer}`);
-    console.log(`수정한 내용 : ${content}`);
+      let $inner = document.getElementsByClassName('inner')
+      for (let i = 0; i < $inner.length; i++) {
+        $inner[i].style.display = 'block'
+      }
+    }
 
-    let data = {
-      'productsNo': productsNo,
-      'writer': writer,
-      'content': content,
-    };
+    // 댓글 수정 요청
+    function updateReply(no) {
+      let writer = document.getElementById('update-writer').value
+      let content = document.getElementById('update-content').value
 
-    console.dir(data);
+      console.log(`수정한 작성자 : ${writer}`);
+      console.log(`수정한 내용 : ${content}`);
 
-    // 수정 요청
-    let request = new XMLHttpRequest();
-    request.open('PUT', '/reply');
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(data));
+      let data = {
+        'no': no,
+        'writer': writer,
+        'content': content,
+      }
 
-    request.onreadystatechange = function () {
-      // 요청 성공 시,
-      if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        console.log('댓글 수정 성공!');
-        let response = request.responseText;
-        if (response === 'SUCCESS') {
-          replyList(); // 댓글 목록 갱신
+      console.dir(data)
+
+      // 수정 요청
+      let request = new XMLHttpRequest()
+      request.open('PUT', '/products/reply')
+      request.setRequestHeader("Content-Type", "application/json")
+      request.send(JSON.stringify(data))
+
+      request.onreadystatechange = function () {
+        // 요청 성공 시,
+        if (request.readyState == request.DONE && request.status == 200) {
+          console.log('댓글 수정 성공!');
+          let response = request.responseText
+          // alert(response)
+          if (response == 'SUCCESS') {
+            replyList()     // 댓글 목록 갱신
+          }
         }
       }
-    };
-  }
+    }
+    //유효성 검사
+    function checkForm() {
+      var resDate = document.getElementById("resDate").value;
+      if (resDate === "") {
+        alert("날짜를 입력해주세요.");
+        return false; // 폼 제출을 막음
+      }
+      return true; // 폼 제출을 허용
+    }
 
-</script>
-
-
+    //페이지네이션
+  
+    </script>
 
 </body>
 

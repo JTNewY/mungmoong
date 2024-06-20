@@ -1,12 +1,12 @@
 
--- Active: 1717746144890@@127.0.0.1@3306@mypet
+-- Active: 1713353106333@@127.0.0.1@3306@mypet
 
 
 TRUNCATE users;
 
 INSERT INTO `users` (`user_id`, `name`, `password`, `birth`, `address`, `mail`, `phone`, `gender`, `enabled`, `role`, `reg_date`, `upd_date`)
 VALUES 
-    ('user', '샘플 사용자', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1990-01-01', '사용자 길 123', 'user@example.com', '010-1234-5678', '남성', 1, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    ('user2', '샘플 사용자', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1990-01-01', '사용자 길 123', 'user@example.com', '010-1234-5678', '남성', 1, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('partner', '샘플 파트너', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1985-05-05', '파트너 길 456', 'partner@example.com', '010-9876-5432', '여성', 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('partner1', '샘플 파트너', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1985-05-05', '파트너 길 456', 'partner@example.com', '010-9876-5432', '여성', 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('partner2', '샘플 파트너', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '1985-05-05', '파트너 길 456', 'partner@example.com', '010-9876-5432', '여성', 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
@@ -168,3 +168,19 @@ INSERT INTO `board` (`user_id`, `title`, `writer`, `content`, `file_no`, `board_
 ('partner', 'Sample Title 18', 'Writer 18', 'Sample content 18', 'file18', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('partner', 'Sample Title 19', 'Writer 19', 'Sample content 19', 'file19', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('partner', 'Sample Title 20', 'Writer 20', 'Sample content 20', 'file20', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+
+INSERT INTO `orders` (`ID`, `PRODUCT_ID`, `USER_ID`, `pet_no`, `trainer_no`, `address`, `resDate`, `MEMO`, `TITLE`, `PRICE`, `STATUS`, `meaning`)
+VALUES
+(UUID(), 'P001', 'user', 1, 101, '123 Pet St, Pet City', '2024-06-11 10:00:00', 'Please be gentle', 'Dog Training', 100, 'pending', 0),
+(UUID(), 'P002', 'partner', 2, 102, '456 Animal Ave, Pet City', '2024-06-12 11:00:00', 'Special care needed', 'Cat Training', 150, 'paid', 1),
+(UUID(), 'P003', 'partner1', 3, 103, '789 Pet Lane, Pet City', '2024-06-13 12:00:00', 'No special requests', 'Bird Training', 120, 'pending', 0),
+(UUID(), 'P004', 'partner2', 4, 104, '321 Pet Circle, Pet City', '2024-06-14 13:00:00', 'Bring extra toys', 'Rabbit Training', 130, 'under_review', 2),
+(UUID(), 'P005', 'partner3', 5, 105, '654 Pet Square, Pet City', '2024-06-15 14:00:00', 'Handle with care', 'Dog Training', 110, 'training_completed', 3),
+(UUID(), 'P006', 'admin', 6, 106, '987 Animal Blvd, Pet City', '2024-06-16 15:00:00', 'Extra attention needed', 'Cat Training', 140, 'cancelled', 4),
+(UUID(), 'P007', 'user', 7, 107, '135 Pet Rd, Pet City', '2024-06-17 16:00:00', 'No special requests', 'Bird Training', 115, 'pending', 0),
+(UUID(), 'P008', 'partner', 8, 108, '246 Animal Way, Pet City', '2024-06-18 17:00:00', 'Feed before training', 'Rabbit Training', 160, 'paid', 1),
+(UUID(), 'P009', 'partner1', 9, 109, '357 Pet Alley, Pet City', '2024-06-19 18:00:00', 'Sensitive pet', 'Dog Training', 170, 'under_review', 2),
+(UUID(), 'P010', 'partner2', 10, 110, '468 Animal Park, Pet City', '2024-06-20 19:00:00', 'Allergies to note', 'Cat Training', 180, 'training_completed', 3);
+

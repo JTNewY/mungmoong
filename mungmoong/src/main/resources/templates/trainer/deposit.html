@@ -9,7 +9,7 @@
 </head>
 
 <body class="body" layout:fragment="content">
-    <div class="container">
+    <div class="container" style="    height: 69vh;">
         <div class="inner">
             <h1 class="title">입금 내역서</h1>
             <nav class="navbar navbar-expand-lg navbar-light">
@@ -49,6 +49,7 @@
                         <td class="status">
                             <span th:switch="${orders.status}">
                                 <span th:case="'approval'">승인</span>
+                                <span th:case="'refund'">환불</span>
                                 <span th:case="*">승인 대기</span>
                             </span>
                         </td>
@@ -57,7 +58,7 @@
                     </th:block>
                         <tr>
                             <td colspan="3">총 금액</td>
-                            <td th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
+                            <td th:text="${#numbers.formatDecimal(totalApprovedAmount, 0, 'COMMA', 0, 'POINT')} + '원'"></td>
                         </tr>
                 </tbody>
             </table>

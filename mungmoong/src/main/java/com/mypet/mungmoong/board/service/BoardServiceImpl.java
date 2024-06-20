@@ -16,11 +16,20 @@ public class BoardServiceImpl implements BoardService {
    @Autowired
    BoardMapper boardMapper;
 
-   @Override
+   
+    /**
+     * 게시글 목록 조회
+     */
+    @Override
     public List<Board> list(Page page, Option option) throws Exception {
+        // 게시글 데이터 개수 조회
+        int total = boardMapper.count(option);
+        page.setTotal(total);
+
         List<Board> boardList = boardMapper.list(page, option);
         return boardList;
     }
+
 
     /**
      * 게시글 조회
@@ -71,6 +80,32 @@ public class BoardServiceImpl implements BoardService {
         return result;
     }
 
+    
+    @Override
+    public int SelectDelete(String[] SelectNoList) throws Exception {
+        String DeleteNos = String.join(",", SelectNoList);
+        int result = boardMapper.SelectDelete(DeleteNos);
+        return result;
+    }
+
+
+    @Override
+    // public List<Board> search(String keyword) throws Exception {
+    public List<Board> search(Option option) throws Exception {
+        
+        // List<Board> boardList = boardMapper.search(keyword);
+        List<Board> boardList = boardMapper.search(option);
+        return boardList;
+    }
+
+
+}
+
+
+  
+
+
+
     // @Override
     // public int delete(int no) throws Exception {
     //     int result = boardMapper.BoardDelete(no);
@@ -86,4 +121,4 @@ public class BoardServiceImpl implements BoardService {
 
     // }
 
-}
+

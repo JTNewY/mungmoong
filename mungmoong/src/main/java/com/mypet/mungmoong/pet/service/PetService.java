@@ -5,7 +5,7 @@ import com.mypet.mungmoong.pet.dto.Pet;
 
 public interface PetService {
 
-    void addPet(Pet pet); // 새로운 펫을 추가하는 메서드 선언
+    void insertPet(Pet pet); // 새로운 펫을 추가하는 메서드 선언
 
     void updatePet(Pet pet); // 기존 펫 정보를 업데이트하는 메서드 선언
 
@@ -16,4 +16,5 @@ public interface PetService {
     List<Pet> findPetByUserId(String userId); // 사용자 ID로 펫 목록을 찾는 메서드 선언
 
 }
+
 

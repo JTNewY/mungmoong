@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class QnA {
-    private int qnaNo;
-    private String qnaTitle;
-    private String qnaWriter;
-    private String qnaContent;
+    private int no;
+    private String title;
+    private String writer;
+    private String content;
     private Date regDate;
     private Date updDate;
 }

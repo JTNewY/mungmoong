@@ -39,46 +39,46 @@
                             <img src="/img/pet/강아지3.jpg" class="img-fluid" alt="반려견 이미지">
                         </div>
                         <div class="col-md-8">
-                            <ul>
+                            <ul class="">
                                 <li>
-                                    <label for="name">이름</label>
+                                    <label class="dog_label" for="name">이름</label>
                                     <input type="text" name="name" id="name" th:value="${pet.petname}" readonly>
                                 </li>
                                 <li>
-                                    <label for="age">나이</label>
+                                    <label class="dog_label" for="age">나이</label>
                                     <input type="text" name="age" id="age" th:value="${pet.age}" readonly>
                                 </li>
                                 <li>
-                                    <label for="petgender">성별</label>
+                                    <label class="dog_label" for="petgender">성별</label>
                                     <input type="text" name="petgender" id="petgender" 
                                            th:value="${pet.petgender == 0 ? '♂' : (pet.petgender == 1 ? '♀' : '')}" readonly>
                                 </li>
                                 <li>
-                                    <label for="character">성격</label>
+                                    <label class="dog_label" for="character">성격</label>
                                     <input type="text" name="character" id="character" th:value="${pet.character}" readonly>
                                 </li>
                                 <li>
-                                    <label for="type">견종</label>
+                                    <label class="dog_label" for="type">견종</label>
                                     <input type="text" name="type" id="type" th:value="${pet.type}" readonly>
                                 </li>
                                 <li>
-                                    <label for="address">주소</label>
+                                    <label class="dog_label" for="address">주소</label>
                                     <input type="text" name="address" id="address" th:value="${orders.address}" readonly>
                                 </li>
                                 <li>
-                                    <label for="title">예약한 훈련</label>
+                                    <label class="dog_label" for="title">예약한 훈련</label>
                                     <input type="text" name="title" id="title" th:value="${orders.title}" readonly>
                                 </li>
                                 <li>
-                                    <label for="price">금액</label>
+                                    <label class="dog_label" for="price">금액</label>
                                     <input type="text" name="price" id="price" th:value="${#numbers.formatDecimal(orders.price, 0, 'COMMA', 0, 'POINT')} + '원'" readonly>
                                 </li>
                                 <li>
-                                    <label for="resDate">예약 날짜</label>
+                                    <label class="dog_label" for="resDate">예약 날짜</label>
                                     <input type="text" name="resDate" id="resDate" th:value="${#dates.format(orders.resDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
                                 </li>
                                 <li>
-                                    <label for="memo">요청사항</label>
+                                    <label class="dog_label" for="memo">요청사항</label>
                                     <input type="text" name="memo" id="memo" th:value="${orders.memo}" readonly></input>
                                 </li>
                             </ul>

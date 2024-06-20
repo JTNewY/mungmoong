@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mypet.mungmoong.QnA.dto.QnA;
+import com.mypet.mungmoong.QnA.service.QnAService;
 import com.mypet.mungmoong.board.dto.Board;
 import com.mypet.mungmoong.board.service.BoardService;
 import com.mypet.mungmoong.orders.dto.Orders;
@@ -28,6 +30,7 @@ import com.mypet.mungmoong.users.dto.Users;
 import com.mypet.mungmoong.users.service.UsersService;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 
 
@@ -53,6 +56,9 @@ public class AdminController {
 
     @Autowired
     private ProductsService productsService;
+
+    @Autowired
+    private QnAService qnaService;
 
     /**
      * 관리자 회원정보 조회
@@ -249,6 +255,16 @@ public class AdminController {
         return "/admin/admin_board";
     }
 
+    @GetMapping("/admin_board_notice")
+    public String board_notice(Model model, Page page, Option option) throws Exception {
+
+        List<QnA> qnaList = qnaService.list(page, option);
+
+        log.info("QnA page 로그 : " + page);
+        model.addAttribute("qnaList", qnaList);
+        return "/admin/admin_board_notice";
+    }
+
 
     /**
      * 관리자 게시판 상세 화면
@@ -323,6 +339,21 @@ public class AdminController {
 
         return "redirect:/admin/admin_board_read_update?no=" + no + "&error";
     }
+
+    @PostMapping("/ListBoardDelete")
+    public String ListBoardDelete(@RequestParam("no") int no) throws Exception {
+        log.info("no : " + no);
+        int result = boardService.BoardDelete(no);
+
+        if (result > 0) {
+            log.info(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+            log.info("삭제됨");
+            return "redirect:/admin/admin_board";
+            }
+            
+            log.info("삭제안됨");
+        return "redirect:/admin/admin_board";
+    }
     
     
     /**
@@ -340,6 +371,17 @@ public class AdminController {
         model.addAttribute("ordersList", ordersList);
         
         return "/admin/admin_reserve";
+    }
+
+
+    @GetMapping("/admin_reserve_pay")
+    public String ReservePayList(Model model) throws Exception {
+
+        List<Orders> ordersList = ordersService.list();
+
+        model.addAttribute("ordersList", ordersList);
+        
+        return "/admin/admin_reserve_pay";
     }
 
     /**
@@ -480,11 +522,23 @@ public class AdminController {
 
         
         return "redirect:/admin/admin_product_update?=id" + id + "&error";
-
-
         
     }
+
+
+    @PostMapping("/admin_orders_status")
+    public String AdminProductStatus(Orders orders) throws Exception {
+
+        int result = ordersService.Status(orders);
+
+        if( result > 0 ) {
+            return "redirect:/admin/admin_reserve_pay";
+        }
         
+        int no = orders.getNo();
+        return "redirect:/admin/admin_orders?no=" + no + "&error";
+    }
+    
 
     
     
