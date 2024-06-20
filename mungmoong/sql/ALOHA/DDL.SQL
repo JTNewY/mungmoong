@@ -1,4 +1,4 @@
--- Active: 1713353106333@@127.0.0.1@3306@mypet
+-- Active: 1705301251861@@127.0.0.1@3306@mypet
 
 -- 펫테이블-------------------------------------------------------------------------------------
 
@@ -372,8 +372,8 @@ CREATE TABLE `QnA` (
 --- 소셜 로그인 ---------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `user_auth`;
 CREATE TABLE `user_auth` (
-    `AUTH` VARCHAR(100) NOT NULL,                          -- 권한 (ROLE_USER, ROLE_ADMIN, ...)
-    `user_id` VARCHAR(255) NOT NULL                       -- users 테이블의 user_id
+    `AUTH` VARCHAR(100) PRIMARY KEY,                          -- 권한 (ROLE_USER, ROLE_ADMIN, ...)
+    `user_id` VARCHAR(255) PRIMARY KEY                       -- users 테이블의 user_id
 );
 
 CREATE TABLE user_social (

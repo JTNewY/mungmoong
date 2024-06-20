@@ -106,36 +106,51 @@ $(document).ready(function() {
 
   // ################################# 비밀번호 확인 ######################################
   async function checkPasswordMatch() {
-      var password = document.getElementById('password').value;
-      var passwordchk = document.getElementById('passwordchk').value;
-      var invalidFeedback = document.querySelector('#box-pw .invalid-feedback');
-      let boxPw = document.getElementById('box-pw');
-      var saveBtn = $('#save-btn');
+    var password = document.getElementById('password').value;
+    var passwordchk = document.getElementById('passwordchk').value;
+    var invalidFeedback = document.querySelector('#box-pw .invalid-feedback');
+    let boxPw = document.getElementById('box-pw');
+    var saveBtn = $('#save-btn');
+    
+    // 비밀번호 유효성 검사
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  
-      // null 또는 undefined 체크
-      if (!password || !passwordchk) {
-          alert("비밀번호를 입력해주세요.");
-          return false;
-      }
-  
-      // 비밀번호 일치 여부 확인
-      if (password === passwordchk) {
-        $("#password-invalid-success").show();
-        $("#password-invalid-feedback").hide();
-        invalidFeedback.hide();
-        boxPw.removeClass('needs-validation').addClass('was-validated');
-        saveBtn.prop('disabled', false);
-        return true;    
-      } else {
+    if (!passwordRegex.test(password)) {
+        alert("비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자 및 특수문자를 포함해야 합니다.");
         $("#password-invalid-success").hide();
         $("#password-invalid-feedback").show();
-        invalidFeedback.show();
-        boxPw.removeClass('was-validated').addClass('needs-validation');
+        invalidFeedback.style.display = 'block';
+        boxPw.classList.remove('was-validated');
+        boxPw.classList.add('needs-validation');
         saveBtn.prop('disabled', true);
         return false;
-      }
-  }
+    }
+
+    // null 또는 undefined 체크
+    if (!password || !passwordchk) {
+        alert("비밀번호를 입력해주세요.");
+        return false;
+    }
+
+    // 비밀번호 일치 여부 확인
+    if (password === passwordchk) {
+        $("#password-invalid-success").show();
+        $("#password-invalid-feedback").hide();
+        invalidFeedback.style.display = 'none';
+        boxPw.classList.remove('needs-validation');
+        boxPw.classList.add('was-validated');
+        saveBtn.prop('disabled', false);
+        return true;    
+    } else {
+        $("#password-invalid-success").hide();
+        $("#password-invalid-feedback").show();
+        invalidFeedback.style.display = 'block';
+        boxPw.classList.remove('was-validated');
+        boxPw.classList.add('needs-validation');
+        saveBtn.prop('disabled', true);
+        return false;
+    }
+}
 
   // ################################# 주소 합치기 ########################################
   function combineAddress() {
