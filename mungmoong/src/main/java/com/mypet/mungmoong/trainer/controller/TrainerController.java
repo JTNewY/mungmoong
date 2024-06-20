@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -245,16 +244,13 @@ public class TrainerController {
             trainer.setCertificateList(trainer.toCertificateList());
             log.info("trainer 로그조회 : " + trainer);
 
-
-
-
             int result = trainerService.insert(trainer);
 
             if (result > 0) {
-                
-            String userId = (String) session.getAttribute("userId");
-            Users updatedUser = userService.select(userId);
-            session.setAttribute("user", updatedUser);
+
+                String userId = (String) session.getAttribute("userId");
+                Users updatedUser = userService.select(userId);
+                session.setAttribute("user", updatedUser);
                 return "redirect:/";
             }
         } catch (Exception e) {
@@ -304,91 +300,149 @@ public class TrainerController {
      * @throws Exception
      */
     @PostMapping("/info_update")
-    public String updatePro(Trainer trainer, HttpSession session) throws Exception {
+    public String updatePro(Trainer trainer, @RequestParam("files") List<MultipartFile> files, HttpSession session) throws Exception {
         log.info(":::::::::::::::::: 훈련사 정보 수정 :::::::::::::::::::");
         log.info("trainser : " + trainer.toString());
-        List<Career> careerList = trainer.toCareerList();
-        List<Certificate> certificateList = trainer.toCertificateList();
-        List<Files> filesList = fileService.list();
-        List<MultipartFile> files = trainer.getFiles();
-
-        log.info("--------------------------------");
-        log.info(careerList.toString());
-        log.info("트레이너 번호가 뭘까요 : " + trainer.getNo());
-
+    
         Integer trainerNo = (Integer) session.getAttribute("trainerNo");
         if (trainerNo == null) {
             log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
             return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error=session";
         }
         log.info("세션에서 가져온 트레이너 번호 : " + trainerNo);
-
+    
+        List<Career> careerList = trainer.toCareerList();
         for (Career career : careerList) {
             career.setTrainerNo(trainerNo);
-            log.info("trainerNo : " + trainerNo);
-
-            int result = 0;
-            if (career.getNo() > 0) {
-                result = careerService.update(career);
-                log.info("수정했다!!");
-            } else {
-                career.setTrainerNo(trainerNo);
-                result = careerService.insert(career);
-                log.info("등록했다");
-            }
-
-            if (result > 0) {
-                log.info("성공했다");
-            } else {
-                log.info(career.toString());
-                log.info("망했다");
-            }
+            int result = (career.getNo() > 0) ? careerService.update(career) : careerService.insert(career);
+            log.info(result > 0 ? "성공!" : "실패..");
         }
-
-        log.info(":::::::::::::::::::::: certificateList ::::::::::::::::::::::::");
+    
+        List<Certificate> certificateList = trainer.toCertificateList();
         log.info("certificateList : " + certificateList);
-        log.info(":::::::::::::::::::::: 업로드 파일 목록 - files ::::::::::::::::::::::::");
-        log.info("files : " + files);
-
+        log.info("업로드 파일 목록 - files : " + files);
+    
         for (int i = 0; i < certificateList.size(); i++) {
             Certificate certificate = certificateList.get(i);
             certificate.setTrainerNo(trainerNo);
-            log.info("trainerNo : " + trainerNo);
-
-            // 자격증 객체에 이미지 파일 담음
-            certificate.setInsertFile(files.get(i));
-            certificate.insertImg();
-
-            int result = 0;
-            if (certificate.getNo() > 0) {
-                result = certificateService.update(certificate);
-                log.info(";;;;;;;;자격증 이미지update;;;;;;;;; : " + filesList.toString());
-                log.info("자격증 수정했다!!");
-            } else {
-                certificate.setTrainerNo(trainerNo);
-                result = certificateService.insert(certificate);
-                log.info(";;;;;;;;자격증 이미지insert;;;;;;;;; : " + filesList.toString());
-                log.info("자격증 등록했다");
-            }
-
+    
+            int result = (certificate.getNo() > 0) ? certificateService.update(certificate) : certificateService.insert(certificate);
             if (result > 0) {
-                log.info("자격증 성공했다;;;;;;;;11111111111111");
+                log.info("자격증 성공");
             } else {
-                log.info(certificate.toString());
-                log.info("자격증 망했다;;;;;;;;;;11111111111");
+                log.info("자격증 실패");
+            }
+    
+            if (i < files.size()) {
+                MultipartFile file = files.get(i);
+                if (!file.isEmpty()) {
+                    Files fileEntity = new Files();
+                    fileEntity.setFile(file);
+                    fileEntity.setParentTable("certificate");
+                    fileEntity.setParentNo(certificate.getNo());  // 이 시점에서 certificate.getNo()는 올바른 값이어야 합니다.
+                    fileService.upload(fileEntity);
+                    certificate.setImgFile(fileEntity); // Files 객체를 자격증 객체에 설정
+                    certificate.insertImg();
+                }
             }
         }
-
+    
         int result = trainerService.update(trainer);
-
-     
         log.debug("Trainer data : {}", trainer);
-
-        if (result > 0) {
-            return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
-        }
-        return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + "&error";
+    
+        return "redirect:/trainer/info_update?userId=" + trainer.getUserId() + (result > 0 ? "" : "&error");
     }
+    
+    
+
+    // @PostMapping("/info_update")
+    // public String updatePro(Trainer trainer, HttpSession session) throws
+    // Exception {
+    // log.info(":::::::::::::::::: 훈련사 정보 수정 :::::::::::::::::::");
+    // log.info("trainser : " + trainer.toString());
+    // List<Career> careerList = trainer.toCareerList();
+    // List<Certificate> certificateList = trainer.toCertificateList();
+    // List<Files> filesList = fileService.list();
+    // List<MultipartFile> files = trainer.getFiles();
+
+    // log.info("--------------------------------");
+    // log.info(careerList.toString());
+    // log.info("트레이너 번호가 뭘까요 : " + trainer.getNo());
+
+    // Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+    // if (trainerNo == null) {
+    // log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+    // return "redirect:/trainer/info_update?userId=" + trainer.getUserId() +
+    // "&error=session";
+    // }
+    // log.info("세션에서 가져온 트레이너 번호 : " + trainerNo);
+
+    // for (Career career : careerList) {
+    // career.setTrainerNo(trainerNo);
+    // log.info("trainerNo : " + trainerNo);
+
+    // int result = 0;
+    // if (career.getNo() > 0) {
+    // result = careerService.update(career);
+    // log.info("수정 완료!");
+    // } else {
+    // career.setTrainerNo(trainerNo);
+    // result = careerService.insert(career);
+    // log.info("등록 완료!");
+    // }
+
+    // if (result > 0) {
+    // log.info("성공!");
+    // } else {
+    // log.info(career.toString());
+    // log.info("실패..");
+    // }
+    // }
+
+    // log.info(":::::::::::::::::::::: certificateList ::::::::::::::::::::::::");
+    // log.info("certificateList : " + certificateList);
+    // log.info(":::::::::::::::::::::: 업로드 파일 목록 - files
+    // ::::::::::::::::::::::::");
+    // log.info("files : " + files);
+
+    // for (int i = 0; i < certificateList.size(); i++) {
+    // Certificate certificate = certificateList.get(i);
+    // certificate.setTrainerNo(trainerNo);
+    // log.info("trainerNo : " + trainerNo);
+
+    // // 자격증 객체에 이미지 파일 담음
+    // certificate.setInsertFile(files.get(i));
+    // certificate.insertImg();
+
+    // int result = 0;
+    // if (certificate.getNo() > 0) {
+    // result = certificateService.update(certificate);
+    // log.info(";;;;;;;;자격증 이미지update;;;;;;;;; : " + filesList.toString());
+    // log.info("자격증 수정");
+    // } else {
+    // certificate.setTrainerNo(trainerNo);
+    // result = certificateService.insert(certificate);
+    // log.info(";;;;;;;;자격증 이미지insert;;;;;;;;; : " + filesList.toString());
+    // log.info("자격증 등록");
+    // }
+
+    // if (result > 0) {
+    // log.info("자격증 성공");
+    // } else {
+    // log.info(certificate.toString());
+    // log.info("자격증 실패");
+    // }
+    // }
+
+    // int result = trainerService.update(trainer);
+
+    // log.debug("Trainer data : {}",trainer);
+
+    // if(result>0)
+    // {
+    // return "redirect:/trainer/info_update?userId=" + trainer.getUserId();
+    // }return"redirect:/trainer/info_update?userId="+trainer.getUserId()+"&error";
+    // }
 
     // [은아] - 나는 이거 안 씀
     @PostMapping("/delete")
@@ -428,27 +482,27 @@ public class TrainerController {
     // 스케쥴 등록
     @PostMapping("/schedule")
     public String saveSchedule(@ModelAttribute Schedule schedule,
-                               @RequestParam("title") String title,
-                               @RequestParam("scheduleDate") Date scheduleDate,
-                               HttpSession session, Model model) {
+            @RequestParam("title") String title,
+            @RequestParam("scheduleDate") Date scheduleDate,
+            HttpSession session, Model model) {
         try {
-        Integer trainerNo = (Integer) session.getAttribute("trainerNo");
-        Users loginUser = (Users) session.getAttribute("user");
-        String userId = loginUser.getUserId();
-        log.info("저장된 아이디 : " + userId);
-        if (trainerNo == null) {
-            log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
-            // 트레이너 번호가 없을 경우 에러 처리
-            model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
-            return "/trainer/error";
-        }
+            Integer trainerNo = (Integer) session.getAttribute("trainerNo");
+            Users loginUser = (Users) session.getAttribute("user");
+            String userId = loginUser.getUserId();
+            log.info("저장된 아이디 : " + userId);
+            if (trainerNo == null) {
+                log.error("트레이너 번호를 세션에서 찾을 수 없습니다.");
+                // 트레이너 번호가 없을 경우 에러 처리
+                model.addAttribute("error", "트레이너 번호를 세션에서 찾을 수 없습니다.");
+                return "/trainer/error";
+            }
             schedule.setTrainerNo(trainerNo);
             schedule.setTitle(title);
             schedule.setUserId(userId);
             schedule.setScheduleDate(scheduleDate);
             int result = scheduleService.insert(schedule);
 
-            if ( result > 0 ) {
+            if (result > 0) {
                 log.info("스케쥴 등록이 완료되었습니다╰(*°▽°*)╯");
                 return "redirect:/trainer/schedule";
             }
@@ -487,9 +541,9 @@ public class TrainerController {
         return eventList;
     }
 
-
     /**
      * 일정 삭제
+     * 
      * @param no
      * @return
      * @throws Exception
@@ -498,10 +552,10 @@ public class TrainerController {
     public ResponseEntity<String> deleteTrainerScheduleEvent(@PathVariable("no") int no) throws Exception {
         log.info("스케쥴 번호 - no " + no);
         int result = scheduleService.deleteByNo(no);
-        if( result > 0 ) {
-            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);    
+        if (result > 0) {
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("FAIL", HttpStatus.OK);    
+            return new ResponseEntity<>("FAIL", HttpStatus.OK);
         }
     }
 
