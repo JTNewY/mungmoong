@@ -1,0 +1,10 @@
+/* src/main/resources/static/css/users.css */
+@font-face {
+    font-family: 'SkyBory';
+    src: url('/fonts/SKYBORI.ttf') format('truetype'); /* 폰트 파일 경로 */
+}
+
+/* 하늘보리체 폰트를 적용할 클래스 추가 */
+.skybory-font {
+    font-family: 'SkyBory', sans-serif;
+}
