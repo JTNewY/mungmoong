@@ -11,6 +11,7 @@
             color: black;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body class="body" layout:fragment="content">
     <div class="container">
@@ -44,35 +45,15 @@
     <div id='calendar-container'>
         <div id='calendar'></div>
     </div>
-<!-- 부트스트랩 modal 부분 -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="/trainer/schedule" method="post">
-                <input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">휴무일 추가</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    사유 : <input type="text" id="title" name="title" required /><br />
-                    휴무일 : <input type="datetime-local" id="scheduleDate" name="scheduleDate" required /><br />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    <button type="submit" class="btn btn-primary">추가</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
+    <button id="trigger-modal">일정 추가</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var trainerNo = "[[${trainerNo}]]"; // Thymeleaf를 사용하여 서버에서 변수 주입
-        // 💍 CRSF TOKEN
-        var csrfToken = "[[${_csrf.token}]]"
+        var csrfToken = "[[${_csrf.token}]]"; // CSRF TOKEN
 
         document.addEventListener('DOMContentLoaded', async function () {
             var calendarEl = document.getElementById('calendar');
@@ -89,7 +70,7 @@
                     myCustomButton: {
                         text: "일정 추가",
                         click: function () {
-                            $("#exampleModal").modal("show");
+                            document.getElementById('trigger-modal').click();
                         }
                     }
                 },
@@ -102,27 +83,20 @@
                 nowIndicator: true, // 현재 시간 마크
                 dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
                 locale: 'ko', // 한국어 설정
-                // events: `/trainer/schedule/event?trainerNo=${trainerNo}`,
                 events: eventList,
                 eventDidMount: function (info) {
-                    // 이벤트가 렌더링된 후 실행됩니다.
                     info.el.title = info.event.start; // 이벤트에 마우스를 올렸을 때 표시할 툴팁 설정
                     info.el.style.backgroundColor = '#FFD700'
                 },
                 eventClick: function(info) {
-                    console.dir(info);
-                    console.dir(info.event._def.extendedProps);     
-                    console.log(info.event._def.extendedProps.no);      // 스케쥴 번호
-
-                    let no = info.event._def.extendedProps.no
-                    // 스케쥴 번호가 없으면 STOP
-                    if( !no ) {
+                    let no = info.event._def.extendedProps.no;
+                    if (!no) {
                         Swal.fire({
                             title: "스케쥴 번호가 없습니다.",
                             text: "관리자에게 문의해주세요.",
                             icon: "error"
                         });
-                        return
+                        return;
                     }
 
                     Swal.fire({
@@ -136,7 +110,6 @@
                         cancelButtonText: "취소"
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // [DELETE 요청]
                             fetch(`/trainer/schedule/event/${no}`, {
                                 method: 'DELETE',
                                 headers: {
@@ -145,15 +118,13 @@
                                 }
                             }).then(response => {
                                 if (response.ok) {
-                                    info.event.remove(); 
-                                    // alert("이벤트가 성공적으로 삭제되었습니다.");
+                                    info.event.remove();
                                     Swal.fire({
                                         title: "일정 삭제",
                                         text: "일정이 삭제되었습니다.",
                                         icon: "success"
                                     });
                                 } else {
-                                    //alert("이벤트 삭제에 실패했습니다.");
                                     Swal.fire({
                                         title: "일정 삭제 실패",
                                         text: "일정 삭제가 실패되었습니다.",
@@ -162,58 +133,55 @@
                                 }
                             }).catch(error => {
                                 console.error('Error:', error);
-                                // alert("이벤트 삭제 중 오류가 발생했습니다.");
                                 Swal.fire({
                                     title: "일정 삭제 중 에러",
                                     text: "일정 삭제 중 오류가 발생했습니다.",
                                     icon: "error"
                                 });
                             });
-
-                            
-                            
                         }
                     });
-
-
                 }
             });
             calendar.render();
         });
 
-        $("#saveChanges").on("click", function () {
-            var eventData = {
-                title: $("#title").val(),
-                scheduleDate: $("#scheduleDate").val(),
-                trainerNo: trainerNo
-            };
-
-            if (eventData.title === "" || eventData.scheduleDate === "") {
-                alert("입력하지 않은 값이 있습니다.");
-            } else {
-                // 서버에 이벤트 저장
-                $.ajax({
-                    url: '/trainer/schedule',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(eventData),
-                    success: function (response) {
-                        alert("일정이 성공적으로 저장되었습니다.");
-                        // 이벤트 추가
-                        calendar.addEvent({
-                            title: eventData.title,
-                            start: eventData.scheduleDate
-                        });
-                        $("#exampleModal").modal("hide");
-                        $("#title").val("");
-                        $("#scheduleDate").val("");
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('Error saving event:', textStatus, errorThrown);
-                        alert("일정 저장에 실패했습니다.");
+        document.getElementById('trigger-modal').addEventListener('click', function () {
+            Swal.fire({
+                title: '일정 추가',
+                html: `
+                    <form id="scheduleForm" action="/trainer/schedule" method="post">
+                        <input type="hidden" id="csrfToken" name="_csrf" value="${csrfToken}" />
+                        <div>
+                            <label for="title">사유 :</label>
+                            <input type="text" id="title" name="title" required />
+                        </div>
+                        <div>
+                            <label for="scheduleDate">휴무일 :</label>
+                            <input type="datetime-local" id="scheduleDate" name="scheduleDate" required />
+                        </div>
+                    </form>
+                `,
+                showCancelButton: true,
+                confirmButtonText: '추가',
+                cancelButtonText: '취소',
+                preConfirm: () => {
+                    const title = Swal.getPopup().querySelector('#title').value;
+                    const scheduleDate = Swal.getPopup().querySelector('#scheduleDate').value;
+                    if (!title || !scheduleDate) {
+                        Swal.showValidationMessage(`Please enter title and schedule date`);
                     }
-                });
-            }
+                    return {
+                        title: title,
+                        scheduleDate: scheduleDate
+                    };
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.getElementById('scheduleForm');
+                    form.submit();
+                }
+            });
         });
     </script>
 </body>
