@@ -183,22 +183,28 @@ public String insertPet(@RequestParam("petname") String petname,
             if (petNo == null) {
                 return ResponseEntity.badRequest().body("Invalid pet number");
             }
-
+    
             String userId = (String) session.getAttribute("userId");
             if (userId == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
             }
-
+    
             // Debugging logs
             System.out.println("Deleting pet: userId=" + userId + ", petNo=" + petNo);
-
+    
             Pet pet = petService.findPetById(petNo);
             if (pet == null || !pet.getUserId().equals(userId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Pet not found or user not authorized");
             }
-
+    
             petService.deletePet(petNo);
-            return ResponseEntity.ok("Pet deleted successfully");
+    
+            // 갱신된 펫 목록을 세션에 업데이트
+            List<Pet> updatedPets = petService.findPetByUserId(userId);
+            session.setAttribute("pets", updatedPets);
+    
+            // 갱신된 펫 목록 반환
+            return ResponseEntity.ok(updatedPets);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting pet");

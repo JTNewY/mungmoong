@@ -8,8 +8,7 @@
     <title>내 정보 수정</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
-        .tab-button{
+        .tab-button {
             font-size: 1rem;
             width: 110px;
             font-weight: bold;
@@ -19,8 +18,8 @@
             border-radius: 25px;
             text-align: center;
         }
-        
-        .tab-buttonn{
+
+        .tab-buttonn {
             font-size: 1rem;
             width: 110px;
             font-weight: bold;
@@ -29,8 +28,9 @@
             text-align: center;
             border-radius: 30px;
         }
-       .tab-buttonn:hover{
-          background-color: red;
+
+        .tab-buttonn:hover {
+            background-color: red;
         }
     </style>
 </head>
@@ -39,71 +39,67 @@
     <div class="container">
         <div class="inner">
             <h1 class="title">마이페이지</h1>
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="collapse navbar-collapse justify-content-start">
-                <ul class="navbar-nav">
-                    <th:block th:if="${session.user.role != 2}">
-                    <li class="nav-item">
-                        <a class="tab-button active" style="width: 130px;">나의 정보</a>
-                    </li>
-                        <li class="nav-item" id="petSitterUsage">
-                            <a class="tab-button" onclick="location.href='/users/using'" style="width: 130px;">이용중인 펫시터</a>
-                        </li>
-                        <li class="nav-item" id="petSitterDetails">
-                            <a class="tab-button" onclick="location.href='/users/details'" style="width: 130px;">펫시터 이용내역</a>
-                        </li>
-                    </th:block>
-                </ul>
-            </div>
-        </nav>
-<div class="box">
-    <div class="my-info mb-5">
-        <h2>내 정보</h2>
-        <div class="col d-flex p-3" style="justify-content: space-between">
-            <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3" style="display: block; width: 250px;">
-            <div class="info col-6">
-                <p th:text="${session.user.name} + ' (' + (${session.user.gender == 0 ? '♂' : '♀'}) + ')'"></p>
-                <p th:text="${session.user.mail}"></p>
-                <p th:text="${session.user.phone}"></p>
-                <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
-                <p th:text="${session.user.address}"></p>
-            </div>
-            <button type="button" class="tab-button" onclick="location.href='/users/update'" style="padding: 3% 0;height:45px;line-height: 2px; background: #B9D6DC;color:#fff;">정보수정</button>
-        </div>
-    </div>  
-    <div class="my-pets">
-        <h2>마이 펫</h2>
-        <div class="row d-flex">
-            <div th:each="pet : ${session.pets}" style=" width: 46%;
-    background-color: #E5EFF7;
-    display: flex;
-    justify-content: space-between;
-    margin: 3% 2%;">
-                <div class="pet-card d-flex" style="padding: 3% 0">
-                    <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3" style="display: block;width: 150px; height: 170px;;">
-                    <div class="pet-info" style="width:48%">
-                        <p th:text="${pet.petname} + ' (' + (${pet.petgender == 0 ? '♂' : '♀'}) + ')'"></p>
-                        <p>나이: <span th:text="${pet.age} + '살'"></span></p>
-                        <p>성격: <span th:text="${pet.character}"></span></p>
-                        <p>특이 사항: <span th:text="${pet.specialNotes}"></span></p>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse justify-content-start">
+                    <ul class="navbar-nav">
+                        <th:block th:if="${session.user.role != 2}">
+                            <li class="nav-item">
+                                <a class="tab-button active" style="width: 130px;">나의 정보</a>
+                            </li>
+                            <li class="nav-item" id="petSitterUsage">
+                                <a class="tab-button" onclick="location.href='/users/using'" style="width: 130px;">이용중인 펫시터</a>
+                            </li>
+                            <li class="nav-item" id="petSitterDetails">
+                                <a class="tab-button" onclick="location.href='/users/details'" style="width: 130px;">펫시터 이용내역</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </nav>
+            <div class="box">
+                <div class="my-info mb-5">
+                    <h2>내 정보</h2>
+                    <div class="col d-flex p-3" style="justify-content: space-between">
+                        <img src="/img/users/trn1.png" alt="프로필 사진" class="mr-3" style="display: block; width: 250px;">
+                        <div class="info col-6">
+                            <p th:text="${session.user.name} + ' (' + (${session.user.gender == 0 ? '♂' : '♀'}) + ')'"></p>
+                            <p th:text="${session.user.mail}"></p>
+                            <p th:text="${session.user.phone}"></p>
+                            <p>생일: <span th:text="${#dates.format(session.user.birth, 'M월 d일')}"></span></p>
+                            <p th:text="${session.user.address}"></p>
+                        </div>
+                        <button type="button" class="tab-button" onclick="location.href='/users/update'" style="padding: 3% 0;height:45px;line-height: 2px; background: #B9D6DC;color:#fff;">정보수정</button>
                     </div>
-                    <div class="button-container">
-                        <form action="/users/petUpdate" method="get" style="display:inline;">
-                            <input type="hidden" name="petNo" th:value="${pet.petNo}" />
-                            <button type="submit" class="tab-buttonn" style="margin: 5% 0; background: #B9D6DC;color:#fff; border-radius: 30px;">마이펫 수정</button>
-                        </form>
-                        <button type="button" class="tab-buttonn"style="margin: 5% 0; background: #B9D6DC;color:#fff;border-radius: 30px;"th:onclick="'confirmDelete(' + ${pet.petNo} + ')'">마이펫 삭제</button>
+                </div>
+                <div class="my-pets">
+                    <h2>마이 펫</h2>
+                    <div class="row d-flex" id="petListContainer">
+                        <div th:each="pet : ${session.pets}" style="width: 46%; background-color: #E5EFF7; display: flex; justify-content: space-between; margin: 3% 2%;">
+                            <div class="pet-card d-flex" style="padding: 3% 0">
+                                <img th:src="@{/img/users/pet1.png}" th:alt="${pet.petname}" class="mr-3" style="display: block;width: 150px; height: 170px;">
+                                <div class="pet-info" style="width:48%">
+                                    <p th:text="${pet.petname} + ' (' + (${pet.petgender == 0 ? '♂' : '♀'}) + ')'"></p>
+                                    <p>나이: <span th:text="${pet.age} + '살'"></span></p>
+                                    <p>성격: <span th:text="${pet.character}"></span></p>
+                                    <p>특이 사항: <span th:text="${pet.specialNotes}"></span></p>
+                                </div>
+                                <div class="button-container">
+                                    <form action="/users/petUpdate" method="get" style="display:inline;">
+                                        <input type="hidden" name="petNo" th:value="${pet.petNo}" />
+                                        <button type="submit" class="tab-buttonn" style="margin: 5% 0; background: #B9D6DC;color:#fff; border-radius: 30px;">마이펫 수정</button>
+                                    </form>
+                                    <button type="button" class="tab-buttonn" style="margin: 5% 0; background: #B9D6DC;color:#fff;border-radius: 30px;" th:onclick="'confirmDelete(' + ${pet.petNo} + ')'">마이펫 삭제</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-btn" style="text-align: center;">
+                        <button type="button" class="custom-buttonn" style="text-align: center; background: #B9D6DC;color:#fff;border-radius: 30px;" onclick="location.href='/users/petAdd'">펫 추가</button>
                     </div>
                 </div>
             </div>
-            <div class="bottom-btn" style="text-align: center;">
-                <button type="button" class="custom-buttonn" style="text-align: center; background: #B9D6DC;color:#fff;border-radius: 30px;border-radius: 30px;" onclick="location.href='/users/petAdd'">펫 추가</button>
-            </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+        </div>
+    </div>
     <script>
         function confirmDelete(petNo) {
             const csrfToken = document.querySelector('input[name="_csrf"]').value;
@@ -120,11 +116,11 @@
                     if (!response.ok) {
                         throw new Error('Failed to delete pet');
                     }
-                    return response.text();
+                    return response.json();
                 })
                 .then(data => {
                     alert('마이펫이 성공적으로 삭제되었습니다.');
-                    console.log(data);
+                    updatePetList(data);
                 })
                 .catch(error => {
                     alert('마이펫 삭제 중 오류가 발생했습니다.');
@@ -133,13 +129,35 @@
             }
         }
 
+        function updatePetList(pets) {
+            const petListContainer = document.getElementById('petListContainer');
+            petListContainer.innerHTML = ''; // 기존 내용 지우기
 
-
+            pets.forEach(pet => {
+                const petElement = document.createElement('div');
+                petElement.setAttribute('style', 'width: 46%; background-color: #E5EFF7; display: flex; justify-content: space-between; margin: 3% 2%;');
+                petElement.innerHTML = `
+                    <div class="pet-card d-flex" style="padding: 3% 0">
+                        <img src="/img/users/pet1.png" alt="${pet.petname}" class="mr-3" style="display: block;width: 150px; height: 170px;">
+                        <div class="pet-info" style="width:48%">
+                            <p>${pet.petname} (${pet.petgender == 0 ? '♂' : '♀'})</p>
+                            <p>나이: ${pet.age} 살</p>
+                            <p>성격: ${pet.character}</p>
+                            <p>특이 사항: ${pet.specialNotes}</p>
+                        </div>
+                        <div class="button-container">
+                            <form action="/users/petUpdate" method="get" style="display:inline;">
+                                <input type="hidden" name="petNo" value="${pet.petNo}" />
+                                <button type="submit" class="tab-buttonn" style="margin: 5% 0; background: #B9D6DC;color:#fff; border-radius: 30px;">마이펫 수정</button>
+                            </form>
+                            <button type="button" class="tab-buttonn" style="margin: 5% 0; background: #B9D6DC;color:#fff;border-radius: 30px;" onclick="confirmDelete(${pet.petNo})">마이펫 삭제</button>
+                        </div>
+                    </div>
+                `;
+                petListContainer.appendChild(petElement);
+            });
+        }
     </script>
-    
-  
-
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
