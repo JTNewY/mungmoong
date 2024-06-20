@@ -149,6 +149,7 @@
         document.getElementById('trigger-modal').addEventListener('click', function () {
             Swal.fire({
                 title: '일정 추가',
+                icon: "info",
                 html: `
                     <form id="scheduleForm" action="/trainer/schedule" method="post">
                         <input type="hidden" id="csrfToken" name="_csrf" value="${csrfToken}" />
