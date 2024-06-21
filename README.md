@@ -68,10 +68,10 @@ mungmoong 멍뭉 프로젝트
 이는 애완동물의 정서적 안정과 신체적 건강을 동시에 향상시키며, 고품질의 전문 돌봄 서비스로 시장 경쟁력을 강화하고 새로운 고객을 유치하며 기존 고객을 유지하는 데 도움이 됩니다. 바쁜 현대인들이 애완동물 돌봄에 대한 걱정을 덜고 일상적인 스트레스를 줄일 수 있습니다.
 
 ## 1-5. 간트차트
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/282d9b2f-97f8-4b05-9da9-6aba5581fe95">
 
 ## 1-6. 프로젝트 기능 요약
-<img src="https://github.com/JTNewY/mungmoong/assets/159420994/282d9b2f-97f8-4b05-9da9-6aba5581fe95">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/443d9a80-0668-4c06-ac20-8fd49383a14f">
 
   
 <br><br>
@@ -84,7 +84,7 @@ mungmoong 멍뭉 프로젝트
 <details>
 <summary><h3>ℹ️Flow Chart</h3></summary>
 <div markdown="1">
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/bcde342d-3fdd-4f5c-b4ea-bc0f03f8593a">
 <img src="">
 </div>
 </details>
