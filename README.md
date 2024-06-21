@@ -172,7 +172,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️테이블 정의서</h3></summary>
 <div markdown="1">
     
-<img src="https://github.com/JTNewY/mungmoong/assets/159420994/8fdc7714-7624-4776-9b70-a41d6f20ff44">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/d3818ac9-f0ce-4f02-aa0b-c39728434561">
 
 </div>
 </details>
