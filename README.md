@@ -121,8 +121,13 @@ mungmoong 멍뭉 프로젝트
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/282d9b2f-97f8-4b05-9da9-6aba5581fe95">
 
 ## 4-2. 수행 방법
-- 사용 언어 : <img src="https://img.shields.io/badge/java-007396?style=flat&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/html5-E34F26?style=flat&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/jquery-0769AD?style=flat&logo=jquery&logoColor=white"> <img src="https://img.shields.io/badge/Ajax-007396?style=flat&logo=Ajax&logoColor=white">
- <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=Bootstrap&logoColor=white">
+- 사용 언어 : <img src="https://img.shields.io/badge/java-007396?style=flat&logo=java&logoColor=white">
+        <img src="https://img.shields.io/badge/html5-E34F26?style=flat&logo=html5&logoColor=white">
+        <img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white">
+        <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black">
+        <img src="https://img.shields.io/badge/jquery-0769AD?style=flat&logo=jquery&logoColor=white">
+        <img src="https://img.shields.io/badge/Ajax-007396?style=flat&logo=Ajax&logoColor=white">
+        <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=Bootstrap&logoColor=white">
 - 서버 : <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=flat&logo=Apache Tomcat&logoColor=white">
 - 개발도구 : <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Spring%20Security-6DB33F?style=flat&logo=Spring%20Security&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-FFA500?style=flat&logo=Lombok&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis-B52E31?style=flat&logo=MyBatis&logoColor=white"> <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=flat&logo=Thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/openjdk:1.8-686767?style=flat&logo=openjdk&logoColor=black"/> <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=flat&logo=visualstudiocode&logoColor=white"/> 
 - 사용 DB : <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"> 
