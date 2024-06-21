@@ -281,6 +281,7 @@ mungmoong 멍뭉 프로젝트
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/6ff21fc4-5b26-41e5-a010-be761ed9c444">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/d077be94-d298-4b69-9f39-9b957972051e">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/ed2b1502-1a61-4359-88e6-510755cfcf71">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/d26f31f9-c80a-4f01-a685-afaa765f838e">
 
 </div>
 </details>
@@ -289,7 +290,6 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️훈련사</h3></summary>
 <div markdown="1">
 
-<img src="https://github.com/JTNewY/mungmoong/assets/159420994/d26f31f9-c80a-4f01-a685-afaa765f838e">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/d8a53752-5da4-470b-bfe3-92460b389c01">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/6c7ba080-8853-4f40-88a6-87534890f73e">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/996c58ed-d104-4ae0-8844-4e5d1e166d78">
