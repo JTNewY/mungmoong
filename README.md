@@ -2,7 +2,7 @@
 mungmoong 멍뭉 프로젝트
 반려동물 돌봄 서비스(펫시터)
 <br>
-<img src="https://github.com/JTNewY/mungmoong/assets/159420994/a3daeaac-47c2-4b10-a6f1-b53b15883684">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/abd1567b-320f-422d-86b5-5e49325582dc">
 <br>
 ## 목차
 ### 1. 프로젝트 개요
