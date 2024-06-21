@@ -118,7 +118,7 @@ mungmoong 멍뭉 프로젝트
 # 4. 프로젝트 수행 절차 및 방법
 ## 4-1. 수행 절차
 - 2024-05-16 ~ 2024-06-14
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/282d9b2f-97f8-4b05-9da9-6aba5581fe95">
 
 ## 4-2. 수행 방법
 - 사용 언어 : <img src="https://img.shields.io/badge/java-007396?style=flat&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/html5-E34F26?style=flat&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/jquery-0769AD?style=flat&logo=jquery&logoColor=white"> <img src="https://img.shields.io/badge/Ajax-007396?style=flat&logo=Ajax&logoColor=white">
@@ -141,7 +141,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️요구사항 정의서</h3></summary>
 <div markdown="1">
 
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/8fdc7714-7624-4776-9b70-a41d6f20ff44">
 
 </div>
 </details>
@@ -151,8 +151,8 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️기능 정의서</h3></summary>
 <div markdown="1">
 
-<img src="">
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/e68f441d-aaef-4e4e-ae20-467dde228760">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/b99648f7-9e9e-454c-bbc4-db73822acbe9">
 
 </div>
 </details>
@@ -172,7 +172,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️테이블 정의서</h3></summary>
 <div markdown="1">
     
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/8fdc7714-7624-4776-9b70-a41d6f20ff44">
 
 </div>
 </details>
@@ -191,7 +191,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️유저</h3></summary>
 <div markdown="1">
 
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/c02bffde-6419-432a-85cd-7c2206eebd06">
 
 </div>
 </details>
