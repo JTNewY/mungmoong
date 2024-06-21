@@ -162,7 +162,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️ERD</h3></summary>
 <div markdown="1">
 
-<img src="https://github.com/Dozzykim/Team2_mini/assets/126581926/3c8943c6-dfab-4b3a-878b-e125b41fac3c">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/16fd2e23-d94b-489c-8ed8-eecd20a52bec">
 
 </div>
 </details>
