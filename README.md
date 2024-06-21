@@ -71,7 +71,7 @@ mungmoong 멍뭉 프로젝트
 <img src="">
 
 ## 1-6. 프로젝트 기능 요약
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/282d9b2f-97f8-4b05-9da9-6aba5581fe95">
 
   
 <br><br>
