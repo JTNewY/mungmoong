@@ -2,7 +2,7 @@
 mungmoong 멍뭉 프로젝트
 반려동물 돌봄 서비스(펫시터)
 <br>
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/38bf89ab-1a52-4cec-bd2c-f9f7537c7360">
 <br>
 ## 목차
 ### 1. 프로젝트 개요
@@ -85,7 +85,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️Flow Chart</h3></summary>
 <div markdown="1">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/bcde342d-3fdd-4f5c-b4ea-bc0f03f8593a">
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/01a6d17f-81b9-4457-8f6e-f60c3df41252">
 </div>
 </details>
 
