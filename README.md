@@ -270,7 +270,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️유저</h3></summary>
 <div markdown="1">
 
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/ed4224ea-3277-4719-b6e5-55097a6beb3a">
 
 </div>
 </details>
