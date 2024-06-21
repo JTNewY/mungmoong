@@ -126,10 +126,10 @@ mungmoong 멍뭉 프로젝트
 - 개발도구 : <img src="https://img.shields.io/badge/openjdk:1.8-686767?style=flat&logo=openjdk&logoColor=black"/> <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=flat&logo=visualstudiocode&logoColor=white"/> 
 - 라이브러리 : <img src="https://img.shields.io/badge/gson-4285F4?style=flat&logo=google&logoColor=white"> 
 - 사용 DB : <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"> 
-- 참조 API : <img src="https://img.shields.io/badge/Kakao-FFCD00?style=for-the-badge&logo=kakao&logoColor=white"><img src="https://img.shields.io/badge/Naver-03C75A?style=for-the-badge&logo=naver&logoColor=white"><img src="https://img.shields.io/badge/FullCalendar-FF5A5F?style=for-the-badge&logo=fullcalendar&logoColor=white">
+- 참조 API : <img src="https://img.shields.io/badge/Kakao-FFCD00?style=flat&logo=kakao&logoColor=white"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat&logo=naver&logoColor=white"><img src="https://img.shields.io/badge/FullCalendar-FF5A5F?style=flat&logo=fullcalendar&logoColor=white">
 
-- 협업 Tools : <img src="https://img.shields.io/badge/trello-0052CC?style=flat&logo=trello&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/Toss%20Payments-0055C5?style=for-the-badge&logo=tosspayments&logoColor=white">
-<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white">
+- 협업 Tools : <img src="https://img.shields.io/badge/trello-0052CC?style=flat&logo=trello&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/Toss%20Payments-0055C5?style=flat&logo=tosspayments&logoColor=white">
+<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white"><img src="https://img.shields.io/badge/Gmail-D14836?style=flat&logo=gmail&logoColor=white">
 
     
 
