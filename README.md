@@ -202,6 +202,18 @@ mungmoong 멍뭉 프로젝트
 </details>
 
 <details>
+<summary><h3>ℹ️로그인 및 회원가입</h3></summary>
+<div markdown="1">
+
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/bb0b21ad-f11a-4a94-83d3-b7aad57b1fa7">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/4c824c4e-8d62-43b1-adff-ea563521f132">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/4d8f3a31-74bb-4df6-939a-bd4ed55cbeb4">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/73cb0c5a-2b14-42ea-867d-f3521216d842">
+
+</div>
+</details>
+
+<details>
 <summary><h3>ℹ️유저</h3></summary>
 <div markdown="1">
 
@@ -247,7 +259,8 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️게시판</h3></summary>
 <div markdown="1">
 
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/ad9e0884-c2ac-485b-8c1b-bff8b9384cf9">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/9df82d58-1cfa-41f0-9388-0072c3b69d7e">
 
 </div>
 </details>
