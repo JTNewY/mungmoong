@@ -281,7 +281,6 @@ mungmoong 멍뭉 프로젝트
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/6ff21fc4-5b26-41e5-a010-be761ed9c444">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/d077be94-d298-4b69-9f39-9b957972051e">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/ed2b1502-1a61-4359-88e6-510755cfcf71">
-<img src="https://github.com/JTNewY/mungmoong/assets/159420994/d26f31f9-c80a-4f01-a685-afaa765f838e">
 
 </div>
 </details>
@@ -317,6 +316,7 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️예약</h3></summary>
 <div markdown="1">
 
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/d26f31f9-c80a-4f01-a685-afaa765f838e">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/4bb5868c-df88-41fd-8ab9-ea9a325a276a">
 <img src="https://github.com/JTNewY/mungmoong/assets/159420994/06364e4c-29c4-4e1d-b5a7-633e4abe48ac">
 
