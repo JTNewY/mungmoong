@@ -270,7 +270,23 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️유저</h3></summary>
 <div markdown="1">
 
-<img src="https://github.com/JTNewY/mungmoong/assets/159420994/ed4224ea-3277-4719-b6e5-55097a6beb3a">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/930b1bf2-7384-46aa-b811-9e9b0db151f8">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/223281f2-8afb-478d-b6d1-b63f689fa99a">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/63054ce8-5328-474b-986e-63eaee5a79a6">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/6ff21fc4-5b26-41e5-a010-be761ed9c444">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/d077be94-d298-4b69-9f39-9b957972051e">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/ed2b1502-1a61-4359-88e6-510755cfcf71">
+
+</div>
+</details>
+
+<details>
+<summary><h3>ℹ️훈련사</h3></summary>
+<div markdown="1">
+
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/d26f31f9-c80a-4f01-a685-afaa765f838e">
+<img src="">
+<img src="">
 
 </div>
 </details>
@@ -297,7 +313,8 @@ mungmoong 멍뭉 프로젝트
 <summary><h3>ℹ️게시판</h3></summary>
 <div markdown="1">
 
-<img src="">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/6ff1eb52-a879-4c6e-945d-1ea523bc77eb">
+<img src="https://github.com/JTNewY/mungmoong/assets/159420994/7b58d657-8a75-4f59-86ce-63e5d6d4c5b8">
 
 </div>
 </details>
