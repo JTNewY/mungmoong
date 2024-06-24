@@ -60,8 +60,8 @@
                         <td class="text-truncate" th:text="${orders.petNo}"></td>
                         <td class="text-truncate" th:text="${orders.trainerNo}"></td>
                         <td class="text-truncate" th:text="${orders.address}"></td>
-                        <td class="text-truncate" th:text="${orders.resDate}"></td>
-                        <td class="text-truncate" th:text="${orders.regDate}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(orders.resDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(orders.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
                 </th:block>
             </table>
