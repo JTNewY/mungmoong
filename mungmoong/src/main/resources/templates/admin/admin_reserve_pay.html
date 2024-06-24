@@ -83,7 +83,7 @@
                                 </th:block>
                             </div>
                         </td>
-                        <td class="text-truncate" th:text="${orders.resDate}"></td>
+                        <td class="text-truncate" th:text="${#dates.format(orders.resDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td class="text-truncate" th:text="${orders.status}"></td>
                     </tr>
                 </th:block>
