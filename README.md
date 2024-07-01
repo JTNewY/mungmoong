@@ -1,7 +1,7 @@
 # mungmoong
 mungmoong 멍뭉 프로젝트
 반려동물 돌봄 서비스(펫시터)
-<br>
+
 ![37](https://github.com/JTNewY/mungmoong/assets/151705894/e32a41c0-4475-4b9b-81db-6249c28e6dbe)
 
 깃허브 :  https://github.com/JTNewY/mungmoong.git
@@ -9,7 +9,7 @@ mungmoong 멍뭉 프로젝트
 유튜브  : https://www.youtube.com/watch?v=WNvraEPGhgc
 
 ---
-<br>
+<br><br>
 ## 목차
 ### 1. 프로젝트 개요
 - 프로젝트 주제 및 선정 배경
